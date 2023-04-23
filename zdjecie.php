@@ -1,0 +1,1 @@
+<img src="/wp-content/plugins/custom-element/labadz.jpg" alt="Łabądź">Łabądź</img>
