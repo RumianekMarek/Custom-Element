@@ -8,15 +8,14 @@ Author: Marek Rumianek
 Author URI: 
 */
 
- // Kod do aktualizacji wtyczki
- include_once( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
- $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-   'https://github.com/RumianekMarek/Custom-Element',
-   __FILE__,
-   'exhibitors_code_system'
- );
- $myUpdateChecker->getVcsApi()->enableReleaseAssets();
-}
+include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/RumianekMarek/Custom-Element',
+	__FILE__,
+	'custom-element'
+);
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+
 
 // Add the new WPBakery element
 function my_custom_wpbakery_element() {
