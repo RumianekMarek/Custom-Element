@@ -3,7 +3,7 @@
 Plugin Name: Custom Element.
 Plugin URI: 
 Description: Adding new elemnt on web site.
-Version: 1.1
+Version: 1.2
 Author: Marek Rumianek
 Author URI: 
 */
