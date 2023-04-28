@@ -1,4 +1,4 @@
-Custom Element 1.0.1
+Custom Element 1.1
 
 Custom Element is a WordPress plugin that adds a new custom element to your website. The new element allows you to display the contents of a selected file.
 
@@ -15,5 +15,14 @@ Usage:
 Changelog:
 1.0 - Initial release.
 
-1.0.1 - Added autoupdate 
+1.0.1 - Added autoupdate.
+
+1.1 - Added Elements:
+        download.php
+        faq.php
+        grupy.php
+        kontakt.php
+        voucher.php
+        zabudowa.php
+    With nedded images.
 
