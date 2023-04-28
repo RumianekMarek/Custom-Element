@@ -33,10 +33,20 @@ Odpowiedź na pytanie.
 
 ## Zmiany
 
-### 1.0.0
+1.0 - Initial release.
 
-- Pierwsza stabilna wersja
-- Dodano nową funkcjonalność
+1.0.1 - Added autoupdate.
+
+1.1 - Added Elements:
+        download.php
+        faq.php
+        grupy.php
+        kontakt.php
+        voucher.php
+        zabudowa.php
+    With nedded images.
+
+1.2 - Clean up folders
 
 ## Wkładanie swoich poprawek
 
