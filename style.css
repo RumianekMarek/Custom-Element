@@ -1,0 +1,107 @@
+/* download */
+.custom-download-container {
+    display:flex;
+    align-items: center;
+    color:white; 
+    border: 0;
+}
+@media (max-width:959px){
+    .t-m-display-none{
+        display:none;
+    }
+}
+
+/* faq */
+.pytanie{
+    cursor:pointer;
+}
+.pytanie-odpowiedz-top{
+    max-width: 750px; 
+    border-top:1px solid white; 
+    border-bottom:1px solid white;
+}
+.pytanie-odpowiedz{
+    max-width: 750px; 
+    border-bottom:1px solid white;
+}
+.pytanie::after{
+    content: ">";
+    float: right;
+    top: 50%;
+    transform: rotate(0);
+    transition: transform 200ms ease-out;
+}
+.active.pytanie::after{
+    transform: rotate(90deg);
+}
+.odpowiedz{
+    display: none;
+}
+
+/* kontakt */
+.raw-custom-container{
+    display:flex; 
+    align-items: center;
+}
+@media (max-width:423px){
+    .raw-custom-container{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    .raw-custom-container p{ 
+        min-width: 160px;
+    }
+}
+
+.custom-container-contact img{
+    max-width:150px !important;
+}
+
+/* voucher */
+.custom-container-voucher{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* zabudowa */
+.custom-container-zabudowa{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* all */
+.custom_element h2 ,h3, h4, h5{
+    width: fit-content;
+}
+.custom_element img{
+    vertical-align: bottom; 
+}
+.custom-min-media-wrapper{
+    min-width:240px;
+}
+.custom-btn-container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 18px;
+}
+.custom-btn-container a{
+    transform-origin: center !important;
+    width:240px;
+    margin:3px;
+}
+.link-text-underline a{
+    text-decoration:underline;
+}
+.pl_PL, .en_US{
+    display: none;
+}
+.text-centered{
+    text-align: -webkit-center;
+}
+.custom-line-height{
+    line-height: 1.3;
+}
