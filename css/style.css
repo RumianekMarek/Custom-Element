@@ -49,10 +49,11 @@
         justify-content: center;
         text-align: center;
     }
+    .raw-custom-container p{ 
+        min-width: 160px;
+    }
 }
-.raw-custom-container p{ 
-    min-width: 150px;
-}
+
 .custom-container-contact img{
     max-width:150px !important;
 }
@@ -72,10 +73,10 @@
 }
 
 /* all */
-h2 ,h3, h4, h5{
+.custom_element :is(h2 ,h3, h4, h5){
     width: fit-content;
 }
-img{
+.custom_element img{
     vertical-align: bottom; 
 }
 .custom-min-media-wrapper{
@@ -95,7 +96,7 @@ img{
 .link-text-underline a{
     text-decoration:underline;
 }
-.pl_PL, .en_US, .btn-container{
+.pl_PL, .en_US{
     display: none;
 }
 .text-centered{
