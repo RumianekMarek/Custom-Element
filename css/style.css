@@ -89,6 +89,7 @@
     padding-top: 18px;
 }
 .custom-btn-container a{
+    box-shadow: 4px 4px 0px -1px black;
     transform-origin: center !important;
     width:240px;
     margin:3px;
@@ -104,4 +105,7 @@
 }
 .custom-line-height{
     line-height: 1.3;
+}
+.custom-shadow-black{
+    box-shadow: 9px 9px 0px -5px black;
 }

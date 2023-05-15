@@ -32,10 +32,14 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.2.4 - Addjusting CSS
 
-1.0 - Initial release.
+1.2.3 - Errors fix
 
-1.0.1 - Added autoupdate.
+1.2.1 - Added Elements:
+        wydazenia-ogolne.php
+
+1.2 - Clean up folders
 
 1.1 - Added Elements:
         download.php
@@ -46,7 +50,9 @@ Odpowiedź na pytanie.
         zabudowa.php
     With nedded images.
 
-1.2 - Clean up folders
+1.0.1 - Added autoupdate.
+
+1.0 - Initial release.
 
 ## Wkładanie swoich poprawek
 

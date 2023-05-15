@@ -18,7 +18,7 @@
             With our coupons, you have complete freedom to choose the options that best suit your needs. We offer custom booth designs, graphics and signage, flooring and lighting, furniture, AV equipment and much more. All you have to do is show our coupon at the time of purchase and the value will be included in your invoice. This will save you money and give you more flexibility and creative freedom.
         </p>
 
-        <div class="custom-btn-container btn-container">
+        <div class="custom-btn-container">
             <span class="pl_PL">
                 <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="/kontakt/"  target="_blank">Zapytaj o voucher</a>
             </span>

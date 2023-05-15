@@ -3,7 +3,7 @@
 Plugin Name: Custom Element.
 Plugin URI: 
 Description: Adding new elemnt on web site.
-Version: 1.2
+Version: 1.2.4
 Author: Marek Rumianek
 Author URI: 
 */
@@ -50,15 +50,26 @@ function my_custom_element_output($atts, $content = null) {
   ));
 
   $file_path = plugin_dir_path(__FILE__) . 'my-custom-element/' . $atts['file'];
+  $shortcodes = array('[trade_fair_name]', '[trade_fair_name_eng]', '[trade_fair_desc]', '[trade_fair_desc_eng]', '[super_shortcode_1]', '[trade_fair_date]', '[trade_fair_date_eng]');
 
   if (file_exists($file_path)) {
-    $file_cont = file_get_contents($file_path);
+    ob_start();
+    include $file_path;
+    $file_cont = ob_get_clean();
+
+    foreach ($shortcodes as $shortcode) {
+      $shortcode_option_name = str_replace(array('[', ']'), '', $shortcode);
+      $shortcode_option_value = get_option($shortcode_option_name);
+      $file_cont = str_replace($shortcode, $shortcode_option_value, $file_cont);
+    }
+
     $file_cont = '<div custom-lang="' . $locale . '" class="custom_element">' . $file_cont . '</div>';
     return $file_cont;
   } else {
     echo '<script>console.error("File not found: ' . $file_path . '");</script>';
   }
 }
+
 
 // Enqueue JavaScript and CSS files
 function my_custom_element_scripts() {

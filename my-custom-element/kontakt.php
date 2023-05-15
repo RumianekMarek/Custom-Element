@@ -47,8 +47,8 @@
       <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/Technicy.jpg"></div>
     </div>
     <div class="uncode_text_column" style="overflow-wrap: anywhere;">
-      <p class="pl_PL">Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu 338">konsultanttechniczny@warsawexpo.eu</a></p>
-      <p class="en_US">Become an Exhibitor<br><a href="mailto:konsultanttechniczny@warsawexpo.eu 338">konsultanttechniczny@warsawexpo.eu</a></p>
+      <p class="pl_PL">Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a></p>
+      <p class="en_US">Become an Exhibitor<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a></p>
     </div>
   </div>
 </div>

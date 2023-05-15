@@ -15,7 +15,7 @@
     </p>
 
 
-    <div class="custom-btn-container btn-container">
+    <div class="custom-btn-container">
       <span class="pl_PL">
         <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="https://warsawexpo.eu/zabudowa-targowa" target="_blank">Zobacz Więcej</a>
       </span>
