@@ -32,6 +32,10 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.3 -   Addjusting class and CSS,
+        Added Elements:
+        organizator.php
+
 1.2.4 - Addjusting CSS
 
 1.2.3 - Errors fix

@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Custom Element.
-Plugin URI: 
-Description: Adding new elemnt on web site.
-Version: 1.2.4
+Plugin Name: Custom Element
+Plugin URI:
+Description: Adding a new element to the website.
+Version: 1.2.2
 Author: Marek Rumianek
-Author URI: 
+Author URI:
 */
 
 include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
@@ -15,7 +15,6 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'custom-element'
 );
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
-
 
 // Add the new WPBakery element
 function my_custom_wpbakery_element() {
@@ -33,9 +32,10 @@ function my_custom_wpbakery_element() {
         'save_always' => true,
         'admin_label' => true // Add this line to display the filename in the backend editor
       )
-      ),
+    ),
     "description" => __( "Enter description.", "my-text-domain" )
   ));
+}
 
 // Define the output function for the element
 function my_custom_element_output($atts, $content = null) {
@@ -70,21 +70,18 @@ function my_custom_element_output($atts, $content = null) {
   }
 }
 
-
 // Enqueue JavaScript and CSS files
 function my_custom_element_scripts() {
   $js_file = plugins_url('/js/script.js', __FILE__);
   $js_version = filemtime(plugin_dir_path(__FILE__) . '/js/script.js');
-  wp_enqueue_script('my-custom-element-js', $js_file, array('jquery'), 1.1, true);
+  wp_enqueue_script('my-custom-element-js', $js_file, array('jquery'), $js_version, true);
 
   $css_file = plugins_url('/css/style.css', __FILE__);
   $css_version = filemtime(plugin_dir_path(__FILE__) . '/css/style.css');
-  wp_enqueue_style('my-custom-element-css', $css_file, array(), 1.1);
-}
-add_action('wp_enqueue_scripts', 'my_custom_element_scripts');
-
-add_shortcode('my_custom_element', 'my_custom_element_output');
+  wp_enqueue_style('my-custom-element-css', $css_file, array(), $css_version);
 }
 
 add_action('vc_before_init', 'my_custom_wpbakery_element');
+add_shortcode('my_custom_element', 'my_custom_element_output');
+add_action('wp_enqueue_scripts', 'my_custom_element_scripts');
 ?>
