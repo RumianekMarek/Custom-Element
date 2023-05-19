@@ -43,11 +43,12 @@
     display:flex; 
     align-items: center;
 }
-@media (max-width:423px){
+@media (max-width:860px){
     .raw-custom-container{
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
+        flex-direction: column;
     }
     .raw-custom-container p{ 
         min-width: 160px;
@@ -57,12 +58,28 @@
 .custom-container-contact img{
     max-width:150px !important;
 }
-
+/* organizator */
+.custom-organizator-header{
+    margin-top: 0px !important;
+}
+.row-container:has(.custom-container-organizator){
+    background-image: url(/wp-content/plugins/custom-element/my-custom-element/ptakExpo.jpg);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+.custom-organizator-text{
+    padding-top:28vw !important;
+}
 /* voucher */
 .custom-container-voucher{
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+@media (max-width:960px){
+    .custom-container-voucher{
+        flex-direction: column;
+    }
 }
 
 /* zabudowa */
@@ -70,6 +87,17 @@
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+@media (max-width:960px){
+    .custom-container-zabudowa{
+        flex-direction: column;
+    }
+    .custom-container-zabudowa .custom-block-1{
+        order:2;
+    }
+    .custom-container-zabudowa .custom-block-2{
+        order:1;
+    }
 }
 
 /* all */

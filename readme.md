@@ -32,7 +32,9 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
-1.3 -   Addjusting class and CSS,
+1.3.1 -   Addjusting CSS for mobil
+
+1.3 -   Addjusting class and CSS
         Added Elements:
         organizator.php
 
@@ -52,11 +54,11 @@ Odpowiedź na pytanie.
         kontakt.php
         voucher.php
         zabudowa.php
-    With nedded images.
+    With nedded images
 
-1.0.1 - Added autoupdate.
+1.0.1 - Added autoupdate
 
-1.0 - Initial release.
+1.0 - Initial release
 
 ## Wkładanie swoich poprawek
 
