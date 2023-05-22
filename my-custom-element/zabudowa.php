@@ -1,5 +1,5 @@
 <div id="stand" class="custom-container-zabudowa">
-  <div class="custom-block-1 half-block-padding" style="flex:1;">
+  <div class="half-block-padding" style="flex:1;">
     <div class="heading-text el-text main-heading-text text-centered pl_PL">
       <h4>DEDYKOWANA ZABUDOWA TARGOWA</h4>
     </div>
@@ -8,7 +8,7 @@
     </div>
 
     <p class="custom-line-height pl_PL">
-      Zobacz katalog stoisk targowych i przygotuj się na udział w targach w sposób jeszcze bardziej efektywny. Dzięki temu katalogowi będziesz miał dostęp do gotowych projektów stoisk, które ułatwią Ci przygotowanie się do targów i zyskasz cenną oszczędność czasu i pieniędzy. Wybierając już gotowy projekt stoiska, będziesz mógł skupić się na innych ważnych aspektach przygotowań do targów, takich jak przygotowanie oferty, zorganizowanie transportu czy zaplanowanie działań marketingowych.
+       Zobacz katalog stoisk targowych i przygotuj się na udział w targach w sposób jeszcze bardziej efektywny. Dzięki temu katalogowi będziesz miał dostęp do gotowych projektów stoisk, które ułatwią Ci przygotowanie się do targów i zyskasz cenną oszczędność czasu i pieniędzy. Wybierając już gotowy projekt stoiska, będziesz mógł skupić się na innych ważnych aspektach przygotowań do targów, takich jak przygotowanie oferty, zorganizowanie transportu czy zaplanowanie działań marketingowych.
     </p>
     <p class="custom-line-height en_US">
       Check out the trade show booth catalog and prepare for your trade show participation in an even more efficient way. With this catalog, you will have access to ready-made booth designs that will make it easier for you to prepare for the trade show and gain valuable savings in time and money. By choosing an already ready-made booth design, you will be able to focus on other important aspects of preparing for the fair, such as preparing your offer, arranging transportation or planning your marketing activities.
@@ -31,8 +31,8 @@
       </span>
     </div>
   </div>
-
-  <div class="custom-block-2 single-media-wrapper half-block-padding custom-min-media-wrapper" style="flex:1;">
+  
+  <div class="single-media-wrapper half-block-padding custom-min-media-wrapper" style="flex:1;">
     <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/zabudowa.jpg"/></div>
   </div>
 </div>

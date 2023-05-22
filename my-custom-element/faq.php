@@ -7,10 +7,6 @@
   </div>
   
   <div class="pl_PL container-pytan half-block-padding link-text-underline">
-    <div class="pytanie-odpowiedz-top">
-      <div class="pytanie half-block-padding">Czy na miejscu będzie bezpłatna rejestracja dla branży?</div>
-      <div class="odpowiedz half-block-padding">Tak, na miejscu będzie bezpłatna rejestracja dla branży.</div>
-    </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">Gdzie odbywają się targi?</div>
       <div class="odpowiedz half-block-padding color-white">Targi odbywają się w <a href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
@@ -25,7 +21,7 @@
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">Czy mogę wejść z dzieckiem na targi?</div>
-      <div class="odpowiedz half-block-padding">Wstęp dla dzieci jest niewskazany. Jednak jeśli chcesz aby Twoje dziecko towarzyszyło Ci podczas targów to zakup bilet na dany dzień. Wstęp na targi dla dzieci do 16 roku życia jest bezpłatny.</div>
+      <div class="odpowiedz half-block-padding">Wstęp dla dzieci jest niewskazany. Jednak jeśli chcesz aby Twoje dziecko towarzyszyło Ci podczas targów to zakup dla niego bilet na dany dzień. Wstęp na targi dla dzieci do 7 roku życia jest bezpłatny.</div>
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">Jak dotrzeć na targi?</div>
