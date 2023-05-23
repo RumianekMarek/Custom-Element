@@ -42,10 +42,6 @@
   </div>
 
   <div class="en_US container-pytan half-block-padding">
-    <div class="pytanie-odpowiedz-top">
-      <div class="pytanie half-block-padding">Will there be free registration for the industry on site?</div>
-      <div class="odpowiedz half-block-padding">Yes, there will be free registration for the industry on site.</div>
-    </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">Where are the fairs held?</div>
       <div class="odpowiedz half-block-padding color-white">The fair takes place at<a href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
@@ -60,7 +56,7 @@
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">Can I enter the fair with my child?</div>
-      <div class="odpowiedz half-block-padding">Admission for children is not recommended. However, if you want your child to accompany you during the fair, buy a ticket for the day. Admission to the fair for children under 16 is free.</div>
+      <div class="odpowiedz half-block-padding">Admission for children is not recommended. However, if you want your child to accompany you during the fair, buy for him a ticket for the day. Admission to the fair for children under 7 is free.</div>
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding">How to get to the fair?</div>
