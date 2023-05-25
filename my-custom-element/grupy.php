@@ -1,4 +1,4 @@
-<div class="custom-container-grupy style-accent-bg desc-shadow-extra single-block-padding">
+<div class="custom-container-grupy style-accent-bg shadow-black single-block-padding">
   <div class="heading-text el-text secondary-heading-text pl_PL">
       <h4 class="color-white">Kontakt dla grup zorganizowanych.</h4>
   </div>

@@ -1,5 +1,5 @@
 
-<div id="download" class="custom-download-container style-accent-bg custom-shadow-black single-block-padding">
+<div id="download" class="custom-download-container style-accent-bg shadow-black single-block-padding">
   <div class="single-media-wrapper wpb_column t-m-display-none half-block-padding" style="flex:1;">
     <img src="/wp-content/plugins/custom-element/my-custom-element/download-icon.png"/>
   </div>
