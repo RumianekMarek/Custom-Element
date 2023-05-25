@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.3.3
+Version: 1.4
 Author: Marek Rumianek
 Author URI:
 */
@@ -25,6 +25,25 @@ function my_custom_wpbakery_element() {
     'category' => __('My Elements', 'my-custom-plugin'),
     'params' => array(
       array(
+        'type' => 'dropdown',
+        'heading' => __('Select an element', 'my-custom-plugin'),
+        'param_name' => 'element',
+        'description' => __('Select a element to display its files.', 'my-custom-plugin'),
+        'value' => array(
+          'Select' => '',
+          'Dokumenty' => 'download.php',
+          'FAQ' => 'faq.php',
+          'Grupy zorganizowane' => 'grupy.php',
+          'Kontakt' => 'kontakt.php',
+          'Organizator' => 'organizator.php',
+          'Voucher' => 'voucher.php',
+          'Wydarzenia - ogólne inforamacje' => 'wydarzenia-ogolne.php',
+          'Zabudowa' => 'zabudowa.php'
+        ),
+        'save_always' => true,
+        'admin_label' => true // Add this line to display the element name in the backend editor
+      ),
+      array(
         'type' => 'textfield',
         'heading' => __('Select a file', 'my-custom-plugin'),
         'param_name' => 'file',
@@ -44,12 +63,17 @@ function my_custom_element_output($atts, $content = null) {
 
   extract(shortcode_atts(
     array(
-      'file' => ''
+      'file' => '',
+      'element' => ''
     ),
     $atts
   ));
 
-  $file_path = plugin_dir_path(__FILE__) . 'my-custom-element/' . $atts['file'];
+  if (empty($element)) {
+    $file_path = plugin_dir_path(__FILE__) . 'my-custom-element/' . $atts['file'];
+  } else {
+    $file_path = plugin_dir_path(__FILE__) . 'my-custom-element/' . $atts['element'];
+  }
   $shortcodes = array('[trade_fair_name]', '[trade_fair_name_eng]', '[trade_fair_desc]', '[trade_fair_desc_eng]', '[super_shortcode_1]', '[trade_fair_date]', '[trade_fair_date_eng]');
 
   if (file_exists($file_path)) {

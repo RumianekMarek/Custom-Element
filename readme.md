@@ -32,6 +32,8 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.4 - Dodana drop down menu do łatwiejszego wyboru elementów
+
 1.3.1 -   Addjusting CSS for mobil
 
 1.3 -   Addjusting class and CSS
