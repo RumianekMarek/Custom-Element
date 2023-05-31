@@ -8,7 +8,7 @@
 
   <div style="color:white !important;">
     <p  class="pl_PL">
-      W celu zapewnienia państwu komfortowego udziału w naszych wydarzeniach, wstęp dla grup zorganizowanych możliwy jest tylko ostatniego dnia targowym. Przed wcześniejszym przybyciem zachęcamy do kontaktu przez formularz dostępny na stronie: <a style="color:white !important;" href="https://warsawexpo.eu/grupy">warsawexpo.eu/grupy</a>.
+      W celu zapewnienia państwu komfortowego udziału w naszych wydarzeniach, wstęp dla grup zorganizowanych możliwy jest tylko ostatniego dnia targowego. Przed wcześniejszym przybyciem zachęcamy do kontaktu przez formularz dostępny na stronie: <a style="color:white !important;" href="https://warsawexpo.eu/grupy">warsawexpo.eu/grupy</a>.
       Pozostawienie plecaków oraz walizek w szatni jest obligatoryjne.
       Na targach obowiązuje business dress code.
     </p>

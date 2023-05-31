@@ -128,14 +128,14 @@ function my_custom_element_output($atts, $content = null) {
       $shortcode_option_value = get_option($shortcode_option_name);
       $file_cont = str_replace($shortcode, $shortcode_option_value, $file_cont);
     }
+    echo '<script> console.log("' . $color . '")</script>';
 
-    if ($color !== 'default') {
-      $file_cont = str_replace(
-        array('white', 'black'),
-        array($color, $color),
-        $file_cont
-      );  
-    }
+    if ($color != '')
+    $file_cont = str_replace(
+      array('white', 'black'),
+      array($color, $color),
+      $file_cont
+    );  
 
     if ($color == '#000000') {
       $file_cont = str_replace(
