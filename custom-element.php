@@ -57,7 +57,6 @@ function my_custom_wpbakery_element() {
         'param_name' => 'color',
         'description' => __('Select a color for the element.', 'my-custom-plugin'),
         'value' => array(
-          'Default' => '',
           'White' => '#ffffff',
           'Black' => '#000000'
         ),
