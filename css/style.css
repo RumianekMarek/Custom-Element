@@ -447,7 +447,7 @@
 .custom-route-area-item-text {
     align-items: center;
 }
-.custom-route-area-item-text h6 {
+.custom-route-area-item-text h5 {
     margin: 0;
 }
 @media (max-width:960px) {
