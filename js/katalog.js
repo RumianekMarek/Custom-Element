@@ -1,8 +1,8 @@
-json = katalog_data.data;
-id_targow = katalog_data.id_targow;
-details = katalog_data.details;
 
-const exhibitors = Object.entries(json[id_targow]["Wystawcy"]);
+console.log('katlog_data.format-', katalog_data.format);
+
+console.log('test');
+const exhibitors = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
 const spinner = document.getElementsByClassName('spinner')[0];
 spinner.style.display = "none";
 const catRoot = document.getElementById('cat');
@@ -64,7 +64,7 @@ for (let i = 0; i < allExhibitorsArray.length; i++) {
     allExhibitorsArray[i].addEventListener('click', () => {
         const url = exhibitors[i][1].URL_logo_wystawcy;
         url.replace('/', '$2F');
-        if (details == 'true') { var modalBox = `
+        if (katalog_data.details == 'true') { var modalBox = `
             <div class="modal__elements">
                 <div class="modal__elements-img" style="background-image: url(${url});"></div>
                 <div class="modal__elements-text">

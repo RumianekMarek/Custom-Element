@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.4.1
+Version: 1.5
 Author: Marek Rumianek
 Author URI:
 */
@@ -32,16 +32,23 @@ function my_custom_wpbakery_element() {
         'value' => array(
           'Select' => '',
           'Dokumenty' => 'download.php',
+          'Exhibitors-benefits'=> 'exhibitors-benefits.php',
           'FAQ' => 'faq.php',
+          'For Exhibitors' => 'for-exhibitors.php',
+          'For Visitors' => 'for.visitors.php',
+          'Main Page Gallery - mini' => 'gallery.php',
           'Grupy zorganizowane' => 'grupy.php',
           'Kontakt' => 'kontakt.php',
           'Organizator' => 'organizator.php',
+          'Mapka dojazdu' => 'route.php',
+          'Ramka Facebook' => 'socialMedia.php',
+          'Visitors Benefits' => 'visitors-benefits.php',
           'Voucher' => 'voucher.php',
           'Wydarzenia - ogólne informacje' => 'wydarzenia-ogolne.php',
           'Zabudowa' => 'zabudowa.php'
         ),
         'save_always' => true,
-        'admin_label' => true // Add this line to display the element name in the backend editor
+        'admin_label' => true
       ),
       array(
         'type' => 'textfield',
@@ -49,7 +56,7 @@ function my_custom_wpbakery_element() {
         'param_name' => 'file',
         'description' => __('Select a file to display its contents.', 'my-custom-plugin'),
         'save_always' => true,
-        'admin_label' => true // Add this line to display the filename in the backend editor
+        'admin_label' => true
       ),
       array(
         'type' => 'dropdown',
@@ -71,26 +78,39 @@ function my_custom_wpbakery_element() {
 // Rejestracja elementu Katalog wystawców
 function my_custom_wpbakery_element_katalog_wystawcow() {
   vc_map( array(
-      'name' => __( 'Katalog wystawców', 'my-custom-plugin' ), // Nazwa elementu
-      'base' => 'katalog_wystawcow', // Nazwa podstawowa elementu
-      'category' => __( 'My Elements', 'my-custom-plugin' ), // Kategoria elementu
+      'name' => __( 'Katalog wystawców', 'my-custom-plugin' ),
+      'base' => 'katalog_wystawcow',
+      'category' => __( 'My Elements', 'my-custom-plugin' ),
       'params' => array(
-          array(
-              'type' => 'textfield',
-              'heading' => __( 'Enter ID', 'my-custom-plugin' ), // Nagłówek pola tekstowego
-              'param_name' => 'identification',
-              'description' => __( 'Enter trade fair ID number.', 'my-custom-plugin' ), // Opis pola tekstowego
-              'save_always' => true,
-              'admin_label' => true
+        array(
+            'type' => 'textfield',
+            'heading' => __( 'Enter ID', 'my-custom-plugin' ),
+            'param_name' => 'identification',
+            'description' => __( 'Enter trade fair ID number.', 'my-custom-plugin' ),
+            'save_always' => true,
+            'admin_label' => true
+        ),
+        array(
+          'type' => 'checkbox',
+          'heading' => __('Show details', 'my-custom-plugin'),
+          'param_name' => 'details',
+          'description' => __('Check to use to show details.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        ),
+        array(
+          'type' => 'dropdown',
+          'heading' => __( 'Catalog format', 'my-custom-plugin' ),
+          'param_name' => 'format',
+          'description' => __( 'Select catalog format.', 'my-custom-plugin' ),
+          'value' => array(
+            'Select' => '',
+            'Full' => 'full',
+            'Top21' => 'top21',
+            'Top10' => 'top10'
           ),
-          array(
-            'type' => 'checkbox',
-            'heading' => __('Show details', 'my-custom-plugin'),
-            'param_name' => 'details',
-            'description' => __('Check to use to show details.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
-            'std' => 'false',
+          'save_always' => true,
+          'admin_label' => true
         ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
@@ -116,19 +136,13 @@ function my_custom_element_output($atts, $content = null) {
   } else {
     $file_path = plugin_dir_path(__FILE__) . 'my-custom-element/' . $atts['element'];
   }
-  $shortcodes = array('[trade_fair_name]', '[trade_fair_name_eng]', '[trade_fair_desc]', '[trade_fair_desc_eng]', '[super_shortcode_1]', '[trade_fair_date]', '[trade_fair_date_eng]');
-
+  
   if (file_exists($file_path)) {
     ob_start();
     include $file_path;
     $file_cont = ob_get_clean();
 
-    foreach ($shortcodes as $shortcode) {
-      $shortcode_option_name = str_replace(array('[', ']'), '', $shortcode);
-      $shortcode_option_value = get_option($shortcode_option_name);
-      $file_cont = str_replace($shortcode, $shortcode_option_value, $file_cont);
-    }
-    echo '<script> console.log("' . $color . '")</script>';
+    $file_cont = do_shortcode($file_cont);
 
     if ($color != '')
     $file_cont = str_replace(
@@ -145,7 +159,6 @@ function my_custom_element_output($atts, $content = null) {
       );  
     }
 
-    
     $file_cont = '<div custom-lang="' . $locale . '" class="custom_element">' . $file_cont . '</div>';
     return $file_cont;
   } else {
@@ -157,7 +170,8 @@ function my_custom_element_output($atts, $content = null) {
 function katalog_wystawcow_output($atts, $content = null) {
   extract( shortcode_atts( array(
     'identification' => '',
-    'details' => ''
+    'details' => '',
+    'format' => ''
 ), $atts ) );
 
   $id_targow = $identification;
@@ -173,8 +187,9 @@ function katalog_wystawcow_output($atts, $content = null) {
     'data' => $data,
     'json' => $json,
     'id_targow' => $id_targow,
-    'details' => $details
-);
+    'details' => $details,
+    'format' => $format
+    );
 
   // Twój kod dla tego elementu
   $output = '<div id="cat"></div>'; 

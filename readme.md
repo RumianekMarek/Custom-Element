@@ -32,6 +32,18 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.5 - Added:
+                for-exhibitors;
+                for-visitors;
+                gallery;
+                route;
+                socialMedia;
+                visitors benefits.
+               
+1.4.2 - Added:
+                Exhibitors-benefits;
+                Wyłączanie Opisów w katalogu.
+                
 1.4.1 - Added:
                 color white or black for elements with backgrounds;
                 Exhibitors Catalog (Katalog wystawców)

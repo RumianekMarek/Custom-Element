@@ -1,5 +1,4 @@
 /* JS */
-
 var customElement = document.querySelector('.custom_element');
 if (customElement) {
   var localLang = customElement.getAttribute('custom-lang');
@@ -15,7 +14,6 @@ if (customElement) {
       lang[i].style.display = 'block';
     }
   } else {
-    console.log(localLang, 'nie ma takiego języka, dodaj tłumaczenie');
     var lang = document.querySelectorAll('.en_US');
     for (var i = 0; i < lang.length; i++) {
       lang[i].style.display = 'block';
@@ -32,5 +30,13 @@ if (customElement) {
   var rowContainerOrganizator = document.querySelector('.row-container:has(.custom-container-organizator)');
     if (rowContainerOrganizator) {
       rowContainerOrganizator.classList.add('style-accent-bg');
+  }
+  var rowContainerOrganizator = document.querySelector('.row-container:has(#customGallery)');
+  if (rowContainerOrganizator) {
+    rowContainerOrganizator.classList.add('style-accent-bg');
+  }
 }
+
+if(document.querySelector('.custom-facebook')){
+  if(document.querySelector('.custom-facebook').getAttribute('href') == '') document.querySelector('#socialMedia').style.display = 'none';
 }
