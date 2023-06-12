@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.5.3
+Version: 1.5.4
 Author: Marek Rumianek
 Author URI:
 */
@@ -31,7 +31,7 @@ function my_custom_wpbakery_element() {
         'description' => __('Select an element to display its files.', 'my-custom-plugin'),
         'value' => array(
           'Select' => '',
-          'Adres Ptak Warsaw Expo' => 'adressPtak.php',
+          'Adres Ptak Warsaw Expo' => 'ptakAdress.php',
           'Dokumenty' => 'download.php',
           'Exhibitors-benefits'=> 'exhibitors-benefits.php',
           'FAQ' => 'faq.php',
