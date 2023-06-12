@@ -310,6 +310,20 @@
     line-height: 1.2;
 }
 
+@media (max-width: 570px){
+    .custom-text-ptakAdress li{
+        font-size:3vh !important;
+    }
+}
+/* socialMedia */
+#socialMedia h4{
+    margin-top:0 !important;
+}
+@media (max-width: 570px){
+    #socialMedia a{
+        transform-origin: center !important;
+    }
+}
 /* visitors-benefits */
 
 .custom-visitors-benefits-row {
