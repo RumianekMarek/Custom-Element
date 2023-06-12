@@ -1,4 +1,4 @@
-<div id="faq" class="custom-container-faq style-accent-bg" style="color:white !important;">
+<div id="faq" class="custom-container-faq style-accent-bg custom-align-left" style="color:white !important;">
   <div class="heading-text el-text secondary-heading-text half-block-padding pl_PL">
     <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white !important;">Poznaj odpowiedzi na najczęściej zadawane pytania</h4>
   </div>

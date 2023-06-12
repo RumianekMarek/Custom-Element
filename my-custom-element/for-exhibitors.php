@@ -2,9 +2,9 @@
     <div id="forExhibitors"class="custom-container-exhibitors">
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item column-reverse">
+        <div class="custom-content-exhibitors-item column-reverse custom-align-left">
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">BĘDZIESZ CZĘŚCIĄ NAJSZYBCIEJ ROZWIJAJĄCYCH SIĘ TARGÓW</h4>
                     <h4 class="en_US">YOU WILL BE PART OF THE FASTEST GROWING TRADE SHOW</h4>
                 </div>
@@ -18,17 +18,17 @@
                 </div>
             </div>
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-3.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-3.jpeg"/>
             </div>
         </div>
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item">
+        <div class="custom-content-exhibitors-item custom-align-left">
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-4.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-4.jpeg"/>
             </div>
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">ZAPREZENTUJESZ SWOJE PRODUKTY I USŁUGI TYSIĄCOM KONSUMENTÓW</h4>
                     <h4 class="en_US">YOU WILL PRESENT YOUR PRODUCTS AND SERVICES TO THOUSANDS OF CONSUMERS</h4>
                 </div>
@@ -44,9 +44,9 @@
         </div>
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item column-reverse">
+        <div class="custom-content-exhibitors-item column-reverse custom-align-left">
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">ZDOBĘDZIESZ CENNĄ WIEDZĘ I POZNASZ NOWOŚCI RYNKU</h4>
                     <h4 class="en_US">YOU WILL GAIN VALUABLE KNOWLEDGE AND LEARN ABOUT THE NOVELTIES OF THE MARKET</h4>
                 </div>
@@ -60,17 +60,17 @@
                 </div>
             </div>
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-5.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-5.jpeg"/>
             </div>
         </div>
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item">
+        <div class="custom-content-exhibitors-item custom-align-left">
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-6.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-6.jpeg"/>
             </div>
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">NAWIĄŻESZ CENNE KONTAKTY BIZNESOWE</h4>
                     <h4 class="en_US">MAKE VALUABLE BUSINESS CONTACTS</h4>
                 </div>
@@ -86,9 +86,9 @@
         </div>
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item column-reverse">
+        <div class="custom-content-exhibitors-item column-reverse custom-align-left">
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">NAJWIĘKSZY OŚRODEK TARGOWY W POLSCE</h4>
                     <h4 class="en_US">THE LARGEST TRADE FAIR CENTER IN POLAND</h4>
                 </div>
@@ -102,17 +102,17 @@
                 </div>
             </div>
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-7.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-7.jpeg"/>
             </div>
         </div>
 
         <!-- for-exhibitors-item -->
-        <div class="custom-content-exhibitors-item">
+        <div class="custom-content-exhibitors-item custom-align-left">
             <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-8.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-8.jpeg"/>
             </div>
             <div class="custom-exhibitors-text-block">
-                <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+                <div class="custom-visitors-benefits-heading main-heading-text">
                     <h4 class="pl_PL">O ORGANIZATORZE</h4>
                     <h4 class="en_US">ABOUT THE ORGANISER</h4>
                 </div>

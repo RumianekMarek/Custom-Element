@@ -1,9 +1,9 @@
 <div class="custom-container-grupy style-accent-bg shadow-black single-block-padding">
-  <div class="heading-text el-text secondary-heading-text pl_PL">
-      <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white;">Kontakt dla grup zorganizowanych.</h4>
+  <div class="heading-text el-text secondary-heading-text text-uppercase pl_PL">
+      <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white;">Kontakt dla grup zorganizowanych</h4>
   </div>
-  <div class="heading-text el-text secondary-heading-text en_US">
-    <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white;">Contact for organized groups.</h4>
+  <div class="heading-text el-text secondary-heading-text text-uppercase en_US">
+    <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white;">Contact for organized groups</h4>
   </div>
 
   <div style="color:white !important;">

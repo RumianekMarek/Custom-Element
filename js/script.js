@@ -27,6 +27,15 @@ if (customElement) {
     });
   });
 
+  document.querySelectorAll('.row-container').forEach(function(rowContainer) {
+    if (rowContainer.querySelector('#customGallery') || 
+        rowContainer.querySelector('.custom-container-organizator') ||
+        rowContainer.querySelector('#faq') || 
+        rowContainer.querySelector('#calendar-add')) {
+        rowContainer.classList.add('style-accent-bg');
+    }
+  });
+
   var rowContainerOrganizator = document.querySelector('.row-container:has(.custom-container-organizator)');
     if (rowContainerOrganizator) {
       rowContainerOrganizator.classList.add('style-accent-bg');

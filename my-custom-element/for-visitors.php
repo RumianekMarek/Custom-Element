@@ -2,9 +2,9 @@
     <div id="forVisitors"class="custom-container-visitors">
 
         <!-- for-visitors-item -->
-        <div class="custom-content-visitors-item">
+        <div class="custom-content-visitors-item custom-align-left">
             <div class="custom-visitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-1.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-1.jpeg"/>
             </div>
             <div class="custom-visitors-text-block">
                 <div class="custom-visitors-text">
@@ -20,7 +20,7 @@
         </div>
 
         <!-- for-visitors-item -->
-        <div class="custom-content-visitors-item">
+        <div class="custom-content-visitors-item custom-align-left">
             <div class="custom-visitors-text-block">
                 <div class="custom-visitors-text">
                     <p class="pl_PL">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="custom-visitors-image-block uncode-single-media-wrapper">              
-                <img class="image-shadow" src="/doc/Galeria-2.jpeg"/>
+                <img class="image-shadow" src="/doc/galeria/Galeria-2.jpeg"/>
             </div>
         </div>
 

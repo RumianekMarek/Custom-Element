@@ -32,6 +32,9 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.5.2 - Added:
+                ptakAdress;
+                galler-slider;
 1.5 - Added:
                 for-exhibitors;
                 for-visitors;

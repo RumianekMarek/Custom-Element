@@ -226,11 +226,41 @@
 }
 
 /* main-timer*/
-.custom-title-container-before{
+.row-container:has(.custom-container-main-timer) .row-parent {
+    padding: 0 !important;
+}
+.custom-main-timer-before,
+.custom-main-timer-after {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 8px
 }
+.main-timer-countdown {
+    text-align: center;
+    font-weight: 700;
+}
+.custom-main-timer-before p,
+.custom-main-timer-after p {
+    margin: 0 !important;
+    font-size: 20px;
+}
+.custom-main-timer-btn {
+    padding: 8px 0;
+}
+.custom-main-timer-btn a {
+    background-color: black;
+}
+@media (max-width:570px){
+    .custom-main-timer-before p,
+    .custom-main-timer-after p {
+        font-size: 16px;
+    }
+}
+
 .absolute-facebook-Img{
     position: absolute;
     left:15%;
@@ -258,6 +288,26 @@
 }
 .custom-organizator-text{
     padding-top:28vw !important;
+}
+
+/* ptakAdress */
+#ptakAdress, #socialMedia {
+    min-height: 240px;
+    max-width: 500px;
+    margin:auto
+}
+
+#ptakAdress{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.custom-text-ptakAdress li {
+    font-size:30px !important;
+    font-weight: 700;
+    color:black;
+    line-height: 1.2;
 }
 
 /* visitors-benefits */
@@ -403,6 +453,9 @@
     display: flex;
     flex-direction: column;
 }
+strong {
+    color: inherit !important;
+}
 
 
 /* route */
@@ -487,5 +540,36 @@
         width: auto;
         justify-content: center;
     }
-
 }
+
+/* .org-info */
+
+.row-container:has(.custom-container-org-info) .row-parent {
+    padding: 0 !important;
+}
+.custom-container-org-info a {
+    font-weight: 600;
+    color: blue;
+}   
+.custom-org-info-header {
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.custom-org-info-header h1 {
+    text-align: center;
+    padding: 100px 18px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.custom-org-info-fixed-width {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+#dane-kontaktowe, #wazne-informacje, #procedury-stoisk, #rozladunek, #dokumenty,
+#dane-kontaktowe_en, #wazne-informacje_en, #procedury-stoisk_en, #rozladunek_en, #dokumenty_en {
+    scroll-margin: 100px;
+} 
+
+

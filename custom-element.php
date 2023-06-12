@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.5
+Version: 1.5.3
 Author: Marek Rumianek
 Author URI:
 */
@@ -31,21 +31,25 @@ function my_custom_wpbakery_element() {
         'description' => __('Select an element to display its files.', 'my-custom-plugin'),
         'value' => array(
           'Select' => '',
+          'Adres Ptak Warsaw Expo' => 'adressPtak.php',
           'Dokumenty' => 'download.php',
           'Exhibitors-benefits'=> 'exhibitors-benefits.php',
           'FAQ' => 'faq.php',
           'For Exhibitors' => 'for-exhibitors.php',
           'For Visitors' => 'for.visitors.php',
           'Main Page Gallery - mini' => 'gallery.php',
+          'Gallery Slider' => 'galler-slider.php',
           'Grupy zorganizowane' => 'grupy.php',
+          'Informacje organizacyjne' => 'org-information.php',
           'Kontakt' => 'kontakt.php',
           'Organizator' => 'organizator.php',
           'Mapka dojazdu' => 'route.php',
           'Ramka Facebook' => 'socialMedia.php',
+          'Timer' => 'main-timer.php',
           'Visitors Benefits' => 'visitors-benefits.php',
           'Voucher' => 'voucher.php',
           'Wydarzenia - ogólne informacje' => 'wydarzenia-ogolne.php',
-          'Zabudowa' => 'zabudowa.php'
+          'Zabudowa' => 'zabudowa.php',
         ),
         'save_always' => true,
         'admin_label' => true
@@ -99,6 +103,14 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
         ),
         array(
+          'type' => 'checkbox',
+          'heading' => __('Ticket check', 'my-custom-plugin'),
+          'param_name' => 'ticket',
+          'description' => __('Check if there is a ticket above', 'my-custom-plugin'),
+          'admin_label' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        ),
+        array(
           'type' => 'dropdown',
           'heading' => __( 'Catalog format', 'my-custom-plugin' ),
           'param_name' => 'format',
@@ -144,12 +156,26 @@ function my_custom_element_output($atts, $content = null) {
 
     $file_cont = do_shortcode($file_cont);
 
-    if ($color != '')
-    $file_cont = str_replace(
-      array('white', 'black'),
-      array($color, $color),
-      $file_cont
-    );  
+    if ($color != '') {
+      $file_cont = str_replace(
+        array('color:white !important', 'color:black !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black'),
+        array('color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color),
+        $file_cont
+      );  
+    }
+
+    if ($color != '') {
+      if ($color == '#ffffff') {
+        $color1 = '#000000';
+      } elseif ($color == '#000000') {
+        $color1 = '#ffffff';
+      }
+      $file_cont = str_replace(
+        array('text-shadow: 2px 2px white', 'text-shadow: 2px 2px black'),
+        array('text-shadow: 2px 2px '.$color1, 'text-shadow: 2px 2px '.$color1),
+        $file_cont
+      );  
+    }
 
     if ($color == '#000000') {
       $file_cont = str_replace(
@@ -171,8 +197,14 @@ function katalog_wystawcow_output($atts, $content = null) {
   extract( shortcode_atts( array(
     'identification' => '',
     'details' => '',
-    'format' => ''
-), $atts ) );
+    'format' => '',
+    'ticket' => ''
+  ), $atts ) );
+
+  // If 'format' is not 'Top10', force 'ticket' to be false
+  if ($format !== 'top10') {
+    $ticket = 'false';
+  }
 
   $id_targow = $identification;
   $today = new DateTime();
@@ -188,7 +220,8 @@ function katalog_wystawcow_output($atts, $content = null) {
     'json' => $json,
     'id_targow' => $id_targow,
     'details' => $details,
-    'format' => $format
+    'format' => $format,
+    'ticket' => $ticket
     );
 
   // Twój kod dla tego elementu

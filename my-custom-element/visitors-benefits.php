@@ -1,7 +1,7 @@
    
 <div id="visitorsBenefits"class="custom-container-visitors-benefits">
 
-    <div class="custom-visitors-benefits-heading heading-text el-text main-heading-text">
+    <div class="custom-visitors-benefits-heading main-heading-text">
         <h3 class="pl_PL">DLACZEGO WARTO?</h3>
         <h3 class="en_US">WHY IS IT WORTH IT?</h3>
     </div>
