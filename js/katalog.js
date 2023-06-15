@@ -33,16 +33,22 @@
 
 		if (katalog_data.format == 'full') {
 
-
+			const localLang = document.getElementById("cat").getAttribute("custom-lang");
 			divContainer.classList.add('exhibitors');
 			const divContainerHeader = document.createElement('div');
 			divContainerHeader.classList.add('exhibitor__header');
-			divContainerHeader.innerHTML = '<h1>Katalog wystawców</h1>';
+			divContainerHeader.innerHTML = '<div class="pl_PL"><h1>Katalog wystawców</h1></div><div class="en_US"><h1>Exhibitor Catalog</h1></div>';
 			divContainerHeader.style.backgroundImage = "url(/doc/background.jpg)";
 
 			const inputSearch = document.createElement('input');
-			inputSearch.id = 'search'
-			inputSearch.placeholder = "Szukaj";
+			
+			inputSearch.id = 'search';
+			if(localLang=="pl_PL"){
+				inputSearch.placeholder = "Szukaj";
+			} else {
+				inputSearch.placeholder = "Search";
+			}
+			
 
 			const divContainerExhibitors = document.createElement('div');
 			divContainerExhibitors.classList.add('exhibitors__container');
@@ -104,27 +110,28 @@
 									${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tell:+48${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 									${exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 									${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-									${exhibitors[i][1].Opis_pl ? `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
-									${exhibitors[i][1].Opis_en ? `<p class="en_Us">Opis EN: <b><a href="${exhibitors[i][1].Opis_en}" target="_blank" rel="noopener noreferrer">${exhibitors[i][1].Opis_en}</a></b></p>` : ''}
+									${exhibitors[i][1].Opis_pl && localLang=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
+									${exhibitors[i][1].Opis_en && localLang=="en_US" ? `<p>Opis EN: <b><a href="${exhibitors[i][1].Opis_en}" target="_blank" rel="noopener noreferrer">${exhibitors[i][1].Opis_en}</a></b></p>` : ''}
 									</div>
 								</div>
 								<div class="modal_elements-button">
 									<button class="close">Zamknij</button
 								</div>
 							</div>`;
+							
 					}
 					else {
 						var modalBox = `
-            	${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
-                <div class="modal__elements-img" style="background-image: url(${url});"></div>
-                <div class="modal__elements-text">
-                  <h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
-                  ${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tell:+48${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
-					${exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
-					${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-                  <button class="close">Zamknij</button>
-                </div>
-            	</div>`;
+							${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
+							<div class="modal__elements-img" style="background-image: url(${url});"></div>
+							<div class="modal__elements-text">
+							<h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
+							${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tell:+48${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
+								${exhibitors[i][1].Email  ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
+								${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
+							<button class="close">Zamknij</button>
+							</div>
+							</div>`;
 					}
 
 					modalParent.innerHTML = modalBox;
@@ -143,6 +150,25 @@
 						}
 					});
 				});
+			};
+			/* PL -- En */
+			
+			
+			if (localLang == 'pl_PL') {
+				var lang = document.querySelectorAll('.pl_PL');
+				for (var i = 0; i < lang.length; i++) {
+				lang[i].style.display = 'block';
+				}
+			} else if (localLang == 'en_US') {
+				var lang = document.querySelectorAll('.en_US');
+				for (var i = 0; i < lang.length; i++) {
+				lang[i].style.display = 'block';
+				}
+			} else {
+				var lang = document.querySelectorAll('.en_US');
+				for (var i = 0; i < lang.length; i++) {
+				lang[i].style.display = 'block';
+				}
 			}
 			/*  ----------------------TOP 21 ------------------------    */
 		} else if (katalog_data.format == 'top21') {

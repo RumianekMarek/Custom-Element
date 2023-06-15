@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.5.4
+Version: 1.5.5
 Author: Marek Rumianek
 Author URI:
 */
@@ -32,13 +32,19 @@ function my_custom_wpbakery_element() {
         'value' => array(
           'Select' => '',
           'Adres Ptak Warsaw Expo' => 'ptakAdress.php',
+          'Dodaj do kalendarza' => 'calendarAdd.php',
+          'Dodaj do Google Kalendarz' => 'calendarGoogle.html',
+          'Dodaj do Outlook Kalendarz' => 'calendarOutlook.html',
+          'Dodaj do Office 365 Kalendarz' => 'calendarOffice365.html',
+          'Dodaj do Yahoo Kalendarz' => 'calendarYahoo.html',
+          'Dodaj do Apple Kalendarz' => 'calendarApple.html',
           'Dokumenty' => 'download.php',
           'Exhibitors-benefits'=> 'exhibitors-benefits.php',
           'FAQ' => 'faq.php',
           'For Exhibitors' => 'for-exhibitors.php',
-          'For Visitors' => 'for.visitors.php',
+          'For Visitors' => 'for-visitors.php',
           'Main Page Gallery - mini' => 'gallery.php',
-          'Gallery Slider' => 'galler-slider.php',
+          'Gallery Slider' => 'gallery-slider.php',
           'Grupy zorganizowane' => 'grupy.php',
           'Informacje organizacyjne' => 'org-information.php',
           'Kontakt' => 'kontakt.php',
@@ -183,8 +189,7 @@ function my_custom_element_output($atts, $content = null) {
         array('invert'),
         $file_cont
       );  
-    }
-
+    }     
     $file_cont = '<div custom-lang="' . $locale . '" class="custom_element">' . $file_cont . '</div>';
     return $file_cont;
   } else {
@@ -200,6 +205,8 @@ function katalog_wystawcow_output($atts, $content = null) {
     'format' => '',
     'ticket' => ''
   ), $atts ) );
+
+  $locale = get_locale();
 
   // If 'format' is not 'Top10', force 'ticket' to be false
   if ($format !== 'top10') {
@@ -225,7 +232,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     );
 
   // Twój kod dla tego elementu
-  $output = '<div id="cat"></div>'; 
+  $output = '<div custom-lang="' . $locale . '" id="cat"></div>'; 
   $output .= '<div class="spinner"></div>';
 
   wp_enqueue_style( 'katalog_wystawcow-css', plugin_dir_url( __FILE__ ) . '/css/katalog.css' );
@@ -237,9 +244,24 @@ function katalog_wystawcow_output($atts, $content = null) {
 
 // Enqueue JavaScript and CSS files
 function my_custom_element_scripts() {
+  $trade_start = do_shortcode('[trade_fair_datetotimer]');
+  $trade_end = do_shortcode('[trade_fair_enddata]');
+  $trade_name = do_shortcode('[trade_fair_name]');
+  $trade_desc = do_shortcode('[trade_fair_desc]');
+  $trade_name_en = do_shortcode('[trade_fair_name_eng]');
+  $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
+
+  $inner_data_array = array(
+    'trade_start' => $trade_start,
+    'trade_end' => $trade_end,
+    'trade_name_en' => $trade_name_en,
+    'trade_desc_en' => $trade_desc_en,
+  );
+
   $js_file = plugins_url('/js/script.js', __FILE__);
   $js_version = filemtime(plugin_dir_path(__FILE__) . '/js/script.js');
   wp_enqueue_script('my-custom-element-js', $js_file, array('jquery'), $js_version, true);
+  wp_localize_script( 'my-custom-element-js', 'inner_data', $inner_data_array ); 
 
   $css_file = plugins_url('/css/style.css', __FILE__);
   $css_version = filemtime(plugin_dir_path(__FILE__) . '/css/style.css');

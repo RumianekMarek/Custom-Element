@@ -1,8 +1,8 @@
 <div id="orgInfo"class="custom-container-org-info">
 
     <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
-        <h1 class="pl_PL bigtext" style="color:black !important; text-shadow: 2px 2px white;"><span class="bigtext-line0">Informacje organizacyjne dla Wystawców</span></h1>
-        <h1 class="en_US bigtext" style="color:black !important; text-shadow: 2px 2px white;"><span class="bigtext-line0">Organizational information for Exhibitors</span></h1>
+        <div class="pl_PL bigtext" style="color:black !important; text-shadow: 2px 2px white;"><h1 class="bigtext-line0">Informacje organizacyjne dla Wystawców</h1></div>
+        <div class="en_US bigtext" style="color:black !important; text-shadow: 2px 2px white;"><h1 class="bigtext-line0">Organizational information for Exhibitors</h1></div>
     </div>
 
     <div class="pl_PL custom-org-info-fixed-width single-block-padding">

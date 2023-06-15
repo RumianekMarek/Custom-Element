@@ -1,3 +1,45 @@
+/* calendar */
+#calendar-add :is(.bigtext-line0, h2, h3){
+    color:white !important;
+    text-shadow: 2px 2px black;
+    font-weight:700;
+}
+.custom-container-calendar-icons{
+    display: flex;
+    justify-content: space-evenly;
+    gap:10px;
+    margin-top: 20px;
+}
+.custom-header-calendar-add{
+    max-width:700px;
+}
+.custom-container-calendar-add{
+    flex:1;
+    min-width: 100px;
+    max-width: 180px;
+    background: white;
+    padding:5px 0;
+    margin:auto;
+}
+.custom-container-calendar-add p{
+    color:black;
+    margin:5px;
+    line-height: 1.2;
+}
+.custom-container-calendar-add img{
+    max-height: 150px;
+    max-width:100%;
+}
+@media (max-width:570px){
+    .custom-container-calendar-icons{
+    flex-wrap: wrap;
+    }
+    .custom-container-calendar-add img{
+    max-height: 100px;
+    max-width:100%;
+    }  
+}
+
 /* download */
 .custom-download-container {
     display:flex;
@@ -275,6 +317,55 @@
         width: 15vw;
     }
 }
+/* niePrzegap */
+.custom-container-niePrzegap, .custom-container-calendar-niePrzegap{
+    display:flex;
+}
+.custom-container-niePrzegap{
+    position: fixed;
+    left: -250px;
+    top: 300px;
+    z-index: 11;
+    transition: left 0.3s ease;
+}
+.custom-container-niePrzegap:hover{
+    left:0;
+}
+.custom-inner-niePrzegap{
+    width: 250px !important;
+    background-color:#fff;
+    border: 4px solid #000;
+}
+.custom-pointer-niePrzegap{
+    margin: 20px -30px;
+}
+.custom-pointer-niePrzegap i{
+    text-shadow: 5px 0 #fff;
+}
+.custom-header-niePrzegap h4{
+    margin:10px;
+}
+.custom-container-calendar-niePrzegap{
+    display:flex;
+    margin:0 5px;
+    gap: 5px;
+}
+.custom-container-calendar-niePrzegap img{
+    height:50px !important;
+}
+.custom-container-calendar-niePrzegap p{
+    text-wrap: wrap;
+    width: 80%;
+}
+.link-more{
+    margin:10px;
+    text-decoration: underline;
+}
+@media (max-width:570px){
+    #niePrzegap{
+        display:none;
+    }
+}
 
 /* organizator */
 
@@ -309,21 +400,11 @@
     color:black;
     line-height: 1.2;
 }
-
-@media (max-width: 570px){
-    .custom-text-ptakAdress li{
-        font-size:3vh !important;
-    }
-}
 /* socialMedia */
 #socialMedia h4{
     margin-top:0 !important;
 }
-@media (max-width: 570px){
-    #socialMedia a{
-        transform-origin: center !important;
-    }
-}
+
 /* visitors-benefits */
 
 .custom-visitors-benefits-row {
@@ -436,6 +517,10 @@
 }
 .custom-shadow-black{
     box-shadow: 9px 9px 0px -5px black;
+}
+.custom-shadow-border-black{
+    box-shadow: 9px 9px 0px -5px black;
+    border: 2px solid black;
 }
 .custom-color{
     color:white;
@@ -583,7 +668,7 @@ strong {
 }
 #dane-kontaktowe, #wazne-informacje, #procedury-stoisk, #rozladunek, #dokumenty,
 #dane-kontaktowe_en, #wazne-informacje_en, #procedury-stoisk_en, #rozladunek_en, #dokumenty_en {
-    scroll-margin: 100px;
+    scroll-margin: 200px;
 } 
 
 
