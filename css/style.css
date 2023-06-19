@@ -1,17 +1,31 @@
 /* calendar */
+#calendar-add{
+        background-image:url('/doc/header.jpg');
+        width: 100%;
+}
 #calendar-add :is(.bigtext-line0, h2, h3){
     color:white !important;
     text-shadow: 2px 2px black;
     font-weight:700;
 }
-.custom-container-calendar-icons{
+.custom-container-calendar-icons, .custom-header-calendarAdd{
     display: flex;
     justify-content: space-evenly;
     gap:10px;
     margin-top: 20px;
 }
+.custom-inner-calendarAdd, .custom-container-calendar-icons{
+    max-width: 1200px;
+}
+.custom-container-calendar-icons{ 
+    top:-30px;
+    position: relative; 
+}
+.custom-inner-calendar-icons{
+    margin-top:30px;
+}
 .custom-header-calendar-add{
-    max-width:700px;
+    max-width: 700px;
 }
 .custom-container-calendar-add{
     flex:1;
@@ -26,7 +40,7 @@
     margin:5px;
     line-height: 1.2;
 }
-.custom-container-calendar-add img{
+.custom-container-calendar-add img, .custom-header-calendarAdd img{
     max-height: 150px;
     max-width:100%;
 }
@@ -317,55 +331,86 @@
         width: 15vw;
     }
 }
-/* niePrzegap */
-.custom-container-niePrzegap, .custom-container-calendar-niePrzegap{
-    display:flex;
-}
-.custom-container-niePrzegap{
-    position: fixed;
-    left: -250px;
-    top: 300px;
-    z-index: 11;
-    transition: left 0.3s ease;
-}
-.custom-container-niePrzegap:hover{
-    left:0;
-}
-.custom-inner-niePrzegap{
-    width: 250px !important;
-    background-color:#fff;
-    border: 4px solid #000;
-}
-.custom-pointer-niePrzegap{
-    margin: 20px -30px;
-}
-.custom-pointer-niePrzegap i{
-    text-shadow: 5px 0 #fff;
-}
-.custom-header-niePrzegap h4{
-    margin:10px;
-}
-.custom-container-calendar-niePrzegap{
-    display:flex;
-    margin:0 5px;
-    gap: 5px;
-}
-.custom-container-calendar-niePrzegap img{
-    height:50px !important;
-}
-.custom-container-calendar-niePrzegap p{
-    text-wrap: wrap;
-    width: 80%;
-}
-.link-more{
-    margin:10px;
-    text-decoration: underline;
-}
-@media (max-width:570px){
-    #niePrzegap{
-        display:none;
+
+
+    /* niePrzegap */
+    .custom-container-niePrzegap, .custom-container-calendar-niePrzegap{
+        display:flex;
     }
-}
+    .custom-container-niePrzegap{
+        position: fixed;
+        left: -250px;
+        top: 300px;
+        z-index: 11;
+        transition: left 0.3s ease;
+    }
+    .custom-container-niePrzegap:hover,
+    .custom-container-niePrzegap.hovered-cal {
+        left: 0 !important;
+    }
+    .row-container:has(.custom-container-niePrzegap) .row-parent {
+        padding: 0 !important;
+    }
+    .custom-inner-niePrzegap{
+        width: 250px !important;
+        background-color:#fff;
+        border: 4px solid #000;
+        padding: 10px 0;
+    }
+    .custom-pointer-niePrzegap {
+        margin: -6px -30px;
+    }
+    .custom-pointer-niePrzegap i{
+        text-shadow: 5px 0 #fff;
+    }
+    .custom-header-niePrzegap h4{
+        margin:10px;
+    }
+    .custom-container-calendar-niePrzegap{
+        display:flex;
+        margin:0 5px;
+        gap: 5px;
+    }
+    .custom-container-calendar-niePrzegap img{
+        height:50px !important;
+        object-fit: contain;
+    }
+    .custom-container-calendar-niePrzegap p{
+        text-wrap: wrap;
+        width: 80%;
+    }
+    .custom-pointer-wrapper-niePrzegap {
+        display: flex;
+    }
+    .custom-pointer-wrapper-niePrzegap i {
+        position: absolute;
+        left: 251px;
+    }
+    .custom-vertival-text-niePrzegap {
+        position: absolute;
+        left: 249px;
+        background-color: black;
+        border-radius: 0 8px 8px 0;
+    }
+    .custom-vertival-text-niePrzegap p {
+        color: white;
+        padding: 11px 2px;
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: 0px;
+    }
+    .link-more{
+        margin:10px;
+        text-decoration: underline;
+    }
+    @media (max-width:570px){
+        #niePrzegap{
+            display:none;
+        }
+    }
 
 /* organizator */
 
@@ -472,14 +517,17 @@
 }
 
 /* all */
+.full-width:has(.custom_element){
+    padding:0 !important;
+}
+
 .half-block-padding-top{
     padding-top:18px !important;
 }
 .list-style-none{
     list-style: none !important;
 }
-.row-container:has(#zabudowa, #voucher)
-    .custom-strong{
+.row-container:has(#zabudowa, #voucher) .custom-strong {
         font-weight:700;
     }
 .custom_element :is(h2 ,h3, h4, h5){
@@ -518,7 +566,7 @@
 .custom-shadow-black{
     box-shadow: 9px 9px 0px -5px black;
 }
-.custom-shadow-border-black{
+.custom-shadow-border-black, .custom-container-calendar-icons .custom-container-calendar-add{
     box-shadow: 9px 9px 0px -5px black;
     border: 2px solid black;
 }

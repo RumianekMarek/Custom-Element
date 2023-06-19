@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.5.5
+Version: 1.5.6
 Author: Marek Rumianek
 Author URI:
 */
@@ -38,6 +38,7 @@ function my_custom_wpbakery_element() {
           'Dodaj do Office 365 Kalendarz' => 'calendarOffice365.html',
           'Dodaj do Yahoo Kalendarz' => 'calendarYahoo.html',
           'Dodaj do Apple Kalendarz' => 'calendarApple.html',
+          'Kalendarz do potwierdzenia' => 'confCalendar.php',
           'Dokumenty' => 'download.php',
           'Exhibitors-benefits'=> 'exhibitors-benefits.php',
           'FAQ' => 'faq.php',
@@ -230,7 +231,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     'format' => $format,
     'ticket' => $ticket
     );
-
+    
   // Twój kod dla tego elementu
   $output = '<div custom-lang="' . $locale . '" id="cat"></div>'; 
   $output .= '<div class="spinner"></div>';
@@ -244,6 +245,7 @@ function katalog_wystawcow_output($atts, $content = null) {
 
 // Enqueue JavaScript and CSS files
 function my_custom_element_scripts() {
+  $trade_date = do_shortcode('[trade_fair_date]');
   $trade_start = do_shortcode('[trade_fair_datetotimer]');
   $trade_end = do_shortcode('[trade_fair_enddata]');
   $trade_name = do_shortcode('[trade_fair_name]');
@@ -252,8 +254,11 @@ function my_custom_element_scripts() {
   $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
 
   $inner_data_array = array(
+    'trade_date' => $trade_date,
     'trade_start' => $trade_start,
     'trade_end' => $trade_end,
+    'trade_name' => $trade_name,
+    'trade_desc' => $trade_desc,
     'trade_name_en' => $trade_name_en,
     'trade_desc_en' => $trade_desc_en,
   );

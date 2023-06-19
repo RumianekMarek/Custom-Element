@@ -1,4 +1,5 @@
 /* ZMIENNE GLOBALNE */
+const trade_date = inner_data.trade_date;
 const trade_start = inner_data.trade_start;
 const trade_end = inner_data.trade_end;
 const trade_name = inner_data.trade_name;
@@ -125,3 +126,191 @@ const AppleCalendarFile = () => {
   xhr.send(data);
   downloadFile("/doc/Iphone.ics");
 };
+
+// INFO ORG <----------------------------------------------------------------------------------------------------------<
+if(document.querySelector('.custom-container-org-info')){
+  var customElementAttribute = document.querySelector('.custom_element:has(.custom-container-org-info)').attributes[0].nodeValue;
+  if (customElementAttribute === 'pl_PL') {
+    if (trade_date.toLowerCase().includes("nowa data")) {
+        document.querySelector('.custom-org-info-block-dates').style.display = 'none';
+        document.querySelector('.custom-hidden-paragraph').style.display = 'block';
+    }
+} else if (customElementAttribute === 'en_US') {
+    if (trade_date.toLowerCase().includes("nowa data")) {
+        document.querySelector('.custom-org-info-block-dates-en').style.display = 'none';
+        document.querySelector('.custom-hidden-paragraph-en').style.display = 'block';
+    }
+}
+} 
+
+// TIMER <----------------------------------------------------------------------------------------------------------<
+if(document.querySelector('.custom-container-main-timer')) {
+  if (!["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
+
+    let now = new Date();
+
+    timer1 = document.querySelector('.custom-main-timer-before');
+    timer2 = document.querySelector('.custom-main-timer-after');
+
+    timer2.style.display='none';
+    if (trade_end-now < 0 && trade_start-now < 0){
+        // Set the year of the trade_start object to one year in the future
+        trade_start.setYear(trade_start.getFullYear() + 1);
+        // Create a new string in the format yyyy/mm/01
+        newDataToTimer = trade_start.getFullYear() + '/' + trade_start.getMonth() + '/01';
+        timer2.style.display='none';
+    } else { 
+            if (trade_start-now < 0) {
+            timer1.style.display='none';
+            timer2.style.display='block';
+        }
+    }
+  } else  { document.querySelector('#main-timer').style.display='none'; }
+   
+    var startCountdownElement = document.getElementById('start-countdown');
+    var endCountdownElement = document.getElementById('end-countdown');
+    var customElementAttribute = document.querySelector('.custom_element:has(.custom-container-main-timer)').attributes[0].nodeValue;
+   
+    startEndCountdown(startCountdownElement, trade_start);
+    startEndCountdown(endCountdownElement, trade_end);
+
+    function startEndCountdown(element, targetDate) {
+        var now = new Date().getTime();
+        var distance = targetDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        var countdownText = '';
+
+        if (customElementAttribute === 'pl_PL') {
+            if (days === 1) {
+                countdownText += `${days} dzień `;
+            } else if (days >= 2 && days <= 4) {
+                countdownText += `${days} dni `;
+            } else {
+                countdownText += `${days} dni `;
+            }
+
+            if (hours === 1) {
+                countdownText += `1 godzina `;
+            } else if (hours >= 2 && hours <= 4) {
+                countdownText += `${hours} godziny `;
+            } else {
+                countdownText += `${hours} godzin `;
+            }
+
+            if (minutes === 1 || minutes === 21 || minutes === 31 || minutes === 41 || minutes === 51) {
+                countdownText += `1 minuta `;
+            } else if (
+                (minutes >= 2 && minutes <= 4) ||
+                (minutes >= 22 && minutes <= 24) ||
+                (minutes >= 32 && minutes <= 34) ||
+                (minutes >= 42 && minutes <= 44) ||
+                (minutes >= 52 && minutes <= 54)
+            ) {
+                countdownText += `${minutes} minuty `;
+            } else {
+                countdownText += `${minutes} minut `;
+            }
+
+            if (seconds === 1) {
+                countdownText += `1 sekunda`;
+            } else if (seconds >= 2 && seconds <= 4) {
+                countdownText += `${seconds} sekundy`;
+            } else {
+                countdownText += `${seconds} sekund`;
+            }
+        } else if (customElementAttribute === 'en_US') {
+            if (days === 1) {
+                countdownText += `${days} day `;
+            } else {
+                countdownText += `${days} days `;
+            }
+
+            if (hours === 1) {
+                countdownText += `1 hour `;
+            } else {
+                countdownText += `${hours} hours `;
+            }
+
+            if (minutes === 1) {
+                countdownText += `1 minute `;
+            } else {
+                countdownText += `${minutes} minutes `;
+            }
+
+            if (seconds === 1) {
+                countdownText += `1 second`;
+            } else {
+                countdownText += `${seconds} seconds`;
+            }
+        }
+
+        element.innerHTML = countdownText;
+
+        if (distance > 0) {
+            setTimeout(function() {
+                startEndCountdown(element, targetDate);
+            }, 1000);
+        }
+    }
+}
+
+// NIE PRZEGAP <----------------------------------------------------------------------------------------------------------<
+if(document.querySelector('.custom-container-niePrzegap')) {
+  let niePrzegap = document.querySelector('.custom-container-niePrzegap');
+  let niePrzegapSmallText = document.querySelector('.custom-vertival-text-niePrzegap');
+  let idleTimeout = null; // Timeout dla braku interakcji
+
+  // Dodawanie klasy przy najechaniu
+  niePrzegap.addEventListener('mouseenter', function() {
+      niePrzegap.classList.add('hovered-cal');
+      clearTimeout(idleTimeout); // Resetowanie timera dla braku interakcji
+  });
+  // Usuwanie klasy przy opuszczeniu
+  niePrzegap.addEventListener('mouseleave', function() {
+      niePrzegap.classList.remove('hovered-cal');
+      resetujTimer();
+  });
+  // Pokazywanie elementu po 2 minutach
+  let niePrzegapTimer = setTimeout(function() {
+      niePrzegap.style.left = '0';
+      resetujTimer();
+  }, 120000);
+  // Ukrywanie elementu po 30 sekundach braku interakcji
+  function resetujTimer() {
+      clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(ukryjElement, 30000);
+  }
+  function resetujTimerNatychmiast() {
+      clearTimeout(niePrzegapTimer);
+      niePrzegapTimer = setTimeout(ukryjElement, 0);
+  }
+  // Ukrywanie elementu po najechaniu i opuszczeniu
+  niePrzegap.addEventListener('mouseleave', function() {
+      resetujTimerNatychmiast();
+  });
+  function ukryjElement() {
+      niePrzegap.style.left = '-250px';
+  }
+  // Anulowanie działania po najechaniu
+  niePrzegap.addEventListener('mouseenter', function() {
+      clearTimeout(niePrzegapTimer);
+      clearTimeout(idleTimeout);
+  });
+  // Anulowanie działania po opuszczeniu
+  niePrzegap.addEventListener('mouseleave', function() {
+      resetujTimer();
+  });
+  // Anulowanie działania bez ukrywania po kliknięciu
+  function anulujDzialanie() {
+      clearTimeout(niePrzegapTimer);
+      clearTimeout(idleTimeout);
+      niePrzegap.removeEventListener('mouseenter', anulujDzialanie);
+      niePrzegap.removeEventListener('mouseleave', resetujTimer);
+  }
+}
+    

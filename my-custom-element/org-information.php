@@ -1,8 +1,8 @@
 <div id="orgInfo"class="custom-container-org-info">
 
     <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
-        <div class="pl_PL bigtext" style="color:black !important; text-shadow: 2px 2px white;"><h1 class="bigtext-line0">Informacje organizacyjne dla Wystawców</h1></div>
-        <div class="en_US bigtext" style="color:black !important; text-shadow: 2px 2px white;"><h1 class="bigtext-line0">Organizational information for Exhibitors</h1></div>
+        <h1 class="pl_PL bigtext" style="color:black !important; text-shadow: 2px 2px white;"><span class="bigtext-line0">Informacje organizacyjne dla Wystawców</span></h1>
+        <h1 class="en_US bigtext" style="color:black !important; text-shadow: 2px 2px white;"><span class="bigtext-line0">Organizational information for Exhibitors</span></h1>
     </div>
 
     <div class="pl_PL custom-org-info-fixed-width single-block-padding">
@@ -318,27 +318,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-
-    const tradeFairDate = '[trade_fair_date]';
-    const tradeFairDateEn = '[trade_fair_date_eng]';
-    const tradeFair1stbuildday = '[trade_fair_1stbuildday]';
-    const tradeFair2ndbuildday = '[trade_fair_2ndbuildday]';
-    const tradeFair1stdismantlday = '[trade_fair_1stdismantlday]';
-    const tradeFair2stdismantlday = '[trade_fair_2stdismantlday]';
-    var customElementAttribute = document.querySelector('.custom_element:has(.custom-container-org-info)').attributes[0].nodeValue;
-
-    if (customElementAttribute === 'pl_PL') {
-        if (tradeFairDate.toLowerCase().includes("nowa data") || tradeFair1stbuildday === '' || tradeFair2ndbuildday === '' || tradeFair1stdismantlday === '' || tradeFair2stdismantlday === '') {
-            document.querySelector('.custom-org-info-block-dates').style.display = 'none';
-            document.querySelector('.custom-hidden-paragraph').style.display = 'block';
-        }
-    } else if (customElementAttribute === 'en_US') {
-        if (tradeFairDateEn.toLowerCase().includes("new date") || tradeFair1stbuildday === '' || tradeFair2ndbuildday === '' || tradeFair1stdismantlday === '' || tradeFair2stdismantlday === '') {
-            document.querySelector('.custom-org-info-block-dates-en').style.display = 'none';
-            document.querySelector('.custom-hidden-paragraph-en').style.display = 'block';
-        }
-    }
-
-</script>
