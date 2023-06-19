@@ -5,9 +5,9 @@
 </style>
 
 <div id="organizator" class="custom-container-organizator text-centered">
-  <div class="custom-movie-organizator"> 
+  <div class="custom-organizator-text">
   <div class='custom-inner-organizator text-left'>
-      <p class="border-top-left"  style="box-shadow: -3px -3px white; margin-bottom: -10px; ">&nbsp;</p>
+      <p class="border-top-left"  style="box-shadow: -3px -3px white; margin-bottom: -10px 0; ">&nbsp;</p>
       <h5 class="custom-organizator-header pl_PL" style="color:white !important;">O organizatorze</h5>
       <h5 class="custom-organizator-header en_US" style="color:white !important;">About the organizer</h5>
             <p  class="pl_PL" style="color:white !important;">
