@@ -6,6 +6,7 @@ const trade_name = inner_data.trade_name;
 const trade_desc = inner_data.trade_desc;
 const trade_name_en = inner_data.trade_name_en;
 const trade_desc_en = inner_data.trade_desc_en;
+
 /* JS */
 // ZNAJDYWANIE JĘZYKA
 if (document.querySelector('.custom_element')) {
@@ -42,10 +43,21 @@ document.querySelectorAll('.row-container').forEach(function(rowContainer) {
     if (rowContainer.querySelector('#customGallery') || 
         rowContainer.querySelector('.custom-container-organizator') ||
         rowContainer.querySelector('#faq') || 
+        rowContainer.querySelector('#main-timer') || 
         rowContainer.querySelector('#calendar-add')) {
         rowContainer.classList.add('style-accent-bg');
     }
   });
+  //  FULLSCREEN ROW CONTAINER
+  document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg) {
+    if (rowContainerBg.querySelector('.custom-container-organizator') ||
+        rowContainerBg.querySelector('.custom-container-org-info') ||
+        rowContainerBg.querySelector('.custom-container-calendar-main')) {
+          if (rowContainerBg.classList.contains("limit-width")) rowContainerBg.classList.remove("limit-width");
+            rowContainerBg.classList.add("full-width");
+          }
+  });
+
   // AKCENT BACKGROUND FULLSCREEN DO CUSTOM-ELEMENTU
   var rowContainerOrganizator = document.querySelector('.row-container:has(.custom-container-organizator)');
     if (rowContainerOrganizator) {
@@ -145,7 +157,9 @@ if(document.querySelector('.custom-container-org-info')){
 // TIMER <----------------------------------------------------------------------------------------------------------<
 if(document.querySelector('.custom-container-main-timer')) {
   if (!["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
+
     let now = new Date();
+
     timer1 = document.querySelector('.custom-main-timer-before');
     timer2 = document.querySelector('.custom-main-timer-after');
 
@@ -175,6 +189,7 @@ if(document.querySelector('.custom-container-main-timer')) {
         var now = new Date().getTime();
         targetDate = new Date(targetDate);
         var distance = targetDate - now;
+
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

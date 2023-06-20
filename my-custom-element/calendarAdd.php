@@ -3,26 +3,26 @@
         <div class='custom-header-calendarAdd'>
             <img src='/doc/logo.png'/>
             <div class='custom-header-text-calendarAdd pl_PL'>
-                <h2>[trade_fair_name]</h2>
-                <h2>[trade_fair_desc]</h2>
+                <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_name]</h2>
+                <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_desc]</h2>
             </div>
             <div class='custom-header-text-calendarAdd en_US'>
-                <h2>[trade_fair_name_eng]</h2>
-                <h2>[trade_fair_desc_eng]</h2>
+                <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_name_eng]</h2>
+                <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_desc_eng]</h2>
             </div>
         </div>
-        <div class='custom-header-calendar-add text-centered bigtext pl_PL'>
-            <h1 class="bigtext-line0 text-uppercase">Dodaj do kalendarza</h1>
+        <div class='custom-header-calendar-add text-centered pl_PL'>
+            <h1 class="text-uppercase" style="color:white !important; text-shadow: 2px 2px black;">Dodaj do kalendarza</h1>
         </div> 
-        <div class='custom-header-calendar-add text-centered bigtext en_US'>
-            <h1 class="bigtext-line0 text-uppercase">Add to calendar</h1>
+        <div class='custom-header-calendar-add text-centered en_US'>
+            <h1 class="text-uppercase" style="color:white !important; text-shadow: 2px 2px black;">Add to calendar</h1>
         </div>
 
         <div class='custom-text-calendar-add text-centered pl_PL'>
-            <h3>Wybierz ikonę swojej poczty aby dodać wydarzenie do kalendarza.</h4>
+            <h3 style="color:white !important; text-shadow: 2px 2px black;">Wybierz ikonę swojej poczty aby dodać wydarzenie do kalendarza.</h4>
         </div>
         <div class='custom-text-calendar-add text-centered en_US'>
-            <h3>Select your mail icon to add the event to your calendar.</h4>
+            <h3 style="color:white !important; text-shadow: 2px 2px black;">Select your mail icon to add the event to your calendar.</h4>
         </div>
     </div>
     <div class='custom-inner-calendar-icons text-centered style-accent-bg'>

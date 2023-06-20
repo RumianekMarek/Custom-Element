@@ -32,6 +32,8 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+1.6 - change organizator image for a iframe-youtube
+
 1.5.6 - Added:
                 all calendar files;
 
