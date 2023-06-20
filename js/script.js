@@ -6,7 +6,6 @@ const trade_name = inner_data.trade_name;
 const trade_desc = inner_data.trade_desc;
 const trade_name_en = inner_data.trade_name_en;
 const trade_desc_en = inner_data.trade_desc_en;
-
 /* JS */
 // ZNAJDYWANIE JĘZYKA
 if (document.querySelector('.custom_element')) {
@@ -146,9 +145,7 @@ if(document.querySelector('.custom-container-org-info')){
 // TIMER <----------------------------------------------------------------------------------------------------------<
 if(document.querySelector('.custom-container-main-timer')) {
   if (!["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
-
     let now = new Date();
-
     timer1 = document.querySelector('.custom-main-timer-before');
     timer2 = document.querySelector('.custom-main-timer-after');
 
@@ -176,8 +173,8 @@ if(document.querySelector('.custom-container-main-timer')) {
 
     function startEndCountdown(element, targetDate) {
         var now = new Date().getTime();
+        targetDate = new Date(targetDate);
         var distance = targetDate - now;
-
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
