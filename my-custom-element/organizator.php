@@ -25,14 +25,13 @@
 
 <div id="organizator" class="custom-container-organizator text-centered">
   <div class='custom-organizator-video'>
-    <iframe 
-
-    src="https://www.youtube.com/embed/dZJblpIVrcQ?autoplay=1&mute=1&loop=1&playlist=dZJblpIVrcQ&controls=0&showinfo=0" title="YouTube video player" 
-    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; muted" marginwidth="0"></iframe>
+    <iframe title="YouTube video player" frameborder="0" marginwidth="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; muted" 
+      data-src="https://www.youtube.com/embed/dZJblpIVrcQ?autoplay=1&mute=1&loop=1&playlist=dZJblpIVrcQ&controls=0&showinfo=0"></iframe>
   </div>
   <div class="custom-organizator-text style-accent-bg">
     <div class='custom-inner-organizator text-left'>
-      <p class="border-top-left"  style="box-shadow: -3px -3px white; margin: 10px -10px -40px -10px !important; ">&nbsp;</p>
+      <p class="border-top-left"  style="box-shadow: -3px -3px white; margin: 25px -10px -40px -10px !important; ">&nbsp;</p>
       <h5 class="custom-organizator-header pl_PL" style="color:white !important;">O organizatorze</h5>
       <h5 class="custom-organizator-header en_US" style="color:white !important;">About the organizer</h5>
       <p  class="pl_PL" style="color:white !important;">Ptak Warsaw Expo to przede wszystkim gwarancja doświadczenia. Już od blisko dekady organizujemy ponad 70 imprez rocznie na 143 000 m2 powierzchni wystawienniczej 6 nowoczesnych hal oraz 500 000 m2 powierzchni zewnętrznej. To pozycjonuje nas jako lidera branży targowej, dysponującego najbardziej innowacyjnym zapleczem organizacyjnym.

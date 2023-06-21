@@ -3,7 +3,7 @@
         <h2>Nie przegap targów, dodaj datę do kalendarza</h2>
     </div>
     <div class='en_US half-block-padding '>
-        <h2>Don't miss the fair, add the date to your calendar</h2>
+        <h3>Don't miss the fair, add the date to your calendar</h3>
     </div>
     <div class='custom-container-calendar-icons'>
         <?php include plugin_dir_path(__FILE__) . 'calendarGoogle.html'; ?> 

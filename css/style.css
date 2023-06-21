@@ -432,6 +432,9 @@
     .custom-organizator-video iframe{
         height:160vh !important;
     }
+    .custom-organizator-text{
+        padding: 1px 20px 50px 20px !important;
+        }
 }
 @media (max-width:570px){
     .custom-organizator-video iframe{

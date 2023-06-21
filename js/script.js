@@ -325,4 +325,25 @@ if(document.querySelector('.custom-container-niePrzegap')) {
       niePrzegap.removeEventListener('mouseleave', resetujTimer);
   }
 }
-    
+
+
+//AUTOMATYCZNY LAZY LOAD DLA IFRAMEÓW
+// w iframe wideo nie ustawiamy parametru "src" zamiast niego ustawiamy "data-src".
+// Filmik zoastanie załadowany dopiwero po zjechaniu do 1000px strony internetowej.
+const insertSrc = () => {
+  let iframes = document.querySelectorAll('iframe')
+  for (var i = 0; i < iframes.length; i++) {
+    if (!iframes[i].src && iframes[i].dataset.src) {
+      iframes[i].src = iframes[i].dataset.src;
+    }
+  }
+  window.removeEventListener('scroll', insertSrc);
+}
+
+let scrolled = false;
+window.addEventListener('scroll', function() {
+  if (!scrolled && window.pageYOffset >= 1000) {
+    insertSrc();
+    scrolled = true;
+  }
+});
