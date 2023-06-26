@@ -20,7 +20,7 @@
         </div>
 
         <!-- for-visitors-item -->
-        <div class="custom-content-visitors-item custom-align-left">
+        <div class="custom-content-visitors-item custom-align-left column-reverse">
             <div class="custom-visitors-text-block">
                 <div class="custom-visitors-text">
                     <p class="pl_PL">

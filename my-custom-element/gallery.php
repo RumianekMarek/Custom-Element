@@ -9,12 +9,12 @@
                 <div class="custom-gallery-thumbs-wrapper">
                     <div class="custom-gallery-thumbs">
                         <div class="custom-gallery-thumbs-top">
-                            <img src="/doc/galeria/Galeria-1.jpeg">
-                            <img src="/doc/galeria/Galeria-2.jpeg">
+                            <img class="mini-img" src="">
+                            <img class="mini-img" src="">
                         </div>
                         <div class="custom-gallery-thumbs-bottom">
-                            <img src="/doc/galeria/Galeria-3.jpeg">
-                            <img src="/doc/galeria/Galeria-4.jpeg">
+                            <img class="mini-img" src="">
+                            <img class="mini-img" src="">
                         </div>
                         <div class="custom-btn-container">
                             <span class="pl_PL">

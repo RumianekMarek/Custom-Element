@@ -1,4 +1,4 @@
-<div id='niePrzegap' class='custom-container-niePrzegap'>
+<div id='niePrzegap' class='custom-container-niePrzegap custom-container-niePrzegap-hide'>
     <div class='custom-inner-niePrzegap'>
         <div class='custom-header-niePrzegap pl_PL text-centered'>
             <h4>Dodaj wydarzenie<br> do kalendarza</h4>
