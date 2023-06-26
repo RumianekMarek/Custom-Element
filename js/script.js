@@ -178,22 +178,23 @@ if(document.querySelector('.custom-container-main-timer')) {
     }
   } else  { document.querySelector('#main-timer').style.display='none'; }
    
-    var startCountdownElement = document.getElementById('start-countdown');
-    var endCountdownElement = document.getElementById('end-countdown');
-    var customElementAttribute = document.querySelector('.custom_element:has(.custom-container-main-timer)').attributes[0].nodeValue;
+    const startCountdownElement = document.getElementById('start-countdown');
+    const endCountdownElement = document.getElementById('end-countdown');
+    
    
     startEndCountdown(startCountdownElement, trade_start);
     startEndCountdown(endCountdownElement, trade_end);
 
     function startEndCountdown(element, targetDate) {
-        var now = new Date().getTime();
+        const customElementAttribute = document.querySelector('.custom_element:has(.custom-container-main-timer)').attributes[0].nodeValue;
+        const now = new Date().getTime();
         targetDate = new Date(targetDate);
-        var distance = targetDate - now;
+        const distance = targetDate - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         var countdownText = '';
 
@@ -342,8 +343,67 @@ const insertSrc = () => {
 
 let scrolled = false;
 window.addEventListener('scroll', function() {
-  if (!scrolled && window.pageYOffset >= 1000) {
+  if (!scrolled && window.scrollY >= 1000) {
     insertSrc();
     scrolled = true;
   }
 });
+
+// HIDE CALENDAR IF NO DATE
+if(document.querySelector('.custom-container-calendar-main')) {
+  if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
+      document.querySelector('.custom-container-calendar-icons-hide').style.display='none';
+      document.querySelector('.custom-container-calendar-icons-empty').style.display='block';
+  } 
+}
+// HIDE 'NIE PRZEGAP' IF NO DATE
+if (document.querySelector('.custom-container-niePrzegap')) {
+  if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
+    document.querySelector('.custom-container-niePrzegap-hide').style.display='none';
+  }
+}
+// HIDE CONFIRMATION-CALENDAR IF NO DATE
+if (document.querySelector('.custom-container-onlyCalendar')) {
+  if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
+    document.querySelector('.row-container .row:has(.custom-container-onlyCalendar-hide)').style.display='none';
+  }
+}
+
+// LOGOS-EXHIBITORS 
+if (document.querySelector('.custom-container-exhibitors-gallery')) {
+  const galleryWrapper = document.querySelector('.custom-exhibitors-gallery-wrapper');
+  const logoExhibitors = document.querySelectorAll('.custom-logo-exhibitor');
+  const galleryItemCount = galleryWrapper.children.length;
+
+  logoExhibitors.forEach((logoExhibitor) => {
+    if (galleryItemCount > 18) {
+      logoExhibitor.style.width = '140px';
+      galleryWrapper.style.gap = '24px';
+    }
+  });
+  // HIDE CONTAINER LOGOS-EXHIBITORS IF ZERO EXHIBITORS
+  if (galleryItemCount < 1) {
+    document.querySelector('.row-container .row:has(.custom-container-exhibitors-gallery-hide)').style.display='none';
+  }
+}
+
+// REPLACE IMAGES IF MINI NOT FOUND
+// we can use it for any image on the page to which we add the .mini-img class
+// and which will have an empty "src"
+let miniImg = document.querySelectorAll('.mini-img');
+if (miniImg) {
+  miniImg.forEach((img, index) => {
+    if (img.src === '') {
+      img.src = `/doc/galeria/mini/mini-${index + 1}.jpg`;
+    } else {
+      img.src = `/doc/galeria/Galeria-${index + 1}.jpeg`;
+    }
+  });
+}
+
+
+
+
+
+
+

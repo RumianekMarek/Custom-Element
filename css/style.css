@@ -42,6 +42,7 @@
 }
 .custom-container-calendar-add img, .custom-header-calendarAdd img{
     max-height: 150px;
+    width: auto;
     max-width:100%;
 }
 @media (max-width:570px){
@@ -567,7 +568,7 @@
 .custom-btn-container a{
     box-shadow: 4px 4px 0px -1px black;
     transform-origin: center !important;
-    width:240px;
+    min-width:240px;
     margin:3px;
 }
 .link-text-underline a{
@@ -708,7 +709,7 @@ strong {
     }
 }
 
-/* .org-info */
+/* org-info */
 
 .row-container:has(.custom-container-org-info) .row-parent {
     padding: 0 !important;
@@ -737,5 +738,27 @@ strong {
 #dane-kontaktowe_en, #wazne-informacje_en, #procedury-stoisk_en, #rozladunek_en, #dokumenty_en {
     scroll-margin: 200px;
 } 
+
+/* logos-exhibitors */
+.custom-exhibitors-gallery-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+.custom-logo-exhibitor {
+    width: 150px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+@media (max-width: 600px) {
+    .custom-exhibitors-gallery-wrapper {
+        justify-content: space-around;
+        gap: 16px;
+    }
+    .custom-logo-exhibitor {
+        width: 120px;
+    }
+}
 
 

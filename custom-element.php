@@ -3,18 +3,45 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.6.2
+Version: 1.6.3
 Author: Marek Rumianek
 Author URI:
 */
 
+// Adres autoupdate
 include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://github.com/RumianekMarek/Custom-Element',
 	__FILE__,
 	'custom-element'
 );
+
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
+
+// // Plik dostępu do funkcji umożliwiającej przesyłanie plików na serwer
+// include_once plugin_dir_path(__FILE__) . '/FTP/dostepFTP.php';
+
+// function moja_wtyczka_dodaj_strone_menu() {
+//   add_menu_page(
+//       'Dostęp do katalogu', // Tytuł strony menu
+//       'Pliki-custome', // Wyświetlany tekst w menu
+//       'manage_options', // Wymagane uprawnienia
+//       'moja-wtyczka-dostep-do-katalogu', // Unikalny identyfikator strony
+//       'moja_wtyczka_wyswietl_strone_menu', // Funkcja wyświetlająca zawartość strony
+//       'dashicons-media-default', // Ikona w menu (opcjonalne)
+//       8 // Pozycja strony w menu (opcjonalne)
+//   );
+// }
+// // Kod funkcji dostępu do katalogu
+// function moja_wtyczka_wyswietl_strone_menu() {
+//   echo '<div class="wrap">';
+//   echo '<h1>Dostęp do katalogu</h1>';
+  
+//   // Wywołaj funkcję dostępu do katalogu
+//   dostep_do_katalogu();
+  
+//   echo '</div>';
+// }
 
 // Add the new WPBakery element
 function my_custom_wpbakery_element() {
@@ -45,6 +72,7 @@ function my_custom_wpbakery_element() {
           'For Exhibitors' => 'for-exhibitors.php',
           'For Visitors' => 'for-visitors.php',
           'Main Page Gallery - mini' => 'gallery.php',
+          'Nie przegap' => 'niePrzegap.php',
           'Gallery Slider' => 'gallery-slider.php',
           'Grupy zorganizowane' => 'grupy.php',
           'Informacje organizacyjne' => 'org-information.php',
@@ -272,6 +300,7 @@ function my_custom_element_scripts() {
   $css_version = filemtime(plugin_dir_path(__FILE__) . '/css/style.css');
   wp_enqueue_style('my-custom-element-css', $css_file, array(), $css_version);
 }
+add_action( 'admin_menu', 'moja_wtyczka_dodaj_strone_menu' );
 
 add_action('vc_before_init', 'my_custom_wpbakery_element');
 add_shortcode('my_custom_element', 'my_custom_element_output');

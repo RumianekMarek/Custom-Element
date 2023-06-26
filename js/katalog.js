@@ -1,9 +1,28 @@
-    	const exhibitors = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
+    	
+		const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
 
+		const exhibitors = exhibitorsAll.reduce((acc, curr) => {
+			const name = curr[1].Nazwa_wystawcy;
+			const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
+
+			if (!existingEntry) {
+				acc.push(curr);
+			}
+
+			return acc;
+		}, []);
+				document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg) {
+		if (rowContainerBg.querySelector('#cat') ||
+				rowContainerBg.querySelector('.custom-container-org-info') ||
+				rowContainerBg.querySelector('.custom-container-calendar-main')) {
+				if (rowContainerBg.classList.contains("limit-width")) rowContainerBg.classList.remove("limit-width");
+					rowContainerBg.classList.add("full-width");
+				}
+		});
       /* Spiner */
       const spinner = document.getElementsByClassName('spinner')[0];
       spinner.style.display = "none";
-                
+	   
     /*Segracja plików elementów ze wzlgędu na nazwę*/
 		/*  ----------------------FULL ------------------------    */
 		const catRoot = document.getElementById('cat');
@@ -107,7 +126,7 @@
 									${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
 									<div class="modal__elements-text">
 									<h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
-									${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tell:+48${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
+									${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 									${exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 									${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
 									${exhibitors[i][1].Opis_pl && localLang=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
@@ -126,7 +145,7 @@
 							<div class="modal__elements-img" style="background-image: url(${url});"></div>
 							<div class="modal__elements-text">
 							<h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
-							${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tell:+48${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
+							${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 								${exhibitors[i][1].Email  ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 								${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
 							<button class="close">Zamknij</button>
@@ -228,3 +247,4 @@
 
 			catRoot.appendChild(imageContainer);
 		}
+
