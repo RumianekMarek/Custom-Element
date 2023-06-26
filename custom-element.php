@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.6.3
+Version: 1.6.4
 Author: Marek Rumianek
 Author URI:
 */
@@ -18,30 +18,30 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-// // Plik dostępu do funkcji umożliwiającej przesyłanie plików na serwer
-// include_once plugin_dir_path(__FILE__) . '/FTP/dostepFTP.php';
+// Plik dostępu do funkcji umożliwiającej przesyłanie plików na serwer
+include_once plugin_dir_path(__FILE__) . '/FTP/dostepFTP.php';
 
-// function moja_wtyczka_dodaj_strone_menu() {
-//   add_menu_page(
-//       'Dostęp do katalogu', // Tytuł strony menu
-//       'Pliki-custome', // Wyświetlany tekst w menu
-//       'manage_options', // Wymagane uprawnienia
-//       'moja-wtyczka-dostep-do-katalogu', // Unikalny identyfikator strony
-//       'moja_wtyczka_wyswietl_strone_menu', // Funkcja wyświetlająca zawartość strony
-//       'dashicons-media-default', // Ikona w menu (opcjonalne)
-//       8 // Pozycja strony w menu (opcjonalne)
-//   );
-// }
-// // Kod funkcji dostępu do katalogu
-// function moja_wtyczka_wyswietl_strone_menu() {
-//   echo '<div class="wrap">';
-//   echo '<h1>Dostęp do katalogu</h1>';
+function moja_wtyczka_dodaj_strone_menu() {
+  add_menu_page(
+      'Dostęp do katalogu', // Tytuł strony menu
+      'Pliki-custome', // Wyświetlany tekst w menu
+      'manage_options', // Wymagane uprawnienia
+      'moja-wtyczka-dostep-do-katalogu', // Unikalny identyfikator strony
+      'moja_wtyczka_wyswietl_strone_menu', // Funkcja wyświetlająca zawartość strony
+      'dashicons-media-default', // Ikona w menu (opcjonalne)
+      8 // Pozycja strony w menu (opcjonalne)
+  );
+}
+// Kod funkcji dostępu do katalogu
+function moja_wtyczka_wyswietl_strone_menu() {
+  echo '<div class="wrap">';
+  echo '<h1>Dostęp do katalogu</h1>';
   
-//   // Wywołaj funkcję dostępu do katalogu
-//   dostep_do_katalogu();
+  // Wywołaj funkcję dostępu do katalogu
+  dostep_do_katalogu();
   
-//   echo '</div>';
-// }
+  echo '</div>';
+}
 
 // Add the new WPBakery element
 function my_custom_wpbakery_element() {
