@@ -11,14 +11,7 @@
 
 			return acc;
 		}, []);
-				document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg) {
-		if (rowContainerBg.querySelector('#cat') ||
-				rowContainerBg.querySelector('.custom-container-org-info') ||
-				rowContainerBg.querySelector('.custom-container-calendar-main')) {
-				if (rowContainerBg.classList.contains("limit-width")) rowContainerBg.classList.remove("limit-width");
-					rowContainerBg.classList.add("full-width");
-				}
-		});
+
       /* Spiner */
       const spinner = document.getElementsByClassName('spinner')[0];
       spinner.style.display = "none";

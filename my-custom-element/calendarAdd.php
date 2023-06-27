@@ -12,11 +12,11 @@
             </div>
         </div>
         <div class='custom-header-calendar-add text-centered pl_PL'>
-            <h1 class="text-uppercase" style="color:white !important; text-shadow: 2px 2px black;">Dodaj do kalendarza</h1>
+            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;"><span class="text-uppercase bigtext-line0">Dodaj do kalendarza</span></h1>
         </div> 
         <div class='custom-header-calendar-add text-centered en_US'>
-            <h1 class="text-uppercase" style="color:white !important; text-shadow: 2px 2px black;">Add to calendar</h1>
-        </div>
+            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;"><span class="text-uppercase bigtext-line0">Add to calendar</span></h1>
+        </div> 
 
         <div class='custom-text-calendar-add text-centered pl_PL'>
             <h3 style="color:white !important; text-shadow: 2px 2px black;">Wybierz ikonę swojej poczty aby dodać wydarzenie do kalendarza.</h4>

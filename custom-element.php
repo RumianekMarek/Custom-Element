@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 1.6.4
+Version: 2.0
 Author: Marek Rumianek
 Author URI:
 */
@@ -98,6 +98,32 @@ function my_custom_wpbakery_element() {
         'admin_label' => true
       ),
       array(
+        'type' => 'textarea',
+        'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
+        'param_name' => 'visitor1',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'admin_label' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-visitors.php')
+        ),
+        'rows' => 5
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
+        'param_name' => 'visitor2',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'admin_label' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-visitors.php')
+        ),
+        'rows' => 5
+      ),
+      array(
         'type' => 'dropdown',
         'heading' => __('Select a color', 'my-custom-plugin'),
         'param_name' => 'color',
@@ -173,6 +199,8 @@ function my_custom_element_output($atts, $content = null) {
     array(
       'file' => '',
       'element' => '',
+      'visitor1' => '',
+      'visitor2' => '',
       'color' => ''
     ),
     $atts

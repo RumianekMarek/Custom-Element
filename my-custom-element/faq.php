@@ -9,7 +9,7 @@
   <div class="pl_PL container-pytan half-block-padding link-text-underline">
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Gdzie odbywają się targi?</div>
-      <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">Targi odbywają się w <a href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">Targi odbywają się w <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Ile kosztuje bilet na targi?</div>
@@ -44,7 +44,7 @@
   <div class="en_US container-pytan half-block-padding">
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Where are the fairs held?</div>
-      <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">The fair takes place at<a href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">The fair takes place at<a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
     </div>
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">How much is the ticket to the fair?</div>

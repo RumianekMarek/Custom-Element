@@ -20,6 +20,10 @@
 .custom-inner-calendarAdd, .custom-container-calendar-icons{
     max-width: 1200px;
 }
+.custom-inner-calendarAdd img {
+    object-fit: contain;
+    max-width: 300px !important;
+}
 .custom-container-calendar-icons{ 
     top:-30px;
     position: relative; 

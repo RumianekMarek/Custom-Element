@@ -1,0 +1,82 @@
+.main-container-dostepFTP {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 450px;
+}
+.main-container-dostepFTP ul li {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #FCF8FF;
+    padding: 10px;
+    border-radius: 5px;
+}
+.main-container-dostepFTP ul li div {
+    max-width: 65%;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+}
+.main-container-dostepFTP ul li form {
+    text-align: end;
+    padding: 5px;
+}
+.main-container-dostepFTP input {
+    word-break: break-all;
+    background: inherit;
+    border: black solid 1px;
+    border-radius: 5px;
+    color: black;
+    padding: 4px 10px;
+    text-transform: uppercase;
+}
+.main-container-dostepFTP ul li form input:hover {
+    background: #eeeeee;
+    color: #333;
+    transition: .2s;
+}
+.dodaj-plik, .dodaj-folder {
+    padding: 10px 0;
+    display: flex;
+    gap: 20px;
+}
+.dodaj-plik > input[type=file] {
+    border: none;
+}
+.dodaj-folder > input[name=nowy_katalog] {
+    width: 70%;
+    text-transform: none;
+}
+.komunikat {
+    word-break: break-all;
+    background: #333;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+}
+.powrot {
+    display: flex;
+    width: 100px;
+    background: #333;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    transition: .2s;
+}
+.powrot:hover {
+    color: #eeeeee;
+}
+.powrot:before {
+    content: "\21B5";
+    padding: 0 5px;
+    font-size: 30px;
+}
+.dodaj-plik #file-upload-button {
+    padding: 4px 10px !important;
+}

@@ -1,7 +1,7 @@
 
 <div id="download" class="custom-download-container style-accent-bg shadow-black single-block-padding">
   <div class="single-media-wrapper wpb_column t-m-display-none half-block-padding" style="flex:1;">
-    <img style="filter: saturate(100%);" src="/wp-content/plugins/custom-element/my-custom-element/download-icon.png"/>
+    <img style="filter: saturate(100%);" src="/wp-content/plugins/custom-element/my-custom-element/media/download-icon.png"/>
   </div>
   
   <div style="flex:5">

@@ -142,17 +142,17 @@ const AppleCalendarFile = () => {
 if(document.querySelector('.custom-container-org-info')){
   var customElementAttribute = document.querySelector('.custom_element:has(.custom-container-org-info)').attributes[0].nodeValue;
   if (customElementAttribute === 'pl_PL') {
-    if (trade_date.toLowerCase().includes("nowa data")) {
+    if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
         document.querySelector('.custom-org-info-block-dates').style.display = 'none';
         document.querySelector('.custom-hidden-paragraph').style.display = 'block';
     }
 } else if (customElementAttribute === 'en_US') {
-    if (trade_date.toLowerCase().includes("nowa data")) {
+    if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
         document.querySelector('.custom-org-info-block-dates-en').style.display = 'none';
         document.querySelector('.custom-hidden-paragraph-en').style.display = 'block';
     }
-}
-} 
+  }
+}  
 
 // TIMER <----------------------------------------------------------------------------------------------------------<
 if(document.querySelector('.custom-container-main-timer')) {
@@ -357,7 +357,7 @@ if(document.querySelector('.custom-container-calendar-main')) {
   } 
 }
 // HIDE 'NIE PRZEGAP' IF NO DATE
-if (document.querySelector('.custom-container-niePrzegap')) {
+if (document.querySelectorAll('.custom-container-niePrzegap')) {
   if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
     document.querySelector('.custom-container-niePrzegap-hide').style.display='none';
   }

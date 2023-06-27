@@ -1,6 +1,6 @@
 <div id="voucher"class="custom-container-voucher">
     <div class="uncode-single-media-wrapper half-block-padding custom-min-media-wrapper" style="flex:1;">
-        <div class="image-shadow"><img style="vertical-align: bottom;" src="/wp-content/plugins/custom-element/my-custom-element/voucher.jpg" alt="grafika przykładowego vouchera"/></div>
+        <div class="image-shadow"><img style="vertical-align: bottom;" src="/wp-content/plugins/custom-element/my-custom-element/media/voucher.jpg" alt="grafika przykładowego vouchera"/></div>
     </div>
 
     <div class="half-block-padding" style="flex:1;">
