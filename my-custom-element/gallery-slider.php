@@ -1,5 +1,5 @@
 <?php
-$files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png}', GLOB_BRACE);
+$files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
 ?>
 <link href="/wp-content/plugins/custom-element/css/fotorama.css" rel="stylesheet">
 

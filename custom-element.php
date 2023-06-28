@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.0
+Version: 2.0.1
 Author: Marek Rumianek
 Author URI:
 */
@@ -72,6 +72,7 @@ function my_custom_wpbakery_element() {
           'For Exhibitors' => 'for-exhibitors.php',
           'For Visitors' => 'for-visitors.php',
           'Main Page Gallery - mini' => 'gallery.php',
+          'Mini-Galery' => 'mini-gallery.php',
           'Nie przegap' => 'niePrzegap.php',
           'Gallery Slider' => 'gallery-slider.php',
           'Grupy zorganizowane' => 'grupy.php',
@@ -99,29 +100,101 @@ function my_custom_wpbakery_element() {
       ),
       array(
         'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
+        'param_name' => 'exhibitor1',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 2', 'my-custom-plugin'),
+        'param_name' => 'exhibitor2',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 3', 'my-custom-plugin'),
+        'param_name' => 'exhibitor3',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 4', 'my-custom-plugin'),
+        'param_name' => 'exhibitor4',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 5', 'my-custom-plugin'),
+        'param_name' => 'exhibitor5',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Exhibitors 6', 'my-custom-plugin'),
+        'param_name' => 'exhibitor6',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
+        'heading' => __('Text for Main Page Gallery', 'my-custom-plugin'),
+        'param_name' => 'gallery',
+        'description' => __('Text ten pojawi się obok zdjęcia', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('gallery.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea',
         'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
         'param_name' => 'visitor1',
         'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
         'save_always' => true,
-        'admin_label' => true,
         'dependency' => array(
           'element' => 'element',
           'value' => array('for-visitors.php')
         ),
-        'rows' => 5
-      ),
-      array(
+      ),      array(
         'type' => 'textarea',
         'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
         'param_name' => 'visitor2',
         'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
         'save_always' => true,
-        'admin_label' => true,
         'dependency' => array(
           'element' => 'element',
           'value' => array('for-visitors.php')
         ),
-        'rows' => 5
       ),
       array(
         'type' => 'dropdown',
@@ -199,6 +272,13 @@ function my_custom_element_output($atts, $content = null) {
     array(
       'file' => '',
       'element' => '',
+      'exhibitor1' => '',
+      'exhibitor2' => '',
+      'exhibitor3' => '',
+      'exhibitor4' => '',
+      'exhibitor5' => '',
+      'exhibitor6' => '',
+      'gallery' => '',
       'visitor1' => '',
       'visitor2' => '',
       'color' => ''
@@ -246,7 +326,8 @@ function my_custom_element_output($atts, $content = null) {
         array('invert'),
         $file_cont
       );  
-    }     
+    }
+
     $file_cont = '<div custom-lang="' . $locale . '" class="custom_element">' . $file_cont . '</div>';
     return $file_cont;
   } else {
@@ -286,7 +367,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     'details' => $details,
     'format' => $format,
     'ticket' => $ticket
-    );
+  );
     
   // Twój kod dla tego elementu
   $output = '<div custom-lang="' . $locale . '" id="cat"></div>'; 

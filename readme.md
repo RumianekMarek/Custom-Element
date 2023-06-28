@@ -32,6 +32,11 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+2.0.1 - Added custom text fields for:
+                exhibitors;
+                gallery;
+                visitors.
+
 2.0 - Added entry to /doc/ ftp.
 
 1.6 - change organizator image for a iframe-youtube.

@@ -357,7 +357,7 @@ if(document.querySelector('.custom-container-calendar-main')) {
   } 
 }
 // HIDE 'NIE PRZEGAP' IF NO DATE
-if (document.querySelectorAll('.custom-container-niePrzegap')) {
+if (document.querySelector('.custom-container-niePrzegap')) {
   if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => trade_date.toLowerCase().includes(season.toLowerCase()))) {
     document.querySelector('.custom-container-niePrzegap-hide').style.display='none';
   }
@@ -388,15 +388,14 @@ if (document.querySelector('.custom-container-exhibitors-gallery')) {
 }
 
 // REPLACE IMAGES IF MINI NOT FOUND
-// we can use it for any image on the page to which we add the .mini-img class
-// and which will have an empty "src"
 let miniImg = document.querySelectorAll('.mini-img');
 if (miniImg) {
   miniImg.forEach((img, index) => {
-    if (img.src === '') {
-      img.src = `/doc/galeria/mini/mini-${index + 1}.jpg`;
+    let repeatedIndex = index % 4;
+    if (img.src) {
+      img.src = `/doc/galeria/mini/mini-${repeatedIndex + 1}.jpg`;
     } else {
-      img.src = `/doc/galeria/Galeria-${index + 1}.jpeg`;
+      img.src = `/doc/galeria/Galeria-${repeatedIndex + 1}.jpeg`;
     }
   });
 }
