@@ -387,20 +387,6 @@ if (document.querySelector('.custom-container-exhibitors-gallery')) {
   }
 }
 
-// REPLACE IMAGES IF MINI NOT FOUND
-let miniImg = document.querySelectorAll('.mini-img');
-if (miniImg) {
-  miniImg.forEach((img, index) => {
-    let repeatedIndex = index % 4;
-    if (img.src) {
-      img.src = `/doc/galeria/mini/mini-${repeatedIndex + 1}.jpg`;
-    } else {
-      img.src = `/doc/galeria/Galeria-${repeatedIndex + 1}.jpeg`;
-    }
-  });
-}
-
-
 
 
 

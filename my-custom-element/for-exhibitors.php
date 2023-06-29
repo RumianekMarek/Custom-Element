@@ -1,5 +1,6 @@
 
 <?php 
+    $exhibitorsImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
 ?>
 <div id="forExhibitors"class="custom-container-exhibitors">
@@ -15,7 +16,7 @@
                 <p class="pl_PL">
                     <?php if($exhibitor1 == '') { 
                     echo 'Targi w PTAK WARSAW EXPO to innowacyjne wydarzenia, w których udział biorą wystawcy z Polski i z zagranicy. Targi wyróżnia dostępność ogromnej, największej w Polsce powierzchni wystawienniczej, dającej wystawcom najlepsze, bo wręcz nieograniczone możliwości prezentacji swojej oferty.';
-                    } else {echo $exhibitor1;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor1));} ?>
                 </p>
                 <p class="en_US">
                     The fair at PTAK WARSAW EXPO is an innovative event featuring exhibitors from Poland and abroad. The fair is distinguished by the availability of a huge, the largest exhibition area in Poland, giving exhibitors the best, because almost unlimited opportunities to present their offer.
@@ -23,14 +24,22 @@
             </div>
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-3.jpeg"/>
+            <?php
+                $thirdImage = $exhibitorsImages[2];
+                $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
     </div>
 
     <!-- for-exhibitors-item -->
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-4.jpeg"/>
+            <?php
+                $fourthImage = $exhibitorsImages[3];
+                $shortPath = substr($fourthImage, strpos($fourthImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
         <div class="custom-exhibitors-text-block">
             <div class="custom-visitors-benefits-heading main-heading-text">
@@ -41,7 +50,7 @@
                 <p class="pl_PL">
                     <?php if($exhibitor2 == '') { 
                     echo 'To tysiące Twoich potencjalnych klientów! Biorąc udział w targach, w charakterze wystawcy, masz aż trzy targowe dni na pokazanie im swoich produktów i usług. A to nie wszystko. Dzięki szerokiej kampanii promocyjnej oraz dużemu zainteresowaniu mediów Twój brand dotrze także do setek tysięcy ludzi w Polsce i za granicą.';
-                    } else {echo $exhibitor2;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor2));} ?>
                 </p>
                 <p class="en_US">
                     That’s thousands of your potential customers! By participating in the fair, as an exhibitor, you have up to three fair days to show them your products and services. And that’s not all. Thanks to an extensive promotional campaign and a lot of media attention, your brand will also reach hundreds of thousands of people in Poland and abroad.
@@ -61,7 +70,7 @@
                 <p class="pl_PL">
                     <?php if($exhibitor3 == '') { 
                     echo 'W biznesie nie możesz pozwolić sobie na stanie w miejscu. Podczas szkoleń, seminariów i konferencji branżowych zdobędziesz cenną wiedzę, którą będziesz mógł wykorzystać w praktyce, a odwiedzając nasze targi odkryjesz najnowsze rozwiązania sprzętowe i produktowe.';
-                    } else {echo $exhibitor3;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor3));} ?>
                 </p>
                 <p class="en_US">
                     In business, you can’t afford to stand still. During training, seminars and industry conferences, you’ll gain valuable knowledge that you can put into practice, and by visiting our trade shows you’ll discover the latest equipment and product solutions.
@@ -69,14 +78,22 @@
             </div>
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-5.jpeg"/>
+            <?php
+                $fifthImage = $exhibitorsImages[4];
+                $shortPath = substr($fifthImage, strpos($fifthImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
     </div>
 
     <!-- for-exhibitors-item -->
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-6.jpeg"/>
+            <?php
+                $sixthImage = $exhibitorsImages[5];
+                $shortPath = substr($sixthImage, strpos($sixthImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
         <div class="custom-exhibitors-text-block">
             <div class="custom-visitors-benefits-heading main-heading-text">
@@ -87,7 +104,7 @@
                 <p class="pl_PL">
                     <?php if($exhibitor4 == '') { 
                     echo 'Podczas targów przeprowadzisz rozmowy i zbudujesz cenne relacje biznesowe, które zaowocują nowymi kontraktami. Targi to jedyna taka okazja by nie tylko zbudować bazę nowych klientów, ale także by usłyszeć o ich potrzebach, co pozwoli na jeszcze lepsze dopasowanie oferty do oczekiwań odbiorców, co w efekcie wpłynie na zwiększenie zysków firmy.';
-                    } else {echo $exhibitor4;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor4));} ?>
                 </p>
                 <p class="en_US">
                     During the fair you will hold discussions and build valuable business relationships that will result in new contracts. Trade fairs are a one-of-a-kind opportunity not only to build a base of new customers, but also to hear about their needs, which will allow you to tailor your offer even better to your customers’ expectations, which will ultimately increase your company’s profits.
@@ -107,7 +124,7 @@
                 <p class="pl_PL">
                     <?php if($exhibitor5 == '') { 
                     echo 'Ptak Warsaw Expo to największy i najnowocześniejszy kompleks targowy w Polsce, dedykowany wydarzeniom biznesowym, komercyjnym i rozrywkowym. Ideą jego powstania była organizacja targów, kongresów, szkoleń, imprez masowych i innych wydarzeń w oparciu o innowacyjny system wystawienniczy. Doskonała lokalizacja Ptak Warsaw Expo, usytuowanie obiektów 10 minut od największego w kraju portu lotniczego Lotnisko Chopina i 15 minut od ścisłego centrum Warszawy, sprawia, że PWE wypracowało sobie miano europejskiej stolicy biznesu.';
-                    } else {echo $exhibitor5;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor5));} ?>
                 </p>
                 <p class="en_US">
                     Ptak Warsaw Expo is the largest and most modern trade fair complex in Poland, dedicated to business, commercial and entertainment events. The idea behind its creation was to organize trade fairs, congresses, training courses, mass events and other events based on an innovative exhibition system. The excellent location of Ptak Warsaw Expo, situating the facilities 10 minutes from the country’s largest airport, Chopin Airport, and 15 minutes from the very center of Warsaw, makes PWE earn its name as the European capital of business.
@@ -115,14 +132,22 @@
             </div>
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-7.jpeg"/>
+            <?php
+                $seventhImage = $exhibitorsImages[6];
+                $shortPath = substr($seventhImage, strpos($seventhImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
     </div>
 
     <!-- for-exhibitors-item -->
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
-            <img class="image-shadow" src="/doc/galeria/Galeria-8.jpeg"/>
+            <?php
+                $eighthImage = $exhibitorsImages[7];
+                $shortPath = substr($eighthImage, strpos($eighthImage, '/doc/'));
+                echo '<img class="image-shadow" src="' . $shortPath . '">';
+            ?>
         </div>
         <div class="custom-exhibitors-text-block">
             <div class="custom-visitors-benefits-heading main-heading-text">
@@ -134,7 +159,7 @@
                     <?php if($exhibitor6 == '') { 
                     echo 'Nasza silna sieć kontaktów branżowych pozwala nam przyciągać na targi wystawców i sponsorów, zapewniając Państwu dostęp do najnowszych i najbardziej innowacyjnych produktów i usług w swojej branży. Zawsze szukamy nowych i ekscytujących sposobów na zwiększenie wrażeń z targów, zapewniając, że są one świeże i ekscytujące dla uczestników.
                     Nasz zespół jest elastyczny, potrafi dostosować się do zmieniających się okoliczności i nieprzewidzianych wyzwań, które mogą pojawić się podczas imprezy. Szybko podejmujemy decyzje i podejmujemy działania, aby targi przebiegły sprawnie i wszyscy mieli pozytywne doświadczenia.';
-                    } else {echo $exhibitor6;} ?>
+                    } else {echo urldecode(base64_decode($exhibitor6));} ?>
                 </p>
                 <p class="en_US">
                     Our strong network of industry contacts allows us to attract exhibitors and sponsors to the show, providing you with access to the latest and most innovative products and services in your industry. We are always looking for new and exciting ways to enhance the trade show experience, ensuring that it is fresh and exciting for attendees.

@@ -207,7 +207,7 @@
 				count++;
 			}
 			catRoot.appendChild(imageContainer);
-
+			
 			/*  ----------------------TOP 10 ------------------------    */
 		} else if (katalog_data.format == 'top10') {
 			const imageContainer = document.createElement('div');

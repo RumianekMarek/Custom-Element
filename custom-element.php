@@ -3,10 +3,24 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.0.1
+Version: 2.0.2
 Author: Marek Rumianek
 Author URI:
 */
+
+// Czyszczenie pamięci wp_rocket
+function clear_wp_rocket_cache_on_plugin_update( $plugin ) {
+  // Sprawdź, czy zaktualizowana wtyczka to twoja wtyczka
+  if ( 'custom-element/custom-element.php' === $plugin ) {
+    // Sprawdź, czy WP Rocket jest aktywny
+    if ( function_exists( 'rocket_clean_domain' ) ) {
+      // Wywołaj funkcję czyszczenia pamięci podręcznej WP Rocket
+      do_action( 'rocket_clear_cache' );
+    }
+  }
+}
+add_action( 'upgrader_process_complete', 'clear_wp_rocket_cache_on_plugin_update', 10, 2 );
+
 
 // Adres autoupdate
 include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
@@ -50,6 +64,7 @@ function my_custom_wpbakery_element() {
     'name' => __('My Custom Element', 'my-custom-plugin'),
     'base' => 'my_custom_element',
     'category' => __('My Elements', 'my-custom-plugin'),
+    'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . '/css/backendstyle.css',
     'params' => array(
       array(
         'type' => 'dropdown',
@@ -94,107 +109,9 @@ function my_custom_wpbakery_element() {
         'type' => 'textfield',
         'heading' => __('Select a file', 'my-custom-plugin'),
         'param_name' => 'file',
-        'description' => __('Select a file to display its contents.', 'my-custom-plugin'),
+        'description' => __('Select a file to display its gallerys.', 'my-custom-plugin'),
         'save_always' => true,
         'admin_label' => true
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
-        'param_name' => 'exhibitor1',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 2', 'my-custom-plugin'),
-        'param_name' => 'exhibitor2',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 3', 'my-custom-plugin'),
-        'param_name' => 'exhibitor3',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 4', 'my-custom-plugin'),
-        'param_name' => 'exhibitor4',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 5', 'my-custom-plugin'),
-        'param_name' => 'exhibitor5',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Exhibitors 6', 'my-custom-plugin'),
-        'param_name' => 'exhibitor6',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-exhibitors.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Main Page Gallery', 'my-custom-plugin'),
-        'param_name' => 'gallery',
-        'description' => __('Text ten pojawi się obok zdjęcia', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('gallery.php')
-        ),
-      ),
-      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
-        'param_name' => 'visitor1',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-visitors.php')
-        ),
-      ),      array(
-        'type' => 'textarea',
-        'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
-        'param_name' => 'visitor2',
-        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('for-visitors.php')
-        ),
       ),
       array(
         'type' => 'dropdown',
@@ -207,7 +124,114 @@ function my_custom_wpbakery_element() {
           'Black' => '#000000'
         ),
         'save_always' => true
-      )
+      ),
+      array(
+        'type' => esc_html__('textarea_raw_html'),
+        'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
+        'param_name' => 'exhibitor1',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor1),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Exhibitors 2', 'my-custom-plugin'),
+        'param_name' => 'exhibitor2',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor2),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Exhibitors 3', 'my-custom-plugin'),
+        'param_name' => 'exhibitor3',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor3),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Exhibitors 4', 'my-custom-plugin'),
+        'param_name' => 'exhibitor4',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor4),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Exhibitors 5', 'my-custom-plugin'),
+        'param_name' => 'exhibitor5',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor5),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Exhibitors 6', 'my-custom-plugin'),
+        'param_name' => 'exhibitor6',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($exhibitor6),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-exhibitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => esc_html__('Text for Main Page Gallery', 'my-custom-plugin'),
+        'param_name' => 'gallery',
+        'value' => base64_encode($gallery),
+        'save_always' => true,
+        'dependency' => array(
+            'element' => 'element',
+            'value' => array('gallery.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
+        'param_name' => 'visitor1',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($visitor1),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-visitors.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
+        'param_name' => 'visitor2',
+        'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+        'value' => base64_encode($visitor2),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('for-visitors.php')
+        ),
+      ),
     ),
     'description' => __( 'Enter description.', 'my-text-domain' )
   ));
@@ -409,6 +433,7 @@ function my_custom_element_scripts() {
   $css_version = filemtime(plugin_dir_path(__FILE__) . '/css/style.css');
   wp_enqueue_style('my-custom-element-css', $css_file, array(), $css_version);
 }
+
 add_action( 'admin_menu', 'moja_wtyczka_dodaj_strone_menu' );
 
 add_action('vc_before_init', 'my_custom_wpbakery_element');
