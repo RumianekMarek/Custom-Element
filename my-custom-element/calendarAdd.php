@@ -26,14 +26,14 @@
         </div>
     </div>
     <div class='custom-inner-calendar-icons text-centered style-accent-bg'>
-        <div class='custom-container-calendar-icons custom-container-calendar-icons-hide'>
+        <div class='custom-container-main-icons custom-container-calendar-icons custom-display-none'>
             <?php include plugin_dir_path(__FILE__) . 'calendarGoogle.html'; ?> 
             <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.html'; ?>
             <?php include plugin_dir_path(__FILE__) . 'calendarApple.html'; ?>
             <?php include plugin_dir_path(__FILE__) . 'calendarOffice365.html'; ?>
             <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.html'; ?>
         </div>
-        <div style="display:none;" class="custom-container-calendar-icons-empty double-bottom-padding double-top-padding">
+        <div class="custom-container-calendar-icons-empty double-bottom-padding double-top-padding custom-display-none">
             <h2 style="color:white !important; text-shadow: 2px 2px black; margin:0;" class='custom-uppercase text-centered pl_PL'>Nowa data wkrótce</h2>
             <h2 style="color:white !important; text-shadow: 2px 2px black; margin:0;" class='custom-uppercase text-centered en_US'>New date coming soon</h2>
         </div>

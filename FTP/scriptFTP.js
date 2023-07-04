@@ -1,8 +1,17 @@
 const PotwierdzenieUsuniecia = (event) => {
-    event.target.style.display = 'none';
+    event.target.classList.toggle('display-none')
+    const eventer = event.target.parentNode.querySelectorAll('.display-none');
 
-    setTimeout(() => {
-        event.target.parentNode[4].style.display = 'block';
-    }, 2000);
+    if (event.target.classList.contains('usuwam')){
+        setTimeout(() => {
+            for(i=1; i<eventer.length; i++){
+                eventer[i].classList.toggle('display-none')
+            }
+        }, 1000);
+    } else {
+        for(i=1; i<eventer.length; i++){
+            eventer[i].classList.toggle('display-none')
+        }
+    }
     
 }

@@ -1,4 +1,4 @@
-<div id='onlyCalendar' class='custom-container-onlyCalendar custom-container-onlyCalendar-hide text-centered'>
+<div id='onlyCalendar' class='custom-container-onlyCalendar custom-display-none text-centered'>
     <div class='pl_PL half-block-padding'>
         <h3>Nie przegap targów, dodaj datę do kalendarza</h3>
     </div>

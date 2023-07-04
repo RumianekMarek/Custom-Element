@@ -1,7 +1,7 @@
 <?php
-$files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-?>
-<link href="/wp-content/plugins/custom-element/css/fotorama.css" rel="stylesheet">
+    $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    ?>
+<link href="/wp-content/plugins/custom-element/my-custom-element/css/fotorama.css" rel="stylesheet">
 
 <div id="customSliderGallery" class="custom-container-slider-gallery">
     <div class="custom-slider-gallery-wrapper" style="margin: 0 auto; max-width: 1000px;">
@@ -31,4 +31,4 @@ $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG
     </div>
 </div>
 
-<script src="/wp-content/plugins/custom-element/js/fotorama.js"></script>
+<script src="/wp-content/plugins/custom-element/my-custom-element/js/fotorama.js"></script>

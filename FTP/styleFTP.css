@@ -1,8 +1,11 @@
+.display-none{
+    display:none;
+}
 .main-container-dostepFTP {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 450px;
+    gap: 5px;
+    max-width: 600px;
 }
 .main-container-dostepFTP ul li {
     width: 100%;
@@ -31,7 +34,6 @@
     border-radius: 5px;
     color: black;
     padding: 4px 10px;
-    text-transform: uppercase;
 }
 .main-container-dostepFTP ul li form input:hover {
     background: #eeeeee;

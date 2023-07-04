@@ -19,7 +19,7 @@
 
         <div id="dane-kontaktowe" class="custom-org-info-content-item">
             <h2>1. Dane kontaktowe, terminy montaży, demontaży i godzin otwarcia targów.</h2>
-            <div class="custom-org-info-block-dates" style="display:block;">
+            <div class="custom-org-info-block-dates custom-display-none">
                 <h5>Obsługa Wystawców: <a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a></h5>
                 <h5>Montaż stoisk:</h5>
                 <ul>
@@ -37,7 +37,7 @@
                     <li>Dla Odwiedzających – 10:00 – 17:00</li>
                 </ul> 
             </div>
-            <h4 id="customHiddenParagraphPl" class="custom-hidden-paragraph" style="display:none;">Wszystkie szczegóły pojawią się wkrótce</h4>
+            <h4 id="customHiddenParagraphPl" class="custom-hidden-paragraph custom-display-none">Wszystkie szczegóły pojawią się wkrótce</h4>
         </div>
 
         <div id="wazne-informacje" class="custom-org-info-content-item">
@@ -176,7 +176,7 @@
         <div id="dane-kontaktowe_en" class="custom-org-info-content-item">
             <h2>1.Contact details, assembly and disassembly dates, trade fair opening hours. </h2>
             
-            <div class="custom-org-info-block-dates-en" style="display:block;">
+            <div class="custom-org-info-block-dates-en custom-display-none">
                 <h5>Exhibitors’ support: <a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a></h5>
                 <h5>Stand assembly:</h5>
                 <ul>
@@ -194,7 +194,7 @@
                     <li>For visitors  - 10 a.m. – 6 p.m.</li>
                 </ul>
             </div>
-            <h4 id="customHiddenParagraphEn" class="custom-hidden-paragraph-en" style="display:none;">All details will appear soon</h4>
+            <h4 id="customHiddenParagraphEn" class="custom-hidden-paragraph-en custom-display-none">All details will appear soon</h4>
         </div>
 
         <div id="wazne-informacje_en" class="custom-org-info-content-item">
