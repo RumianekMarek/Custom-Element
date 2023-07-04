@@ -25,7 +25,6 @@ function moja_wtyczka_wyswietl_strone_menu() {
 }
 
 // Kod funkcji dostępu do katalogu
-session_start();
 
 function dostep_do_katalogu() {
     echo '<div class="wrap main-container-dostepFTP">';
