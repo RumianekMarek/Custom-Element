@@ -44,6 +44,7 @@ function my_custom_wpbakery_element() {
             'Visitors Benefits' => 'visitors-benefits.php',
             'Voucher' => 'voucher.php',
             'Wydarzenia - ogólne informacje' => 'wydarzenia-ogolne.php',
+            'Wypromój się na targach' => 'promote-yourself.php'
             'Zabudowa' => 'zabudowa.php',
           ),
           'save_always' => true,

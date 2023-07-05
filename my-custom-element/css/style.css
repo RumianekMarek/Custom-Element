@@ -766,4 +766,33 @@
 strong {
     color: inherit !important;
 }
-
+/*Promote yourself */
+.custom-content-promote-item {
+    padding:0 5px 25px 5px;
+    flex-wrap: wrap;
+}
+.custom-content-promote-item .custom-content-promote-element {
+    flex:1;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 250px;
+}
+.custom-content-promote-item div .img-bg  {
+    width: 250px;
+    min-height: 150px;
+}
+.custom-content-promote-item div .btn {
+    transform: none !important;
+}
+.custom-content-promote-item div .btn-container {
+    display: flex;
+    justify-content: center;
+}
+.custom-content-promote-item__help {
+    width: 80%;
+}
+@media (max-width:950px){
+    .custom-content-promote-item__help {
+        width: 100%;
+    }
+}

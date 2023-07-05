@@ -49,7 +49,13 @@
 			divContainer.classList.add('exhibitors');
 			const divContainerHeader = document.createElement('div');
 			divContainerHeader.classList.add('exhibitor__header');
-			divContainerHeader.innerHTML = '<div class="pl_PL"><h1>Katalog wystawców</h1></div><div class="en_US"><h1>Exhibitor Catalog</h1></div>';
+
+			if(localLang=="pl_PL"){
+				divContainerHeader.innerHTML = `<div class="pl_PL"><h1>Katalog wystawców</h1><h2 style="text-align: center;">${katalog_data.name}</h2></div>`;
+			} else {
+				divContainerHeader.innerHTML = `<div class="en_US"><h1>Exhibitor Catalog</h1><h2  style="text-align: center;">${katalog_data.name_en}</h2></div>`;
+			}
+			
 			divContainerHeader.style.backgroundImage = "url(/doc/background.jpg)";
 
 			const inputSearch = document.createElement('input');

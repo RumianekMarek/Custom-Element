@@ -73,6 +73,8 @@ $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_
 
 $json = file_get_contents($canUrl);
 $data = json_decode($json, true);
+$name = do_shortcode('[trade_fair_name]');
+$name_eng = do_shortcode('[trade_fair_name_eng]');
 
 $script_data = array(
     'data' => $data,
@@ -80,9 +82,11 @@ $script_data = array(
     'id_targow' => $id_targow,
     'details' => $details,
     'format' => $format,
-    'ticket' => $ticket
+    'ticket' => $ticket,
+    'name' => $name,
+    'name_en' => $name_eng,
 );
-    
+  
 // Twój kod dla tego elementu
 $output = '<div custom-lang="' . $locale . '" id="cat"></div>'; 
 $output .= '<div class="spinner"></div>';

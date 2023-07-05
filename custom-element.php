@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.0.3
+Version: 2.0.4
 Author: Marek Rumianek
 Author URI:
 */
@@ -32,15 +32,19 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-// Edytor plików dostepFTP
-include_once plugin_dir_path(__FILE__) . '/FTP/main-dostepFTP.php';
-
 // My Custom Element
 include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';
 
 // Katalog wystawców
 include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
 
+if (is_admin()) {
+  // Edytor plików dostepFTP
+  include_once plugin_dir_path(__FILE__) . '/FTP/main-dostepFTP.php';
+  
+  // opisy do Mediów
+  // include_once plugin_dir_path(__FILE__) . 'opisy-mediow/opisy-mediow.php';
+}
 // Enqueue JavaScript and CSS files
 function my_custom_element_scripts() {
   $trade_date = do_shortcode('[trade_fair_date]');
