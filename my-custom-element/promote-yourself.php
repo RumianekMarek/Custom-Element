@@ -57,41 +57,98 @@
         <p class="en_US">If you need more, write to us and we will try to help! Only by working together are we able to achieve success.</p>
     </div>
     <!-- promote-yourself-docs -->
-    <div class="custom-flex custom-content-promote-item custom-shadow-border-black">
-        <div class="custom-column custom-content-promote-element">
+    <?php
+    if ($show_banners != 'true') {
+        echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black">';
+    } else {
+        echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black custom-hide-promote">';
+    }
+    ?>
+    <?php
+if ($show_banners != 'true') {
+    $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+    $base_url .= "://".$_SERVER['HTTP_HOST'];
+    
+    echo '<div class="custom-column custom-content-promote-element">
             <h3 class="pl_PL">Pobierz banery</h3>
-            <h3 class="en_US">Download banners</h3>
-            <p>800×800</p>
+            <h3 class="en_US">Download banners</h3>';
+                
+    $file_path = glob('doc/wypromuj/wypromuj_800_pl.*');
+    if (!empty($file_path)) {
+        $file_path = $file_path[0];
+        $file_url = $base_url . '/' . $file_path;
+        echo '
+            <p class="pl_PL">800×800</p>
             <div class="pl_PL">
                 <span class="btn-container">
-                    <a href="/doc/wypromuj/wypromuj_800_pl.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Pobierz<i class="fa fa-inbox2"></i></a>
+                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Pobierz<i class="fa fa-inbox2"></i></a>
                 </span>
             </div>
-            <div class="en_US">
-                <span class="btn-container">
-                    <a href="/doc/wypromuj/wypromuj_800_en.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Download <i class="fa fa-inbox2"></i></a>
-                </span>
-            </div>
-            <p>1200x200</p>
-            <div class="pl_PL">
-                <span class="btn-container">
-                    <a href="/doc/wypromuj/wypromuj_1200_pl.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">Pobierz<i class="fa fa-inbox2"></i></a>
-                </span>
-            </div> 
-            <div class="en_US">
-                <span class="btn-container">
-                    <a href="/doc/wypromuj/wypromuj_1200_en.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Download <i class="fa fa-inbox2"></i></a>
-                </span>
-            </div>
-        </div>
+            ';
+    }
+            
+    $file_path = glob('doc/wypromuj/wypromuj_800_en.*');
+    if (!empty($file_path)) {
+        $file_path = $file_path[0];
+        $file_url = $base_url . '/' . $file_path;
+        echo '
+        <p class="en_US">800×800</p>
+        <div class="en_US">
+            <span class="btn-container">
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Download <i class="fa fa-inbox2"></i></a>
+            </span>
+        </div>';
+    }
+            
+    $file_path = glob('doc/wypromuj/wypromuj_1200_pl.*');
+    if (!empty($file_path)) {
+        $file_path = $file_path[0];
+        $file_url = $base_url . '/' . $file_path;
+        echo ' <p class="pl_PL">1200x200</p>
+                <div class="pl_PL">
+                    <span class="btn-container">
+                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">Pobierz<i class="fa fa-inbox2"></i></a>
+                    </span>
+                </div> ';
+    }
+
+    $file_path = glob('doc/wypromuj/wypromuj_1200_en.*');
+    if (!empty($file_path)) {
+        $file_path = $file_path[0];
+        $file_url = $base_url . '/' . $file_path;
+        echo '
+        <p class="en_US">1200x200</p>
+        <div class="en_US">
+            <span class="btn-container">
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawcow">Download <i class="fa fa-inbox2"></i></a>
+            </span>
+        </div>';
+    }
+    
+    echo '
+    </div>';
+    }
+    ?>
+    
         <div class="custom-column custom-content-promote-element">
             <h3 class="pl_PL">Pobierz logo</h3>
             <h3 class="en_US">Download logo</h3>
             <p><strong>[trade_fair_name]</strong></p>
-            <div style="background-image:url('/doc/logo.png'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>
+            
+        
+            <?php
+            
+            if($promote_yourself != 'true') { 
+                $backgroundImage = "/doc/logo.png"; 
+                } else {
+                    $backgroundImage = "/doc/logo-color.png";
+                } 
+                echo '<div style="background-image:url(\'' . $backgroundImage . '\'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>';
+            ?>
+
             <div class="pl_PL">
                 <span class="btn-container">
-                    <a href="/doc/logo.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">Pobierz<i class="fa fa-inbox2"></i></a>
+                            <a href="/doc/logo.png" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">Pobierz<i class="fa fa-inbox2"></i></a>
                 </span>
             </div>
             <div class="en_US">

@@ -56,14 +56,16 @@
                             } else {echo urldecode(base64_decode($gallery));} ?></p>
                         <h3 style="margin: 0;" class="en_US">[trade_fair_desc_eng]</h3>
                         <p class="en_US">[trade_fair_name_eng] is a new industry event that aims to bring together leading companies, technical experts and practitioners related to the [super_shortcode_2] sector in Poland and the entire Central and Eastern European region. The fair offers an excellent opportunity to establish business relationships, showcase innovative technologies and exchange knowledge and experience. [trade_fair_name_eng] is a place where innovation meets practical demand, and the potential of the [super_shortcode_2] industry is exploited to the maximum.</p>
-                        <div class="custom-btn-container">
-                            <span class="pl_PL">
-                                <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>
-                            </span>
-                            <span class="en_US">
-                                <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>
-                            </span>
-                        </div>
+                        <?php if($tickets_available !== 'true'){
+                        echo'<div class="custom-btn-container">';
+                            echo'<span class="pl_PL">';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
+                            echo'</span>';
+                            echo'<span class="en_US">';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>';
+                            echo'</span>';
+                        echo'</div>';
+                        } ?>
                     </div>
                 </div>
             </div>

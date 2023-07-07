@@ -514,7 +514,7 @@
 /* route */
 
 .custom-route-title-wrapper h4 {
-    width: auto;
+    width: auto !important;
 }
 .custom-route-transport-item-img {
     display: flex;
@@ -568,7 +568,7 @@
     .custom-route-transport-block, 
     .custom-route-image-bg-block, 
     .custom-route-area-block {
-        width: 100%;
+        width: 100% !important;
     }
     .custom-route-image-bg h3 {
         font-size: 18px !important;
@@ -626,14 +626,24 @@
 } 
 
 /* logos catalog */
-.custom-logos-gallery-wrapper {
+.custom-logos-gallery-slider {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
+    padding-bottom: 18px;
+}
+.slick-track {
+    display: flex !important;
+    gap: 20px !important;
+}
+.custom-logos-title {
+    width: 1200px;
+    margin: 0 auto;
 }
 .custom-logo-item {
-    width: 150px;
+    width: 140px;
+    min-width: 100%;
     aspect-ratio: 3/2;
     object-fit: contain;
 }
@@ -645,6 +655,65 @@
     .custom-logo-item {
         width: 120px;
     }
+}
+/* dots styles */
+.slick-dots-viewport {
+    overflow: hidden;
+    display: block;
+    padding: 0;
+    margin: 20px auto;
+    height: auto;
+    position: relative;
+}
+.slick-dots-viewport .slick-dots {
+    padding: 5px 0 !important;
+    display: flex;
+    transition: all 1s;
+    position: relative;
+    margin: 0;
+    list-style: none;
+    transform: translateX(0);
+    bottom: 0;
+}
+.slick-dots-viewport .slick-dots li {
+    width: 10px;
+    height: 10px;
+    margin: 0 8px;
+    opacity: .5;
+    border: none;
+    border-radius: 50%;
+}
+.slick-dots-viewport .slick-dots li button {
+    font-size: 10px;
+    line-height: 100%;
+    display: block;
+    width: 10px;
+    height: 10px;
+    padding: 5px 0;
+    margin: 0 8px;
+    cursor: pointer;
+    color: transparent;
+    outline: 0;
+    background: transparent;
+}
+.slick-dots-viewport .slick-dots li {
+    transform: scale(1);
+}
+.slick-dots-viewport .slick-dots li.tiny {
+    transform: scale(0.25);
+}
+.slick-dots-viewport .slick-dots li.small {
+    transform: scale(0.75);
+}
+.slick-dots-viewport .slick-dots li.slick-active {
+    transform: scale(1.5);
+    opacity: 1;
+}
+.slick-dots li button:before {
+    display: none;
+}
+.slick-dotted.slick-slider {
+    margin-bottom: 36px !important;
 }
 
 /* voucher */
@@ -776,6 +845,7 @@ strong {
     justify-content: space-between;
     align-items: center;
     min-width: 250px;
+    display:flex !important;
 }
 .custom-content-promote-item div .img-bg  {
     width: 250px;
@@ -783,6 +853,8 @@ strong {
 }
 .custom-content-promote-item div .btn {
     transform: none !important;
+    white-space: unset !important;
+    font-size: 16px;
 }
 .custom-content-promote-item div .btn-container {
     display: flex;
@@ -791,8 +863,15 @@ strong {
 .custom-content-promote-item__help {
     width: 80%;
 }
+.custom-hide-promote {
+    width: 66%;
+    margin: 0 auto;
+}
 @media (max-width:950px){
     .custom-content-promote-item__help {
+        width: 100%;
+    }
+    .custom-hide-promote {
         width: 100%;
     }
 }

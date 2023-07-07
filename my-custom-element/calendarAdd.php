@@ -11,11 +11,13 @@
                 <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_desc_eng]</h2>
             </div>
         </div>
-        <div class='custom-header-calendar-add text-centered pl_PL'>
-            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;"><span class="text-uppercase bigtext-line0">Dodaj do kalendarza</span></h1>
-        </div> 
-        <div class='custom-header-calendar-add text-centered en_US'>
-            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;"><span class="text-uppercase bigtext-line0">Add to calendar</span></h1>
+        <div class='custom-header-calendar-add text-centered'>
+            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;">
+                <span class="text-uppercase bigtext-line0">
+                    <span class="pl_PL">Dodaj do kalendarza</span>
+                    <span class="en_US">Add to calendar</span>
+                </span>
+            </h1>
         </div> 
 
         <div class='custom-text-calendar-add text-centered pl_PL'>
