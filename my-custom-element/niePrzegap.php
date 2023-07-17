@@ -1,4 +1,4 @@
-<div id='niePrzegap' class='custom-container-niePrzegap'>
+<div id='niePrzegap' class='custom-container-niePrzegap custom-display-none'>
     <div class='custom-inner-niePrzegap'>
         <div class='custom-header-niePrzegap text-centered'>
             <h4>
