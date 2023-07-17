@@ -2,16 +2,18 @@
 
     <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
         <h1 class="bigtext" style="color:black !important; text-shadow: 2px 2px white;">
-            <span class="bigtext-line0">
-                <span class="pl_PL">Informacje organizacyjne dla Wystawców</span>
-                <span class="en_US">Organizational information for Exhibitors</span>
+            <span class="bigtext-line0">               
+                <?php if($locale == 'pl_PL'){ echo '
+                Informacje organizacyjne dla Wystawców
+                ';} else { echo '
+                Organizational information for Exhibitors
+                ';} ?>
             </span>
         </h1>
     </div>
-
-    <div class="pl_PL custom-org-info-fixed-width single-block-padding">
+    <?php if($locale == 'pl_PL'){ echo '
+    <div class="custom-org-info-fixed-width single-block-padding">
         <div class="custom-org-info-content-item">
-            <h2>Informacje organizacyjne dla Wystawców</h2>
             <ol>
                 <a href="#dane-kontaktowe"><li>Dane kontaktowe, terminy montaży, demontaży i godzin otwarcia targów.</li></a>
                 <a href="#wazne-informacje"><li>Ważne informacje techniczne PTAK WARSAW EXPO (PWE): podłączenia prądu, wody, Internetu, dopuszczalne obciążenie powierzchni ekspozycyjnej, maksymalna masa elementów podwieszanych, maksymalna wysokość zabudowy.</li></a>
@@ -164,24 +166,23 @@
             </ul>
         </div>
     </div>
-
-    <div class="en_US custom-org-info-fixed-width single-block-padding">
-        <div class="custom-org-info-content-item">
-            <h2>Organizational information for Exhibitors</h2>
+    ';} else { echo "
+    <div class='custom-org-info-fixed-width single-block-padding'>
+        <div class='custom-org-info-content-item'>
             <ol>
-                <a href="#dane-kontaktowe_en"><li>Contact details, assembly and disassembly dates, trade fair opening hours.</li></a>
-                <a href="#wazne-informacje_en"><li>PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</li></a>
-                <a href="#procedury-stoisk_en"><li>Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</li></a>
-                <a href="#rozladunek_en"><li>Information on unloading, courier packages and forwarding in PWE.</li></a>
-                <a href="#dokumenty_en"><li>Dokumenty do pobrania.</li></a>
+                <a href='#dane-kontaktowe_en'><li>Contact details, assembly and disassembly dates, trade fair opening hours.</li></a>
+                <a href='#wazne-informacje_en'><li>PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</li></a>
+                <a href='#procedury-stoisk_en'><li>Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</li></a>
+                <a href='#rozladunek_en'><li>Information on unloading, courier packages and forwarding in PWE.</li></a>
+                <a href='#dokumenty_en'><li>Dokumenty do pobrania.</li></a>
             </ol>
         </div>
 
-        <div id="dane-kontaktowe_en" class="custom-org-info-content-item">
+        <div id='dane-kontaktowe_en' class='custom-org-info-content-item'>
             <h2>1.Contact details, assembly and disassembly dates, trade fair opening hours. </h2>
             
-            <div class="custom-org-info-block-dates-en custom-display-none">
-                <h5>Exhibitors’ support: <a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a></h5>
+            <div class='custom-org-info-block-dates custom-display-none'>
+                <h5>Exhibitors’ support: <a href='mailto:konsultanttechniczny@warsawexpo.eu'>konsultanttechniczny@warsawexpo.eu</a></h5>
                 <h5>Stand assembly:</h5>
                 <ul>
                     <li>individual installation: [trade_fair_1stbuildday], [trade_fair_2ndbuildday].</li>
@@ -198,10 +199,10 @@
                     <li>For visitors  - 10 a.m. – 6 p.m.</li>
                 </ul>
             </div>
-            <h4 id="customHiddenParagraphEn" class="custom-hidden-paragraph-en custom-display-none">All details will appear soon</h4>
+            <h4 id='customHiddenParagraphEn' class='custom-hidden-paragraph custom-display-none'>All details will appear soon</h4>
         </div>
 
-        <div id="wazne-informacje_en" class="custom-org-info-content-item">
+        <div id='wazne-informacje_en' class='custom-org-info-content-item'>
             <h2>2. PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</h2>
             <h5>Electrical connections:</h5>
             <p>
@@ -235,7 +236,7 @@
             <p><strong>MAXIMUM HEIGHT OF INDIVIDUAL STANDS CONSTRUCTION:</strong> in accordance with the stand’s technical plan from the Organizer.</p>
         </div>
 
-        <div id="procedury-stoisk_en" class="custom-org-info-content-item">
+        <div id='procedury-stoisk_en' class='custom-org-info-content-item'>
             <h2>3. Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</h2>
             <p>Collection of the stands takes place in the Exhibitors' Technical Service Point located on the premises of PWE.</p>
             <p>Additional orders or changes to the construction of the stands will be implemented, if possible, on the stand’s collection day.</p>
@@ -257,7 +258,7 @@
             On the premises of PWE, it is strictly forbidden to use open fire, machines such as grinders or welding machines, as well as dusting tools without an extraction vacuum cleaner.  
             </p>
             <p>Collection of the space along with the ordered connections takes place in the Exhibitors' Technical Service Point located on the premises of PWE. </p>
-            <p>Collecting the stand space along with the media connections for the construction of the stand takes place on the day of assembly, based on the <a href="https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf" target="_blank" rel="noopener"><strong>Exhibition Area Acceptance Report.</strong></a></p>
+            <p>Collecting the stand space along with the media connections for the construction of the stand takes place on the day of assembly, based on the <a href='https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf' target='_blank' rel='noopener'><strong>Exhibition Area Acceptance Report.</strong></a></p>
             <p>The person collecting the space, if it is not the Exhibitor (e.g. the building contractor), should have an original authorization document signed and stamped by the Exhibitor. Persons authorized by the Exhibitor to construct the building in order to move freely around the Fair grounds should have technical IDs, which will be available at the Exhibitors' Technical Service Point. Technical IDs should be completed with the details of the persons authorized to assemble the stand.</p>
             <p>Technical IDs are valid only during assembly and disassembly and do not authorize entry to the Fair during the event.</p>
             <p>Stands, their furnishings and decorations must be made only of non-flammable materials or protected with flame retardants with an appropriate level of slow flammability. The Exhibitor is obliged to present the Organizer with an appropriate certificate confirming the flammability level of the materials.</p>
@@ -290,14 +291,14 @@
             <p>Entry of vans and trucks for disassembly is possible only after the Fair ends.</p>
         </div>
 
-        <div id="rozladunek_en" class="custom-org-info-content-item">
+        <div id='rozladunek_en' class='custom-org-info-content-item'>
             <h2>4. Information on unloading, courier packages and forwarding in PWE.</h2>
             <p>Materials unloading and transporting on the premises of PWE - EXHIBITORS USING COURIER COMPANIES ARE OBLIGED TO PERSONALLY COLLECT THE PACKAGES.</p>
             <p>The delivery of goods and fair displays during the Fair must be completed at least 30 minutes before the opening of the Fair. On other days, it should take place during the assembly hours of the stands.</p>
             <p>The Organizer is not responsible for packages sent to Exhibitors, therefore no shipment will be collected from a courier company at the Exhibitors' Technical Service Point.</p>
             <h5>The following companies have exclusivity for transport services (e.g. driving forklifts in the exhibition halls and other transport vehicles):</h5>
-            <p>NETLOG POLSKA Sp. z o.o.<br>Rafał Skrobutan<br>Koordynator/ Coordinator<br>tel. +48 22 256 70 55<br>tel. +48 668 890 274<br>e-mail <a href="mailto:rafal.skrobutan@netlog.org.pl">rafal.skrobutan@netlog.org.pl</a><br><a href="http://www.netlog.org.pl">www.netlog.org.pl</a></p>
-            <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href="mailto:marcin@transmeble.com.pl">marcin@transmeble.com.pl</a></p>
+            <p>NETLOG POLSKA Sp. z o.o.<br>Rafał Skrobutan<br>Koordynator/ Coordinator<br>tel. +48 22 256 70 55<br>tel. +48 668 890 274<br>e-mail <a href='mailto:rafal.skrobutan@netlog.org.pl'>rafal.skrobutan@netlog.org.pl</a><br><a href='http://www.netlog.org.pl'>www.netlog.org.pl</a></p>
+            <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href='mailto:marcin@transmeble.com.pl'>marcin@transmeble.com.pl</a></p>
             <p>The Official Freight Forwarder of the Fair provides exclusive unloading / loading services on the premises of PWE with the use of mechanical devices, i.e. forklifts and crane trucks. Therefore, on the premises of PWE, it is forbidden for Exhibitors and third parties to use mechanical devices for unloading, e.g. cranes, mechanical forklifts, to the premises of the facility, without the consent of the Organizer or the Official Freight Forwarder of the Fair.</p>
             <h5>The Freight Forwarder provides services through:</h5>
             <ul>
@@ -309,16 +310,16 @@
             </ul>
         </div>
 
-        <div id="dokumenty_en" class="custom-org-info-content-item">
+        <div id='dokumenty_en' class='custom-org-info-content-item'>
             <h2>5. Documents to download PL</h2>
-            <ul style="list-style-type: lower-latin;">
-                <a target="_blank" href="https://warsawexpo.eu/docs/Oswiadczenie-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf"><li>Oświadczenie wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>
-                <a target="_blank" href="https://warsawexpo.eu/docs/Upowaznienie-dla-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf"><li>Upoważnienie dla wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>
-                <a target="_blank" href="https://warsawexpo.eu/docs/Oswiadczenie-dotyczace-podwieszenia-elementow-na-stoisku.pdf"><li>Oświadczenie dotyczące podwieszenia elementów na stoisku</li></a>
-                <a target="_blank" href="https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf"><li>Protokół odbioru powierzchni wystawowej</li></a>
-                <a target="_blank" href="https://warsawexpo.eu/docs/Akredytacja-dla-zewnetrznej-firmy-zabudowujacej.pdf"><li>Akredytacja dla zewnętrznej firmy zabudowującej</li></a>
+            <ul style='list-style-type: lower-latin;'>
+                <a target='_blank' href='https://warsawexpo.eu/docs/Oswiadczenie-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf'><li>Oświadczenie wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>
+                <a target='_blank' href='https://warsawexpo.eu/docs/Upowaznienie-dla-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf'><li>Upoważnienie dla wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>
+                <a target='_blank' href='https://warsawexpo.eu/docs/Oswiadczenie-dotyczace-podwieszenia-elementow-na-stoisku.pdf'><li>Oświadczenie dotyczące podwieszenia elementów na stoisku</li></a>
+                <a target='_blank' href='https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf'><li>Protokół odbioru powierzchni wystawowej</li></a>
+                <a target='_blank' href='https://warsawexpo.eu/docs/Akredytacja-dla-zewnetrznej-firmy-zabudowujacej.pdf'><li>Akredytacja dla zewnętrznej firmy zabudowującej</li></a>
             </ul>
         </div>
     </div>
-
+    ";} ?>
 </div>

@@ -1,6 +1,8 @@
 <?php
 // Kod funkcji dostępu do katalogu
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 function moja_wtyczka_dodaj_strone_menu() {
   add_menu_page(

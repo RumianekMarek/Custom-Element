@@ -18,25 +18,27 @@ function my_custom_wpbakery_element() {
             'Select' => '',
             'Adres Ptak Warsaw Expo' => 'ptakAdress.php',
             'Dodaj do kalendarza' => 'calendarAdd.php',
-            'Dodaj do Google Kalendarz' => 'calendarGoogle.html',
-            'Dodaj do Outlook Kalendarz' => 'calendarOutlook.html',
-            'Dodaj do Office 365 Kalendarz' => 'calendarOffice365.html',
-            'Dodaj do Yahoo Kalendarz' => 'calendarYahoo.html',
-            'Dodaj do Apple Kalendarz' => 'calendarApple.html',
+            'Dodaj do Google Kalendarz' => 'calendarGoogle.php',
+            'Dodaj do Outlook Kalendarz' => 'calendarOutlook.php',
+            'Dodaj do Office 365 Kalendarz' => 'calendarOffice365.php',
+            'Dodaj do Yahoo Kalendarz' => 'calendarYahoo.php',
+            'Dodaj do Apple Kalendarz' => 'calendarApple.php',
             'Kalendarz do potwierdzenia' => 'confCalendar.php',
             'Dokumenty' => 'download.php',
             'Exhibitors-benefits'=> 'exhibitors-benefits.php',
+            'Footer' => 'footer.php',
             'FAQ' => 'faq.php',
             'For Exhibitors' => 'for-exhibitors.php',
             'For Visitors' => 'for-visitors.php',
-            'Main Page Gallery - mini' => 'gallery.php',
-            'Mini-Galery' => 'mini-gallery.php',
-            'Nie przegap' => 'niePrzegap.php',
             'Gallery Slider' => 'gallery-slider.php',
             'Grupy zorganizowane' => 'grupy.php',
+            'Header' => 'header-custom.php',
             'Informacje organizacyjne' => 'org-information.php',
             'Kontakt' => 'kontakt.php',
             'Logotype Gallery' => 'logos-catalog.php',
+            'Main Page Gallery - mini' => 'gallery.php',
+            'Mini-Galery' => 'mini-gallery.php',
+            'Nie przegap' => 'niePrzegap.php',
             'Organizator' => 'organizator.php',
             'Mapka dojazdu' => 'route.php',
             'Ramka Facebook' => 'socialMedia.php',
@@ -164,10 +166,21 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'textfield',
+          'heading' => esc_html__('Galery name', 'my-custom-plugin'),
+          'param_name' => 'titlelogoen',
+          'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
           'type' => 'checkbox',
-          'heading' => __('Dispaly different logo', 'my-custom-plugin'),
-          'param_name' => 'promote_yourself',
-          'description' => __('Check Yes to display different color logo.', 'my-custom-plugin'),
+          'heading' => __('Hide baners to download', 'my-custom-plugin'),
+          'param_name' => 'show_banners',
+          'description' => __('Check Yes to hide download options for baners.', 'my-custom-plugin'),
           'admin_label' => true,
           'save_always' => true,
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -178,9 +191,9 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
-          'heading' => __('Hide baners', 'my-custom-plugin'),
-          'param_name' => 'show_banners',
-          'description' => __('Check Yes to hide download options for baners.', 'my-custom-plugin'),
+          'heading' => __('Dispaly different logo color', 'my-custom-plugin'),
+          'param_name' => 'logo_color_promote',
+          'description' => __('Check Yes to display different logo color.', 'my-custom-plugin'),
           'admin_label' => true,
           'save_always' => true,
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -252,6 +265,49 @@ function my_custom_wpbakery_element() {
             'value' => array('for-visitors.php')
           ),
         ),
+        array(
+          'type' => 'checkbox',
+          'heading' => __('Button on', 'my-custom-plugin'),
+          'param_name' => 'button_on',
+          'description' => __('Select options to display button:', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(
+            __('register', 'my-custom-plugin') => 'register',
+            __('ticket', 'my-custom-plugin') => 'ticket',
+            __('conference', 'my-custom-plugin') => 'conference',
+          ),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('header-custom.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'heading' => __('Logo color', 'my-custom-plugin'),
+          'param_name' => 'logo_color',
+          'description' => __('Check Yes to display logo color.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('header-custom.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'heading' => __('Fair partner', 'my-custom-plugin'),
+          'param_name' => 'fair_partner',
+          'description' => __('Check Yes to display fair partner.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('header-custom.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -261,28 +317,37 @@ function my_custom_wpbakery_element() {
 function my_custom_element_output($atts, $content = null) {
     // Get the current language of the website
     $locale = get_locale();
-  
-    $color = isset($atts['color']) ? $atts['color'] : '';
-    $element = isset($atts['element']) ? $atts['element'] : '';
-    $exhibitor1 = isset($atts['exhibitor1']) ? $atts['exhibitor1'] : '';
-    $exhibitor2 = isset($atts['exhibitor2']) ? $atts['exhibitor2'] : '';
-    $exhibitor3 = isset($atts['exhibitor3']) ? $atts['exhibitor3'] : '';
-    $exhibitor4 = isset($atts['exhibitor4']) ? $atts['exhibitor4'] : '';
-    $exhibitor5 = isset($atts['exhibitor5']) ? $atts['exhibitor5'] : '';
-    $exhibitor6 = isset($atts['exhibitor6']) ? $atts['exhibitor6'] : '';
-    $file = isset($atts['file']) ? $atts['file'] : '';
-    $gallery = isset($atts['gallery']) ? $atts['gallery'] : '';
-    $logoscatalog = isset($atts['logoscatalog']) ? $atts['logoscatalog'] : '';
-    $promote_yourself = isset($atts['promote_yourself']) ? $atts['promote_yourself'] : '';
-    $show_banners = isset($atts['show_banners']) ? $atts['show_banners'] : '';
-    $showurl = isset($atts['showurl']) ? $atts['showurl'] : '';
-    $visitor1 = isset($atts['visitor1']) ? $atts['visitor1'] : '';
-    $visitor2 = isset($atts['visitor2']) ? $atts['visitor2'] : '';
-    $show_slider = isset($atts['show_slider']) ? $atts['show_slider'] : '';
-    $tickets_available = isset($atts['tickets_available']) ? $atts['tickets_available'] : '';
 
-    // Przekazywanie zmiennych z atts zadeklarowanych powyzej do scriptów JS
-    echo '<script> if(typeof show_slider == "undefined") var show_slider = "' . $show_slider . '";</script>';
+    $trade_date = do_shortcode('[trade_fair_date]');
+    $trade_start = do_shortcode('[trade_fair_datetotimer]');
+    $trade_end = do_shortcode('[trade_fair_enddata]');
+    $trade_name = do_shortcode('[trade_fair_name]');
+    $trade_desc = do_shortcode('[trade_fair_desc]');
+    $trade_name_en = do_shortcode('[trade_fair_name_eng]');
+    $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
+
+    if (isset($atts['color'])) { $color = $atts['color']; }
+    if (isset($atts['element'])) { $element = $atts['element']; }
+    if (isset($atts['exhibitor1'])) { $exhibitor1 = $atts['exhibitor1']; }
+    if (isset($atts['exhibitor2'])) { $exhibitor2 = $atts['exhibitor2']; }
+    if (isset($atts['exhibitor3'])) { $exhibitor3 = $atts['exhibitor3']; }
+    if (isset($atts['exhibitor4'])) { $exhibitor4 = $atts['exhibitor4']; }
+    if (isset($atts['exhibitor5'])) { $exhibitor5 = $atts['exhibitor5']; }
+    if (isset($atts['exhibitor6'])) { $exhibitor6 = $atts['exhibitor6']; }
+    if (isset($atts['file'])) { $file = $atts['file']; }
+    if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
+    if (isset($atts['logoscatalog'])) { $logoscatalog = $atts['logoscatalog']; }
+    if (isset($atts['titlelogoen'])) { $titlelogoen = $atts['titlelogoen']; }
+    if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
+    if (isset($atts['logo_color_promote'])) { $logo_color_promote = $atts['logo_color_promote']; }
+    if (isset($atts['showurl'])) { $showurl = $atts['showurl']; }
+    if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
+    if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
+    if (isset($atts['show_slider'])) { $show_slider = $atts['show_slider']; }
+    if (isset($atts['tickets_available'])) { $tickets_available = $atts['tickets_available']; }
+    if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
+    if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }
+    if (isset($atts['fair_partner'])) { $fair_partner = $atts['fair_partner']; }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
@@ -299,8 +364,8 @@ function my_custom_element_output($atts, $content = null) {
   
       if ($color != '') {
         $file_cont = str_replace(
-          array('color:white !important', 'color:black !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black'),
-          array('color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color),
+          array('color:white !important', 'color:black !important','color:#ffffff !important', 'color:#000000 !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black'),
+          array('color:'.$color.' !important', 'color:'.$color.' !important','color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color),
           $file_cont
         );  
       }
@@ -326,7 +391,7 @@ function my_custom_element_output($atts, $content = null) {
         );  
       }
   
-      $file_cont = '<div custom-lang="' . $locale . '" class="custom_element">' . $file_cont . '</div>';
+      $file_cont = '<div class="custom_element">' . $file_cont . '</div>';
       return $file_cont;
     } else {
       echo '<script>console.error("File not found: ' . $file_path . '");</script>';

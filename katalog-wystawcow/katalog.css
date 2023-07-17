@@ -72,7 +72,7 @@
 }
 
 .exhibitors__container-list-text-name {
-    font-size: 15px;
+    font-size: 15px !important;
     line-height: 1.2rem;
     font-weight: 700;
     margin: 0 auto;

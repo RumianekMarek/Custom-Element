@@ -77,10 +77,10 @@
 				if (item[1].URL_logo_wystawcy) {
 					singleExhibitorElementHTML = `	
 						<div class="exhibitors__container-list-img" style="background-image: url(${item[1].URL_logo_wystawcy})"></div>
-						<p class="exhibitors__container-list-text-name">${item[1].Nazwa_wystawcy}</p>`;
+						<h2 class="exhibitors__container-list-text-name">${item[1].Nazwa_wystawcy}</p>`;
 				} else {
 					singleExhibitorElementHTML = `
-						<p class="exhibitors__container-list-text-name">${item[1].Nazwa_wystawcy}</p>`;
+						<h2 class="exhibitors__container-list-text-name">${item[1].Nazwa_wystawcy}</p>`;
 				}
 
 				singleExhibitor.innerHTML = singleExhibitorElementHTML;

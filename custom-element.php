@@ -3,9 +3,10 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.0.5
+Version: 2.0.6
 Author: Marek Rumianek
-Author URI:
+Współtwórcy: Jakub Choła , Anton Melnychuk
+Author URI: github.com/RumianekMarek
 */
 
 // Czyszczenie pamięci wp_rocket

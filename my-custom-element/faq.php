@@ -1,12 +1,14 @@
 <div id="faq" class="custom-container-faq style-accent-bg custom-align-left" style="color:white !important;">
-  <div class="heading-text el-text secondary-heading-text half-block-padding pl_PL">
-    <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white !important;">Poznaj odpowiedzi na najczęściej zadawane pytania</h4>
-  </div>
-  <div class="heading-text el-text secondary-heading-text half-block-padding en_US">
-    <h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white !important;">Get answers to the most frequently asked questions</h4>
+  <div class="heading-text el-text secondary-heading-text half-block-padding">
+  <?php if($locale == 'pl_PL'){
+    echo '<h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white !important;">Poznaj odpowiedzi na najczęściej zadawane pytania</h4>';
+  } else {  
+    echo '<h4 style="color:white !important; box-shadow: 9px 9px 0px -6px white !important;">Get answers to the most frequently asked questions</h4>';
+  } ?>
   </div>
   
-  <div class="pl_PL container-pytan half-block-padding link-text-underline">
+  <div class="container-pytan half-block-padding link-text-underline">
+  <?php if($locale == 'pl_PL'){ echo '
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Gdzie odbywają się targi?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">Targi odbywają się w <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
@@ -38,10 +40,8 @@
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Czy jest dostępna szatnia? Czy mogę zostawić walizkę w szatni?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">Tak. Na terenie hal znajdują się szatnie i będzie można zostawić w nich małą walizkę.</div>
-    </div>  
-  </div>
-
-  <div class="en_US container-pytan half-block-padding">
+    </div> ';
+  } else { echo '
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Where are the fairs held?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">The fair takes place at<a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
@@ -73,7 +73,8 @@
     <div class="pytanie-odpowiedz">
       <div class="pytanie half-block-padding" style="color:white !important; border-bottom:1px solid white;">Is there a cloakroom available? Can I leave my suitcase in the cloakroom?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; border-bottom:1px solid white;">Yes. There are cloakrooms in the halls and you will be able to leave a small suitcase in them.</div>
-    </div>  
+    </div> ';
+  } ?>
   </div>
 
 </div>
