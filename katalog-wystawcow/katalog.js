@@ -1,4 +1,5 @@
-    	
+
+		console.log(katalog_data.text_color+';'+katalog_data.text_shadow)
 		const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
 
 		const exhibitors = exhibitorsAll.reduce((acc, curr) => {
@@ -51,9 +52,9 @@
 			divContainerHeader.classList.add('exhibitor__header');
 
 			if(localLang=="pl_PL"){
-				divContainerHeader.innerHTML = `<div class="pl_PL"><h1>Katalog wystawców</h1><h2 style="text-align: center;">${katalog_data.name}</h2></div>`;
+				divContainerHeader.innerHTML = `<div><h1 style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">Katalog wystawców</h1><h2 align="center" style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">${katalog_data.name}</h2></div>`;
 			} else {
-				divContainerHeader.innerHTML = `<div class="en_US"><h1>Exhibitor Catalog</h1><h2  style="text-align: center;">${katalog_data.name_en}</h2></div>`;
+				divContainerHeader.innerHTML = `<div><h1 style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">Exhibitor Catalog</h1><h2 align="center" style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">${katalog_data.name_en}</h2></div>`;
 			}
 			
 			divContainerHeader.style.backgroundImage = "url(/doc/background.jpg)";
@@ -246,4 +247,3 @@
 
 			catRoot.appendChild(imageContainer);
 		}
-

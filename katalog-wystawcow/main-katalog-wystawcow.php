@@ -13,6 +13,18 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
               'description' => __( 'Enter trade fair ID number.', 'my-custom-plugin' ),
               'save_always' => true,
               'admin_label' => true
+            ),
+          array(
+            'type' => 'dropdown',
+            'heading' => __('Select a color', 'my-custom-plugin'),
+            'param_name' => 'color',
+            'description' => __('Select a color for the element.', 'my-custom-plugin'),
+            'value' => array(
+              'Default' => '',
+              'White' => '#ffffff',
+              'Black' => '#000000'
+            ),
+            'save_always' => true
           ),
           array(
             'type' => 'checkbox',
@@ -55,7 +67,8 @@ extract( shortcode_atts( array(
     'identification' => '',
     'details' => '',
     'format' => '',
-    'ticket' => ''
+    'ticket' => '',
+    'color' => ''
 ), $atts ) );
 
 $locale = get_locale();
@@ -63,6 +76,14 @@ $locale = get_locale();
 // If 'format' is not 'Top10', force 'ticket' to be false
 if ($format !== 'top10') {
     $ticket = 'false';
+}
+
+if ($color === '' || $color === '#ffffff'){
+  $text_color = 'color:white !important';
+  $text_shadow = 'text-shadow: 2px 2px black';
+} else {
+  $text_color = 'color:black !important';
+  $text_shadow = 'text-shadow: 2px 2px white';
 }
 
 $id_targow = $identification;
@@ -85,6 +106,8 @@ $script_data = array(
     'ticket' => $ticket,
     'name' => $name,
     'name_en' => $name_eng,
+    'text_color' => $text_color,
+    'text_shadow' => $text_shadow,
 );
   
 // Twój kod dla tego elementu
