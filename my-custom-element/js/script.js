@@ -6,9 +6,10 @@ const trade_name = inner_data.trade_name;
 const trade_desc = inner_data.trade_desc;
 const trade_name_en = inner_data.trade_name_en;
 const trade_desc_en = inner_data.trade_desc_en;
-var localLang = document.querySelector('.custom_element').getAttribute('custom-lang');
+if (document.querySelector('.cat')) var localLang = document.querySelector('.cat').getAttribute('custom-lang');
 
 if (document.querySelector('.custom_element')) {
+  var localLang = document.querySelector('.custom_element').getAttribute('custom-lang');
 //   var lang;
 
 //   if (localLang === 'pl_PL') {
