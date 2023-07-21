@@ -1,5 +1,4 @@
 
-		console.log(katalog_data.text_color+';'+katalog_data.text_shadow)
 		const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
 
 		const exhibitors = exhibitorsAll.reduce((acc, curr) => {
@@ -102,7 +101,7 @@
 			const allExhibitorsArray = document.getElementsByClassName('exhibitors__container-list');
 			inputSearch.addEventListener("input", () => {
 				for (let i = 0; i < allExhibitorsArray.length; i++) {
-					const exhibitorsNames = allExhibitorsArray[i].getElementsByTagName('p')[0].innerText.toLocaleLowerCase();
+					const exhibitorsNames = allExhibitorsArray[i].getElementsByTagName('h2')[0].innerText.toLocaleLowerCase();
 					let isVisible = exhibitorsNames.includes(inputSearch.value.toLocaleLowerCase());
 					allExhibitorsArray[i].classList.toggle("hide-post", !isVisible);
 					allExhibitorsArray[i].classList.toggle("show-post", isVisible);
@@ -170,9 +169,8 @@
 					});
 				});
 			};
-			/* PL -- En */
-			
-			
+
+			/* PL -- En */		
 			if (localLang == 'pl_PL') {
 				var lang = document.querySelectorAll('.pl_PL');
 				for (var i = 0; i < lang.length; i++) {
