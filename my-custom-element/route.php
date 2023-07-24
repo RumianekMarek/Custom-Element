@@ -2,7 +2,7 @@
     <div id="dojazd"class="custom-container-route">
 
         <div class="custom-route-title-wrapper">
-            <h4 class="pl_PL custom-align-center">
+            <h4 class="custom-align-center">
             <?php if($locale == 'pl_PL'){ echo '
                     PTAK WARSAW EXPO – NAJLEPIEJ SKOMUNIKOWANE CENTRUM TARGOWE W POLSCE!
                 ';} else { echo '
@@ -86,7 +86,7 @@
         <div class="custom-route-area-wrapper custom-align-left custom-full-gap">
             <div class="custom-route-image-bg-block custom-half-width">
                 <div style="background-image: url('/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg');" class="custom-route-image-bg shadow-black">
-                    <h3 class="pl_PL color-white">
+                    <h3 class="color-white">
                         <?php if($locale == 'pl_PL'){ echo '
                             Największy obiekt targowy w Polsce oraz Europie Środkowo-Wschodniej
                         ';} else { echo ' 

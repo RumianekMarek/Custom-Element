@@ -1,6 +1,7 @@
 <?php
-$base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-$base_url .= "://".$_SERVER['HTTP_HOST'];
+    include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
+    $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+    $base_url .= "://".$_SERVER['HTTP_HOST'];
 ?>
 
 <div id="customFooter" class="custom-footer">
@@ -72,7 +73,12 @@ $base_url .= "://".$_SERVER['HTTP_HOST'];
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            <div class="custom-footer-nav-logo-bottom logo-invert-white"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>
+                            ';
+                            if($footer_logo_color != 'true'){
+                                echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>';
+                            } else {
+                                echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-color.png"></a></div>';
+                            } echo '
                         </div>
                     </div>   
     
@@ -125,7 +131,20 @@ $base_url .= "://".$_SERVER['HTTP_HOST'];
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            <div class="custom-footer-nav-logo-bottom logo-invert-white"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>
+                            ';
+                            if($footer_logo_color != 'true'){
+                                if (file_exists('doc/logo-en.png')) { 
+                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-en.png"></a></div>';
+                                } else {
+                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>';
+                                }         
+                            } else {
+                                if (file_exists('doc/logo-color-en.png')) { 
+                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-color-en.png"></a></div>';
+                                } else {
+                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-en.png"></a></div>';
+                                }         
+                            } echo '
                         </div>
                     </div>   
 

@@ -305,6 +305,7 @@
 }
 .custom-main-timer-btn a {
     background-color: black;
+    border: none !important;
 }
 @media (max-width:570px){
     .custom-main-timer-before p,
@@ -722,6 +723,11 @@
     margin-bottom: 0px !important;
 }
 
+/* wydarzenia */
+.media-logos .custom-logos-gallery-wrapper{
+    padding-top: 0 !important;
+}
+
 /* voucher */
 .custom-container-voucher{
     display:flex;
@@ -839,6 +845,15 @@
 strong {
     color: inherit !important;
 }
+.logo-invert-white img{
+    filter: brightness(0) invert(1);
+}
+.shadow-black {
+    box-shadow: 9px 9px 0px -5px black;
+ }
+ .shadow-white{
+     box-shadow: 9px 9px 0px -5px white !important;
+ }
 /*Promote yourself */
 .custom-content-promote-item {
     padding:0 5px 25px 5px;
