@@ -18,8 +18,14 @@
     width: 100%;
     height: 150px;
 }
-.on-off-switch{
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .on-off-switch{
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+.pliki_tab{
+    display: none;
+}
+.vc_edit-form-tab-control[data-tab-index='2']{
+    visibility: hidden;
 }

@@ -11,6 +11,7 @@ function my_custom_wpbakery_element() {
       'params' => array(
         array(
           'type' => 'dropdown',
+          'group' => 'Main Settings',
           'heading' => __('Select an element', 'my-custom-plugin'),
           'param_name' => 'element',
           'description' => __('Select an element to display its files.', 'my-custom-plugin'),
@@ -50,10 +51,11 @@ function my_custom_wpbakery_element() {
             'Zabudowa' => 'zabudowa.php',
           ),
           'save_always' => true,
-          'admin_label' => true
+          'admin_label' => true,
         ),
         array(
           'type' => 'textfield',
+          'group' => 'Main Settings',
           'heading' => __('Select a file', 'my-custom-plugin'),
           'param_name' => 'file',
           'description' => __('Select a file to display its gallerys.', 'my-custom-plugin'),
@@ -62,6 +64,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'dropdown',
+          'group' => 'Main Settings',
           'heading' => __('Select a color', 'my-custom-plugin'),
           'param_name' => 'color',
           'description' => __('Select a color for the element.', 'my-custom-plugin'),
@@ -74,6 +77,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => esc_html__('textarea_raw_html'),
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
           'param_name' => 'exhibitor1',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -86,6 +90,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 2', 'my-custom-plugin'),
           'param_name' => 'exhibitor2',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -98,6 +103,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 3', 'my-custom-plugin'),
           'param_name' => 'exhibitor3',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -110,6 +116,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 4', 'my-custom-plugin'),
           'param_name' => 'exhibitor4',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -122,6 +129,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 5', 'my-custom-plugin'),
           'param_name' => 'exhibitor5',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -134,6 +142,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 6', 'my-custom-plugin'),
           'param_name' => 'exhibitor6',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -146,6 +155,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => esc_html__('Text for Main Page Gallery', 'my-custom-plugin'),
           'param_name' => 'gallery',
           'value' => base64_encode($gallery),
@@ -154,19 +164,22 @@ function my_custom_wpbakery_element() {
               'element' => 'element',
               'value' => array('gallery.php')
           ),
-        ),array(
+        ),
+        array(
           'type' => 'textfield',
+          'group' => 'Main Settings',
           'heading' => esc_html__('Logos catalog and Galery name', 'my-custom-plugin'),
           'param_name' => 'logoscatalog',
           'description' => __('Put catalog name in /doc/ where are logos to show in gallery, and this text will by use as galery header.', 'my-custom-plugin'),
           'save_always' => true,
           'dependency' => array(
               'element' => 'element',
-              'value' => array('logos-catalog.php')
+              'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
           ),
         ),
         array(
           'type' => 'textfield',
+          'group' => 'Main Settings',
           'heading' => esc_html__('Galery name', 'my-custom-plugin'),
           'param_name' => 'titlelogoen',
           'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
@@ -178,6 +191,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Hide baners to download', 'my-custom-plugin'),
           'param_name' => 'show_banners',
           'description' => __('Check Yes to hide download options for baners.', 'my-custom-plugin'),
@@ -191,6 +205,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Dispaly different logo color', 'my-custom-plugin'),
           'param_name' => 'logo_color_promote',
           'description' => __('Check Yes to display different logo color.', 'my-custom-plugin'),
@@ -204,6 +219,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Show gallery in slider', 'my-custom-plugin'),
           'param_name' => 'show_slider',
           'description' => __('Check to create gallery as slider .', 'my-custom-plugin'),
@@ -217,6 +233,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Hide registery button', 'my-custom-plugin'),
           'param_name' => 'tickets_available',
           'description' => __('Check to hide the registration button on Fair there is no registration available.', 'my-custom-plugin'),
@@ -230,6 +247,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Show link url in gallery', 'my-custom-plugin'),
           'param_name' => 'showurl',
           'description' => __('Check to create a link in every logotype.', 'my-custom-plugin'),
@@ -238,11 +256,12 @@ function my_custom_wpbakery_element() {
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
           'dependency' => array(
             'element' => 'element',
-            'value' => array('logos-catalog.php')
+            'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
           ),
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
           'param_name' => 'visitor1',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -255,6 +274,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
           'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
           'param_name' => 'visitor2',
           'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
@@ -267,6 +287,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Button on', 'my-custom-plugin'),
           'param_name' => 'button_on',
           'description' => __('Select options to display button:', 'my-custom-plugin'),
@@ -284,6 +305,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Logo color', 'my-custom-plugin'),
           'param_name' => 'logo_color',
           'description' => __('Check Yes to display logo color.', 'my-custom-plugin'),
@@ -297,6 +319,7 @@ function my_custom_wpbakery_element() {
         ),
         array(
           'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Fair partner', 'my-custom-plugin'),
           'param_name' => 'fair_partner',
           'description' => __('Check Yes to display fair partner.', 'my-custom-plugin'),
@@ -308,11 +331,45 @@ function my_custom_wpbakery_element() {
             'value' => array('header-custom.php')
           ),
         ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Footer logo color', 'my-custom-plugin'),
+          'param_name' => 'footer_logo_color',
+          'description' => __('Check Yes to display footer logo color.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('footer.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Pliki',
+          'heading' => __('Pliki', 'my-custom-plugin'),
+          'param_name' => 'pliki_tab',
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'heading' => __('Logos Data Base', 'my-custom-plugin'),
+          'group' => 'Hidden',
+          'param_name' => 'logo_url',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
   }
-
   // Define the output function for the element
 function my_custom_element_output($atts, $content = null) {
     // Get the current language of the website
@@ -324,7 +381,6 @@ function my_custom_element_output($atts, $content = null) {
     $trade_name = do_shortcode('[trade_fair_name]');
     $trade_desc = do_shortcode('[trade_fair_desc]');
     $trade_name_en = do_shortcode('[trade_fair_name_eng]');
-    $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
 
     if (isset($atts['color'])) { $color = $atts['color']; }
     if (isset($atts['element'])) { $element = $atts['element']; }
@@ -336,7 +392,13 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['exhibitor6'])) { $exhibitor6 = $atts['exhibitor6']; }
     if (isset($atts['file'])) { $file = $atts['file']; }
     if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
-    if (isset($atts['logoscatalog'])) { $logoscatalog = $atts['logoscatalog']; }
+
+    if (isset($atts['logoscatalog'])) { 
+      global $logoscatalog; 
+      $logoscatalog = $atts['logoscatalog'];
+    }
+
+    if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
     if (isset($atts['titlelogoen'])) { $titlelogoen = $atts['titlelogoen']; }
     if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
     if (isset($atts['logo_color_promote'])) { $logo_color_promote = $atts['logo_color_promote']; }
@@ -348,6 +410,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
     if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }
     if (isset($atts['fair_partner'])) { $fair_partner = $atts['fair_partner']; }
+    if (isset($atts['footer_logo_color'])) { $footer_logo_color = $atts['footer_logo_color']; }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
@@ -398,6 +461,66 @@ function my_custom_element_output($atts, $content = null) {
     }
   }
   
+  function my_custom_element_scripts() {
+    $trade_date = do_shortcode('[trade_fair_date]');
+    $trade_start = do_shortcode('[trade_fair_datetotimer]');
+    $trade_end = do_shortcode('[trade_fair_enddata]');
+    $trade_name = do_shortcode('[trade_fair_name]');
+    $trade_desc = do_shortcode('[trade_fair_desc]');
+    $trade_name_en = do_shortcode('[trade_fair_name_eng]');
+    $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
+  
+    $inner_data_array = array(
+      'trade_date' => $trade_date,
+      'trade_start' => $trade_start,
+      'trade_end' => $trade_end,
+      'trade_name' => $trade_name,
+      'trade_desc' => $trade_desc,
+      'trade_name_en' => $trade_name_en,
+      'trade_desc_en' => $trade_desc_en,
+    );
+  
+    $js_file = plugins_url('js/script.js', __FILE__);
+    $js_version = filemtime(plugin_dir_path(__FILE__) . 'js/script.js');
+    wp_enqueue_script('my-custom-element-js', $js_file, array('jquery'), $js_version, true);
+    wp_localize_script( 'my-custom-element-js', 'inner_data', $inner_data_array ); 
+  
+    $css_file = plugins_url('css/style.css', __FILE__);
+    $css_version = filemtime(plugin_dir_path(__FILE__) . 'css/style.css');
+    wp_enqueue_style('my-custom-element-css', $css_file, array(), $css_version);
+  }
+
+  function admin_script($atts, $content = null) {
+
+    $katalog = ABSPATH . 'doc'; // Ścieżka do katalogu na serwerze
+    $file_list = array();
+
+    if (is_dir($katalog)) {
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($katalog));
+
+        foreach ($iterator as $file) {
+            if ($file->isFile()) {
+                $filePath = $file->getPathname();
+                $filePath = str_replace($katalog, '', $filePath);
+                $file_list[] = $filePath;
+            }
+        }
+    }
+
+    $inner_array = array (
+      'file_list' => $file_list,
+    );
+
+    $js_file_logos = plugins_url('js/logos-catalog.js', __FILE__);
+    $js_version_logos = filemtime(plugin_dir_path(__FILE__) . 'js/logos-catalog.js');
+    wp_enqueue_script('my-custom-element-logos-js', $js_file_logos, array('jquery'), $js_version_logos, true);
+    wp_localize_script( 'my-custom-element-logos-js', 'inner', $inner_array ); 
+  }
+
+  add_action('wp_enqueue_scripts', 'my_custom_element_scripts');
+
   add_action('vc_before_init', 'my_custom_wpbakery_element');
   add_shortcode('my_custom_element', 'my_custom_element_output');
+
+  add_action('admin_enqueue_scripts', 'admin_script');
 ?>

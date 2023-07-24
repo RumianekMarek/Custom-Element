@@ -1,4 +1,5 @@
 <?php
+echo '<script>console.log("'.$logo_url.'")</script>';
 if (!is_admin()) {
     echo '<link rel="stylesheet" type="text/css" href="/wp-content/plugins/custom-element/my-custom-element/css/slick-slider.css"/>';
 }
@@ -10,6 +11,8 @@ if ($logoscatalog == "partnerzy obiektu") {
 } else {
     $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
 }
+    
+
 
     $html = <<<HTML
     <div id="customLogos" class="custom-container-logos-gallery">
@@ -262,7 +265,11 @@ foreach ($elements as $element) {
         <script>
         // HIDE CONTAINER LOGOS-CATALOG IF GALLERY LENGTH = 0
         if(document.querySelector("#<?php echo $elementId ?> .custom-logos-gallery-slider").children.length == 0) { 
-            document.querySelector(".row-container:has(#<?php echo $elementId ?>)").classList.toggle("custom-display-none");
+            if(document.querySelector('.media-logos')){
+                document.querySelector('.media-logos').classList.toggle("custom-display-none")
+            } else {
+                document.querySelector(".row-container:has(#<?php echo $elementId ?>)").classList.toggle("custom-display-none");
+            }
             
         }
         </script>
