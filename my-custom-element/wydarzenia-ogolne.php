@@ -50,7 +50,13 @@
         </p>
     </div>
     <div class="media-logos text-centered ">
-        <h2 >Partnerzy Medialni</h2>
+        <h2>
+            <?php if($locale == 'pl_PL'){ echo '
+                Partnerzy Medialni
+            ';} else { echo '
+                Media Patronage
+            ';} ?>
+        </h2>
         <?php include_once plugin_dir_path(__FILE__) . 'logos-catalog.php' ?>
     </div>
 </div>
