@@ -26,6 +26,6 @@
 .pliki_tab{
     display: none;
 }
-.vc_edit-form-tab-control[data-tab-index='2']{
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2']{
     visibility: hidden;
 }
