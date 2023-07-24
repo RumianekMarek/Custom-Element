@@ -253,7 +253,7 @@ echo '
         logoscatalog = "<?php echo $logoscatalog; ?>";
         console.log(logoscatalog);
         if (logoscatalog === "") {
-            document.querySelector(".row-container:has(#<?php echo $element_unique_id; ?>)").classList.toggle("custom-display-none");
+            document.querySelector(".media-logos").classList.toggle("custom-display-none");
         }
         </script>
 <?php
