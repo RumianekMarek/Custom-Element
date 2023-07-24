@@ -964,9 +964,6 @@ strong {
 }
 
 /* Footer */
-/* .row-container:has(.custom-element-footer) .wpb_column {
-    padding: 0 !important;
-} */
 .custom-footer-bg {
     position: relative;
     padding: 36px;
@@ -1079,7 +1076,7 @@ strong {
 }
 .custom-footer-nav-logo-top,
 .custom-footer-nav-logo-bottom {
-    max-width: 250px !important;
+    max-width: 200px !important;
 }
 .custom-footer-nav-logo-bottom img {
     padding: 8px;

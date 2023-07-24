@@ -1,5 +1,5 @@
 <?php
-echo '<script>console.log("'.$logo_url.'")</script>';
+
 if (!is_admin()) {
     echo '<link rel="stylesheet" type="text/css" href="/wp-content/plugins/custom-element/my-custom-element/css/slick-slider.css"/>';
 }
@@ -10,70 +10,51 @@ if ($logoscatalog == "partnerzy obiektu") {
     $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
 } else {
     $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
-}
-    
-
-
-    $html = <<<HTML
+} 
+$element_unique_id = 'custom-logos-gallery-' . uniqid();
+echo '
     <div id="customLogos" class="custom-container-logos-gallery">
         <div class="custom-logos-title main-heading-text">
-            <h4 class="font-weight-700 custom-uppercase"><span>{$titlelogoen}</span></h4>
+            <h4 class="font-weight-700 custom-uppercase"><span>'. $titlecatalog .'</span></h4>
         </div>
         <div class="custom-logos-gallery-wrapper single-top-padding">
-
-            <div class="custom-logos-gallery-slider slider-inner-container">
-    HTML;
-
-    foreach ($files as $file) {
-        if ($logoscatalog == "partnerzy obiektu") {
-            $shortPath = substr($file, strpos($file, '/wp-content/'));
-            $fileName = pathinfo($file, PATHINFO_FILENAME);
-            $url = 'https://' . $fileName;
-            if ($showurl == "true") {
-                $html .= '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
-            } else {
-                $html .= '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
+            <div id="'. $element_unique_id .'" class="custom-logos-gallery-slider slider-inner-container">';
+            foreach ($files as $file) {
+                
+                if ($logoscatalog == "partnerzy obiektu") {
+                    $shortPath = substr($file, strpos($file, '/wp-content/'));
+                    $fileName = pathinfo($file, PATHINFO_FILENAME);
+                    $url = 'https://' . $fileName;
+                    if ($showurl == "true") {
+                        echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
+                    } else {
+                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
+                    }
+                } else {
+                    
+                    $shortPath = substr($file, strpos($file, '/doc/'));
+                    $fileName = pathinfo($file, PATHINFO_FILENAME);
+                    $url = 'https://' . $fileName;
+                    if ($showurl == "true") {
+                        echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
+                    } else {
+                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
+                    }
+                    
+                }
             }
-        } else {
-            $shortPath = substr($file, strpos($file, '/doc/'));
-            $fileName = pathinfo($file, PATHINFO_FILENAME);
-            $url = 'https://' . $fileName;
-            if ($showurl == "true") {
-                $html .= '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
-            } else {
-                $html .= '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
-            }
-        }
-    }
-
-    $html .= <<<HTML
-            </div>
+            echo '</div>
         </div>
-    </div>
-    HTML;
+    </div>';
 ?>
-
 <script src="/wp-content/plugins/custom-element/my-custom-element/js/slick-slider.js"></script>
 
 <?php
-$dom = new DOMDocument();
-$dom->loadHTML($html);
-$elements = $dom->getElementsByTagName('div');
-
-foreach ($elements as $element) {
-    if ($element->getAttribute('class') == 'custom-container-logos-gallery') {
-        $elementId = 'custom-logos-gallery-' . uniqid();
-        $element->setAttribute('id', $elementId);
-        // echo '<div>id-' . $element->getAttribute('id') . '</div>';
-        $elementHTML = $dom->saveHTML($element);
-        echo $elementHTML;
-        
+    if (isset($element_unique_id)) {
         if ($show_slider == "true") {
-
-            ?>
+?>
             <script>
-
-            if(document.querySelector("#<?php echo $elementId ?> .custom-logos-gallery-slider").children.length > 7) {
+            if(document.querySelector("#<?php echo $element_unique_id ?>").children.length > 7) {
 
                 // Full width row
                 document.querySelectorAll(".row-container .row").forEach(function(rowContainerBg) {
@@ -89,7 +70,7 @@ foreach ($elements as $element) {
                 
                 jQuery(function ($) {
                     // Slick Selector
-                    let slickSlider = $("#<?php echo $elementId ?> .custom-logos-gallery-slider");
+                    let slickSlider = $("#<?php echo $element_unique_id ?>");
                     // Set the number of dots, dot size and margin here.
                     let maxDots = 5;
                     let dotSize = 15; //px
@@ -255,28 +236,30 @@ foreach ($elements as $element) {
                     });
                 });
             }
-                                    
             </script>
-
-        <?php 
+<?php
         } 
-        ?> 
-
+?>
         <script>
-        // HIDE CONTAINER LOGOS-CATALOG IF GALLERY LENGTH = 0
-        if(document.querySelector("#<?php echo $elementId ?> .custom-logos-gallery-slider").children.length == 0) { 
+        // Hide container if gallery length = 0
+        if(document.querySelector("#<?php echo $element_unique_id ?>").children.length == 0) {
             if(document.querySelector('.media-logos')){
                 document.querySelector('.media-logos').classList.toggle("custom-display-none")
             } else {
-                document.querySelector(".row-container:has(#<?php echo $elementId ?>)").classList.toggle("custom-display-none");
+            document.querySelector(".row-container:has(#<?php echo $element_unique_id ?>)").classList.toggle("custom-display-none");
             }
-            
+        }
+        // Hide container if input value is empty
+        logoscatalog = "<?php echo $logoscatalog; ?>";
+        console.log(logoscatalog);
+        if (logoscatalog === "") {
+            document.querySelector(".row-container:has(#<?php echo $element_unique_id; ?>)").classList.toggle("custom-display-none");
         }
         </script>
-
-        <?php
+<?php
     }
-}
-
 ?>
+ 
+   
+
 

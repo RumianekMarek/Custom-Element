@@ -73,12 +73,20 @@
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            ';
-                            if($footer_logo_color != 'true'){
-                                echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>';
-                            } else {
-                                echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-color.png"></a></div>';
-                            } echo '
+                            <div class="custom-footer-nav-logo-bottom">
+                                <a href="' . $base_url . '">
+                                    ';
+                                    if($footer_logo_color != 'true'){
+                                        if($logo_color_invert != 'true'){
+                                            echo '<img src="/doc/logo.png">';
+                                        } else {
+                                            echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
+                                        }
+                                    } else {
+                                        echo '<img src="/doc/logo-color.png">';
+                                    } echo '
+                                </a>
+                            </div>
                         </div>
                     </div>   
     
@@ -131,20 +139,32 @@
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            ';
-                            if($footer_logo_color != 'true'){
-                                if (file_exists('doc/logo-en.png')) { 
-                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-en.png"></a></div>';
-                                } else {
-                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo.png"></a></div>';
-                                }         
-                            } else {
-                                if (file_exists('doc/logo-color-en.png')) { 
-                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-color-en.png"></a></div>';
-                                } else {
-                                    echo '<div class="custom-footer-nav-logo-bottom"><a href="' . $base_url . '"><img src="/doc/logo-en.png"></a></div>';
-                                }         
-                            } echo '
+                            <div class="custom-footer-nav-logo-bottom">
+                                <a href="' . $base_url . '">
+                                    ';
+                                    if($footer_logo_color != 'true'){
+                                        if (file_exists('doc/logo-en.png')) { 
+                                            echo '<img src="/doc/logo-en.png">';
+                                        } else {
+                                            if($logo_color_invert != 'true'){
+                                                echo '<img src="/doc/logo.png">';
+                                            } else {
+                                                echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
+                                            }
+                                        }         
+                                    } else {
+                                        if (file_exists('doc/logo-color-en.png')) { 
+                                            echo '<img src="/doc/logo-color-en.png">';
+                                        } else {
+                                            if($logo_color_invert != 'true'){
+                                                echo '<img src="/doc/logo-en.png">';
+                                            } else {
+                                                echo '<span class="logo-invert-white"><img src="/doc/logo-en.png"></span>';
+                                            }
+                                        }         
+                                    } echo '
+                                </a>
+                            </div>
                         </div>
                     </div>   
 

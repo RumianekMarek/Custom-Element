@@ -168,7 +168,7 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'textfield',
           'group' => 'Main Settings',
-          'heading' => esc_html__('Logos catalog and Galery name', 'my-custom-plugin'),
+          'heading' => esc_html__('Logos catalog', 'my-custom-plugin'),
           'param_name' => 'logoscatalog',
           'description' => __('Put catalog name in /doc/ where are logos to show in gallery, and this text will by use as galery header.', 'my-custom-plugin'),
           'save_always' => true,
@@ -181,7 +181,7 @@ function my_custom_wpbakery_element() {
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Galery name', 'my-custom-plugin'),
-          'param_name' => 'titlelogoen',
+          'param_name' => 'titlecatalog',
           'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
           'save_always' => true,
           'dependency' => array(
@@ -346,6 +346,20 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Footer logo color invert', 'my-custom-plugin'),
+          'param_name' => 'logo_color_invert',
+          'description' => __('Check Yes to display footer logo color white.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('footer.php')
+          ),
+        ),
+        array(
           'type' => 'textfield',
           'group' => 'Pliki',
           'heading' => __('Pliki', 'my-custom-plugin'),
@@ -399,7 +413,7 @@ function my_custom_element_output($atts, $content = null) {
     }
 
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
-    if (isset($atts['titlelogoen'])) { $titlelogoen = $atts['titlelogoen']; }
+    if (isset($atts['titlecatalog'])) { $titlecatalog = $atts['titlecatalog']; }
     if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
     if (isset($atts['logo_color_promote'])) { $logo_color_promote = $atts['logo_color_promote']; }
     if (isset($atts['showurl'])) { $showurl = $atts['showurl']; }
@@ -409,6 +423,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['tickets_available'])) { $tickets_available = $atts['tickets_available']; }
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
     if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }
+    if (isset($atts['logo_color_invert'])) { $logo_color_invert = $atts['logo_color_invert']; }
     if (isset($atts['fair_partner'])) { $fair_partner = $atts['fair_partner']; }
     if (isset($atts['footer_logo_color'])) { $footer_logo_color = $atts['footer_logo_color']; }
 
