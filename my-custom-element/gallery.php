@@ -57,11 +57,13 @@
                         </h3>
 
                         <p><?php if($locale == 'pl_PL'){
-                            if($gallery == '') { 
-                                echo '[trade_fair_name] to nowe wydarzenie branżowe, którego celem jest zgromadzenie czołowych firm, ekspertów technicznych i praktyków związanych z sektorem [super_shortcode_1] w Polsce i całym regionie środkowo wschodniej Europy. Targi oferują doskonałą okazję do nawiązania relacji biznesowych, prezentacji innowacyjnych technologii oraz wymiany wiedzy i doświadczeń. [trade_fair_name] to miejsce, gdzie innowacje spotykają się z praktycznym zapotrzebowaniem, a potencjał branży [super_shortcode_1] jest wykorzystywany do maksimum.';
-                            } else { echo urldecode(base64_decode($gallery));}
+                                if($gallery == '') { 
+                                    echo '[trade_fair_name] to nowe wydarzenie branżowe, którego celem jest zgromadzenie czołowych firm, ekspertów technicznych i praktyków związanych z sektorem [super_shortcode_1] w Polsce i całym regionie środkowo wschodniej Europy. Targi oferują doskonałą okazję do nawiązania relacji biznesowych, prezentacji innowacyjnych technologii oraz wymiany wiedzy i doświadczeń. [trade_fair_name] to miejsce, gdzie innowacje spotykają się z praktycznym zapotrzebowaniem, a potencjał branży [super_shortcode_1] jest wykorzystywany do maksimum.';
+                                } else { echo urldecode(base64_decode($gallery));}
                             } else {
-                            echo '[trade_fair_name_eng] is a new industry event that aims to bring together leading companies, technical experts and practitioners related to the [super_shortcode_2] sector in Poland and the entire Central and Eastern European region. The fair offers an excellent opportunity to establish business relationships, showcase innovative technologies and exchange knowledge and experience. [trade_fair_name_eng] is a place where innovation meets practical demand, and the potential of the [super_shortcode_2] industry is exploited to the maximum.';
+                                if($gallery == '') { 
+                                    echo '[trade_fair_name_eng] is a new industry event that aims to bring together leading companies, technical experts and practitioners related to the [super_shortcode_2] sector in Poland and the entire Central and Eastern European region. The fair offers an excellent opportunity to establish business relationships, showcase innovative technologies and exchange knowledge and experience. [trade_fair_name_eng] is a place where innovation meets practical demand, and the potential of the [super_shortcode_2] industry is exploited to the maximum.';
+                                } else { echo urldecode(base64_decode($gallery));}
                             } ?>
                         </p>
                         <?php if($tickets_available !== 'true'){

@@ -82,3 +82,25 @@
 .dodaj-plik #file-upload-button {
     padding: 4px 10px !important;
 }
+
+.galeria-zdjec, .galeria-zdjec div{
+    display:flex;
+    text-align: center;
+}
+
+.galeria-zdjec{
+    flex-wrap: wrap;
+    gap:10px;
+}
+
+.galeria-zdjec div{
+    flex-direction: column;
+    width:200px;
+    height: 200px;
+}
+
+.galeria-zdjec img{
+    max-width: 200px;
+    aspect-ratio: 3/2;
+
+}

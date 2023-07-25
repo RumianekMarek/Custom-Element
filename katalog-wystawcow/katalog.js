@@ -88,8 +88,6 @@
 				divContainerExhibitors.appendChild(singleExhibitor);
 			});
 
-			divContainerHeader.appendChild(inputSearch);
-			divContainer.appendChild(divContainerHeader);
 			divContainer.appendChild(divContainerExhibitors);
 			catRoot.appendChild(divContainer);
 

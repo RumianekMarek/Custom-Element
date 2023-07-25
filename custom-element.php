@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.0.7
+Version: 2.1
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -42,39 +42,9 @@ include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystaw
 if (is_admin()) {
   // Edytor plików dostepFTP
   include_once plugin_dir_path(__FILE__) . '/FTP/main-dostepFTP.php';
-  
-  // opisy do Mediów
-  // include_once plugin_dir_path(__FILE__) . 'opisy-mediow/opisy-mediow.php';
-}
-// Enqueue JavaScript and CSS files
-function my_custom_element_scripts() {
-  $trade_date = do_shortcode('[trade_fair_date]');
-  $trade_start = do_shortcode('[trade_fair_datetotimer]');
-  $trade_end = do_shortcode('[trade_fair_enddata]');
-  $trade_name = do_shortcode('[trade_fair_name]');
-  $trade_desc = do_shortcode('[trade_fair_desc]');
-  $trade_name_en = do_shortcode('[trade_fair_name_eng]');
-  $trade_desc_en = do_shortcode('[trade_fair_desc_eng]');
-
-  $inner_data_array = array(
-    'trade_date' => $trade_date,
-    'trade_start' => $trade_start,
-    'trade_end' => $trade_end,
-    'trade_name' => $trade_name,
-    'trade_desc' => $trade_desc,
-    'trade_name_en' => $trade_name_en,
-    'trade_desc_en' => $trade_desc_en,
-  );
-
-  $js_file = plugins_url('my-custom-element/js/script.js', __FILE__);
-  $js_version = filemtime(plugin_dir_path(__FILE__) . 'my-custom-element/js/script.js');
-  wp_enqueue_script('my-custom-element-js', $js_file, array('jquery'), $js_version, true);
-  wp_localize_script( 'my-custom-element-js', 'inner_data', $inner_data_array ); 
-
-  $css_file = plugins_url('my-custom-element/css/style.css', __FILE__);
-  $css_version = filemtime(plugin_dir_path(__FILE__) . 'my-custom-element/css/style.css');
-  wp_enqueue_style('my-custom-element-css', $css_file, array(), $css_version);
+      
+  //opisy do Mediów
+  include_once plugin_dir_path(__FILE__) . '/FTP/opisy-mediow.php';
 }
 
-add_action('wp_enqueue_scripts', 'my_custom_element_scripts');
 ?>

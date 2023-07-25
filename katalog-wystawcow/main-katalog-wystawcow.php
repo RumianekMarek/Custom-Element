@@ -111,7 +111,38 @@ $script_data = array(
 );
   
 // Twój kod dla tego elementu
-$output = '<div custom-lang="' . $locale . '" id="cat"></div>'; 
+if($format === 'full'){
+  if($locale == 'pl_PL'){
+    $output = '
+    <div custom-lang="' . $locale . '" id="cat">
+      <div class="exhibitors">
+        <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
+          <div>
+            <h1 style="'. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
+            <h2 style="'. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+          </div>
+          <input id="search" placeholder="Szukaj"/>
+        </div>
+      </div>
+    </div>';
+  } else {
+    $output = '
+    <div custom-lang="' . $locale . '" id="cat">
+      <div class="exhibitors">
+        <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
+          <div>
+            <h1 style="'. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
+            <h2 style="'. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+          </div>
+          <input id="search" placeholder="Search"/>
+        </div>
+      </div>
+    </div>';
+  }
+} else{
+  $output = '<div custom-lang="' . $locale . '" id="cat"></div>';
+}
+ 
 $output .= '<div class="spinner"></div>';
 
 wp_enqueue_style( 'katalog_wystawcow-css', plugin_dir_url( __FILE__ ) . 'katalog.css' );
@@ -123,4 +154,18 @@ return $output;
 // Rejestracja elementu Katalog wystawców
 add_action( 'vc_before_init', 'my_custom_wpbakery_element_katalog_wystawcow' );
 add_shortcode('katalog_wystawcow', 'katalog_wystawcow_output');
+
+
+// if($format == 'full'){
+//   wp_enqueue_script( 'katalog_wystawcow-js', plugin_dir_url( __FILE__ ) . 'katalog.js', array( 'jquery' ), '1.0', true );
+// }else if($format == 'top21'){
+// wp_enqueue_script( 'katalog_wystawcow-js', plugin_dir_url( __FILE__ ) . 'top21.js', array( 'jquery' ), '1.0', true );
+// } else {
+//   <script>
+//     console.log('top10');
+//   </script>
+// }
+
 ?>
+
+
