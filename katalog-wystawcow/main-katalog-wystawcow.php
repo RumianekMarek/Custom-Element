@@ -118,8 +118,8 @@ if($format === 'full'){
       <div class="exhibitors">
         <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
           <div>
-            <h1 style="'. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
-            <h2 style="'. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+            <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
+            <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
           </div>
           <input id="search" placeholder="Szukaj"/>
         </div>
@@ -131,8 +131,8 @@ if($format === 'full'){
       <div class="exhibitors">
         <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
           <div>
-            <h1 style="'. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
-            <h2 style="'. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+            <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
+            <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
           </div>
           <input id="search" placeholder="Search"/>
         </div>
@@ -156,15 +156,7 @@ add_action( 'vc_before_init', 'my_custom_wpbakery_element_katalog_wystawcow' );
 add_shortcode('katalog_wystawcow', 'katalog_wystawcow_output');
 
 
-// if($format == 'full'){
-//   wp_enqueue_script( 'katalog_wystawcow-js', plugin_dir_url( __FILE__ ) . 'katalog.js', array( 'jquery' ), '1.0', true );
-// }else if($format == 'top21'){
-// wp_enqueue_script( 'katalog_wystawcow-js', plugin_dir_url( __FILE__ ) . 'top21.js', array( 'jquery' ), '1.0', true );
-// } else {
-//   <script>
-//     console.log('top10');
-//   </script>
-// }
+
 
 ?>
 

@@ -44,29 +44,8 @@
 		}
 
 		if (katalog_data.format == 'full') {
-
-			const localLang = document.getElementById("cat").getAttribute("custom-lang");
-			divContainer.classList.add('exhibitors');
-			const divContainerHeader = document.createElement('div');
-			divContainerHeader.classList.add('exhibitor__header');
-
-			if(localLang=="pl_PL"){
-				divContainerHeader.innerHTML = `<div><h1 style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">Katalog wystawców</h1><h2 align="center" style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">${katalog_data.name}</h2></div>`;
-			} else {
-				divContainerHeader.innerHTML = `<div><h1 style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">Exhibitor Catalog</h1><h2 align="center" style="`+katalog_data.text_color+`;`+katalog_data.text_shadow+`;">${katalog_data.name_en}</h2></div>`;
-			}
-			
-			divContainerHeader.style.backgroundImage = "url(/doc/background.jpg)";
-
-			const inputSearch = document.createElement('input');
-			
-			inputSearch.id = 'search';
-			if(localLang=="pl_PL"){
-				inputSearch.placeholder = "Szukaj";
-			} else {
-				inputSearch.placeholder = "Search";
-			}
-			
+			const inputSearch = document.getElementById('search');
+			const localLang = document.getElementById("cat").getAttribute("custom-lang");	
 
 			const divContainerExhibitors = document.createElement('div');
 			divContainerExhibitors.classList.add('exhibitors__container');
@@ -87,7 +66,7 @@
 				singleExhibitor.classList.add('exhibitors__container-list');
 				divContainerExhibitors.appendChild(singleExhibitor);
 			});
-
+			const divContainer = document.getElementsByClassName('exhibitors')[0];
 			divContainer.appendChild(divContainerExhibitors);
 			catRoot.appendChild(divContainer);
 
