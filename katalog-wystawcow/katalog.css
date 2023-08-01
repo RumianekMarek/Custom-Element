@@ -271,6 +271,8 @@
     margin: 15px 10px;
 }
 .img-conatiner-top10 .tickets {
-    min-height: 116px;
-    min-width: 140px;
+    min-height: 100px !important;
+    min-width: 170px;
+    margin: 10px 10px !important;
+    background-size: contain !important;
 }

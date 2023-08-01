@@ -228,12 +228,12 @@
 			if (localLang == 'pl_PL') {
 				divButton.innerHTML= `
             						<span style="display: flex; justify-content: center;" class="btn-container">
-                						<a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Katalog wystawców">Katalog wystawców</a>
+                						<a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square" title="Katalog wystawców">Zobacz więcej</a>
             						</span>`;
 			} else {
 				divButton.innerHTML= `
             						<span style="display: flex; justify-content: center;" class="btn-container">
-                						<a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" title="Exhibitor Catalog">Exhibitor Catalog</a>
+                						<a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square" title="Exhibitor Catalog">See more</a>
             						</span>`;
 			}
 			catRoot.appendChild(imageContainer);

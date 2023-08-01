@@ -32,7 +32,9 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
-2.0.6 - Added Header
+2.1 - Added Image Alt auto writer.
+
+2.0.6 - Added Header.
 
 2.0.4 - Added custom text fields for:
                 promote-yourself.
