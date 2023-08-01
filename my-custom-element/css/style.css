@@ -540,6 +540,9 @@
 }
 .custom-route-area-wrapper {
     padding-top: 36px;
+    display: flex;
+    gap: 36px;
+    flex-direction: column;
 }
 .custom-route-area-block {
     display: flex;
@@ -592,7 +595,7 @@
     .custom-route-transport-item-img,
     .custom-route-transport-item-text h5 {
         padding: 0;
-        width: auto;
+        width: inherit !important;
         justify-content: center;
     }
 }
@@ -650,9 +653,6 @@
     min-width: 100%;
     aspect-ratio: 3/2;
     object-fit: contain;
-}
-.wpb_column:has(.custom-logos-gallery-slider) {
-    padding: 0 !important;
 }
 @media (max-width: 600px) {
     .custom-logos-gallery-wrapper {
@@ -1080,6 +1080,7 @@ strong {
 }
 .custom-footer-nav-logo-bottom img {
     padding: 8px;
+    max-height: 150px;
 }
 .custom-footer-nav-links ul {
     padding: 0 !important;

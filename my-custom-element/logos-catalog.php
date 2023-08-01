@@ -1,10 +1,16 @@
 <?php
+include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
+
+$pattern = '/``id``:``(.*?)``,``url``:``(.*?)``/';
+// Search for matches and save the results to an array of $matches
+preg_match_all($pattern, $logo_url, $matches);
+
+$ids = $matches[1];
+$url_values = $matches[2];
 
 if (!is_admin()) {
     echo '<link rel="stylesheet" type="text/css" href="/wp-content/plugins/custom-element/my-custom-element/css/slick-slider.css"/>';
 }
-
-include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
 
 if ($logoscatalog == "partnerzy obiektu") {
     $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
@@ -12,6 +18,7 @@ if ($logoscatalog == "partnerzy obiektu") {
     $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
 } 
 $element_unique_id = 'custom-logos-gallery-' . uniqid();
+
 echo '
     <div id="customLogos" class="custom-container-logos-gallery">
         <div class="custom-logos-title main-heading-text">
@@ -19,30 +26,51 @@ echo '
         </div>
         <div class="custom-logos-gallery-wrapper single-top-padding">
             <div id="'. $element_unique_id .'" class="custom-logos-gallery-slider slider-inner-container">';
-            foreach ($files as $file) {
-                
-                if ($logoscatalog == "partnerzy obiektu") {
-                    $shortPath = substr($file, strpos($file, '/wp-content/'));
-                    $fileName = pathinfo($file, PATHINFO_FILENAME);
-                    $url = 'https://' . $fileName;
-                    if ($showurl == "true") {
-                        echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
+            
+                foreach ($files as $index => $file) {
+                    $shortPath = '';
+                    if ($logoscatalog == "partnerzy obiektu") {
+                        $shortPath = substr($file, strpos($file, '/wp-content/'));
+                        if (strpos($shortPath, '/doc/'.$logoscatalog.'/') !== false) {
+                            $altText = str_replace('/doc/'.$logoscatalog.'/', '', $shortPath);
+                        } else {$altText = 'partner logotyp';}
                     } else {
-                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
+                        $shortPath = substr($file, strpos($file, '/doc/'));
+                        if (strpos($shortPath, '/doc/'.$logoscatalog.'/') !== false) {
+                            $altText = str_replace('/doc/'.$logoscatalog.'/', '', $shortPath);
+                        } else {$altText = 'logotyp';}
                     }
-                } else {
-                    
-                    $shortPath = substr($file, strpos($file, '/doc/'));
                     $fileName = pathinfo($file, PATHINFO_FILENAME);
-                    $url = 'https://' . $fileName;
-                    if ($showurl == "true") {
-                        echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '"></a>';
+                    $fileBaseName = pathinfo($file, PATHINFO_BASENAME);
+
+                    // Looking for the index of the match "id" in the array $ids
+                    $idIndex = array_search(strtolower($fileBaseName), array_map('strtolower', $ids));
+
+                    if ($idIndex !== false && $url_values[$idIndex] !== "") {
+                        if (strpos($url_values[$idIndex], 'https://www.') !== false) {
+                            $url = 'https://' . preg_replace('/https:\/\/www\./i', '', $url_values[$idIndex]);
+                        } else if (strpos($url_values[$idIndex], 'http://www.') !== false) {
+                            $url = 'https://' . preg_replace('/http:\/\/www\./i', '', $url_values[$idIndex]);
+                        } else if (strpos($url_values[$idIndex], 'www.') !== false) {
+                            $url = 'https://' . preg_replace('/www\./i', '', $url_values[$idIndex]);
+                        }  else if (strpos($url_values[$idIndex], 'http://') !== false) {
+                            $url = 'https://' . substr($url_values[$idIndex], 7); 
+                        } else if (strpos($url_values[$idIndex], 'https://') !== false) {
+                            $url = $url_values[$idIndex];
+                        } else {
+                            $url = 'https://' . $url_values[$idIndex];
+                        }
                     } else {
-                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '"></div>';
+                        $url = 'https://' . $fileName;
                     }
-                    
+
+                    if ($showurl == "true") {
+                        echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></a>';
+                    } else {
+                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></div>';
+                    }
                 }
-            }
+
             echo '</div>
         </div>
     </div>';
@@ -67,6 +95,7 @@ echo '
                 document.querySelectorAll(".custom-logos-title").forEach(function(element) {
                     element.style.paddingLeft = "36px";
                 });
+                document.querySelector(".wpb_column:has(.custom-logos-gallery-slider)").style.padding = "0px";
                 
                 jQuery(function ($) {
                     // Slick Selector
@@ -240,7 +269,7 @@ echo '
 <?php
         } 
 ?>
-        <script>
+        <script> 
         // Hide container if gallery length = 0
         if(document.querySelector("#<?php echo $element_unique_id ?>").children.length == 0) {
             if(document.querySelector('.media-logos')){
@@ -251,10 +280,10 @@ echo '
         }
         // Hide container if input value is empty
         logoscatalog = "<?php echo $logoscatalog; ?>";
-        console.log(logoscatalog);
         if (logoscatalog === "") {
             document.querySelector(".media-logos").classList.toggle("custom-display-none");
         }
+
         </script>
 <?php
     }

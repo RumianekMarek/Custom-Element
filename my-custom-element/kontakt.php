@@ -10,7 +10,7 @@
     
   <div class="raw-custom-container">
     <div class="uncode-single-media-wrapper half-block-padding">
-      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg"></div>
+      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy"></div>
     </div>
     <div class="uncode_text_column">
       <p><?php if($locale == 'pl_PL'){ echo '
@@ -24,7 +24,7 @@
       
   <div class="raw-custom-container">
     <div class="uncode-single-media-wrapper half-block-padding">
-      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg"></div>
+      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy"></div>
     </div>
     <div class="uncode_text_column">
       <p><?php if($locale == 'pl_PL'){ echo '
@@ -38,7 +38,7 @@
   
   <div class="raw-custom-container">
     <div class="uncode-single-media-wrapper half-block-padding">
-      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"></div>
+      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"  alt="grafika media"></div>
     </div>
     <div class="uncode_text_column">
       <p><?php if($locale == 'pl_PL'){ echo '
@@ -52,7 +52,7 @@
   
   <div class="raw-custom-container">
     <div class="uncode-single-media-wrapper half-block-padding">
-      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg"></div>
+      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="grafika obsluga"></div>
     </div>
     <div class="uncode_text_column">
       <p><?php if($locale == 'pl_PL'){ echo '
@@ -66,7 +66,7 @@
   
   <div class="raw-custom-container">
     <div class="uncode-single-media-wrapper half-block-padding">
-      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg"></div>
+      <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg" alt="grafika technicy"></div>
     </div>
     <div class="uncode_text_column" style="overflow-wrap: anywhere;">
       <p><?php if($locale == 'pl_PL'){ echo '

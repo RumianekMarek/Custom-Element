@@ -9,7 +9,7 @@
 
     echo '<div id="calendar-office" class="custom-container-calendar-add text-centered">';
         echo '<a class="office" alt="link do kalendarza office" href="' . $linker . '" target="_blank">';
-            echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/office365.png"/>';
+            echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/office365.png" alt="ikonka Office 365"/>';
             if ($locale == 'pl_PL'){
             echo '<p class="font-weight-700">Kalendarz<br>Office</p>';
             } else {

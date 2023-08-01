@@ -17,7 +17,7 @@ include_once plugin_dir_path(__FILE__) . '/main-custom-element.php';
 
 echo '<div id="calendar-apple" class="custom-container-calendar-add text-centered">';
     echo '<a class="apple" alt="link do kalendarza apple" href="/doc/Iphone.ics">';
-        echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/apple.png"/>';
+        echo '<img alt="ikonka apple" src="/wp-content/plugins/custom-element/my-custom-element/media/apple.png"/>';
         if ($locale == 'pl_PL') {
             echo '<p class="font-weight-700">Kalendarz<br>Apple</p>';
         } else {

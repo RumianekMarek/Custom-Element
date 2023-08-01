@@ -10,7 +10,7 @@
         <div class="custom-footer-bg-wrapper">
             <div class="custom-footer-bg-limit">
                 <div class="custom-footer-logo-pwe">
-                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/logo-pwe.png" alt="pwe">
+                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/logo-pwe.png" alt="pwe logo">
                 </div>
                 <div class="custom-footer-title-section">
                     <?php if($locale == 'pl_PL'){ echo '
@@ -39,7 +39,7 @@
     </div>
 
     <div class="custom-footer-images-bg">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/footer-images.jpg" alt="">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/footer-images.jpg" alt="footer background">
     </div>
 
     <?php 
@@ -72,8 +72,8 @@
     
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
-                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            <div class="custom-footer-nav-logo-bottom">
+                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png" alt="logo pwe & ufi"></a></div>
+                            <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '">
                                     ';
                                     if($footer_logo_color != 'true'){
@@ -83,7 +83,7 @@
                                             echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
                                         }
                                     } else {
-                                        echo '<img src="/doc/logo-color.png">';
+                                        echo '<img src="/doc/logo-color.png" alt="logo [trade_fair_name]">';
                                     } echo '
                                 </a>
                             </div>

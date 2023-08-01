@@ -16,7 +16,7 @@
                             <?php
                                 foreach ($topImages as $file) {
                                     $shortPath = substr($file, strpos($file, '/doc/'));
-                                    echo '<img class="mini-img" src="' . $shortPath . '">';
+                                    echo '<img class="mini-img" src="' . $shortPath . '" alt="mini-galery-image">';
                                 }
                             ?>
                         </div>
@@ -24,7 +24,7 @@
                             <?php
                                 foreach ($bottomImages as $file) {
                                     $shortPath = substr($file, strpos($file, '/doc/'));
-                                    echo '<img class="mini-img" src="' . $shortPath . '">';
+                                    echo '<img class="mini-img" src="' . $shortPath . '" alt="mini-galery-image">';
                                 }
                             ?>
                         </div>

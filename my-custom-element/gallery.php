@@ -23,7 +23,7 @@
                         <?php
                             foreach ($topImages as $file) {
                                 $shortPath = substr($file, strpos($file, '/doc/'));
-                                echo '<img class="mini-img" src="' . $shortPath . '">';
+                                echo '<img class="mini-img" src="' . $shortPath . '" alt="mini galery picture">';
                             }
                         ?>
                     </div>
@@ -31,15 +31,15 @@
                         <?php
                             foreach ($bottomImages as $file) {
                                 $shortPath = substr($file, strpos($file, '/doc/'));
-                                echo '<img class="mini-img" src="' . $shortPath . '">';
+                                echo '<img class="mini-img" src="' . $shortPath . '" alt="mini galery picture">';
                             }
                         ?>
                     </div>
                     <div class="custom-btn-container">
                         <span><?php if($locale == 'pl_PL'){ echo '
-                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/" style="color:white !important;">Przejdź do galerii</a>
+                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/" style="color:white !important;" alt="link do galerii">Przejdź do galerii</a>
                         ';} else { echo '
-                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/en/gallery/" style="color:white !important;">Go to gallery</a>
+                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/en/gallery/" style="color:white !important;" alt="link to gallery">Go to gallery</a>
                         ';} ?>
                         </span>
                     </div>
@@ -69,9 +69,9 @@
                         <?php if($tickets_available !== 'true'){
                         echo'<div class="custom-btn-container">';
                             if($locale == 'pl_PL'){
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
                             } else {
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/" alt="link to registration">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>';
                             }
                         echo'</div>';
                         } ?>

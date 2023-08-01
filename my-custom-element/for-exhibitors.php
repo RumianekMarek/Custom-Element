@@ -30,7 +30,7 @@
             <?php
                 $thirdImage = $exhibitorsImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 1">';
             ?>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <?php
                 $fourthImage = $exhibitorsImages[3];
                 $shortPath = substr($fourthImage, strpos($fourthImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 2">';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">
@@ -92,7 +92,7 @@
             <?php
                 $fifthImage = $exhibitorsImages[4];
                 $shortPath = substr($fifthImage, strpos($fifthImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 3">';
             ?>
         </div>
     </div>
@@ -103,7 +103,7 @@
             <?php
                 $sixthImage = $exhibitorsImages[5];
                 $shortPath = substr($sixthImage, strpos($sixthImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 4">';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">
@@ -154,7 +154,7 @@
             <?php
                 $seventhImage = $exhibitorsImages[6];
                 $shortPath = substr($seventhImage, strpos($seventhImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 5">';
             ?>
         </div>
     </div>
@@ -165,7 +165,7 @@
             <?php
                 $eighthImage = $exhibitorsImages[7];
                 $shortPath = substr($eighthImage, strpos($eighthImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 6">';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">

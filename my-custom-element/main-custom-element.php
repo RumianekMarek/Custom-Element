@@ -174,7 +174,7 @@ function my_custom_wpbakery_element() {
           'save_always' => true,
           'dependency' => array(
               'element' => 'element',
-              'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
+              'value' => array('logos-catalog.php', 'gallery-slider.php', 'wydarzenia-ogolne.php')
           ),
         ),
         array(

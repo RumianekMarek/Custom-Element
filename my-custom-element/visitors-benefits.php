@@ -16,7 +16,7 @@
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/lamp_b-150x150.png">
+                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/lamp_b-150x150.png" alt="lamp">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">
@@ -32,7 +32,7 @@
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/hands_b-150x150.png">
+                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/hands_b-150x150.png" alt="handshake">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">
@@ -48,7 +48,7 @@
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/head_b-150x150.png">
+                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/head_b-150x150.png" alt="head">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">

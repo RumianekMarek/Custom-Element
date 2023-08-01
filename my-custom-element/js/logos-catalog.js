@@ -1,7 +1,6 @@
 jQuery(document).ready(function($) {
     $(document).ready(function() {
         $('.vc_ui-tabs-line-trigger').each(function() {
-            console.log(this);
             if ($(this).text() === 'Hidden') {
                 $(this).css('visibility', 'hidden');
             }
@@ -48,7 +47,6 @@ jQuery(document).ready(function($) {
                     if (typeof archiwWyniki != 'undefined'){
                         for (let j = 0; j < archiwWyniki.length; j++) {
                             if(archiwWyniki[j].id.toLowerCase() == targetLogo){
-                                console.log('true');
                                 if (archiwWyniki[j].url != '') {
                                     textForm.value = archiwWyniki[j].url;
                                     break;

@@ -1,5 +1,12 @@
 <?php
-    $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
+    if ($logoscatalog == "") {
+        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    } else {
+        echo $logoscatalog;
+        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+    }
+    
     ?>
 <link href="/wp-content/plugins/custom-element/my-custom-element/css/fotorama.css" rel="stylesheet">
 
@@ -23,7 +30,7 @@
         <?php
         foreach ($files as $file) { 
             $shortPath = substr($file, strpos($file, '/doc/'));
-            echo '<img src="' . $shortPath . '">';
+            echo '<img src="' . $shortPath . '" alt="galery image">';
         }
         ?>
 

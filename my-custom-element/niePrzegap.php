@@ -1,3 +1,9 @@
+<?php
+if (current_user_can('administrator')) {
+    echo '<style>.row-container:has(.custom-container-niePrzegap) { display: none !important; }</style>';
+}
+?>
+
 <div id='niePrzegap' class='custom-container-niePrzegap custom-display-none'>
     <div class='custom-inner-niePrzegap'>
         <div class='custom-header-niePrzegap text-centered'>
@@ -36,3 +42,5 @@
         </div>
     </div>
 </div>
+
+
