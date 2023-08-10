@@ -1,0 +1,39 @@
+.chevron-slide{
+    width: inherit;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #0cb4ce;
+    padding: 10px;
+    border-radius: 15px;
+    gap:5px;
+}
+.head-container{
+    width: 25%;
+}
+.text-container{
+    border-left: 1px solid #0cb4ce;
+    padding-left: 10px;
+    width: 75%;
+}
+.limit-width{
+    max-height: 120px;
+    overflow: hidden;
+}
+.speakers{
+    display: flex;
+    gap:10px;
+}
+i{
+    align-self: center;
+}
+.name-container {
+    margin-top:5px;
+}
+.inside-title, .inside-text{
+    margin-top: 5px;
+}
+.inner-slider{
+    padding: 10px;
+    background-color: snow;
+    border-radius: 15px;
+}

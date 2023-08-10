@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.1.4
+Version: 2.1.5
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -38,6 +38,9 @@ include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element
 
 // Katalog wystawców
 include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
+
+// Info + Modal
+include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
 
 if (is_admin()) {
   // Edytor plików dostepFTP

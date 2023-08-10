@@ -1,6 +1,7 @@
 
 		const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
 		
+		let localLangKat = document.getElementById("cat").getAttribute("custom-lang");	
 		const exhibitors = exhibitorsAll.reduce((acc, curr) => {
 			const name = curr[1].Nazwa_wystawcy;
 			const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
@@ -45,7 +46,7 @@
 
 		if (katalog_data.format == 'full') {
 			const inputSearch = document.getElementById('search');
-			let localLang = document.getElementById("cat").getAttribute("custom-lang");	
+				
 
 			const divContainerExhibitors = document.createElement('div');
 			divContainerExhibitors.classList.add('exhibitors__container');
@@ -96,7 +97,7 @@
 					url.replace('/', '$2F');
 
 					if (katalog_data.details == 'true') {
-						if (localLang == 'pl_PL') {
+						if (localLangKat == 'pl_PL') {
 							var modalBox = `
 								<div class="modal__elements">
 									<div class="modal__elements-block">
@@ -106,8 +107,8 @@
 										${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 										${exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 										${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-										${exhibitors[i][1].Opis_pl && localLang=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
-										${exhibitors[i][1].Opis_en && localLang=="en_US" ? `<p>Opis EN: <b><a href="${exhibitors[i][1].Opis_en}" target="_blank" rel="noopener noreferrer">${exhibitors[i][1].Opis_en}</a></b></p>` : ''}
+										${exhibitors[i][1].Opis_pl && localLangKat=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
+										${exhibitors[i][1].Opis_en && localLangKat=="en_US" ? `<p>${exhibitors[i][1].Opis_en}</p>` : ''}
 										</div>
 									</div>
 									<div class="modal_elements-button">
@@ -124,8 +125,8 @@
 										${exhibitors[i][1].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 										${exhibitors[i][1].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 										${exhibitors[i][1].www ? `<p>Web page: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-										${exhibitors[i][1].Opis_pl && localLang=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
-										${exhibitors[i][1].Opis_en && localLang=="en_US" ? `<p>Opis EN: <b><a href="${exhibitors[i][1].Opis_en}" target="_blank" rel="noopener noreferrer">${exhibitors[i][1].Opis_en}</a></b></p>` : ''}
+										${exhibitors[i][1].Opis_pl && localLangKat=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
+										${exhibitors[i][1].Opis_en && localLangKat=="en_US" ? `<p>${exhibitors[i][1].Opis_en}</p>` : ''}
 										</div>
 									</div>
 									<div class="modal_elements-button">
@@ -137,7 +138,7 @@
 							
 					}
 					else {
-						if (localLang == 'pl_PL') {
+						if (localLangKat == 'pl_PL') {
 							var modalBox = `
 								${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
 								<div class="modal__elements-img" style="background-image: url(${url});"></div>
@@ -184,12 +185,12 @@
 			};
 
 			/* PL -- En */		
-			if (localLang == 'pl_PL') {
+			if (localLangKat == 'pl_PL') {
 				var lang = document.querySelectorAll('.pl_PL');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';
 				}
-			} else if (localLang == 'en_US') {
+			} else if (localLangKat == 'en_US') {
 				var lang = document.querySelectorAll('.en_US');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';
@@ -202,7 +203,7 @@
 			}
 			/*  ----------------------TOP 21 ------------------------    */
 		} else if (katalog_data.format == 'top21') {
-			let localLang = document.getElementById("cat").getAttribute("custom-lang");	
+			
 			const imageContainer = document.createElement('div');
 			imageContainer.classList.add('img-conatiner');
 
@@ -225,7 +226,7 @@
 				count++;
 			}
 			const divButton = document.createElement('div');
-			if (localLang == 'pl_PL') {
+			if (localLangKat == 'pl_PL') {
 				divButton.innerHTML= `
             						<span style="display: flex; justify-content: center;" class="btn-container">
                 						<a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square" title="Katalog wystawców">Zobacz więcej</a>
@@ -239,12 +240,12 @@
 			catRoot.appendChild(imageContainer);
 			catRoot.appendChild(divButton);
 			/* PL -- En */		
-			if (localLang == 'pl_PL') {
+			if (localLangKat == 'pl_PL') {
 				var lang = document.querySelectorAll('.pl_PL');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';
 				}
-			} else if (localLang == 'en_US') {
+			} else if (localLangKat == 'en_US') {
 				var lang = document.querySelectorAll('.en_US');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';
@@ -281,19 +282,17 @@
 					displayedCount++;
 				}
 				count++;
-				console.log(katalog_data.ticket);
-				console.log(katalog_data.format);
 			}
 
 			catRoot.appendChild(imageContainer);
 		}
 			/* PL -- En */		
-			if (localLang == 'pl_PL') {
+			if (localLangKat == 'pl_PL') {
 				var lang = document.querySelectorAll('.pl_PL');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';
 				}
-			} else if (localLang == 'en_US') {
+			} else if (localLangKat == 'en_US') {
 				var lang = document.querySelectorAll('.en_US');
 				for (var i = 0; i < lang.length; i++) {
 				lang[i].style.display = 'block';

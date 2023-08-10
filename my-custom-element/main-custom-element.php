@@ -7,7 +7,7 @@ function my_custom_wpbakery_element() {
       'name' => __('My Custom Element', 'my-custom-plugin'),
       'base' => 'my_custom_element',
       'category' => __('My Elements', 'my-custom-plugin'),
-      'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . '/css/backendstyle.css',
+      'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'css/backendstyle.css',
       'params' => array(
         array(
           'type' => 'dropdown',

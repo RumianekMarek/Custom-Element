@@ -9,7 +9,7 @@ const trade_desc_en = inner_data.trade_desc_en;
 if (document.querySelector('.cat')) var localLang = document.querySelector('.cat').getAttribute('custom-lang');
 
 if (document.querySelector('.custom_element')) {
-  var localLang = document.querySelector('.custom_element').getAttribute('custom-lang');
+//  var localLang = document.querySelector('.custom_element').getAttribute('custom-lang');
 //   var lang;
 
 //   if (localLang === 'pl_PL') {

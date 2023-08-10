@@ -1081,6 +1081,7 @@ strong {
 .custom-footer-nav-logo-bottom img {
     padding: 8px;
     max-height: 150px;
+    object-fit: contain;
 }
 .custom-footer-nav-links ul {
     padding: 0 !important;
