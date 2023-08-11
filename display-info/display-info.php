@@ -130,9 +130,10 @@ function info_box_output($atts, $content = null) {
     return $html;
 }
 
-if (is_admin()) {
-    wp_enqueue_script( 'info_box-js', plugin_dir_url( __FILE__ ) . 'backend-info.js', array( 'jquery' ), '1.0', true );
+function load_backend_scripts() {
+    wp_enqueue_script('info_box-js', plugin_dir_url(__FILE__) . 'backend-info.js', array('jquery'), '1.0', true);
 }
+add_action('admin_enqueue_scripts', 'load_backend_scripts');
 
 add_action('vc_before_init', 'info_box');
 add_shortcode('info_box', 'info_box_output');

@@ -31,7 +31,7 @@
   </div>
   <div class="custom-organizator-text style-accent-bg">
     <div class='custom-inner-organizator text-left'>
-      <p class="border-top-left"  style="box-shadow: -3px -3px white; margin: 25px -10px -40px -10px !important; ">&nbsp;</p>
+      <p class="custom-box-top-left-white">&nbsp;</p>
       <h5 class="custom-organizator-header " style="color:white !important;">
         <?php if($locale == 'pl_PL'){ echo '
         O organizatorze
@@ -51,7 +51,7 @@
         <br> All these factors contribute to the fact that Ptak Warsaw Expo has become the European capital of trade fairs, organizing unforgettable industry and commercial events. We encourage you to contact us today to find out how specifically we can help you achieve your goals and make your company open to new business opportunities.
         ";} ?>
       </p>
-      <p class="border-bottom-right"  style="box-shadow: 3px 3px white; margin: -20px -10px 30px 0px; ">&nbsp;</p>
+      <p class="custom-box-bottom-right-white">&nbsp;</p>
     </div>
   </div>
 </div>

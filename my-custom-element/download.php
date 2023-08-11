@@ -14,7 +14,7 @@
     </div>
 
     <div>
-      <p>
+      <p class="text-centered">
       <?php if($locale == 'pl_PL') {
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/Regulamin-targow-pwe-2022.pdf" target="_blank" rel="noopener noreferrer">Regulamin targów</a><br>';
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_obiektu.pdf" target="_blank" rel="noopener noreferrer">Regulamin obiektu</a><br>';

@@ -1,7 +1,20 @@
 <div id='calendar-add' class='custom-container-calendar-main text-centered style-accent-bg'>
     <div class='custom-inner-calendarAdd single-block-padding'>
         <div class='custom-header-calendarAdd'>
-            <img src='/doc/logo.png'/>
+                <?php 
+                    $exist = is_file($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.png');
+                    echo '<script>console.log("'.$exist.'")</script>';
+                    
+                    if($color == '#000000' && $locale == 'en_US' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png')){
+                        echo '<img src="/doc/logo-color-en.png"/>';
+                    } elseif($color == '#000000' && $locale == 'pl_PL' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')){
+                        echo '<img src="/doc/logo-color.png"/>';
+                    } elseif ($locale == 'en_US' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.png')){
+                        echo '<img src="/doc/logo-en.png"/>';
+                    } else {
+                        echo '<img src="/doc/logo.png"/>';
+                    }
+                ?>   
             <div class='custom-header-text-calendarAdd'>
                 <?php if($locale == 'pl_PL'){ echo '
                     <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_name]</h2>

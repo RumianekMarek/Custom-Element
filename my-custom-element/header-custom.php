@@ -88,6 +88,11 @@
         ?>
     </div>
     <?php
+        if($logo_color) {
+            $partenr_background ="custom-partner-background";
+        } else {
+            $partenr_background ="";
+        }
         if($fair_partner == 'true'){
             echo '<div class="custom-header-partner-fair">';
             if($locale == 'pl_PL'){
@@ -95,7 +100,7 @@
             } else {
                 echo '<h2 style="width: 100%; text-align: center !important; color:white !important; text-shadow: 2px 2px black;">Fair Partner</h2>';
             }
-            echo '<div class="custom-element-header-flex custom-element-header-flex-wrap">';
+            echo '<div class="custom-element-header-flex custom-element-header-flex-wrap '. $partenr_background . '">';
             if (!empty($partnerImages)) {                       
                 foreach ($partnerImages as $imagePath) {
                     $imageRelativePath = str_replace($_SERVER['DOCUMENT_ROOT'], '', $imagePath);

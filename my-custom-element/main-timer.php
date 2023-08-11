@@ -19,15 +19,15 @@
         <span class='custom-main-timer-btn'>
         <?php if(strtotime($trade_start)-strtotime('+2 hour', time()) >= 604800){
                 if($locale == 'pl_PL'){
-                    echo "<a style='color:white !important;' class='custom-link btn border-width-0 shadow-white btn-flat' href='/zostan-wystawca/'>Zostań wystawcą</a>";
+                    echo "<a class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/zostan-wystawca/'>Zostań wystawcą</a>";
                 } else {
-                    echo "<a style='color:white !important;' class='custom-link btn border-width-0 shadow-white btn-flat' href='/en/become-an-exhibitor'>Book a stand</a></span>";
+                    echo "<a class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/en/become-an-exhibitor'>Book a stand</a></span>";
                 }
             } else {
                 if($locale == 'pl_PL'){
-                    echo "<a style='color:white !important;' class='custom-link btn border-width-0 shadow-white btn-flat' href='/zostan-wystawca/'>Zarejestruj się<span style='display: block; font-weight: 300;'>Odbierz darmowy bilet</span></a>";
+                    echo "<a class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/zostan-wystawca/'>Zarejestruj się<span style='display: block; font-weight: 300;'>Odbierz darmowy bilet</span></a>";
                 } else {
-                    echo "<a style='color:white !important;' class='custom-link btn border-width-0 shadow-white btn-flat' href='/en/become-an-exhibitor'>REGISTER<span style='display: block; font-weight: 300;'>GET A FREE TICKET</span></a></span>";
+                    echo "<a class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/en/become-an-exhibitor'>REGISTER<span style='display: block; font-weight: 300;'>GET A FREE TICKET</span></a></span>";
                 }
             } ?>
         </span>

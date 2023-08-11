@@ -82,9 +82,12 @@
                                         } else {
                                             echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
                                         }
-                                    } else {
+                                    } elseif(is_file($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')) {
                                         echo '<img src="/doc/logo-color.png" alt="logo [trade_fair_name]">';
-                                    } echo '
+                                    } else { 
+                                        echo '<img src="/doc/logo.png" alt="logo [trade_fair_name]">';
+                                    }
+                                        echo '
                                 </a>
                             </div>
                         </div>
@@ -202,10 +205,9 @@
                                 )); echo '
                             </div>
                         </div>';
-                        } echo '
-                        
+                        } 
+                        echo '
                     </div>                         
-
                 </div>
             </div> ';
         }

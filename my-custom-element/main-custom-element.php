@@ -27,8 +27,8 @@ function my_custom_wpbakery_element() {
             'Kalendarz do potwierdzenia' => 'confCalendar.php',
             'Dokumenty' => 'download.php',
             'Exhibitors-benefits'=> 'exhibitors-benefits.php',
-            'Footer' => 'footer.php',
             'FAQ' => 'faq.php',
+            'Footer' => 'footer.php',
             'For Exhibitors' => 'for-exhibitors.php',
             'For Visitors' => 'for-visitors.php',
             'Gallery Slider' => 'gallery-slider.php',
@@ -442,12 +442,12 @@ function my_custom_element_output($atts, $content = null) {
   
       if ($color != '') {
         $file_cont = str_replace(
-          array('color:white !important', 'color:black !important','color:#ffffff !important', 'color:#000000 !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black'),
-          array('color:'.$color.' !important', 'color:'.$color.' !important','color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color),
+          array('color:white !important', 'color:black !important','color:#ffffff !important', 'color:#000000 !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black','border-bottom:1px solid white','border-bottom:1px solid black'),
+          array('color:'.$color.' !important', 'color:'.$color.' !important','color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color,'border-bottom:1px solid '.$color,'border-bottom:1px solid '.$color),
           $file_cont
         );  
       }
-  
+      
       if ($color != '') {
         if ($color == '#ffffff') {
           $color1 = '#000000';
@@ -460,6 +460,21 @@ function my_custom_element_output($atts, $content = null) {
           $file_cont
         );  
       }
+
+      if ($color != '') {
+        if ($color == '#ffffff') {
+          $color2 = 'white';
+        } elseif ($color == '#000000') {
+          $color2 = 'black';
+        }
+        $file_cont = str_replace(
+          array('btn-custom-black','btn-custom-white','custom-box-top-left-white','custom-box-top-left-black','custom-box-bottom-right-white','custom-box-bottom-right-black'),
+          array('btn-custom-'.$color2,'btn-custom-'.$color2,'custom-box-top-left-'.$color2,'custom-box-top-left-'.$color2,'custom-box-bottom-right-'.$color2,'custom-box-bottom-right-'.$color2),
+          $file_cont
+        );  
+      }
+
+
   
       if ($color == '#000000') {
         $file_cont = str_replace(

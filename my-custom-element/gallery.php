@@ -14,7 +14,7 @@
 <div id="customGallery" class="custom-container-gallery style-accent-bg">
     <div class="custom-gallery-wrapper double-bottom-padding single-top-padding">
         <div class="custom-row-border">
-            <div class="border-top-left"></div>
+            <div class="custom-box-top-left-white"></div>
         </div>
         <div class="custom-gallery-section">
             <div class="custom-gallery-thumbs-wrapper">
@@ -37,9 +37,9 @@
                     </div>
                     <div class="custom-btn-container">
                         <span><?php if($locale == 'pl_PL'){ echo '
-                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/" style="color:white !important;" alt="link do galerii">Przejdź do galerii</a>
+                            <a class="custom-link btn border-width-0 btn-custom-black btn-flat" href="/galeria/" alt="link do galerii">Przejdź do galerii</a>
                         ';} else { echo '
-                            <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/en/gallery/" style="color:white !important;" alt="link to gallery">Go to gallery</a>
+                            <a class="custom-link btn border-width-0 btn-custom-black btn-flat" href="/en/gallery/" alt="link to gallery">Go to gallery</a>
                         ';} ?>
                         </span>
                     </div>
@@ -69,9 +69,9 @@
                         <?php if($tickets_available !== 'true'){
                         echo'<div class="custom-btn-container">';
                             if($locale == 'pl_PL'){
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/" alt="link do rejestracji" style="color:white !important;">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
                             } else {
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/" alt="link to registration">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>';
+                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/" alt="link to registration" style="color:white !important;">REGISTER<span style="display: block;font-weight: 300;">GET A FREE TICKET</span></a>';
                             }
                         echo'</div>';
                         } ?>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="custom-row-border">
-            <div class="border-bottom-right"></div>
+            <div class="custom-box-bottom-right-white"></div>
         </div>
     </div>
 </div>

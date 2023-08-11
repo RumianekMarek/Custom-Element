@@ -45,9 +45,9 @@
             <div class="custom-btn-container">
                 <span>
                 <?php if($locale == 'pl_PL'){
-                   echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>
+                   echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank" style="color:white !important">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>
                 ';} else { echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank" style="color:white !important">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>
                 ';} ?>
                 </span>
             </div>

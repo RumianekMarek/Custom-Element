@@ -4,7 +4,7 @@
     </div>
 
     <div class="half-block-padding" style="flex:1;">
-        <div style="color:black;" class="heading-text el-text text-centered main-heading-text">
+        <div class="heading-text el-text text-centered main-heading-text">
             <h4>
                 <?php if($locale == 'pl_PL'){ echo '
                     ODBIERZ VOUCHER NA ZABUDOWĘ
@@ -25,9 +25,9 @@
         <div class="custom-btn-container">
             <span>
                 <?php if($locale == 'pl_PL'){ echo '
-                    <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="/kontakt/"  target="_blank">Zapytaj o voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="/kontakt/"  target="_blank" style="color:white !important;">Zapytaj o voucher</a>
                 ';} else { echo '
-                    <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="/en/contact/"  target="_blank">Ask for a voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="/en/contact/"  target="_blank" style="color:white !important;">Ask for a voucher</a>
                 ';} ?>
             </span>
         </div>
