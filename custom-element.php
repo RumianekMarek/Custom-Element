@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.1.7
+Version: 2.1.8
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -41,6 +41,15 @@ include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystaw
 
 // Info + Modal
 include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
+
+// Badge
+include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
+
+// QR Check
+include_once plugin_dir_path(__FILE__) . '/badge/qrcodecheck.php';
+
+// QR Check
+include_once plugin_dir_path(__FILE__) . '/qr-scanner/qr-scanner.php';
 
 if (is_admin()) {
   // Edytor plików dostepFTP
