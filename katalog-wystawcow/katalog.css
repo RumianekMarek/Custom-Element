@@ -243,26 +243,27 @@
     }
 }
 
-/*------------------------------------------ TOP 21 ----------------------------------------------------- */
-.img-conatiner {
+/*------------------------------------------ TOP 21, 10, 7 ----------------------------------------------------- */
+.img-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 10px;
 }
-.img-conatiner div {
+.img-container div {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     min-height: 120px;
     min-width: 140px;
-    margin: 5px 5px;
+    margin: 5px;
 }
-.img-conatiner-top10 {
+.img-container-top10 {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
-.img-conatiner-top10 div {
+.img-container-top10 div {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -270,9 +271,9 @@
     min-width: 170px;
     margin: 15px 10px;
 }
-.img-conatiner-top10 .tickets {
-    min-height: 100px !important;
-    min-width: 170px;
-    margin: 10px 10px !important;
+.img-container-top10 .tickets {
+    min-height: 90px !important;
+    min-width: 180px !important;
+    margin: 3px 5px !important;
     background-size: contain !important;
 }

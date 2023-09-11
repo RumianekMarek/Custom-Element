@@ -49,6 +49,7 @@ document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg
   if (rowContainerBg.querySelector('.custom-container-organizator') ||
       rowContainerBg.querySelector('.custom-container-org-info') ||
       rowContainerBg.querySelector('.custom-container-calendar-main') ||
+      rowContainerBg.querySelector('.custom-wydarzenia-header') ||
       rowContainerBg.querySelector('.custom-footer')) {
         if (rowContainerBg.classList.contains("limit-width")) rowContainerBg.classList.remove("limit-width");
           rowContainerBg.classList.add("full-width");

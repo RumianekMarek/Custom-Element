@@ -61,13 +61,15 @@ echo '
                             $url = 'https://' . $url_values[$idIndex];
                         }
                     } else {
-                        $url = 'https://' . $fileName;
+                        $url = "";
                     }
 
-                    if ($showurl == "true") {
+                    if ($showurl == "true" && $url !== "") {
                         echo '<a href="' . $url . '" alt="logo ' . $fileName . '" target="_blank"><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></a>';
                     } else {
-                        echo '<div><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></div>';
+                         if ($showurl == "true" && $url == "") {
+                            echo '<div><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></div>';
+                        }
                     }
                 }
 

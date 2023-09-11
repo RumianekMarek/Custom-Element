@@ -1,0 +1,83 @@
+/* MODAL */
+#id-description, #text-section{
+    color:white;
+}
+
+#identifiers a{
+    color: cornflowerblue;
+    text-decoration: underline !important;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    text-align: center;
+}
+
+.modal-button {
+    width: 100px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.errorMessage{
+    color: white;
+    padding:3px;
+    margin-top:0px;
+    background-color: lightcoral;
+}
+
+#full_name, #firm, #email, #adres, #kod, #miasto {
+box-shadow: inherit;
+font-family: inherit;
+color: #fff;
+padding: 10px 15px;
+border: none;
+border-bottom: 1px solid #fff !important;
+width: 100%;
+background: none;
+color: #fff;
+margin: 36px 0 0;
+    &::placeholder {
+        color: #eee;
+    }
+}
+
+.two-column :is(input, select) {
+width: calc(50% - 8px) !important;
+margin: 12px 0 0 !important;
+min-width: unset;
+}
+
+#modal-submit-button, #panstwo {
+    margin: 36px 0 0;
+}
+
+.two-column {
+margin: 26px 0;
+display: flex;
+flex-wrap: wrap;
+gap: 16px;
+}
+
+#custom-modal span{
+    font-weight: 700;
+}

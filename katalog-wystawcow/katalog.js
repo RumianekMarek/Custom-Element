@@ -1,7 +1,7 @@
 if(katalog_data.data){
 	const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
-	
-	let localLangKat = document.getElementById("cat").getAttribute("custom-lang");	
+	console.log(katalog_data);
+	let localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");	
 	const exhibitors = exhibitorsAll.reduce((acc, curr) => {
 		const name = curr[1].Nazwa_wystawcy;
 		const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
@@ -14,12 +14,13 @@ if(katalog_data.data){
 	}, []);
 
 	/* Spiner */
-	const spinner = document.getElementsByClassName('spinner')[0];
-	spinner.style.display = "none";
+	// const spinner = document.getElementsByClassName('spinner')[0];
+	// spinner.style.display = "none";
 	
-/*Segracja plików elementów ze wzlgędu na nazwę*/
+	/*Segracja plików elementów ze wzlgędu na nazwę*/
 	/*  ----------------------FULL ------------------------    */
-	const catRoot = document.getElementById('cat');
+	const catRoot = document.getElementById('full');
+
 	const divContainer = document.createElement('div');
 	/* Test dobierania rozmiarów */
 	function setBgSize(element, url) {
@@ -202,105 +203,6 @@ if(katalog_data.data){
 			}
 		}
 		/*  ----------------------TOP 21 ------------------------    */
-	} else if (katalog_data.format == 'top21') {
-		
-		const imageContainer = document.createElement('div');
-		imageContainer.classList.add('img-conatiner');
-
-		let count = 0;
-		let displayedCount = 0;
-
-		while (displayedCount < 21 && count < exhibitors.length) {
-			if (exhibitors[count][1].URL_logo_wystawcy) {
-				const url = exhibitors[count][1].URL_logo_wystawcy;
-				url.replace('/', '$2F');
-
-				const singleLogo = document.createElement('div');
-				if (url) {
-					singleLogo.setAttribute("style", `background-image: url(${url})`);
-					
-					imageContainer.appendChild(singleLogo);
-				}
-				displayedCount++;
-			}
-			count++;
-		}
-		const divButton = document.createElement('div');
-		if (localLangKat == 'pl_PL') {
-			divButton.innerHTML= `
-								<span style="display: flex; justify-content: center;" class="btn-container">
-									<a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square" title="Katalog wystawców">Zobacz więcej</a>
-								</span>`;
-		} else {
-			divButton.innerHTML= `
-								<span style="display: flex; justify-content: center;" class="btn-container">
-									<a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square" title="Exhibitor Catalog">See more</a>
-								</span>`;
-		}
-		catRoot.appendChild(imageContainer);
-		catRoot.appendChild(divButton);
-		/* PL -- En */		
-		if (localLangKat == 'pl_PL') {
-			var lang = document.querySelectorAll('.pl_PL');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		} else if (localLangKat == 'en_US') {
-			var lang = document.querySelectorAll('.en_US');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		} else {
-			var lang = document.querySelectorAll('.en_US');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		}
-		/*  ----------------------TOP 10 ------------------------    */
-	} else if (katalog_data.format == 'top10') {
-		const imageContainer = document.createElement('div');
-		imageContainer.classList.add('img-conatiner-top10');
-
-		let count = 0;
-		let displayedCount = 0;
-
-		while (displayedCount < 10 && count < exhibitors.length) {
-			if (exhibitors[count][1].URL_logo_wystawcy) {
-				const url = exhibitors[count][1].URL_logo_wystawcy;
-				url.replace('/', '$2F');
-				const singleLogo = document.createElement('div');
-
-				if (katalog_data.ticket == 'true') {
-					singleLogo.classList.add('tickets');
-				}
-
-				if (url) {
-					singleLogo.setAttribute("style", `background-image: url(${url})`);
-					setBgSize(singleLogo, url)
-					imageContainer.appendChild(singleLogo);
-				}
-				displayedCount++;
-			}
-			count++;
-		}
-
-		catRoot.appendChild(imageContainer);
-	}
-		/* PL -- En */		
-		if (localLangKat == 'pl_PL') {
-			var lang = document.querySelectorAll('.pl_PL');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		} else if (localLangKat == 'en_US') {
-			var lang = document.querySelectorAll('.en_US');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		} else {
-			var lang = document.querySelectorAll('.en_US');
-			for (var i = 0; i < lang.length; i++) {
-			lang[i].style.display = 'block';
-			}
-		}
+	} 
 }
+

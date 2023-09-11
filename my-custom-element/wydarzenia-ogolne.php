@@ -1,14 +1,15 @@
 <div id="wydarzenia" class="custom-wydarzenia">
-    <div style="background-image:url('/doc/background.jpg'); background-position: center; padding: 100px;">
+    <div class="custom-wydarzenia-header" style="background-image:url('/doc/background.jpg'); background-position: center; padding: 100px 18px;">
         <h1 class="bigtext text-uppercase text-centered" style="color:white !important; text-shadow: 2px 2px black;">
-            <?php if($locale == 'pl_PL'){ echo '
-                <span style="max-width:600px;">Kongres Branży </span><br><span> [trade_fair_opisbranzy] </span>
+        <?php if($locale == 'pl_PL'){ echo '
+                <span class="bigtext-line0">Kongres Branży<br>[trade_fair_opisbranzy]</span>
             ';} else { echo '
-                <span style="max-width:600px;">Trade congress </span> <br> <span>[trade_fair_opisbranzy_eng] </span>
-            ';} ?>
+                <span class="bigtext-line0">Trade congress<br>[trade_fair_opisbranzy_eng]</span>
+            ';} 
+        ?>
         </h1>
     </div>
-    <div>
+    <div class="custom-width-limit single-block-padding">
         <?php if($locale == 'pl_PL'){ echo '
             <p>Zapraszamy na specjalistyczną Konferencję, która odbędzie się w ramach międzynarodowych targów [trade_fair_name]. Tematyka spotkania skupiać się będzie na najnowszych trendach, innowacjach i wyzwaniach w branży [trade_fair_opisbranzy]. W jej programie znajdziecie Państwo prelekcje ekspertów, panele dyskusyjne, warsztaty oraz prezentacje firm powiązanych sektorem.</p>
             <p>Nasze forum dyskusyjne będzie integralną częścią targów, co pozwoli uczestnikom na korzystanie z pełnego wachlarza możliwości, jakie niesie za sobą międzynarodowa wystawa. Udział w nim to doskonała okazja, aby podyskutować z liderami rynkowymi, nawiązać cenne kontakty biznesowe i poznać najnowsze trendy z branży.</p>
@@ -49,7 +50,7 @@
             ';} ?>
         </p>
     </div>
-    <div class="media-logos text-centered ">
+    <div class="media-logos text-centered custom-width-limit single-block-padding">
         <h2>
             <?php if($locale == 'pl_PL'){ echo '
                 Partnerzy Medialni

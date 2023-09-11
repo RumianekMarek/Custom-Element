@@ -965,6 +965,10 @@
 }
 
 /* wydarzenia */
+.custom-wydarzenia-header h1 {
+    max-width: 600px;
+    margin: 0 auto;
+}
 .media-logos .custom-logos-gallery-wrapper{
     padding-top: 0 !important;
 }
@@ -1198,4 +1202,11 @@ strong {
     background-color: white;
     box-shadow: 9px 9px 0px -5px black !important;
     border: none !important;
+}
+.no-touch .bigtext {
+    opacity: 1 !important;
+}
+.custom-width-limit {
+    max-width: 1200px;
+    margin: 0 auto;
 }
