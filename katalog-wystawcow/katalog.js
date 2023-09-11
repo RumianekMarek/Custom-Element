@@ -1,6 +1,6 @@
 if(katalog_data.data){
 	const exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
-	console.log(katalog_data);
+
 	let localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");	
 	const exhibitors = exhibitorsAll.reduce((acc, curr) => {
 		const name = curr[1].Nazwa_wystawcy;
@@ -141,6 +141,8 @@ if(katalog_data.data){
 				else {
 					if (localLangKat == 'pl_PL') {
 						var modalBox = `
+						<div class="modal__elements">
+								<div class="modal__elements-block">
 							${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
 							<div class="modal__elements-img" style="background-image: url(${url});"></div>
 							<div class="modal__elements-text">
@@ -148,11 +150,15 @@ if(katalog_data.data){
 							${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 								${exhibitors[i][1].Email  ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 								${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-							<button class="close">Zamknij</button>
+								</div>
+								</div>
+								<button class="close">Zamknij</button>
 							</div>
 						</div>`;
 					} else {
 						var modalBox = `
+						<div class="modal__elements">
+								<div class="modal__elements-block">
 							${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
 							<div class="modal__elements-img" style="background-image: url(${url});"></div>
 							<div class="modal__elements-text">
@@ -160,7 +166,9 @@ if(katalog_data.data){
 							${exhibitors[i][1].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 								${exhibitors[i][1].Email  ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 								${exhibitors[i][1].www ? `<p>Web page: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
-							<button class="close">Close</button>
+								</div>
+								</div>
+								<button class="close">Close</button>
 							</div>
 						</div>`
 					}
