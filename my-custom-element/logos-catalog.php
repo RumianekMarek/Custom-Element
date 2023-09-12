@@ -69,6 +69,8 @@ echo '
                     } else {
                          if ($showurl == "true" && $url == "") {
                             echo '<div><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></div>';
+                        } else {
+                            echo '<div><img class="custom-logo-item" src="' . $shortPath . '" alt="' . $altText . '"></div>';
                         }
                     }
                 }
@@ -290,7 +292,3 @@ echo '
 <?php
     }
 ?>
- 
-   
-
-

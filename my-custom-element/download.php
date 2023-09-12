@@ -18,7 +18,8 @@
       <?php if($locale == 'pl_PL') {
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/Regulamin-targow-pwe-2022.pdf" target="_blank" rel="noopener noreferrer">Regulamin targów</a><br>';
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_obiektu.pdf" target="_blank" rel="noopener noreferrer">Regulamin obiektu</a><br>';
-        echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_zabudowy.pdf" target="_blank" rel="noopener noreferrer">Regulamin zabudowy</a>';
+        echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_zabudowy.pdf" target="_blank" rel="noopener noreferrer">Regulamin zabudowy</a><br>';
+        echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/Regulamin na Voucher_2023.pdf" target="_blank" rel="noopener noreferrer">Regulamin Voucherów</a>';
       } else {
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_targ%C3%B3w_2021_en.pdf" target="_blank" rel="noopener noreferrer">Fair regulations</a><br>';
         echo '<a style="color:white !important;" href="https://warsawexpo.eu/docs/regulamin_obiektu_en.pdf" target="_blank" rel="noopener noreferrer">Facility regulations</a><br>';
