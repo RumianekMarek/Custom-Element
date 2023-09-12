@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.1.8
+Version: 2.1.10
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -21,7 +21,6 @@ function clear_wp_rocket_cache_on_plugin_update( $plugin ) {
   }
 }
 add_action( 'upgrader_process_complete', 'clear_wp_rocket_cache_on_plugin_update', 10, 2 );
-
 
 // Adres autoupdate
 include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');

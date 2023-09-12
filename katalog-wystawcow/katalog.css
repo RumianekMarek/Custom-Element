@@ -244,13 +244,17 @@
 }
 
 /*------------------------------------------ TOP 21, 10, 7 ----------------------------------------------------- */
-.img-container {
+.img-container,
+.img-container-top21,
+.img-container-recently7 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
 }
-.img-container div {
+.img-container div,
+.img-container-top21 div,
+.img-container-recently7 div {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -277,3 +281,11 @@
     margin: 3px 5px !important;
     background-size: contain !important;
 }
+
+@media screen and (max-width:1200px) {
+    .img-container-recently7{
+        max-width: 768px;
+        margin: 0 auto;
+    }
+}
+

@@ -210,7 +210,5 @@ if(katalog_data.data){
 			lang[i].style.display = 'block';
 			}
 		}
-		/*  ----------------------TOP 21 ------------------------    */
 	} 
 }
-

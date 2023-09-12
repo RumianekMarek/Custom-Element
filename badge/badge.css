@@ -1,5 +1,5 @@
 /* MODAL */
-#id-description, #text-section{
+#id-description, #text-section, .checkboxy label{
     color:white;
 }
 
@@ -60,11 +60,15 @@ margin: 36px 0 0;
         color: #eee;
     }
 }
-
+.checkboxy input{
+    margin:0 0 0 50px !important; 
+}
+.checkboxy label{
+    margin-right: 50px !important;
+}
 .two-column :is(input, select) {
-width: calc(50% - 8px) !important;
-margin: 12px 0 0 !important;
-min-width: unset;
+    min-width: 100px;
+    margin: 12px 0 0 !important;
 }
 
 #modal-submit-button, #panstwo {
@@ -72,12 +76,15 @@ min-width: unset;
 }
 
 .two-column {
-margin: 26px 0;
-display: flex;
-flex-wrap: wrap;
-gap: 16px;
+    margin: 26px 0;
+    display: flex;
+    gap: 16px;
 }
-
+@media (max-width: 500px){
+    .two-column{
+        flex-wrap: wrap;
+    }
+}
 #custom-modal span{
     font-weight: 700;
 }

@@ -160,7 +160,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'">';
-    $output .= '<div class="img-container">';
+    $output .= '<div class="img-container-'. $format .'">';
 
     $count = 0;
     $displayedCount = 0;
@@ -208,13 +208,14 @@ function katalog_wystawcow_output($atts, $content = null) {
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
             $singleLogo = '';
 
-            if ($katalog_data['ticket'] == 'true') {
-                $singleLogo = '<div class="tickets">';
-            }
-
             if (!empty($url)) {
-                $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+              if ($ticket == 'true') {
+                $singleLogo = '<div class="tickets" style="background-image: url(' . $url . ');"></div>';
                 $output .= $singleLogo;
+              } else {
+                $singleLogo = '<div style="background-image: url(' . $url . ');"></div>';
+                $output .= $singleLogo;
+              }   
             }
 
             $displayedCount++;
@@ -238,18 +239,9 @@ function katalog_wystawcow_output($atts, $content = null) {
           $url = str_replace('$2F', '/', $exhibitor['URL_logo_wystawcy']);
           $singleLogo = '';
 
-          if ($katalog_data['ticket'] == 'true') {
-              $singleLogo = '<div class="tickets">';
-          }
-
           if (!empty($url)) {
               $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
               $output .= $singleLogo;
-
-              // Data pod obrazkiem
-              // if (!empty($exhibitor['Data_sprzedazy'])) {
-              //     $output .= '<div class="exhibitor-date">' . $exhibitor['Data_sprzedazy'] . '</div>';
-              // }
 
               $displayedCount++;
           }
@@ -260,20 +252,14 @@ function katalog_wystawcow_output($atts, $content = null) {
               break;
           }
       }
-      while ($displayedCount < 7 && $emptySlots > 0) {
-          $output .= '<div class="empty-slot"></div>';
-          $displayedCount++;
-          $emptySlots--;
-      }
       $output .= '</div>';
     }
     $output .= '</div>';
-
   }
  
   $spinner = '<div class="spinner"></div>';
-  if (empty($spinner)) {
-    $output .= '<div class="spinner"></div>';
+  if (empty($exhibitorsAll)) {
+    $output .= $spinner;
   }
 
 
@@ -289,5 +275,3 @@ add_shortcode('katalog_wystawcow', 'katalog_wystawcow_output');
 
 
 ?>
-
-
