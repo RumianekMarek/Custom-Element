@@ -108,6 +108,7 @@ if(katalog_data.data){
 									${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 									${exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 									${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
+									${exhibitors[i][1].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i][1].Numer_stoiska}</p>` : ''}
 									${exhibitors[i][1].Opis_pl && localLangKat=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
 									${exhibitors[i][1].Opis_en && localLangKat=="en_US" ? `<p>${exhibitors[i][1].Opis_en}</p>` : ''}
 									</div>
@@ -126,6 +127,7 @@ if(katalog_data.data){
 									${exhibitors[i][1].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 									${exhibitors[i][1].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 									${exhibitors[i][1].www ? `<p>Web page: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
+									${exhibitors[i][1].Numer_stoiska ? `<p>Stand: ${exhibitors[i][1].Numer_stoiska}</p>` : ''}
 									${exhibitors[i][1].Opis_pl && localLangKat=="pl_PL" ?  `<p>${exhibitors[i][1].Opis_pl}</p>` : ''}
 									${exhibitors[i][1].Opis_en && localLangKat=="en_US" ? `<p>${exhibitors[i][1].Opis_en}</p>` : ''}
 									</div>
@@ -144,15 +146,17 @@ if(katalog_data.data){
 						<div class="modal__elements">
 								<div class="modal__elements-block">
 							${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
-							<div class="modal__elements-img" style="background-image: url(${url});"></div>
 							<div class="modal__elements-text">
 							<h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
 							${exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 								${exhibitors[i][1].Email  ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 								${exhibitors[i][1].www ? `<p>Strona www: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
+								${exhibitors[i][1].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i][1].Numer_stoiska}</p>` : ''}
 								</div>
 								</div>
-								<button class="close">Zamknij</button>
+								<div class="modal_elements-button">
+									<button class="close">Zamknij</button>
+								</div>
 							</div>
 						</div>`;
 					} else {
@@ -160,15 +164,17 @@ if(katalog_data.data){
 						<div class="modal__elements">
 								<div class="modal__elements-block">
 							${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
-							<div class="modal__elements-img" style="background-image: url(${url});"></div>
 							<div class="modal__elements-text">
 							<h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>
 							${exhibitors[i][1].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : ''}
 								${exhibitors[i][1].Email  ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i][1].Email} ">${exhibitors[i][1].Email}</a></b></p>` : ''}
 								${exhibitors[i][1].www ? `<p>Web page: <b><a href="${exhibitors[i][1].www}" target="_blank" rel="noopener noreferrer" >${exhibitors[i][1].www}</a></b></p>` : ''}
+								${exhibitors[i][1].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i][1].Numer_stoiska}</p>` : ''}
 								</div>
 								</div>
-								<button class="close">Close</button>
+								<div class="modal_elements-button">
+									button class="close">Close</button>
+								</div>
 							</div>
 						</div>`
 					}
