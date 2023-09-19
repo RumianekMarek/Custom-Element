@@ -7,10 +7,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 45vh;
+    height: 55vh;
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.wpb_column:has(.exhibitor__header) {
+    padding: 0 !important;
 }
 
 .exhibitor__header h1 {
@@ -69,6 +73,15 @@
     height: 100px;
     width: 150px;
     flex: 1;
+}
+
+.exhibitors__container-list-text {
+    font-size: 12px !important;
+    line-height: 1.2rem;
+    font-weight: 500;
+    margin: 0 auto;
+    text-align: center;
+    flex: 2;
 }
 
 .exhibitors__container-list-text-name {
@@ -271,7 +284,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 190px;
+    min-height: 130px;
     min-width: 170px;
     margin: 15px 10px;
 }

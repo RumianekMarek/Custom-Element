@@ -30,7 +30,15 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'type' => 'checkbox',
             'heading' => __('Show details', 'my-custom-plugin'),
             'param_name' => 'details',
-            'description' => __('Check to use to show details.', 'my-custom-plugin'),
+            'description' => __('Check to use to show details. ONLY full catalog.', 'my-custom-plugin'),
+            'admin_label' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          ),
+          array(
+            'type' => 'checkbox',
+            'heading' => __('Show stand', 'my-custom-plugin'),
+            'param_name' => 'stand',
+            'description' => __('Check to use to show stand. ONLY full catalog.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
           ),
@@ -38,7 +46,7 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'type' => 'checkbox',
             'heading' => __('Ticket check', 'my-custom-plugin'),
             'param_name' => 'ticket',
-            'description' => __('Check if there is a ticket above', 'my-custom-plugin'),
+            'description' => __('Check if there is a ticket above. ONLY top10.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
           ),
@@ -67,6 +75,7 @@ function katalog_wystawcow_output($atts, $content = null) {
 
   if (isset($atts['identification'])) { $identification = $atts['identification']; }
   if (isset($atts['details'])) { $details = $atts['details']; }
+  if (isset($atts['stand'])) { $stand = $atts['stand']; }
   if (isset($atts['format'])) { $format = $atts['format']; }
   if (isset($atts['ticket'])) { $ticket = $atts['ticket']; }
   if (isset($atts['color'])) { $color = $atts['color']; }
@@ -103,6 +112,7 @@ function katalog_wystawcow_output($atts, $content = null) {
       'json' => $json,
       'id_targow' => $id_targow,
       'details' => $details,
+      'stand' => $stand,
       'format' => $format,
       'ticket' => $ticket,
       'name' => $name,
@@ -128,36 +138,172 @@ function katalog_wystawcow_output($atts, $content = null) {
       return $acc;
   }, []);
 
-  // Twój kod dla tego elementu
+  // KATALOG
   if($format === 'full'){
-    if($locale == 'pl_PL'){
-      $output = '
-      <div custom-lang="' . $locale . '" id="'. $format .'">
-        <div class="exhibitors">
-          <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
-            <div>
-              <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
-              <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
-            </div>
-            <input id="search" placeholder="Szukaj"/>
-          </div>
-        </div>
-      </div>';
-    } else {
-      $output = '
-      <div custom-lang="' . $locale . '" id="'. $format .'">
-        <div class="exhibitors">
-          <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">
-            <div>
-              <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
-              <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
-            </div>
-            <input id="search" placeholder="Search"/>
-          </div>
-        </div>
-      </div>';
-    }
-    
+    $output = '
+    <div custom-lang="' . $locale . '" id="'. $format .'">
+      <div class="exhibitors">
+        <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">';
+          if($locale == 'pl_PL') {
+            $output .= '<div>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
+                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+                  </div>
+                  <input id="search" placeholder="Szukaj"/>';
+          } else {
+            $output .= '<div>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
+                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+                  </div>
+                  <input id="search" placeholder="Search"/>';
+          }
+          $output .= '</div>';
+      
+        $allExhibitorsArray = '';
+        $divContainerExhibitors = '<div class="exhibitors__container">';
+        // WYSTAWCY
+        foreach ($exhibitors as $exhibitor) {
+          $singleExhibitor = '<div class="exhibitors__container-list">';
+          if ($exhibitor['URL_logo_wystawcy']) {
+            $singleExhibitor .= '<div class="exhibitors__container-list-img" style="background-image: url(' . $exhibitor['URL_logo_wystawcy'] . ')"></div>';
+          } 
+          if ($stand == 'true') {
+              $singleExhibitor .= '<div class="exhibitors__container-list-text">';
+              $singleExhibitor .= '<h2 class="exhibitors__container-list-text-name">' . $exhibitor['Nazwa_wystawcy'] . '</h2>';
+              if ($locale == 'pl_PL') {
+                  $singleExhibitor .= '<p>Stoisko:' . $exhibitor['Numer_stoiska'] . '</p>';
+              } else {
+                  $singleExhibitor .= '<p>Stand:' . $exhibitor['Numer_stoiska'] . '</p>';
+              }
+              $singleExhibitor .= '</div>';
+          } else {
+              $singleExhibitor .= '<h2 class="exhibitors__container-list-text-name">' . $exhibitor['Nazwa_wystawcy'] . '</h2>';
+          }
+          $singleExhibitor .= '</div>';
+          $divContainerExhibitors .= $singleExhibitor; 
+          $allExhibitorsArray .= $singleExhibitor;
+        }
+        $divContainerExhibitors .= '</div>';
+        $output .= $divContainerExhibitors;
+
+  ?><script>
+ 
+  document.addEventListener("DOMContentLoaded", function () {
+    var katalog_data = <?php echo json_encode($script_data); ?>;
+    if(katalog_data.data){
+
+      /* SEARCH ELEMENT */
+      const inputSearch = document.getElementById('search');
+      var allExhibitorsArray = document.getElementsByClassName('exhibitors__container-list');
+      inputSearch.addEventListener("input", () => {
+        for (let i = 0; i < allExhibitorsArray.length; i++) {
+          const exhibitorsNames = allExhibitorsArray[i].getElementsByTagName('h2')[0].innerText.toLocaleLowerCase();
+          let isVisible = exhibitorsNames.includes(inputSearch.value.toLocaleLowerCase());
+          allExhibitorsArray[i].classList.toggle("hide-post", !isVisible);
+          allExhibitorsArray[i].classList.toggle("show-post", isVisible);
+        }
+      });
+      
+      var localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");	
+      var exhibitors = <?php echo json_encode($exhibitors); ?>;
+
+      /* MODAL ELEMENT */
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      modal.setAttribute('id', 'my-modal');
+
+      for (let i = 0; i < allExhibitorsArray.length; i++) {
+        allExhibitorsArray[i].addEventListener('click', () => {
+          const url = exhibitors[i].URL_logo_wystawcy;
+          url.replace('/', '$2F');
+
+          var www = exhibitors[i].www;
+          
+          if (www !== false && www !== "") {
+            if (www.indexOf('https://www.') !== -1) {
+              www = 'https://' + www.replace(/^https:\/\/www\./i, '');
+            } else if (www.indexOf('http://www.') !== -1) {
+              www = 'https://' + www.replace(/^http:\/\/www\./i, '');
+            } else if (www.indexOf('www.') !== -1) {
+              www = 'https://' + www.replace(/^www\./i, '');
+            } else if (www.indexOf('http://') !== -1) {
+              www = 'https://' + www.substr(7);
+            }
+          }
+
+          var modalBox = `<div class="modal__elements">
+                            <div class="modal__elements-block">
+                                ${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
+                                <div class="modal__elements-text">
+                                  <h3>${exhibitors[i].Nazwa_wystawcy}</h3>`;
+
+                                  if (katalog_data.details == 'true') {
+                                    if (localLangKat == 'pl_PL') {
+                                        modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
+                                        modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
+                                        if (katalog_data.stand == 'true') {
+                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        }
+                                        modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
+                                        modalBox += exhibitors[i].Opis_en && localLangKat == "en_US" ? `<p>${exhibitors[i].Opis_en}</p>` : '';
+                                    } else {
+                                        modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
+                                        modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
+                                        if (katalog_data.stand == 'true') {
+                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        }
+                                        modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
+                                        modalBox += exhibitors[i].Opis_en && localLangKat == "en_US" ? `<p>${exhibitors[i].Opis_en}</p>` : '';
+                                    }
+                                } else {
+                                    if (localLangKat == 'pl_PL') {
+                                        modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
+                                        modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                    } else {
+                                        modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
+                                        modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
+                                        modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                    }
+                                }
+
+          modalBox += `</div></div>
+                              <div class="modal_elements-button">`;
+          if (localLangKat == 'pl_PL') {
+              modalBox += '<button class="close">Zamknij</button>';
+          } else {
+              modalBox += '<button class="close">Close</button>';
+          }
+          modalBox += `</div></div>`;
+
+          modal.innerHTML = modalBox;
+          document.getElementById('<?php echo $format ?>').appendChild(modal);
+          modal.style.display = 'flex';
+
+          const closeBtn = modal.querySelector(".close");
+
+          closeBtn.addEventListener("click", function () {
+            modal.style.display = "none";
+          });
+
+          window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          });
+
+        });
+      };
+    };
+  });
+  </script><?php    
+
+        $output .= '</div></div>';
+        
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'">';
     $output .= '<div class="img-container-'. $format .'">';
@@ -225,8 +371,6 @@ function katalog_wystawcow_output($atts, $content = null) {
       $output .= '</div>';
     } else if ($format === 'recently7') {
 
-      $emptySlots = 7;
-
       usort($exhibitors, function($a, $b) {
         return strtotime($b['Data_sprzedazy']) - strtotime($a['Data_sprzedazy']);
       });
@@ -262,10 +406,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     $output .= $spinner;
   }
 
-
   wp_enqueue_style( 'katalog_wystawcow-css', plugin_dir_url( __FILE__ ) . 'katalog.css' );
-  wp_enqueue_script( 'katalog_wystawcow-js', plugin_dir_url( __FILE__ ) . 'katalog.js', array( 'jquery' ), '1.0', true );
-  wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data );
 
   return $output;
 }

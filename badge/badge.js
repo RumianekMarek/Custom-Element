@@ -1,6 +1,7 @@
-if(document.querySelector(".row-container").querySelector("#identifiers")){
-    document.querySelector(".row-container").style.background = "#353535";
-  }
+if(document.querySelector("#identifiers")){
+  if(document.querySelector(".row-container").querySelector("#identifiers")){
+        document.querySelector(".row-container").style.background = "#353535";
+    }
 
   document.addEventListener("DOMContentLoaded", function() {
     const changeForm = document.getElementById("change-form");
@@ -21,8 +22,8 @@ if(document.querySelector(".row-container").querySelector("#identifiers")){
 
     function validateForm() {
       const customForm = document.querySelector("#custom-form")
-      const inputField = document.getElementById("full_name");
       const errorMessage = document.createElement("p");
+      const modal = document.getElementById("custom-modal");
 
       errorMessage.classList.add("errorMessage");
       errorMessage.innerText = "Entry error";
@@ -32,21 +33,30 @@ if(document.querySelector(".row-container").querySelector("#identifiers")){
         allErrors[i].remove();
       }
 
-      const allFields = customForm.querySelectorAll("input");
-
+      let allFields = Array.from(customForm.querySelectorAll("input"));
+      allFields.push(...Array.from(customForm.querySelectorAll("select")));
       let returner = true;
+
       for (i=0; i<allFields.length; i++){
-        if (allFields[i].value.trim() === "") {
-          const errorMessageClone = errorMessage.cloneNode(true);
-          allFields[i].insertAdjacentElement("afterend", errorMessageClone);
-          returner = false;
-        } else if (i<6){ 
-            const newId = "#"+allFields[i].id+"_check";
-            customForm.querySelector(newId).innerText = allFields[i].value
-        } else if (i==6){ 
-          customForm.querySelector("#panstwo_check").innerText = customForm.querySelector("#panstwo").value
+        const newId = "#"+allFields[i].id+"_check";
+        const modalElem = modal.querySelector(newId);
+        if (modalElem != null){
+          if (allFields[i].value.trim() === "" && allFields[i].required === true) {
+            const errorMessageClone = errorMessage.cloneNode(true);
+            allFields[i].insertAdjacentElement("afterend", errorMessageClone);
+            returner = false;
+          } else if (modalElem && modalElem.id != "email_id_check" && modalElem.id != "paper_id_check"){ 
+              modalElem.innerText = allFields[i].value
+          } else if(modalElem.id == "email_id_check" || modalElem.id == "paper_id_check"){
+            if(allFields[i].checked === true){
+              modalElem.innerText = 'wysłać';
+            } else {
+              modalElem.innerText = 'nie wysłać';
+            }
+          }
         }
       }
       return returner;
     }
   });
+}

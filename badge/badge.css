@@ -1,8 +1,13 @@
 /* MODAL */
+#custom-form{
+    text-align: -webkit-center;
+}
 #id-description, #text-section, .checkboxy label{
     color:white;
 }
-
+#modal-submit-button{
+    max-width: 200px;
+}
 #identifiers a{
     color: cornflowerblue;
     text-decoration: underline !important;
@@ -60,11 +65,10 @@ margin: 36px 0 0;
         color: #eee;
     }
 }
-.checkboxy input{
-    margin:0 0 0 50px !important; 
-}
-.checkboxy label{
-    margin-right: 50px !important;
+.checkboxy {
+    display: flex;
+    justify-content: space-around;
+    gap: 18px;
 }
 .two-column :is(input, select) {
     min-width: 100px;
@@ -76,15 +80,27 @@ margin: 36px 0 0;
 }
 
 .two-column {
+    justify-content: center;
     margin: 26px 0;
     display: flex;
-    gap: 16px;
+    gap: 18px;
 }
-@media (max-width: 500px){
+@media (max-width: 650px){
     .two-column{
         flex-wrap: wrap;
+    }
+    .two-column :is(input, select) {
+        width: 45%;
     }
 }
 #custom-modal span{
     font-weight: 700;
+}
+
+input[type=radio]:checked:before {
+    background-color: black;
+}
+
+button{
+    margin:18px !important;
 }
