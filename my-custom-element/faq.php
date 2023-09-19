@@ -13,6 +13,10 @@
       <div class="pytanie half-block-padding" style="color:white !important;">Gdzie odbywają się targi?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important;">Targi odbywają się w <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
     </div>
+    <div class="pytanie-odpowiedz" style="border-bottom:1px solid white;">
+      <div class="pytanie half-block-padding" style="color:white !important;">W jakich godzinach odbywają się targi?</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important;">Godziny otwarcia targów - 10:00 - 17:00.</div>
+    </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important;">Ile kosztuje bilet na targi?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important;">Bilety będą dostępne w przedsprzedaży internetowej oraz na miejscu w recepcjach podczas trwania targów. Wszystkie osoby, które dokonają rejestracji online lub w biurze targowym otrzymają bezpłatną wejściówkę wyłącznie na dni branżowe.</div>
@@ -45,6 +49,10 @@
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Where are the fairs held?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; ">The fair takes place at<a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+    </div>
+    <div class="pytanie-odpowiedz" style="border-bottom:1px solid white;">
+      <div class="pytanie half-block-padding" style="color:white !important;">What hours are the fairs held?</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important;">Fair opening hours - 10:00 - 17:00.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">How much is the ticket to the fair?</div>

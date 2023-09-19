@@ -53,11 +53,11 @@
     <div class="media-logos text-centered custom-width-limit single-block-padding">
         <h2>
             <?php if($locale == 'pl_PL'){ echo '
-                Partnerzy Medialni
+                PARTNERZY MEDIALNI
             ';} else { echo '
-                Media Patronage
+                MEDIA PATRONAGE
             ';} ?>
         </h2>
-        <?php include_once plugin_dir_path(__FILE__) . 'logos-catalog.php' ?>
+        <?php include 'logos-catalog.php'; ?>
     </div>
 </div>

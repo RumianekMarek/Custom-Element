@@ -462,6 +462,12 @@
         width: 100%;
     }
 }
+@media (max-width: 500px) {
+    .custom-gallery-desc-wrapper .custom-btn-container, 
+    .custom-gallery-thumbs-wrapper .custom-btn-container {
+        justify-content: center;
+    }
+}
 /* Header */
 .custom-element-header .custom-element-header-container {
     min-height: 800px;
@@ -549,6 +555,9 @@
 .main-timer-countdown {
     text-align: center;
     font-weight: 700;
+}
+#customBtn {
+    transform-origin: center !important;
 }
 .custom-main-timer-before p,
 .custom-main-timer-after p {

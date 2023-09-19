@@ -36,5 +36,8 @@
         </div>
     </div>
 </div>
-
-
+<?php if (current_user_can('administrator')) {
+    $admin_username = 'Anton';
+    $current_user = wp_get_current_user();
+    if ($current_user->user_login == $admin_username) { ?><style>#niePrzegap { display: none !important; }</style><?php }
+} ?>

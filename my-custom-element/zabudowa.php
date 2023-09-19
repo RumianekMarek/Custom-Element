@@ -22,17 +22,17 @@
     <div class="custom-btn-container">
       <span>
         <?php if($locale == 'pl_PL'){ echo '
-          <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="https://warsawexpo.eu/zabudowa-targowa" target="_blank" style="color:white !important;">Zobacz Więcej</a>
+          <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="https://warsawexpo.eu/zabudowa-targowa" target="_blank" style="color:white !important;">Zobacz Więcej</a>
         ';} else { echo '
-          <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="https://warsawexpo.eu/en/exhibition-stands" target="_blank" style="color:white !important;">See more</a>
+          <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="https://warsawexpo.eu/en/exhibition-stands" target="_blank" style="color:white !important;">See more</a>
         ';} ?>
       </span>
 
       <span>
         <?php if($locale == 'pl_PL'){ echo '
-          <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="https://warsawexpo.eu/katalog-zabudowy" target="_blank" style="color:white !important;">Katalog Zabudowy</a>
+          <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="https://warsawexpo.eu/katalog-zabudowy" target="_blank" style="color:white !important;">Katalog Zabudowy</a>
         ';} else { echo '
-          <a class="custom-link btn border-width-0 shadow-main2 btn-accent btn-flat" href="https://warsawexpo.eu/en/katalog-zabudowy" target="_blank" style="color:white !important;">Exhibition Stand</a>
+          <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="https://warsawexpo.eu/en/katalog-zabudowy" target="_blank" style="color:white !important;">Exhibition Stand</a>
         ';} ?>
       </span>
     </div>
