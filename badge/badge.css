@@ -1,4 +1,3 @@
-/* MODAL */
 #custom-form{
     text-align: -webkit-center;
 }
@@ -95,6 +94,44 @@ margin: 36px 0 0;
 }
 #custom-modal span{
     font-weight: 700;
+    margin: 0 5px;
+}
+#custom-modal p{
+    margin: 18px 50px;
+    display: flex;
+    justify-content: space-between;
+}
+#custom-modal .flex-1{
+    flex:1;
+    text-align: left;
+}
+#custom-modal .flex-2{
+    flex:2;
+    text-align: left;
+}
+#custom-modal .modal-message{
+    justify-content: center !important;
+}
+@media (max-width: 959px){
+    .modal-content{
+        width: 90%;
+    }
+}
+@media (max-width: 650px){
+    .two-column{
+        flex-wrap: wrap;
+    }
+    .two-column :is(input, select) {
+        width: 45%;
+    }
+    #custom-modal span{
+        text-align: center !important;
+    }
+    #custom-modal p{
+        margin: 18px;
+        justify-content: center;       
+        flex-wrap: wrap;
+    }
 }
 
 input[type=radio]:checked:before {

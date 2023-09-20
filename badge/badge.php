@@ -42,7 +42,7 @@ function custom_badge_element_output($atts){
     $_SESSION['atts'] = $atts;
 
     $locale = get_locale();
-
+    
     $url_token = '';
     $registered = "";
     $sesion_entry_data = '';
@@ -64,16 +64,29 @@ function custom_badge_element_output($atts){
     <div id="identifiers" class="col-lg-12 wpb_column">
         <div class="col-lg-4 wpb_column pos-middle">
             <div class="text-centered" id="id-description">
-                <p>Jeżeli już jesteś zarejestrowany/a na naszej stronie a potrzebujesz zaproszenia w formie papierowej? Wypełnij formularz.</p>
-                <hr class="single-padding">
-                <h2 class="text-uppercase">Masz pytania?</h2>
-                <h5 class="text-uppercase">Obsługa odwiedzających<br>
+            <?php if($locale == 'pl_PL'){ echo '
+                    <p>Jeżeli już jesteś zarejestrowany/a na naszej stronie a potrzebujesz zaproszenia w formie papierowej? Wypełnij formularz.</p>
+                    <hr class="single-padding">
+                    <h2 class="text-uppercase">Masz pytania?</h2>
+                    <h5 class="text-uppercase">Obsługa odwiedzających<br>
                     <a href="tel:+48513903628">+48 513 903 628</a></h5>
-                <h5 class="text-uppercase">Obsługa wystawców<br>
+                    <h5 class="text-uppercase">Obsługa wystawców<br>
                     <a href="tel:+48501239338">+48 501 239 338</a></h5>
-                <h5 class="text-uppercase">Współpraca z mediami<br>
+                    <h5 class="text-uppercase">Współpraca z mediami<br>
                     <a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a></h5><br>
-                <img src="/doc/logo-pwe.png" style="width:200px;">
+                    <img src="/doc/logo-pwe.png" style="width:200px;">
+                ';} else { echo '
+                    <p>If you are already registered on our site but need a paper invitation? Fill out the form.</p>
+                    <hr class="single-padding">
+                    <h2 class="text-uppercase">Any questions?</h2>
+                    <h5 class="text-uppercase">Visitors informations<br>
+                    <a href="tel:+48513903628">+48 513 903 628</a></h5>
+                    <h5 class="text-uppercase">Exhibitors informations<br>
+                    <a href="tel:+48501239338">+48 501 239 338</a></h5>
+                    <h5 class="text-uppercase">Cooperation with the media<br>
+                    <a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a></h5><br>
+                    <img src="/doc/logo-pwe.png" style="width:200px;">
+                ';} ?>
             </div>
         </div>
 
@@ -116,32 +129,53 @@ function custom_badge_element_output($atts){
                     </div>';
                         } else {echo '</div>'; }?>
                     <?php echo '<input type="hidden" name="token" value="' . $token . '">'; ?>
-                    <input type="submit" name="submit" value="Wyślij" id="modal-submit-button">
+                    <input type="submit" name="submit" value="Submit" id="modal-submit-button">
 
                     <div id="custom-modal" style="display: none;" class="modal">
                         <div class="modal-content">
-                            <p>Imie i Nazwisko - <span id="full_name_check"></span></p>
-                            <p>Nazwa Firmy - <span id="firm_check"></span></p>
-                            <p>Email - <span id="email_check"></span></p>
-                            <p>Adres - <span id="adres_check"></span></p>
-                            <p>Miasto - <span id="miasto_check"></span></p>
-                            <p>Kod pocztowy - <span id="kod_check"></span></p>
-                            <p>Państwo - <span id="panstwo_check"></span></p>
+                            <?php if($locale == 'pl_PL'){ echo '
+                              <p><span id="full_name_label" class="flex-1">Imie i Nazwisko - </span><span id="full_name_check" class="flex-2"></span></p>
+                              <p><span id="firm_label" class="flex-1">Nazwa Firmy - </span><span id="firm_check" class="flex-2"></span></p>
+                              <p><span id="email_label" class="flex-1">Email - </span><span id="email_check" class="flex-2"></span></p>
+                              <p><span id="adres_label" class="flex-1">Adres - </span><span id="adres_check" class="flex-2"></span></p>
+                              <p><span id="miasto_label" class="flex-1">Miasto - </span><span id="miasto_check" class="flex-2"></span></p>
+                              <p><span id="kod_label" class="flex-1">Kod pocztowy - </span><span id="kod_check" class="flex-2"></span></p>
+                              <p><span id="panstwo_label" class="flex-1">Państwo - </span><span id="panstwo_check" class="flex-2"></span></p>
+                            ';} else { echo '
+                              <p><span id="full_name_label" class="flex-1">Full name - </span><span id="full_name_check" class="flex-2"></span></p>
+                              <p><span id="firm_label" class="flex-1">Company - </span><span id="firm_check class="flex-2""></span></p>
+                              <p><span id="email_label" class="flex-1">Email - </span><span id="email_check" class="flex-2"></span></p>
+                              <p><span id="adres_label" class="flex-1">Adress - </span><span id="adres_check" class="flex-2"></span></p>
+                              <p><span id="miasto_label" class="flex-1">City- </span><span id="miasto_check" class="flex-2"></span></p>
+                              <p><span id="kod_label" class="flex-1">Zip code - </span><span id="kod_check" class="flex-2"></span></p>
+                              <p><span id="panstwo_label" class="flex-1">Country - </span><span id="panstwo_check" class="flex-2"></span></p>
+                            ';} ?>
                         <?php if ($url_token != ''){ echo '
                             <p>Departament - <span id="departament_check"></span></p>
                             <p>Kanał - <span id="kanal_check"></span></p>';
                             }
+                            if($locale == 'pl_PL'){ echo '
+                                <p class="modal-message">Czy na pewno chcesz wysłać dane?</p>
+                                <button class="modal-button" id="change-form">Popraw</button>
+                                <button class="modal-button" id="submit-form" name="submit">Zatwierdz</button>
+                            ';} else { echo '
+                                <p class="modal-message">Is the entry correct?</p>
+                                <button class="modal-button" id="change-form">Corection</button>
+                                <button class="modal-button" id="submit-form" name="submit">Send</button>
+                            ';}
                         ?>
-                            <p class="modal-message">Czy na pewno chcesz wysłać dane?</p>
-                            <button class="modal-button" id="change-form">Popraw</button>
-                            <button class="modal-button" id="submit-form" name="submit">Zatwierdz</button>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div id="text-section" class="text-centered single-block-padding" style="display: none;">
-                <h2>Twoja prośba o identyfikator zaostała przekazana do realizacji</h2>
+                <h2><?php if($locale == 'pl_PL'){ echo '
+                    Twoja prośba o identyfikator została przekazana do realizacji
+                  ';} else { echo '
+                    Your badge request has been forwarded for processing
+                  ';} ?>
+                  </h2>
                 <p>&nbsp;</p>
             </div>
         </div>
@@ -294,13 +328,12 @@ function custom_badge_element_output($atts){
 }
 
 function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $user_id){
-  
+  $locale = get_locale();
   $entry_return = '';
   // Załaduj plik z klasą GFAPI, jeśli nie jest jeszcze załadowany
   if (class_exists('GFAPI')) {
     // Pobierz listę wszystkich formularzy
     $forms = GFAPI::get_forms();
-
     foreach ($forms as $form) {
       if (strpos(strtolower($form['title']), 'napisz') === false 
           && strpos(strtolower($form['title']), 'write') === false 
@@ -309,6 +342,7 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
           && strpos(strtolower($form['title']), 'inside') === false
           && strpos(strtolower($form['title']), 'badge') === false){
             $entries = GFAPI::get_entries($form['id'],null,null,array( 'offset' => 0, 'page_size' => 0 ));
+
         foreach ($entries as $entry) {
           $form_fields = GFAPI::get_form($form['id']);
           
@@ -317,7 +351,6 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
               $entry_proces = (gform_get_meta($entry['id'], "processed_feeds")['qr-code'][0]);
               
               $meta_key = 'qr-code_feed_' . $entry_proces . '_url';
-
               if (gform_get_meta($entry['id'], $meta_key) !== false && !in_array(gform_get_meta($entry['id'], $meta_key), $qr_array)) {
                 $entry_return = gform_get_meta($entry['id'], $meta_key);
                 
@@ -333,17 +366,25 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
         }
       }
     }
-    if (empty($entry_return) && $user_id == '') {
+    if (empty($entry_return) && $user_id === 'Client') {
       $entry_return = 'Nie znaleziono danych';
       $domain = do_shortcode('[trade_fair_domainadress]');
+      
       ?>
         <script>
             targetHeader = document.querySelector("#text-section h2");
             targetHeader.innerText = "Brak unikalnych kodów QR";
             const targetDesc = document.querySelector("#text-section p");
-            console.log(targetDesc);
-            
-            targetDesc.innerHTML = "Podany email adres nie został znaleziony w naszej bazie danych osób zarejestrowanych na targi lub została już wysłana prośba o identyfiaktor. Jeżeli chcesz otrzymać identyfikator prosimy o zarejestrowanie się po czym wysunięcie prośby o identyfikator jeszcze raz.<br><a href='/rejestracja/' style='font-size:30px;'>REJESTRACJA NA TARGI</a>";
+            <?php if($locale == 'pl_PL'){ echo '
+                  targetDesc.innerHTML = "Podany email adres nie został znaleziony w naszej bazie danych osób zarejestrowanych na targi lub została już wysłana prośba o identyfiaktor. Jeżeli chcesz otrzymać identyfikator prosimy o zarejestrowanie się po czym wysunięcie prośby o identyfikator jeszcze raz.<br>";
+                  const urlDesc = "/rejestracja";
+                  const messageDesc = "REJESTRACJA NA TARGI";
+                ';} else { echo '
+                  targetDesc.innerHTML = "The email address you entered was not found in our database of people registered for the fair or a request for an identifier has already been sent. If you would like to receive an identifier please register then send the identifier request again.<br>";
+                  const urlDesc = "/register";
+                  const messageDesc = "REGISTRATION FOR THE FAIR";
+                ';} ?>
+            targetDesc.innerHTML += '<a href="'+urlDesc+'" style="font-size:30px;">'+messageDesc+'</a>';
         </script>
       <?php
     } else {}
@@ -352,7 +393,7 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
 }
 
 function Give_me_badge_check($search_email, $entries_data, $atts, &$qr_table_inside){
-  
+   $locale = get_locale();
     $forms = GFAPI::get_forms();
     $give_me_badge_form_exists = false;
     $give_me_badge_form_id = null;
@@ -385,6 +426,7 @@ function Give_me_badge_check($search_email, $entries_data, $atts, &$qr_table_ins
           }
         }
         $unical_qr = Check_all_forms($search_email, $qr_table, $vip, $qr_table_inside, $entries_data['9']);
+
         if ($unical_qr != 'Nie znaleziono danych' && $entries_data[9] === 'Client') {
           $entries_data['8'] = $unical_qr;
           $entries_data['form_id'] = $give_me_badge_form_id;
@@ -478,11 +520,15 @@ function Give_me_badge_check($search_email, $entries_data, $atts, &$qr_table_ins
 } 
 
 function Send_email_replay($name, $mail){
+  $locale = get_locale();
+  if($locale == 'pl_PL'){ 
+    $subject = "Potwierdzenie prosby o identyfikator papierowy";
+    $file_path = dirname(__FILE__) . '/email_template.html'; 
+  } else {
+    $subject = "Confirmation of paper ID requesty";
+    $file_path = dirname(__FILE__) . '/email_template_en.html'; 
+  }
   
-  $subject = "Potwierdzenie prosby o identyfikator papierowy";
-  
-  // Wczytanie pliku z treścią emaila
-  $file_path = dirname(__FILE__) . '/email_template.html'; 
   $message = file_get_contents($file_path);
   
   $message = do_shortcode($message);
@@ -501,8 +547,7 @@ function Send_email_replay($name, $mail){
 }
 
 function Send_form_data($form_data, $vip, $atts){
-
-  // Pobierz wartości parametrów
+  $locale = get_locale();
   $user = $atts['user'];
   $password = $atts['password'];
 
@@ -572,6 +617,7 @@ function Send_form_data($form_data, $vip, $atts){
 
 
 function Inside_badge($email_search, $entries_data, &$vip, $atts){
+  $locale = get_locale();
   $qr_table_inside = array();
   $id_name = $atts['identyfikator'];
   
