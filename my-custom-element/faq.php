@@ -31,7 +31,7 @@
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Jak dotrzeć na targi?</div>
-      <div class="odpowiedz half-block-padding" style="color:white !important; ">Na targi można dotrzeć samochodem lub autobusami linii 703 oraz 711 dojeżdżającymi z przystanku  P+R Al. Krakowska 15 do Ptak Warsaw Expo.</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; ">Na targi można dotrzeć samochodem lub autobusami linii 703 oraz 711 dojeżdżającymi z przystanku P+R Al. Krakowska 15 do Ptak Warsaw Expo.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Czy parking jest płatny?</div>
@@ -48,7 +48,7 @@
   } else { echo '
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Where are the fairs held?</div>
-      <div class="odpowiedz half-block-padding" style="color:white !important; ">The fair takes place at<a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu/en/">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; ">The fair takes place at <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu/en/"> Ptak Warsaw Expo </a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
     </div>
     <div class="pytanie-odpowiedz" style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important;">What hours are the fairs held?</div>

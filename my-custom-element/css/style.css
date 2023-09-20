@@ -17,6 +17,11 @@
     color:black;
     line-height: 1.2;
 }
+@media (max-width: 570px) {
+    .custom-text-ptakAdress li {
+        font-size:24px !important;
+    }
+}
 /* END Adress Ptak Warsaw Expo */
 
 /* Dodaj do Kalendarza */
@@ -701,7 +706,7 @@
         min-width: 250% !important; 
     }
     .custom-organizator-text{
-        padding: 1px 20px 50px 20px !important;
+        padding: 1px 36px 50px 36px !important;
         }
 }
 
@@ -711,6 +716,11 @@
 }
 .custom-block-socialMedia{
     position: relative;
+}
+@media (max-width: 569px){
+    .custom-facebook{
+        transform-origin: center !important;
+    }
 }
 .absolute-facebook-Img{
     position: absolute;
