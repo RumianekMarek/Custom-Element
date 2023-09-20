@@ -36,9 +36,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           ),
           array(
             'type' => 'checkbox',
-            'heading' => __('Show stand', 'my-custom-plugin'),
+            'heading' => __('Hide stand', 'my-custom-plugin'),
             'param_name' => 'stand',
-            'description' => __('Check to use to show stand. ONLY full catalog.', 'my-custom-plugin'),
+            'description' => __('Check to use to hide stand. ONLY full catalog.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
           ),
@@ -167,13 +167,13 @@ function katalog_wystawcow_output($atts, $content = null) {
           if ($exhibitor['URL_logo_wystawcy']) {
             $singleExhibitor .= '<div class="exhibitors__container-list-img" style="background-image: url(' . $exhibitor['URL_logo_wystawcy'] . ')"></div>';
           } 
-          if ($stand == 'true') {
+          if ($stand !== 'true') {
               $singleExhibitor .= '<div class="exhibitors__container-list-text">';
               $singleExhibitor .= '<h2 class="exhibitors__container-list-text-name">' . $exhibitor['Nazwa_wystawcy'] . '</h2>';
               if ($locale == 'pl_PL') {
-                  $singleExhibitor .= '<p>Stoisko:' . $exhibitor['Numer_stoiska'] . '</p>';
+                $singleExhibitor .= '<p>' . $exhibitor['Numer_stoiska'] . '</p>';
               } else {
-                  $singleExhibitor .= '<p>Stand:' . $exhibitor['Numer_stoiska'] . '</p>';
+                  $singleExhibitor .= '<p>' . $exhibitor['Numer_stoiska'] . '</p>';
               }
               $singleExhibitor .= '</div>';
           } else {
@@ -242,7 +242,7 @@ function katalog_wystawcow_output($atts, $content = null) {
                                         modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
                                         modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
                                         modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand == 'true') {
+                                        if (katalog_data.stand !== 'true') {
                                             modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
                                         }
                                         modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
@@ -251,7 +251,7 @@ function katalog_wystawcow_output($atts, $content = null) {
                                         modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
                                         modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
                                         modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand == 'true') {
+                                        if (katalog_data.stand !== 'true') {
                                             modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
                                         }
                                         modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
@@ -262,12 +262,16 @@ function katalog_wystawcow_output($atts, $content = null) {
                                         modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
                                         modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
                                         modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        if (katalog_data.stand !== 'true') {
+                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        }
                                     } else {
                                         modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
                                         modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
                                         modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        if (katalog_data.stand !== 'true') {
+                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
+                                        }
                                     }
                                 }
 

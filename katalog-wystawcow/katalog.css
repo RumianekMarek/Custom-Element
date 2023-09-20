@@ -13,7 +13,8 @@
     background-size: cover;
 }
 
-.wpb_column:has(.exhibitor__header) {
+.wpb_column:has(.exhibitor__header),
+.main-container .row-container .row-parent:has(.exhibitor__header) {
     padding: 0 !important;
 }
 
