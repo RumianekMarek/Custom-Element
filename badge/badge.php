@@ -60,7 +60,7 @@ function custom_badge_element_output($atts){
 
     $token = wp_create_nonce('my_custom_form_token'); // Generowanie tokenu
     $domain = do_shortcode('[trade_fair_domainadress]');
-?>
+  ?>
     <div id="identifiers" class="col-lg-12 wpb_column">
         <div class="col-lg-4 wpb_column pos-middle">
             <div class="text-centered" id="id-description">
@@ -147,7 +147,7 @@ function custom_badge_element_output($atts){
         </div>
     </div>
 
-<?php
+  <?php
 
   if (isset($_POST["submit"]) && isset($_POST['token']) && wp_verify_nonce($_POST['token'], 'my_custom_form_token')) {
     
@@ -265,7 +265,6 @@ function custom_badge_element_output($atts){
         '15' => $form_data['9'],
       );
       $entry_id = GFAPI::add_entry($inside_id_data);
-      echo '<script>console.log("'.$entry_id.'")</script>';
       for ($i=0; $i<=300;$i++){
         if(gform_get_meta($entry_id , 'qr-code_feed_' . $i . '_url') != ''){
           $meta_key = 'qr-code_feed_' . $i . '_url';
@@ -273,7 +272,6 @@ function custom_badge_element_output($atts){
         }
       }
       $entry_return = gform_get_meta($entry_id, $meta_key);
-      echo '<script>console.log("'.$entry_return.'")</script>';
       $form_data[8] = $entry_return;
     } else {
       $form_data[8] = $_POST['qr_radio_target'];
@@ -387,7 +385,6 @@ function Give_me_badge_check($search_email, $entries_data, $atts, &$qr_table_ins
           }
         }
         $unical_qr = Check_all_forms($search_email, $qr_table, $vip, $qr_table_inside, $entries_data['9']);
-        var_dump($unical_qr);
         if ($unical_qr != 'Nie znaleziono danych' && $entries_data[9] === 'Client') {
           $entries_data['8'] = $unical_qr;
           $entries_data['form_id'] = $give_me_badge_form_id;
@@ -504,7 +501,6 @@ function Send_email_replay($name, $mail){
 }
 
 function Send_form_data($form_data, $vip, $atts){
-  var_dump($form_data);
 
   // Pobierz wartości parametrów
   $user = $atts['user'];
@@ -570,14 +566,13 @@ function Send_form_data($form_data, $vip, $atts){
   }
   Send_email_replay($full_name, $email);
 
-// Close the database connection
+  // Close the database connection
   $conn->close();
 }
 
 
 function Inside_badge($email_search, $entries_data, &$vip, $atts){
-  echo '<script>  const targetHeader = document.querySelector("#text-section");</script>';
-
+  $qr_table_inside = array();
   $id_name = $atts['identyfikator'];
   
   $forms = GFAPI::get_forms();
@@ -622,7 +617,8 @@ function Inside_badge($email_search, $entries_data, &$vip, $atts){
       }
       echo '<script>
         inside_return = '.json_encode($inside_return).';
-        targetHeader.innerHTML = inside_return;
+        const targetHead = document.querySelector("#text-section");
+        targetHead.innerHTML = inside_return;
       </script>';
     }
   } else {
@@ -667,7 +663,6 @@ function custom_badge_scripts(){
   $js_file = plugins_url('badge.js', __FILE__);
   $js_version = filemtime(plugin_dir_path(__FILE__) . 'badge.js');
   wp_enqueue_script('custom_badge-js', $js_file, array('jquery'), $js_version, true);
-  wp_localize_script( 'custom_badge-js', 'inner_data', $inner_data_array ); 
 
   $css_file = plugins_url('badge.css', __FILE__);
   $css_version = filemtime(plugin_dir_path(__FILE__) . 'badge.css');
