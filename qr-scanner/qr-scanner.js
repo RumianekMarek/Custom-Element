@@ -1,6 +1,6 @@
-
-const startCameraButton = document.getElementById('startCamera');
-const camera = document.getElementById('camera');
+console.log('camera');
+const startCameraButton = document.querySelector('#startCamera');
+const camera = document.querySelector('#camera');
 
 startCameraButton.addEventListener('click', function () {
     // Sprawdź, czy urządzenie obsługuje getUserMedia

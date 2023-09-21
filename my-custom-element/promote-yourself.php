@@ -101,7 +101,7 @@
             <p>800×800</p>
             <div>
                 <span class="btn-container">
-                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" style="color:white !important;">Pobierz<i class="fa fa-inbox2"></i></a>
+                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" >Pobierz<i class="fa fa-inbox2"></i></a>
                 </span>
             </div>
             ';
@@ -115,7 +115,7 @@
         <p>800×800</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" style="color:white !important;">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -127,7 +127,7 @@
         echo ' <p>1200x200</p>
                 <div>
                     <span class="btn-container">
-                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="1200x200" style="color:white !important;">Pobierz<i class="fa fa-inbox2"></i></a>
+                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="1200x200">Pobierz<i class="fa fa-inbox2"></i></a>
                     </span>
                 </div> ';
     }
@@ -140,7 +140,7 @@
         <p>1200x200</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="1200x200" style="color:white !important;">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="1200x200">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -185,7 +185,7 @@
             ?>
         <div>
             <span class="btn-container">
-                <a href="<?php echo $backgroundImage; ?>" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" style="color:white !important;">
+                <a href="<?php echo $backgroundImage; ?>" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" >
                     <?php if($locale == 'pl_PL'){ echo '
                     Pobierz
                     ';} else { echo '
@@ -207,7 +207,7 @@
             <div style="background-image:url('https://forumwarzywa.com/wp-content/uploads/2023/05/pwe-logo.jpg'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>
             <div>
                 <span class="btn-container">
-                    <a href="https://warsawexpo.eu/docs/Logo_PWE.zip" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800" style="color:white !important;">
+                    <a href="https://warsawexpo.eu/docs/Logo_PWE.zip" class="custom-link btn border-width-0 btn-accent btn-square btn-icon-right" target="_blank" rel="nofollow" title="800x800">
                         <?php if($locale == 'pl_PL'){ echo '
                         Pobierz
                         ';} else { echo '
@@ -219,7 +219,7 @@
         </div>
     </div>
     <div class="custom-shadow-border-black style-accent-bg custom-content-promote-item__help" style="margin:35px auto; padding: 35px 20px;">
-        <h2 class="text-color-xsdn-color" style="margin-top:0; color:white !important;">
+        <h2 class="text-color-xsdn-color" style="margin-top:0;">
             <?php if($locale == 'pl_PL'){ echo '
                 Gdybyś potrzebował więcej napisz do nas, a my postaramy się pomóc! Tylko działając razem jesteśmy w stanie osiągnąć sukces.
             ';} else { echo '

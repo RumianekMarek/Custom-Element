@@ -32,6 +32,11 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+2.1.8 - Added Paper Badge Generator -> Custom Badge,
+
+2.1.8 - Added Katalog wystawcó -> Top 7 New Exhibitors,
+            qrcodecheck    
+
 2.1.5 - Added Konfeance info template
 
 2.1 - Added Image Alt auto writer.
