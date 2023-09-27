@@ -1,0 +1,10 @@
+#camera{
+    display: block !important;
+    width:80%;
+    height:auto;
+    max-width: 600px;
+}
+#kamerka-container{
+    text-align: -webkit-center;
+    overflow-wrap: anywhere;
+}

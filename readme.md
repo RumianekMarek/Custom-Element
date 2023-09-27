@@ -32,7 +32,9 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
-2.1.8 - Added Paper Badge Generator -> Custom Badge,
+2.1.16 - Added QRcode Scaner,
+
+2.1.14 - Added Paper Badge Generator -> Custom Badge,
 
 2.1.8 - Added Katalog wystawcó -> Top 7 New Exhibitors,
             qrcodecheck    
