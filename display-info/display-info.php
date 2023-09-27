@@ -70,12 +70,16 @@ function info_box_output($atts, $content = null) {
         'event_desc' => '',
         'event_modal' => '',
     ), $atts ) );
-    
-    wp_enqueue_style( 'info_box-css', plugin_dir_url( __FILE__ ) . 'display-info.css' );
-    wp_enqueue_script( 'info_box-js', plugin_dir_url( __FILE__ ) . 'display-info.js', array( 'jquery' ), '1.0', true );
+
+    $css_file = plugins_url('display-info.css', __FILE__);
+    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info.css');
+    wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
+
+    $js_file = plugins_url('display-info.js', __FILE__);
+    $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info.js');
+    wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
     wp_localize_script('info_box-js', 'inner', array('event_modal' => $atts['event_modal']));
 
-    $height = '120px';
     $speakers = explode(',', $event_speaker);
     $speaker_imgs = explode(',',$event_images);
 
@@ -88,31 +92,73 @@ function info_box_output($atts, $content = null) {
         } 
     } else {
         $speaker_html = '<div class="speakers-img">';
-        $height = '202px';
         for ($i = 0; $i < count($speakers); $i++) {
-            $speaker_html .= '<div class="'.$speakers[$i].' speaker-container" style="flex:1" >';
             if (isset($speaker_imgs[$i])) {
                 $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
                 if ($image_src) {
-                    $speaker_html .= '<img src="' . esc_url($image_src[0]) . '" alt="'.$speakers[$i].' portrait" />';
+                    $z_index = (1 + $i);
+                    switch (count($speakers)) {
+                        case 1:
+                            $top_index = "unset";
+                            $left_index = "unset";
+                            break;
+                    
+                        case 2:
+                            switch ($i) {
+                                case 0:
+                                    $top_index = "-10px";
+                                    $left_index = "15px";
+                                    break;
+                    
+                                case 1:
+                                    $top_index = "10px";
+                                    $left_index = "-15px";
+                                    break;
+                            }
+                            break;
+                    
+                        case 3:
+                            switch ($i) {
+                                case 0:
+                                    $top_index = "10px";
+                                    $left_index = "15px";
+                                    break;
+                    
+                                case 1:
+                                    $top_index = "40px";
+                                    $left_index = "-15px";
+                                    break;
+                    
+                                case 2:
+                                    $top_index = "-10px";
+                                    $left_index = "-15px";
+                                    break;
+                            }
+                            break;
+                    }
+                    
+                    $speaker_html .= '<img class="speaker" src="' . esc_url($image_src[0]) . '" alt="'.$speakers[$i].' portrait" style="position:relative; z-index:'.$z_index.'; top:'.$top_index.'; left:'.$left_index.';" />';
                 }
             }
-            $speaker_html .= '<p class="name-container text-centered" style="font-weight:700;">' . $speakers[$i] . '</p></div>';
         }
     }
     $speaker_html .= '</div>';
 
     $html =
-        '<div class="chevron-slide">
-            <div class="head-container" style="height:auto; overflow:hidden;">
-                <p>' . $event_time . '</p> 
+        '<div class="chevron-slide border-accent-color">
+            <div class="head-container">
                 ' . $speaker_html . '
             </div>
-            <div class="text-container" style="height:'.$height.'; overflow:hidden;">
-                <h3 class="inside-title">' . $event_name . '</h3>
-                <p class="inside-text">' . $event_desc . '</p>
-            </div>
-            <i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>
+            <div class="text-container">
+                <h4 class="lectur-time">' . $event_time . '</p>
+                <h5 class="lecturer-name">'.$event_speaker.'</p> 
+                <h3 class="inside-title">' . $event_name . '</h3>';
+    if($event_desc != ''){
+        $html .='<p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i> Sprawdź opis wykładu <i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i></p>
+                <p class="inside-text" style="display:none">' . $event_desc . '</p>';
+    }
+    $html .='</div>
+            
         </div>
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -131,7 +177,15 @@ function info_box_output($atts, $content = null) {
 }
 
 function load_backend_scripts() {
-    wp_enqueue_script('info_box-js', plugin_dir_url(__FILE__) . 'backend-info.js', array('jquery'), '1.0', true);
+
+    $css_file = plugins_url('backend-info.css', __FILE__);
+    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info.css');
+    wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
+
+    $js_file = plugins_url('backend-info.js', __FILE__);
+    $js_version = filemtime(plugin_dir_url(__FILE__) . 'backend-info.js');
+    wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
+
 }
 add_action('admin_enqueue_scripts', 'load_backend_scripts');
 

@@ -380,6 +380,20 @@ function my_custom_wpbakery_element() {
             'value' => array('logos-catalog.php')
           ),
         ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Horizontal', 'my-custom-plugin'),
+          'param_name' => 'horizontal',
+          'description' => __('Horizontal block.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('kontakt.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -426,6 +440,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['logo_color_invert'])) { $logo_color_invert = $atts['logo_color_invert']; }
     if (isset($atts['fair_partner'])) { $fair_partner = $atts['fair_partner']; }
     if (isset($atts['footer_logo_color'])) { $footer_logo_color = $atts['footer_logo_color']; }
+    if (isset($atts['horizontal'])) { $horizontal = $atts['horizontal']; }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];

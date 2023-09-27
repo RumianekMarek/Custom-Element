@@ -297,11 +297,13 @@ function czy_katalog_pusty($sciezka) {
 }
 
 function enqueue_custom_assets() {
-    // Podłączanie pliku JavaScript
-    wp_enqueue_script( 'custom_script', plugin_dir_url( __FILE__ ) . 'scriptFTP.js' );
-    
-    // Podłączanie pliku CSS
-    wp_enqueue_style( 'custom_styles', plugin_dir_url( __FILE__ ) . 'styleFTP.css' );
+    $css_file = plugins_url('styleFTP.css', __FILE__);
+    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'styleFTP.css');
+    wp_enqueue_style('custom_styles', $css_file, array(), $css_version);
+
+    $js_file = plugins_url('scriptFTP.js', __FILE__);
+    $js_version = filemtime(plugin_dir_url( __FILE__ ) . 'scriptFTP.js');
+    wp_enqueue_script('custom_script', $js_file, array('jquery'), $js_version, true);
 }
 add_action( 'admin_enqueue_scripts', 'enqueue_custom_assets' );
 

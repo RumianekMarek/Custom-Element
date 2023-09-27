@@ -588,6 +588,9 @@
 }
 
 /* niePrzegap */
+#niePrzegap {
+    z-index: 100;
+}
 .custom-container-niePrzegap, .custom-container-calendar-niePrzegap{
     display:flex;
 }

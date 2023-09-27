@@ -143,7 +143,7 @@ function custom_badge_element_output($atts){
                               <p><span id="panstwo_label" class="flex-1">Państwo - </span><span id="panstwo_check" class="flex-2"></span></p>
                             ';} else { echo '
                               <p><span id="full_name_label" class="flex-1">Full name - </span><span id="full_name_check" class="flex-2"></span></p>
-                              <p><span id="firm_label" class="flex-1">Company - </span><span id="firm_check class="flex-2""></span></p>
+                              <p><span id="firm_label" class="flex-1">Company - </span><span id="firm_check" class="flex-2""></span></p>
                               <p><span id="email_label" class="flex-1">Email - </span><span id="email_check" class="flex-2"></span></p>
                               <p><span id="adres_label" class="flex-1">Adress - </span><span id="adres_check" class="flex-2"></span></p>
                               <p><span id="miasto_label" class="flex-1">City- </span><span id="miasto_check" class="flex-2"></span></p>
@@ -173,7 +173,7 @@ function custom_badge_element_output($atts){
                 <h2><?php if($locale == 'pl_PL'){ echo '
                     Twoja prośba o identyfikator została przekazana do realizacji
                   ';} else { echo '
-                    Your badge request has been forwarded for processing
+                    Your paper badge request has been forwarded for processing
                   ';} ?>
                   </h2>
                 <p>&nbsp;</p>

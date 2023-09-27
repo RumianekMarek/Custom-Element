@@ -105,7 +105,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   $data = json_decode($json, true);
   $name = do_shortcode('[trade_fair_name]');
   $name_eng = do_shortcode('[trade_fair_name_eng]');
-
+  
 
   $script_data = array(
       'data' => $data,
@@ -409,8 +409,9 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (empty($exhibitorsAll)) {
     $output .= $spinner;
   }
-
-  wp_enqueue_style( 'katalog_wystawcow-css', plugin_dir_url( __FILE__ ) . 'katalog.css' );
+  $css_file = plugins_url('katalog.css', __FILE__);
+  $css_version = filemtime(plugin_dir_path(__FILE__) . 'katalog.css');
+  wp_enqueue_style('katalog_wystawcow-css', $css_file, array(), $css_version);
 
   return $output;
 }
