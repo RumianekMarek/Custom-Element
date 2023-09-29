@@ -1,5 +1,4 @@
 <?php
-session_start();
 function register_custom_qr_scanner() {
     vc_map(array(
         'name' => __('QR Scanner', 'my-custom-plugin'),
