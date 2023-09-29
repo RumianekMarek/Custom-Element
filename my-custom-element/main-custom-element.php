@@ -32,6 +32,7 @@ function my_custom_wpbakery_element() {
             'For Exhibitors' => 'for-exhibitors.php',
             'For Visitors' => 'for-visitors.php',
             'Gallery Slider' => 'gallery-slider.php',
+            'Generator wystawcow' => 'generator-wystawcow.php',
             'Grupy zorganizowane' => 'grupy.php',
             'Header' => 'header-custom.php',
             'Informacje organizacyjne' => 'org-information.php',
@@ -394,6 +395,30 @@ function my_custom_wpbakery_element() {
             'value' => array('kontakt.php')
           ),
         ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Worker form id', 'my-custom-plugin'),
+          'param_name' => 'worker_form_id',
+          'description' => __('Worker form id for generator exhibitors', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('generator-wystawcow.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Guest form id', 'my-custom-plugin'),
+          'param_name' => 'guest_form_id',
+          'description' => __('Guest form id for generator exhibitors', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('generator-wystawcow.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -441,6 +466,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['fair_partner'])) { $fair_partner = $atts['fair_partner']; }
     if (isset($atts['footer_logo_color'])) { $footer_logo_color = $atts['footer_logo_color']; }
     if (isset($atts['horizontal'])) { $horizontal = $atts['horizontal']; }
+    if (isset($atts['worker_form_id'])) { $worker_form_id = $atts['worker_form_id']; }
+    if (isset($atts['guest_form_id'])) { $guest_form_id = $atts['guest_form_id']; }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
