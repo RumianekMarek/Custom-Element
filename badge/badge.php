@@ -131,8 +131,8 @@ function custom_badge_element_output($atts){
                     <?php echo '<input type="hidden" name="token" value="' . $token . '">'; ?>
                     <input type="submit" name="submit" value="Submit" id="modal-submit-button">
 
-                    <div id="custom-modal" style="display: none;" class="modal">
-                        <div class="modal-content">
+                    <div id="badge-modal" style="display: none;" class="badge-modal">
+                        <div class="badge-modal-content">
                             <?php if($locale == 'pl_PL'){ echo '
                               <p><span id="full_name_label" class="flex-1">Imie i Nazwisko - </span><span id="full_name_check" class="flex-2"></span></p>
                               <p><span id="firm_label" class="flex-1">Nazwa Firmy - </span><span id="firm_check" class="flex-2"></span></p>

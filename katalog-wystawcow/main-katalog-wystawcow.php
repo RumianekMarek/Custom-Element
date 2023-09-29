@@ -100,12 +100,11 @@ function katalog_wystawcow_output($atts, $content = null) {
   $formattedDate = $today->format('Y-m-d');
   $token = md5("#22targiexpo22@@@#".$formattedDate);
   $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
-
+  
   $json = file_get_contents($canUrl);
   $data = json_decode($json, true);
   $name = do_shortcode('[trade_fair_name]');
   $name_eng = do_shortcode('[trade_fair_name_eng]');
-  
 
   $script_data = array(
       'data' => $data,

@@ -1,11 +1,18 @@
+.lecture-btn{
+    margin: 10px !important;
+    box-shadow: 4px 4px 0px -1px black;
+    border: 1px solid black;
+}
 .chevron-slide{
     height: 280px;
     display: flex;
     gap: 10px;
     border: 5px solid;
-    border-radius: 25px;
     box-shadow: 4px 4px 7px 2px;
     
+}
+.chevron-slide:has(.rotated){
+    height: unset;
 }
 .chevron-slide .head-container{
     text-align: center;
@@ -14,19 +21,119 @@
 }
 .chevron-slide .head-container img {
     height: auto;
-    max-width: 45%;
     border: 3px solid gray;
     border-radius: 50%;
 }
 .chevron-slide .text-container{
     width: 75%;
 }
-.chevron-slide .text-container :is(h3,h4,h5,p){
+.chevron-slide .text-container :is(h3,h4,h5){
     margin-top: 18px;
+}
+.chevron-slide .text-container p, .modal-desc p{
+    margin-top: 9px;
+    font-size: 14px;
+    line-height: 1.2;
 }
 .text-container .lectur-time{
     color: black;
 }
 .open-desc{
     cursor: pointer;
+    margin: 9px;
+}
+.rotated{
+    transform: rotate(180deg);
+}
+/* MODAL */
+.info-modal{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.info-modal-content {
+    display:flex;
+    background-color: #fff;
+    margin: 120px auto;
+    padding: 10px;
+    border: 1px solid #888;
+}
+.info-modal-content h3{
+    margin-top: 9px;
+}
+.modal-image{
+    flex:1;
+}
+.modal-desc{
+    flex:5;
+}
+.modal-lecturers{
+    width:100%
+}
+.info-close{
+    position:relative;
+    cursor: pointer;
+    top: -10px;
+    right: -13px;
+    color: darkred;
+}
+.lecturer{
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+
+}
+.chevron-slide .head-container .lecturers-triple{
+    margin-top: -10px !important;
+    margin-left: -10px !important;
+}
+
+@media (min-width:960px){
+    .info-modal-content{
+        width:80%;
+    }
+}
+@media (max-width:600px){
+    .chevron-slide{
+        padding: 9px 0;
+        height: unset;
+        flex-direction: column;
+        align-items: center;
+    }
+    .chevron-slide .head-container{
+        width: 100%;
+    }
+    .chevron-slide .head-container .lecturers-bio{
+        margin-top: unset !important;
+        margin-left: unset !important;
+        transform-origin: center !important;
+    }
+    .chevron-slide .speakers-img{
+        display: flex;
+        justify-content: center;
+    }
+    .chevron-slide .speakers-img img{
+        position: inherit !important;
+        z-index: 1 !important;
+        top: 0 !important;
+        left: unset !important;
+        max-width: 30% !important;
+    }
+    .chevron-slide .lecturer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .chevron-slide .lecturer img{
+        max-width: 35%;
+    }
+    .chevron-slide :is(.modal-image, .modal-desc h3){
+        text-align: center;
+    }
 }
