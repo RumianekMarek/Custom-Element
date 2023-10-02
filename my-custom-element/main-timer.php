@@ -11,7 +11,7 @@
                 if($locale == 'pl_PL'){
                     echo 'Do końca targów pozostało:';
                 } else {
-                    echo 'Until the start of the fair:';
+                    echo 'Until the end of the fair:';
                 }
             } ?>
         </p>
