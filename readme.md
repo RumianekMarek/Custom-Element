@@ -32,6 +32,9 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+2.2 -    Identyfikator masowy,
+        Opis wykładu na konferencje,
+
 2.1.16 - Added QRcode Scaner,
 
 2.1.14 - Added Paper Badge Generator -> Custom Badge,
