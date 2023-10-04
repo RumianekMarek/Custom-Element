@@ -30,6 +30,10 @@
       <div class="odpowiedz half-block-padding" style="color:white !important; ">Wstęp dla dzieci jest niewskazany. Jednak jeśli chcesz aby Twoje dziecko towarzyszyło Ci podczas targów to zakup dla niego bilet na dany dzień. Wstęp na targi dla dzieci do 7 roku życia jest bezpłatny.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
+      <div class="pytanie half-block-padding" style="color:white !important; ">Czy na targi dozwolone jest wprowadzanie zwierząt?</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; ">Nie, zwierzęta nie są wpuszczane na hale targowe.</div>
+    </div>
+    <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Jak dotrzeć na targi?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; ">Na targi można dotrzeć samochodem lub autobusami linii 703 oraz 711 dojeżdżającymi z przystanku P+R Al. Krakowska 15 do Ptak Warsaw Expo.</div>
     </div>
@@ -65,6 +69,10 @@
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">Can I enter the fair with my child?</div>
       <div class="odpowiedz half-block-padding" style="color:white !important; ">Admission for children is not recommended. However, if you want your child to accompany you during the fair, buy for him a ticket for the day. Admission to the fair for children under 7 is free.</div>
+    </div>
+    <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
+      <div class="question half-block-padding" style="color:white !important; ">Are animals allowed at the fair?</div>
+      <div class="answer half-block-padding" style="color:white !important; ">No, animals are not allowed in the exhibition halls.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">How to get to the fair?</div>

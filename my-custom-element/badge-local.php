@@ -7,7 +7,7 @@
 include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
 
 echo '<div id="badge-generator">[gravityform id="'.$badge_form_id.'" title="false" description="false" ajax="false"]</div>';
-
+if ($_GET['parametr'] === 'masowy') {
     if (isset($_POST["submit"])){
         echo '<script>
                 jQuery(function ($) {
@@ -31,36 +31,36 @@ echo '<div id="badge-generator">[gravityform id="'.$badge_form_id.'" title="fals
             }
         }
         
-        // for($i=1; $i<$_POST['multi_send']; $i++){  
+        for($i=1; $i<$_POST['multi_send']; $i++){  
             $entry_id = GFAPI::add_entry($multi_badge);
             $meta_key = '';
-
-            for ($i=0; $i<=300;$i++){
-                if(gform_get_meta($entry_id , 'qr-code_feed_' . $i . '_url') != ''){
-                    $meta_key = 'qr-code_feed_' . $i . '_url';
+            for ($j=0; $j<=300;$j++){
+                if(gform_get_meta($entry_id , 'qr-code_feed_' . $j . '_url') != ''){
+                    $meta_key = 'qr-code_feed_' . $j . '_url';
                     break;
                 }
             }
-
-            echo $meta_key . '<br>';
             $qr_code_url = (gform_get_meta($entry_id, $meta_key));
-            $badge_url = 'https://warsawexpo.eu/assets/badge/local/loading.html?category='.$multi_badge[3].'&amp;getname='.$multi_badge[1].'&amp;firma='.$multi_badge[2].'&amp;qrcode='.$qr_code_url;
-            echo '<script>window.open('.$badge_url.');</script>';
-        // }
+            $badge_url = 'https://warsawexpo.eu/assets/badge/local/loading.html?category='.$multi_badge[3].'&getname='.$multi_badge[1].'&firma='.$multi_badge[2].'&qrcode='.$qr_code_url;
+            echo '<script>window.open("'.$badge_url.'");</script>';
+        }
     }
-?>
-<script>
-    jQuery(function ($) {
-        const gfWraper = $('#gform_wrapper_'+<?php echo $badge_form_id ?>);
-        const gfFields = gfWraper.find('.gform_fields');
-        const gfButton = gfWraper.find('.gform_button');
-        gfButton.attr('name', 'submit');
-        const multiInput = $('<input>', {
-            placeholder: 'ilość identyfikatorów',
-            type: 'text',
-            id: 'multi_send',
-            name: 'multi_send'
+    ?>
+    <script>
+        jQuery(function ($) {
+            const gfWraper = $('#gform_wrapper_'+<?php echo $badge_form_id ?>);
+            const gfFields = gfWraper.find('.gform_fields');
+            const gfButton = gfWraper.find('.gform_button');
+            gfButton.attr('name', 'submit');
+            const multiInput = $('<input>', {
+                placeholder: 'ilość identyfikatorów',
+                type: 'text',
+                id: 'multi_send',
+                name: 'multi_send'
+            });
+            gfFields.append(multiInput);
         });
-        gfFields.append(multiInput);
-    });
-</script>
+    </script>
+    <?php 
+}
+?>
