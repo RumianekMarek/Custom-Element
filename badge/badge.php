@@ -1,5 +1,7 @@
 <?php 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 function register_custom_badge_element() {
   vc_map(array(
       'name' => __('Custom Badge', 'my-custom-plugin'),

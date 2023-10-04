@@ -4,7 +4,9 @@
     border: 1px solid black;
 }
 .chevron-slide{
-    height: 280px;
+    transition: max-height 0.3s;
+    min-height: 280px;
+    max-height: 280px;
     display: flex;
     gap: 10px;
     border: 5px solid;
@@ -12,7 +14,7 @@
     
 }
 .chevron-slide:has(.rotated){
-    height: unset;
+    max-height: 2000px;
 }
 .chevron-slide .head-container{
     text-align: center;
@@ -26,6 +28,11 @@
 }
 .chevron-slide .text-container{
     width: 75%;
+    margin-right: 10px;
+}
+.chevron-slide .text-container .inside-text{
+    transition: max-height 0.3s;
+    overflow: hidden;
 }
 .chevron-slide .text-container :is(h3,h4,h5){
     margin-top: 18px;
@@ -58,23 +65,23 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 .info-modal-content {
-    display:flex;
+    display: flex;
     background-color: #fff;
-    margin: 120px auto;
+    margin: 80px auto;
     padding: 10px;
     border: 1px solid #888;
 }
 .info-modal-content h3{
+
     margin-top: 9px;
-}
-.modal-image{
-    flex:1;
-}
-.modal-desc{
-    flex:5;
 }
 .modal-lecturers{
     width:100%
+}
+.modal-lecturers img{
+    margin: 5px;
+    max-width:120px !important;
+    width:120px !important;
 }
 .info-close{
     position:relative;
@@ -88,8 +95,14 @@
     gap: 10px;
     border-bottom: 1px solid black;
     margin-bottom: 5px;
+    padding-bottom: 5px;
 
 }
+.lecturer p{
+    font-size: 12px;
+    line-height: 1.2;
+    margin-top: 9px;
+} 
 .chevron-slide .head-container .lecturers-triple{
     margin-top: -10px !important;
     margin-left: -10px !important;
@@ -98,12 +111,14 @@
 @media (min-width:960px){
     .info-modal-content{
         width:80%;
+        max-width:1200px;
     }
 }
 @media (max-width:600px){
     .chevron-slide{
+        text-align: center;
         padding: 9px 0;
-        height: unset;
+        max-height: unset;
         flex-direction: column;
         align-items: center;
     }
@@ -125,6 +140,7 @@
         top: 0 !important;
         left: unset !important;
         max-width: 30% !important;
+        margin-top: 10px !important;
     }
     .chevron-slide .lecturer{
         flex-direction: column;

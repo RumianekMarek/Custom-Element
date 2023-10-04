@@ -1,11 +1,19 @@
 jQuery(function ($) {
     $(".open-desc").click(function(event) {
+        let targetElement = '';
         if ($(event.target.parentElement).hasClass('text-container')){
-            $(event.target.parentElement).find(".inside-text").slideToggle("fast");
+            targetElement = $(event.target.parentElement).find(".inside-text");
             $(event.target.parentElement.parentElement).find(".open-desc i").toggleClass("rotated");
         } else if ($(event.target.parentElement).hasClass('open-desc')){
-            $(event.target.parentElement.parentElement).find(".inside-text").slideToggle("fast");
+            targetElement = $(event.target.parentElement.parentElement).find(".inside-text");
             $(event.target.parentElement.parentElement).find(".open-desc i").toggleClass("rotated");
+        }
+
+        if (targetElement.css('max-height') === '77px') {
+            targetElement.css('max-height', '1000px');
+        } else {
+            targetElement.css('max-height', '77px');
+            
         }
     });
 
@@ -14,12 +22,16 @@ jQuery(function ($) {
         allLecturers[i].addEventListener('click', function(event) {
             const modal = event.target.parentElement.parentElement.querySelector('.info-modal');
             modal.style.display = 'block';
+            $('body').css('overflow-y', 'hidden !important');
+            console.log($('body'));
             modal.querySelector('.info-close').addEventListener('click', function(){
                 modal.style.display = 'none';
+                $('body').css('overflow-y', 'initial !important');
             });
             window.addEventListener('click', function(event) {
                 if (event.target == modal) {
                   modal.style.display = 'none';
+                  $('body').css('overflow-y', 'initial !important');
                 }
             });
         });

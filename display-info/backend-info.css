@@ -1,11 +1,11 @@
-.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1>div{
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2>div{
     display:flex;
     flex-direction: column;
 }
-/* .vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1 .wpb_element_label,
-.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1 .edit_form_line{
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2 .wpb_element_label,
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2 .edit_form_line{
     display:none;
-} */
+}
 #eventSpeakers{
     display:flex;
     flex-direction: column;
@@ -20,5 +20,5 @@
     width:150px;
 }
 #eventSpeakers textarea{
-    min-height:70px;
+    min-height:100px;
 }

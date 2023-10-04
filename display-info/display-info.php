@@ -29,15 +29,15 @@ function info_box() {
             'group' => 'main',
             'heading' => __('Select Images', 'my-custom-plugin'),
             'param_name' => 'event_images',
-            'description' => __('Choose images from the media library.', 'my-custom-plugin'),
+            'description' => __('Choose lecturers images from the media library.', 'my-custom-plugin'),
             'save_always' => true,
         ),
         array(
             'type' => 'textfield',
             'group' => 'main',
-            'heading' => __('Event Speaker', 'my-custom-plugin'),
+            'heading' => __('Event Speakers (pictures order)', 'my-custom-plugin'),
             'param_name' => 'event_speaker',
-            'description' => __('Put all names with "," separator', 'my-custom-plugin'),
+            'description' => __('Put all names with "," separator, in order of pictures.', 'my-custom-plugin'),
             'save_always' => true,
             'admin_label' => true
         ),
@@ -96,11 +96,29 @@ function info_box() {
             'admin_label' => true
         ),
         array(
+            'type' => 'colorpicker',
+            'group' => 'options',
+            'heading' => __('Tile Color', 'my-custom-plugin'),
+            'param_name' => 'title_color',
+            'description' => __('Color for buton lecture Title.', 'my-custom-plugin'),
+            'save_always' => true,
+            'admin_label' => true
+        ),
+        array(
             'type' => 'textarea',
             'group' => 'pop-UP',
             'heading' => __('Modal info for pictures', 'my-custom-plugin'),
             'param_name' => 'event_modal',
             'save_always' => true,
+        ),
+        array(
+            'type' => 'colorpicker',
+            'group' => 'options',
+            'heading' => __('BIO Color', 'my-custom-plugin'),
+            'param_name' => 'bio_color',
+            'description' => __('Color for buton "BIO".', 'my-custom-plugin'),
+            'save_always' => true,
+            'admin_label' => true
         ),
       ),
     ));
@@ -120,9 +138,22 @@ function info_box_output($atts, $content = null) {
         'border_style' => '',
         'border_color' => '',
         'lect_color' => '',
+        'bio_color' => '',
+        'title_color' => '',
         'lecture_id' => $rn,
     ), $atts ) );
-    
+
+    $border_radius = isset($atts['border_radius']) ? $atts['border_radius'] : 'unset';
+    $border_width = isset($atts['border_width']) ? $atts['border_width'] : '2px';
+    $border_style = isset($atts['border_style']) ? $atts['border_style'] : 'solid';
+    $border_color = isset($atts['border_color']) ? $atts['border_color'] : 'black';
+    $lect_color = isset($atts['lect_color']) ? $atts['lect_color'] : 'black';
+    $bio_color = isset($atts['bio_color']) ? $atts['bio_color'] : 'black';
+    $title_color = isset($atts['title_color']) ? $atts['title_color'] : 'black';
+
+    $uncode_options = get_option('uncode');
+    //var_dump($uncode_options);
+
     $css_file = plugins_url('display-info.css', __FILE__);
     $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info.css');
     wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
@@ -210,18 +241,28 @@ function info_box_output($atts, $content = null) {
     $event_modal = "[". $event_modal . "]";
 
     $modal_array = json_decode($event_modal, true);
+    $modal_desc = false;
+    foreach ($modal_array as $modal){
+        if ($modal['desc']){
+            $modal_desc = true;
+        }
+    }
 
     for($i=0; $i<count($modal_array); $i++){
         if($modal_array[$i]['id']){
-            $modal_html .= '<div class=lecturer>';
             $image_src = '';
+            $modal_lecturer_display = '';
             if($speaker_imgs[$i]){
-            $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
+                $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
             }
-            $modal_html .= '<div class="modal-image"><img src="'.$image_src[0].'"></div>
-                            <div class="modal-desc"><h3 style="color:'.$atts['lect_color'].';">'.$modal_array[$i]['id'].'</h3>';
+
+            if(!$speaker_imgs[$i] && !$modal_array[$i]['desc']){
+                $modal_lecturer_display = 'style="display:none;"';
+            }
+            $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'>';
+            $modal_html .= '<div class="modal-image"><img class="alignleft" src="'.$image_src[0].'"><h3 style="color:'.$lect_color.';">'.$modal_array[$i]['id'].'</h3>';
         } else {
-            $modal_html .= '<div class="modal-image"></div>';
+            $modal_html .= '<div class="modal-image">';
         }
         if($modal_array[$i]['desc']){
             $modal_html .= '<p>'.$modal_array[$i]['desc'].'</p></div></div>';
@@ -231,27 +272,30 @@ function info_box_output($atts, $content = null) {
     }
     
     $html =
-        '<div id="lecture-'.$rn.'" class="chevron-slide" style="border:'.$atts['border_width'].' '.$atts['border_style'].' '.$atts['border_color'].'; border-radius:'.$atts['border_radius'].';">
+        '<div id="lecture-'.$rn.'" class="chevron-slide" style="border:'.$border_width.' '.$border_style.' '.$border_color.'; border-radius:'.$border_radius.';">
             <div class="head-container">
                 ' . $speaker_html;
-    if (count($speaker_imgs) < 3){
-        $html .=
-                '<button class="lecturers-bio btn btn-sm btn-default lecture-btn">BIO</button>';
-    } else {
-        $html .=
-                '<button class="lecturers-bio lecturers-triple btn btn-sm btn-default lecture-btn">BIO</button>';
+    if ($modal_desc){
+        if (count($speaker_imgs) < 3){
+            $html .=
+                    '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
+        } else {
+            $html .=
+                    '<button class="lecturers-bio lecturers-triple btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
+        }
     }
-        $html .=
-            '</div>
 
-            <div class="text-container">
-                <h4 class="lectur-time">' . $event_time . '</p>
-                <h5 class="lecturer-name" style="color:'.$atts['lect_color'].';">'.$event_speaker.'</p> 
-                <h3 class="inside-title">' . $event_name . '</h3>';
-    if($event_desc != ''){
-        $html .='<p class="inside-text" style="display:none">' . $event_desc . '</p>
-                    <p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>Opis wykładu <i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i></p>';
-                
+    $html .=
+        '</div>
+
+        <div class="text-container">
+            <h4 class="lectur-time">' . $event_time . '</p>
+            <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$event_speaker.'</p> 
+            <h3 class="inside-title" style="color:'.$title_color.';">' . $event_name . '</h3>';
+
+    if($event_desc != ''){        
+        $html .='<div class="inside-text" style="max-height: 77px;"><p>' . $event_desc . '</p></div>
+                    <p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>Opis wykładu <i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i></p>';        
     }
     $html .='</div>
             <div id="info-modal" class="info-modal" style="display:none;">
@@ -260,7 +304,8 @@ function info_box_output($atts, $content = null) {
                 </div>
                 <i class="fa fa-times-circle-o fa-2x fa-fw info-close"></i>
             </div>
-        </div>';
+        </div>
+    </div>';
     
     return $html;
 }

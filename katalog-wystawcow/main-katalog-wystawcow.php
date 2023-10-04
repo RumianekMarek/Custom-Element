@@ -222,11 +222,9 @@ function katalog_wystawcow_output($atts, $content = null) {
             if (www.indexOf('https://www.') !== -1) {
               www = 'https://' + www.replace(/^https:\/\/www\./i, '');
             } else if (www.indexOf('http://www.') !== -1) {
-              www = 'https://' + www.replace(/^http:\/\/www\./i, '');
+              www = 'http://' + www.replace(/^http:\/\/www\./i, '');
             } else if (www.indexOf('www.') !== -1) {
               www = 'https://' + www.replace(/^www\./i, '');
-            } else if (www.indexOf('http://') !== -1) {
-              www = 'https://' + www.substr(7);
             }
           }
 
