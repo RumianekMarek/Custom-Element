@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+if (document.getElementById('full')){
+  document.addEventListener("DOMContentLoaded", function () {
     var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
     var exhibitors = exhibitorsAll.reduce((acc, curr) => {
         const name = curr[1].Nazwa_wystawcy;
@@ -121,4 +122,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       };
     };
-});
+  });
+}
