@@ -1,8 +1,10 @@
 /* Adress Ptak Warsaw Expo */
 #ptakAdress, #socialMedia {
-    min-height: 240px;
+    border: 1px solid black;
+    min-height: 250px;
     max-width: 500px;
-    margin:auto
+    margin:auto;
+    min-width: 350px;
 }
 
 #ptakAdress{
@@ -17,7 +19,10 @@
     color:black;
     line-height: 1.2;
 }
-@media (max-width: 570px) {
+@media (max-width: 760px) {
+    #ptakAdress, #socialMedia {
+        min-width: 260px;
+    }
     .custom-text-ptakAdress li {
         font-size:24px !important;
     }
@@ -618,7 +623,7 @@
     padding: 10px 0;
 }
 .custom-pointer-niePrzegap {
-    margin: -6px -30px;
+    margin: 0 -30px;
 }
 .custom-pointer-niePrzegap i{
     text-shadow: 5px 0 #fff;
@@ -691,6 +696,7 @@
 }
 .custom-organizator-text{
     position: relative;
+    padding: 1px 36px 50px 36px !important;
 }
 .custom-organizator-text .custom-box-top-left-white, .custom-organizator-text .custom-box-top-left-black{
     margin-bottom: -10px !important;
@@ -708,25 +714,34 @@
     .custom-organizator-video iframe{
         height:160vh !important;
     }
-    .custom-organizator-text{
-        padding: 1px 20px 50px 20px !important;
-        }
 }
 @media (max-width:570px){
     .custom-organizator-video iframe{
         min-width: 250% !important; 
     }
-    .custom-organizator-text{
-        padding: 1px 36px 50px 36px !important;
-        }
 }
 
 /* socialMedia */
+#socialMedia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 #socialMedia h4{
     margin-top:0 !important;
 }
+#socialMedia span{
+    padding-top: 0;
+}
+
 .custom-block-socialMedia{
-    position: relative;
+    display: flex;
+    align-items: center;
+    margin:18px 0 !important;
+}
+.custom-block-socialMedia ul{
+    margin:0 !important;
 }
 @media (max-width: 569px){
     .custom-facebook{
@@ -735,17 +750,7 @@
 }
 .absolute-facebook-Img{
     position: absolute;
-    left:15%;
-    top: 45%;
-    transform: translateY(-50%);
-}
-@media (max-width:400px){
-    .absolute-facebook-Img{
-        left:5%;
-        top: 50%;
-        max-width: 66px !important;
-        width: 15vw;
-    }
+    left:12%;
 }
 
 /* visitors-benefits */

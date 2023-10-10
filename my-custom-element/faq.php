@@ -71,8 +71,8 @@
       <div class="odpowiedz half-block-padding" style="color:white !important; ">Admission for children is not recommended. However, if you want your child to accompany you during the fair, buy for him a ticket for the day. Admission to the fair for children under 7 is free.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
-      <div class="question half-block-padding" style="color:white !important; ">Are animals allowed at the fair?</div>
-      <div class="answer half-block-padding" style="color:white !important; ">No, animals are not allowed in the exhibition halls.</div>
+      <div class="pytanie half-block-padding" style="color:white !important; ">Are animals allowed at the fair?</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important; ">No, animals are not allowed in the exhibition halls.</div>
     </div>
     <div class="pytanie-odpowiedz"  style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important; ">How to get to the fair?</div>

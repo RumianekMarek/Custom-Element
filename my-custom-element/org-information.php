@@ -19,7 +19,7 @@
                 <a href="#wazne-informacje"><li>Ważne informacje techniczne PTAK WARSAW EXPO (PWE): podłączenia prądu, wody, Internetu, dopuszczalne obciążenie powierzchni ekspozycyjnej, maksymalna masa elementów podwieszanych, maksymalna wysokość zabudowy.</li></a>
                 <a href="#procedury-stoisk"><li>Informacje dotyczące procedur odbiorów stoisk, powierzchni oraz zasad bezpieczeństwa na terenie PWE.</li></a>
                 <a href="#rozladunek"><li>Informacje na temat rozładunku, przesyłek kurierskich i spedycji w PWE.</li></a>
-                <a href="#dokumenty"><li>Dokumenty do pobrania.</li></a>
+                <a href="#dokumenty"><li>Documents for download .</li></a>
             </ol>
         </div>
 
@@ -174,12 +174,12 @@
                 <a href='#wazne-informacje_en'><li>PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</li></a>
                 <a href='#procedury-stoisk_en'><li>Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</li></a>
                 <a href='#rozladunek_en'><li>Information on unloading, courier packages and forwarding in PWE.</li></a>
-                <a href='#dokumenty_en'><li>Dokumenty do pobrania.</li></a>
+                <a href='#dokumenty_en'><li>Documents for download PL.</li></a>
             </ol>
         </div>
 
         <div id='dane-kontaktowe_en' class='custom-org-info-content-item'>
-            <h2>1.Contact details, assembly and disassembly dates, trade fair opening hours. </h2>
+            <h2>1. Contact details, assembly and disassembly dates, trade fair opening hours. </h2>
             
             <div class='custom-org-info-block-dates custom-display-none'>
                 <h5>Exhibitors’ support: <a href='mailto:konsultanttechniczny@warsawexpo.eu'>konsultanttechniczny@warsawexpo.eu</a></h5>
@@ -311,7 +311,7 @@
         </div>
 
         <div id='dokumenty_en' class='custom-org-info-content-item'>
-            <h2>5. Documents to download PL</h2>
+            <h2>5. Documents for download PL.</h2>
             <ul style='list-style-type: lower-latin;'>
                 <a target='_blank' href='https://warsawexpo.eu/docs/Oswiadczenie-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf'><li>Oświadczenie wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>
                 <a target='_blank' href='https://warsawexpo.eu/docs/Upowaznienie-dla-wykonawcy-zabudowy-stoiska-zabudowa-indywidualna.pdf'><li>Upoważnienie dla wykonawcy zabudowy stoiska (zabudowa indywidualna)</li></a>

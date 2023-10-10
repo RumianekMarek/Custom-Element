@@ -22,5 +22,5 @@
         </ul> 
     </div>
 
-    <span class='half-block-padding-top'><a class='custom-facebook custom-link btn border-width-0 shadow-black btn-accent btn-flat' href='[trade_fair_facebook]' alt='facebook link' target='_blank'><i class="fa fa-facebook fa-1x fa-fw"></i>Facebook</a></span>
+    <span><a class='custom-facebook custom-link btn border-width-0 shadow-black btn-accent btn-flat' href='[trade_fair_facebook]' alt='facebook link' target='_blank'><i class="fa fa-facebook fa-1x fa-fw"></i>Facebook</a></span>
 </div>
