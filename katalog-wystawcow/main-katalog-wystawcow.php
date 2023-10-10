@@ -135,10 +135,18 @@ function katalog_wystawcow_output($atts, $content = null) {
       }
 
       return $acc;
-  }, []);
+  }, []); 
 
   // KATALOG
   if($format === 'full'){
+
+    if (current_user_can('administrator')  && !is_admin()) {
+      ?><script>
+        var katalog_data = <?php echo json_encode($script_data); ?>;
+        console.log(katalog_data.data)
+      </script><?php
+    }
+
     $output = '
     <div custom-lang="' . $locale . '" id="'. $format .'">
       <div class="exhibitors">
@@ -183,128 +191,8 @@ function katalog_wystawcow_output($atts, $content = null) {
           $allExhibitorsArray .= $singleExhibitor;
         }
         $divContainerExhibitors .= '</div>';
-        $output .= $divContainerExhibitors;
-
-  ?><script>
- 
-  document.addEventListener("DOMContentLoaded", function () {
-    var katalog_data = <?php echo json_encode($script_data); ?>;
-    if(katalog_data.data){
-
-      /* SEARCH ELEMENT */
-      const inputSearch = document.getElementById('search');
-      var allExhibitorsArray = document.getElementsByClassName('exhibitors__container-list');
-      inputSearch.addEventListener("input", () => {
-        for (let i = 0; i < allExhibitorsArray.length; i++) {
-          const exhibitorsNames = allExhibitorsArray[i].getElementsByTagName('h2')[0].innerText.toLocaleLowerCase();
-          let isVisible = exhibitorsNames.includes(inputSearch.value.toLocaleLowerCase());
-          allExhibitorsArray[i].classList.toggle("hide-post", !isVisible);
-          allExhibitorsArray[i].classList.toggle("show-post", isVisible);
-        }
-      });
-      
-      var localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");	
-      var exhibitors = <?php echo json_encode($exhibitors); ?>;
-
-      /* MODAL ELEMENT */
-      const modal = document.createElement('div');
-      modal.classList.add('modal');
-      modal.setAttribute('id', 'my-modal');
-
-      for (let i = 0; i < allExhibitorsArray.length; i++) {
-        allExhibitorsArray[i].addEventListener('click', () => {
-          const url = exhibitors[i].URL_logo_wystawcy;
-          url.replace('/', '$2F');
-
-          var www = exhibitors[i].www;
-          
-          if (www !== false && www !== "") {
-            if (www.indexOf('https://www.') !== -1) {
-              www = 'https://' + www.replace(/^https:\/\/www\./i, '');
-            } else if (www.indexOf('http://www.') !== -1) {
-              www = 'http://' + www.replace(/^http:\/\/www\./i, '');
-            } else if (www.indexOf('www.') !== -1) {
-              www = 'https://' + www.replace(/^www\./i, '');
-            }
-          }
-
-          var modalBox = `<div class="modal__elements">
-                            <div class="modal__elements-block">
-                                ${url ? `<div class="modal__elements-img" style="background-image: url(${url});"></div>` : ''}
-                                <div class="modal__elements-text">
-                                  <h3>${exhibitors[i].Nazwa_wystawcy}</h3>`;
-
-                                  if (katalog_data.details == 'true') {
-                                    if (localLangKat == 'pl_PL') {
-                                        modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
-                                        modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand !== 'true') {
-                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
-                                        }
-                                        modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
-                                        modalBox += exhibitors[i].Opis_en && localLangKat == "en_US" ? `<p>${exhibitors[i].Opis_en}</p>` : '';
-                                    } else {
-                                        modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
-                                        modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand !== 'true') {
-                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
-                                        }
-                                        modalBox += exhibitors[i].Opis_pl && localLangKat == "pl_PL" ? `<p>${exhibitors[i].Opis_pl}</p>` : '';
-                                        modalBox += exhibitors[i].Opis_en && localLangKat == "en_US" ? `<p>${exhibitors[i].Opis_en}</p>` : '';
-                                    }
-                                } else {
-                                    if (localLangKat == 'pl_PL') {
-                                        modalBox += exhibitors[i].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
-                                        modalBox += www ? `<p>Strona www: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand !== 'true') {
-                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stoisko: ${exhibitors[i].Numer_stoiska}</p>` : '';
-                                        }
-                                    } else {
-                                        modalBox += exhibitors[i].Telefon ? `<p>Phone number: <b><a href="tel:${exhibitors[i].Telefon}">${exhibitors[i].Telefon}</a></b></p>` : '';
-                                        modalBox += exhibitors[i].Email ? `<p>E-mail adress: <b><a href="mailto:${exhibitors[i].Email}">${exhibitors[i].Email}</a></b></p>` : '';
-                                        modalBox += www ? `<p>Web page: <b><a href="${www}" target="_blank" rel="noopener noreferrer">${www}</a></b></p>` : '';
-                                        if (katalog_data.stand !== 'true') {
-                                            modalBox += exhibitors[i].Numer_stoiska ? `<p>Stand: ${exhibitors[i].Numer_stoiska}</p>` : '';
-                                        }
-                                    }
-                                }
-
-          modalBox += `</div></div>
-                              <div class="modal_elements-button">`;
-          if (localLangKat == 'pl_PL') {
-              modalBox += '<button class="close">Zamknij</button>';
-          } else {
-              modalBox += '<button class="close">Close</button>';
-          }
-          modalBox += `</div></div>`;
-
-          modal.innerHTML = modalBox;
-          document.getElementById('<?php echo $format ?>').appendChild(modal);
-          modal.style.display = 'flex';
-
-          const closeBtn = modal.querySelector(".close");
-
-          closeBtn.addEventListener("click", function () {
-            modal.style.display = "none";
-          });
-
-          window.addEventListener("click", function (event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          });
-
-        });
-      };
-    };
-  });
-  </script><?php    
-
-        $output .= '</div></div>';
-        
+        $output .= $divContainerExhibitors;  
+        $output .= '</div></div>'; 
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'">';
     $output .= '<div class="img-container-'. $format .'">';
@@ -337,7 +225,7 @@ function katalog_wystawcow_output($atts, $content = null) {
       if ($locale == 'pl_PL') {
           $output .= '
             <div>
-              <span style="display: flex; justify-content: center;" class="btn-container">
+              <span style="display: flex; justify-content: center;" class="btn-container ">
                   <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square" title="Katalog wystawców">Zobacz więcej</a>
               </span>
             </div>';
@@ -407,14 +295,17 @@ function katalog_wystawcow_output($atts, $content = null) {
     $output .= $spinner;
   }
   $css_file = plugins_url('katalog.css', __FILE__);
+  $js_file = plugins_url('katalog.js', __FILE__);
   $css_version = filemtime(plugin_dir_path(__FILE__) . 'katalog.css');
+  $js_version = filemtime(plugin_dir_path(__FILE__) . 'katalog.js');
   wp_enqueue_style('katalog_wystawcow-css', $css_file, array(), $css_version);
+  wp_enqueue_script('katalog_wystawcow-js', $js_file, array(), $js_version);
+  wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data ); 
 
   return $output;
 }
 // Rejestracja elementu Katalog wystawców
 add_action( 'vc_before_init', 'my_custom_wpbakery_element_katalog_wystawcow' );
 add_shortcode('katalog_wystawcow', 'katalog_wystawcow_output');
-
 
 ?>

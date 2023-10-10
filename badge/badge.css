@@ -1,7 +1,7 @@
 #custom-form{
     text-align: -webkit-center;
 }
-#id-description, #text-section, .checkboxy label{
+#id-description :is(h2, h5, p), #text-section :is(h2, h3, p, input), .checkboxy label{
     color:white;
 }
 #modal-submit-button{

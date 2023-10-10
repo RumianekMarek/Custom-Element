@@ -24,7 +24,7 @@ function qr_check_output($atts){
 
     $search_forms = $atts['form_check'];
 
-    ?>
+    $qr_check_html = '
         <style>
             @media (min-width:600px) {
                 #email{
@@ -49,15 +49,15 @@ function qr_check_output($atts){
         </style>
         <div id="qr-check" class="text-centered"> 
         <form id="qr-check-form" action="" method="post">
-            <input type="text" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="email" name="email" placeholder="Email" style="color:black; border:2px solid black !important;" required>
             <input type="submit" name="submit" value="Wyślij" id="qr-form-submit-button">
-        </form>
-    <?php
+        </form>';
 
     if (isset($_POST["submit"])) {
         $email = trim($_POST["email"]);
         search_qr($email, $search_forms);
     }
+    return $qr_check_html;
 }
 
 function search_qr($email, $forms_id){

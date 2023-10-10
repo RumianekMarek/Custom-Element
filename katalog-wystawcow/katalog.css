@@ -277,6 +277,9 @@
     min-width: 140px;
     margin: 5px;
 }
+#top21 a{
+    transform-origin:center !important;
+}
 .img-container-top10 {
     display: flex;
     justify-content: space-evenly;

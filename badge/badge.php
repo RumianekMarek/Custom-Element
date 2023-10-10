@@ -62,11 +62,10 @@ function custom_badge_element_output($atts){
 
     $token = wp_create_nonce('my_custom_form_token'); // Generowanie tokenu
     $domain = do_shortcode('[trade_fair_domainadress]');
-  ?>
-    <div id="identifiers" class="col-lg-12 wpb_column">
-        <div class="col-lg-4 wpb_column pos-middle">
-            <div class="text-centered" id="id-description">
-            <?php if($locale == 'pl_PL'){ echo '
+    $badge_html .= '<div id="identifiers" class="col-lg-12 wpb_column">';
+      $badge_html .= '<div class="col-lg-4 wpb_column pos-middle">';
+        $badge_html .= '<div class="text-centered" id="id-description">';
+            if($locale == 'pl_PL'){ $badge_html .= '
                     <p>Jeżeli już jesteś zarejestrowany/a na naszej stronie a potrzebujesz zaproszenia w formie papierowej? Wypełnij formularz.</p>
                     <hr class="single-padding">
                     <h2 class="text-uppercase">Masz pytania?</h2>
@@ -77,7 +76,7 @@ function custom_badge_element_output($atts){
                     <h5 class="text-uppercase">Współpraca z mediami<br>
                     <a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a></h5><br>
                     <img src="/doc/logo-pwe.png" style="width:200px;">
-                ';} else { echo '
+                ';} else { $badge_html .= '
                     <p>If you are already registered on our site but need a paper invitation? Fill out the form.</p>
                     <hr class="single-padding">
                     <h2 class="text-uppercase">Any questions?</h2>
@@ -88,54 +87,54 @@ function custom_badge_element_output($atts){
                     <h5 class="text-uppercase">Cooperation with the media<br>
                     <a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a></h5><br>
                     <img src="/doc/logo-pwe.png" style="width:200px;">
-                ';} ?>
-            </div>
-        </div>
+                ';}
+        $badge_html .= '</div>';
+      $badge_html .= '</div>';
 
-        <div class="col-lg-8 wpb_column">
-            <?php if ($url_token != ''){
-                echo '<h2 class="text-centered form-title" style="color:white";>Generator wewnętrzny <br>'.$url_token.'</h2>';
-            } ?>
-            <div id="form-section">
-                <form id="custom-form" action="" method="post">
-                    <input type="text" id="full_name" name="full_name" placeholder="Imię i Nazwisko / Full name" required>
-                    <input type="text" id="firm" name="firm" placeholder="Firm / Comapny name" required>
+      $badge_html .= '<div class="col-lg-8 wpb_column">';
+            if ($url_token != ''){
+              $badge_html .= '<h2 class="text-centered form-title" style="color:white";>Generator wewnętrzny <br>'.$url_token.'</h2>';
+            }
+            $badge_html .= '<div id="form-section">';
+                $badge_html .= '<form id="custom-form" action="" method="post">';
+                    $badge_html .= '<input type="text" id="full_name" name="full_name" placeholder="Imię i Nazwisko / Full name" required>';
+                    $badge_html .= '<input type="text" id="firm" name="firm" placeholder="Firm / Comapny name" required>';
 
-                    <input type="email" id="email" name="email" placeholder="E-mail" required>
-                    <input type="text" id="adres" name="adres" placeholder="Adres / Adress"required>
+                    $badge_html .= '<input type="email" id="email" name="email" placeholder="E-mail" required>';
+                    $badge_html .= '<input type="text" id="adres" name="adres" placeholder="Adres / Adress"required>';
 
-                    <div class="two-column">
-                        <input type="text" id="miasto" name="miasto" placeholder="Miasto / City"required>
-                        <input type="text" id="kod" name="kod" placeholder="Kod pocztowy / Zip code" required>
-                    </div>
+                    $badge_html .= '<div class="two-column">';
+                        $badge_html .= '<input type="text" id="miasto" name="miasto" placeholder="Miasto / City"required>';
+                        $badge_html .= '<input type="text" id="kod" name="kod" placeholder="Kod pocztowy / Zip code" required>';
+                   $badge_html .= ' </div>';
                 
-                    <div class="two-column">
-                        <select id='panstwo' name='panstwo' required>
-                            <option value='Afganistan' >Afganistan</option><option value='Albania' >Albania</option><option value='Algieria' >Algieria</option><option value='Andora' >Andora</option><option value='Angola' >Angola</option><option value='Anguilla' >Anguilla</option><option value='Antarktyda' >Antarktyda</option><option value='Antigua i Barbuda' >Antigua i Barbuda</option><option value='Arabia Saudyjska' >Arabia Saudyjska</option><option value='Argentyna' >Argentyna</option><option value='Armenia' >Armenia</option><option value='Aruba' >Aruba</option><option value='Australia' >Australia</option><option value='Austria' >Austria</option><option value='Azerbejdżan' >Azerbejdżan</option><option value='Bahamy' >Bahamy</option><option value='Bahrajn' >Bahrajn</option><option value='Bangladesz' >Bangladesz</option><option value='Barbados' >Barbados</option><option value='Belgia' >Belgia</option><option value='Belize' >Belize</option><option value='Benin' >Benin</option><option value='Bermudy' >Bermudy</option><option value='Bhutan' >Bhutan</option><option value='Białoruś' >Białoruś</option><option value='Boliwia' >Boliwia</option><option value='Bonaire, St Eustatius i Saba' >Bonaire, St Eustatius i Saba</option><option value='Botswana' >Botswana</option><option value='Bośnia i Hercegowina' >Bośnia i Hercegowina</option><option value='Brazylia' >Brazylia</option><option value='Brunei Darussalam' >Brunei Darussalam</option><option value='Brytyjskie Terytorium Oceanu Indyjskiego' >Brytyjskie Terytorium Oceanu Indyjskiego</option><option value='Burkina Faso' >Burkina Faso</option><option value='Burundi' >Burundi</option><option value='Bułgaria' >Bułgaria</option><option value='Chile' >Chile</option><option value='Chiny' >Chiny</option><option value='Chorwacja' >Chorwacja</option><option value='Curaçao' >Curaçao</option><option value='Cypr' >Cypr</option><option value='Czad' >Czad</option><option value='Czarnogóra' >Czarnogóra</option><option value='Czechy' >Czechy</option><option value='Dania' >Dania</option><option value='Demokratyczna Republika Kongo' >Demokratyczna Republika Kongo</option><option value='Dominikana' >Dominikana</option><option value='Dominikana, Republika' >Dominikana, Republika</option><option value='Dżibuti' >Dżibuti</option><option value='Egipt' >Egipt</option><option value='Ekwador' >Ekwador</option><option value='Erytrea' >Erytrea</option><option value='Estonia' >Estonia</option><option value='Eswatini (Suazi)' >Eswatini (Suazi)</option><option value='Etiopia' >Etiopia</option><option value='Falklandy' >Falklandy</option><option value='Fidżi' >Fidżi</option><option value='Filipiny' >Filipiny</option><option value='Finlandia' >Finlandia</option><option value='Francja' >Francja</option><option value='Francuskie Terytoria Południowe' >Francuskie Terytoria Południowe</option><option value='Gabon' >Gabon</option><option value='Gambia' >Gambia</option><option value='Ghana' >Ghana</option><option value='Gibraltar' >Gibraltar</option><option value='Grecja' >Grecja</option><option value='Grenada' >Grenada</option><option value='Grenlandia' >Grenlandia</option><option value='Gruzja' >Gruzja</option><option value='Gruzja Południowa' >Gruzja Południowa</option><option value='Guam' >Guam</option><option value='Guernsey' >Guernsey</option><option value='Gujana' >Gujana</option><option value='Gujana Francuska' >Gujana Francuska</option><option value='Gwadelupa' >Gwadelupa</option><option value='Gwatemala' >Gwatemala</option><option value='Gwinea' >Gwinea</option><option value='Gwinea Bissau' >Gwinea Bissau</option><option value='Gwinea Równikowa' >Gwinea Równikowa</option><option value='Haiti' >Haiti</option><option value='Hiszpania' >Hiszpania</option><option value='Holandia' >Holandia</option><option value='Honduras' >Honduras</option><option value='Hongkong' >Hongkong</option><option value='Indie' >Indie</option><option value='Indonezja' >Indonezja</option><option value='Irak' >Irak</option><option value='Iran' >Iran</option><option value='Irlandia' >Irlandia</option><option value='Islandia' >Islandia</option><option value='Izrael' >Izrael</option><option value='Jamajka' >Jamajka</option><option value='Japonia' >Japonia</option><option value='Jemen' >Jemen</option><option value='Jersey' >Jersey</option><option value='Jordania' >Jordania</option><option value='Kajmany' >Kajmany</option><option value='Kambodża' >Kambodża</option><option value='Kamerun' >Kamerun</option><option value='Kanada' >Kanada</option><option value='Katar' >Katar</option><option value='Kazachstan' >Kazachstan</option><option value='Kenia' >Kenia</option><option value='Kirgistan' >Kirgistan</option><option value='Kiribati' >Kiribati</option><option value='Kolumbia' >Kolumbia</option><option value='Komory' >Komory</option><option value='Kongo, Republika' >Kongo, Republika</option><option value='Korea Południowa' >Korea Południowa</option><option value='Korea Północna' >Korea Północna</option><option value='Kostaryka' >Kostaryka</option><option value='Kuba' >Kuba</option><option value='Kuwejt' >Kuwejt</option><option value='Laotańska Republika Ludowo-Demokratyczna' >Laotańska Republika Ludowo-Demokratyczna</option><option value='Lesoto' >Lesoto</option><option value='Liban' >Liban</option><option value='Liberia' >Liberia</option><option value='Libia' >Libia</option><option value='Liechtenstein' >Liechtenstein</option><option value='Litwa' >Litwa</option><option value='Luksemburg' >Luksemburg</option><option value='Macedonia' >Macedonia</option><option value='Madagaskar' >Madagaskar</option><option value='Majotta' >Majotta</option><option value='Makau' >Makau</option><option value='Malawi' >Malawi</option><option value='Malediwy' >Malediwy</option><option value='Malezja' >Malezja</option><option value='Mali' >Mali</option><option value='Malta' >Malta</option><option value='Mariany Północne' >Mariany Północne</option><option value='Maroko' >Maroko</option><option value='Martynika' >Martynika</option><option value='Mauretania' >Mauretania</option><option value='Mauritius' >Mauritius</option><option value='Meksyk' >Meksyk</option><option value='Mikronezja' >Mikronezja</option><option value='Mjanma' >Mjanma</option><option value='Monako' >Monako</option><option value='Mongolia' >Mongolia</option><option value='Montserrat' >Montserrat</option><option value='Mozambik' >Mozambik</option><option value='Mołdawia' >Mołdawia</option><option value='Namibia' >Namibia</option><option value='Nauru' >Nauru</option><option value='Nepal' >Nepal</option><option value='Niemcy' >Niemcy</option><option value='Niger' >Niger</option><option value='Nigeria' >Nigeria</option><option value='Nikaragua' >Nikaragua</option><option value='Niue' >Niue</option><option value='Norwegia' >Norwegia</option><option value='Nowa Kaledonia' >Nowa Kaledonia</option><option value='Nowa Zelandia' >Nowa Zelandia</option><option value='Oman' >Oman</option><option value='Pakistan' >Pakistan</option><option value='Palau' >Palau</option><option value='Palestyna' >Palestyna</option><option value='Panama' >Panama</option><option value='Papua Nowa Gwinea' >Papua Nowa Gwinea</option><option value='Paragwaj' >Paragwaj</option><option value='Peru' >Peru</option><option value='Pitcairn' >Pitcairn</option><option value='Polinezja Francuska' >Polinezja Francuska</option><option value='Polska' selected='selected'>Polska</option><option value='Portoryko' >Portoryko</option><option value='Portugalia' >Portugalia</option><option value='Południowa Afryka' >Południowa Afryka</option><option value='Republika Afryki Środkowej' >Republika Afryki Środkowej</option><option value='Republika Zielonego Przylądka' >Republika Zielonego Przylądka</option><option value='Reunion' >Reunion</option><option value='Rosja' >Rosja</option><option value='Rumunia' >Rumunia</option><option value='Rwanda' >Rwanda</option><option value='Sahara Zachodnia' >Sahara Zachodnia</option><option value='Saint Kitts i Nevis' >Saint Kitts i Nevis</option><option value='Saint Lucia' >Saint Lucia</option><option value='Saint Pierre i Miquelon' >Saint Pierre i Miquelon</option><option value='Saint Vincent i Grenadyny' >Saint Vincent i Grenadyny</option><option value='Saint-Barthélemy' >Saint-Barthélemy</option><option value='Saint-Martin' >Saint-Martin</option><option value='Salwador' >Salwador</option><option value='Samoa' >Samoa</option><option value='Samoa Amerykańska' >Samoa Amerykańska</option><option value='San Marino' >San Marino</option><option value='Senegal' >Senegal</option><option value='Serbia' >Serbia</option><option value='Seszele' >Seszele</option><option value='Sierra Leone' >Sierra Leone</option><option value='Singapur' >Singapur</option><option value='Sint Maarten' >Sint Maarten</option><option value='Somalia' >Somalia</option><option value='Sri Lanka' >Sri Lanka</option><option value='Stany Zjednoczone' >Stany Zjednoczone</option><option value='Stolica Apostolska' >Stolica Apostolska</option><option value='Sudan' >Sudan</option><option value='Sudan Południowy' >Sudan Południowy</option><option value='Surinam' >Surinam</option><option value='Syria' >Syria</option><option value='Szwajcaria' >Szwajcaria</option><option value='Szwecja' >Szwecja</option><option value='Słowacja' >Słowacja</option><option value='Słowenia' >Słowenia</option><option value='Tadżykistan' >Tadżykistan</option><option value='Tajlandia' >Tajlandia</option><option value='Tajwan' >Tajwan</option><option value='Tanzania' >Tanzania</option><option value='Timor-Leste' >Timor-Leste</option><option value='Togo' >Togo</option><option value='Tokelau' >Tokelau</option><option value='Tonga' >Tonga</option><option value='Trynidad i Tobago' >Trynidad i Tobago</option><option value='Tunezja' >Tunezja</option><option value='Turcja' >Turcja</option><option value='Turkmenistan' >Turkmenistan</option><option value='Tuvalu' >Tuvalu</option><option value='US Minor Outlying Islands' >US Minor Outlying Islands</option><option value='Uganda' >Uganda</option><option value='Ukraina' >Ukraina</option><option value='Urugwaj' >Urugwaj</option><option value='Uzbekistan' >Uzbekistan</option><option value='Vanuatu' >Vanuatu</option><option value='Wallis i Futuna' >Wallis i Futuna</option><option value='Wenezuela' >Wenezuela</option><option value='Wietnam' >Wietnam</option><option value='Wybrzeże Kości Słoniowej' >Wybrzeże Kości Słoniowej</option><option value='Wyspa Bożego Narodzenia' >Wyspa Bożego Narodzenia</option><option value='Wyspa Man' >Wyspa Man</option><option value='Wyspa Norfolk' >Wyspa Norfolk</option><option value='Wyspa Świętej Heleny' >Wyspa Świętej Heleny</option><option value='Wyspy Alandzkie' >Wyspy Alandzkie</option><option value='Wyspy Bouvet' >Wyspy Bouvet</option><option value='Wyspy Cooka' >Wyspy Cooka</option><option value='Wyspy Dziewicze, U.S.A.' >Wyspy Dziewicze, U.S.A.</option><option value='Wyspy Dziewicze, Wielka Brytania' >Wyspy Dziewicze, Wielka Brytania</option><option value='Wyspy Heard i McDonalda' >Wyspy Heard i McDonalda</option><option value='Wyspy Kokosowe' >Wyspy Kokosowe</option><option value='Wyspy Marshalla' >Wyspy Marshalla</option><option value='Wyspy Owcze' >Wyspy Owcze</option><option value='Wyspy Salomona' >Wyspy Salomona</option><option value='Wyspy Svalbard i Jan Mayen' >Wyspy Svalbard i Jan Mayen</option><option value='Wyspy Turks i Caicos' >Wyspy Turks i Caicos</option><option value='Wyspy Świętego Tomasza i Książęca' >Wyspy Świętego Tomasza i Książęca</option><option value='Węgry' >Węgry</option><option value='Włochy' >Włochy</option><option value='Zambia' >Zambia</option><option value='Zimbabwe' >Zimbabwe</option><option value='Zjednoczone Emiraty Arabskie' >Zjednoczone Emiraty Arabskie</option><option value='Zjednoczone Królestwo' >Zjednoczone Królestwo</option><option value='Łotwa' >Łotwa</option>                           
-                        </select>
-                        <?php if ($url_token != ''){ echo '
-                        <select type="text" id="client_status" name="client_status" placeholder="client status" required>
-                            <option value="gosc_a6" >Gość</option>
-                            <option value="vipgold_a6" >Vip</option>
-                        </select>
-                        <select type="text" id="departament" name="departament" placeholder="departament" required>
-                            <option value="" >Wybierz Dział</option>
-                            <option value="Dzial1" >Dzial1</option>
-                            <option value="Diaal2" >Dzial2</option>
-                        </select>
-                        <select type="text" id="kanal" name="kanal" placeholder="kanal" required>
-                            <option value="" >Wybierz Kanał</option>
-                            <option value="Kanal1" >Kanal1</option>
-                            <option value="Kanal2" >Kanal2</option>
-                        </select>
-                    </div>';
-                        } else {echo '</div>'; }?>
-                    <?php echo '<input type="hidden" name="token" value="' . $token . '">'; ?>
-                    <input type="submit" name="submit" value="Submit" id="modal-submit-button">
+                    $badge_html .= '<div class="two-column">';
+                        $badge_html .= '<select id="panstwo" name="panstwo" required>';
+                            $badge_html .= "<option value='Afganistan' >Afganistan</option><option value='Albania' >Albania</option><option value='Algieria' >Algieria</option><option value='Andora' >Andora</option><option value='Angola' >Angola</option><option value='Anguilla' >Anguilla</option><option value='Antarktyda' >Antarktyda</option><option value='Antigua i Barbuda' >Antigua i Barbuda</option><option value='Arabia Saudyjska' >Arabia Saudyjska</option><option value='Argentyna' >Argentyna</option><option value='Armenia' >Armenia</option><option value='Aruba' >Aruba</option><option value='Australia' >Australia</option><option value='Austria' >Austria</option><option value='Azerbejdżan' >Azerbejdżan</option><option value='Bahamy' >Bahamy</option><option value='Bahrajn' >Bahrajn</option><option value='Bangladesz' >Bangladesz</option><option value='Barbados' >Barbados</option><option value='Belgia' >Belgia</option><option value='Belize' >Belize</option><option value='Benin' >Benin</option><option value='Bermudy' >Bermudy</option><option value='Bhutan' >Bhutan</option><option value='Białoruś' >Białoruś</option><option value='Boliwia' >Boliwia</option><option value='Bonaire, St Eustatius i Saba' >Bonaire, St Eustatius i Saba</option><option value='Botswana' >Botswana</option><option value='Bośnia i Hercegowina' >Bośnia i Hercegowina</option><option value='Brazylia' >Brazylia</option><option value='Brunei Darussalam' >Brunei Darussalam</option><option value='Brytyjskie Terytorium Oceanu Indyjskiego' >Brytyjskie Terytorium Oceanu Indyjskiego</option><option value='Burkina Faso' >Burkina Faso</option><option value='Burundi' >Burundi</option><option value='Bułgaria' >Bułgaria</option><option value='Chile' >Chile</option><option value='Chiny' >Chiny</option><option value='Chorwacja' >Chorwacja</option><option value='Curaçao' >Curaçao</option><option value='Cypr' >Cypr</option><option value='Czad' >Czad</option><option value='Czarnogóra' >Czarnogóra</option><option value='Czechy' >Czechy</option><option value='Dania' >Dania</option><option value='Demokratyczna Republika Kongo' >Demokratyczna Republika Kongo</option><option value='Dominikana' >Dominikana</option><option value='Dominikana, Republika' >Dominikana, Republika</option><option value='Dżibuti' >Dżibuti</option><option value='Egipt' >Egipt</option><option value='Ekwador' >Ekwador</option><option value='Erytrea' >Erytrea</option><option value='Estonia' >Estonia</option><option value='Eswatini (Suazi)' >Eswatini (Suazi)</option><option value='Etiopia' >Etiopia</option><option value='Falklandy' >Falklandy</option><option value='Fidżi' >Fidżi</option><option value='Filipiny' >Filipiny</option><option value='Finlandia' >Finlandia</option><option value='Francja' >Francja</option><option value='Francuskie Terytoria Południowe' >Francuskie Terytoria Południowe</option><option value='Gabon' >Gabon</option><option value='Gambia' >Gambia</option><option value='Ghana' >Ghana</option><option value='Gibraltar' >Gibraltar</option><option value='Grecja' >Grecja</option><option value='Grenada' >Grenada</option><option value='Grenlandia' >Grenlandia</option><option value='Gruzja' >Gruzja</option><option value='Gruzja Południowa' >Gruzja Południowa</option><option value='Guam' >Guam</option><option value='Guernsey' >Guernsey</option><option value='Gujana' >Gujana</option><option value='Gujana Francuska' >Gujana Francuska</option><option value='Gwadelupa' >Gwadelupa</option><option value='Gwatemala' >Gwatemala</option><option value='Gwinea' >Gwinea</option><option value='Gwinea Bissau' >Gwinea Bissau</option><option value='Gwinea Równikowa' >Gwinea Równikowa</option><option value='Haiti' >Haiti</option><option value='Hiszpania' >Hiszpania</option><option value='Holandia' >Holandia</option><option value='Honduras' >Honduras</option><option value='Hongkong' >Hongkong</option><option value='Indie' >Indie</option><option value='Indonezja' >Indonezja</option><option value='Irak' >Irak</option><option value='Iran' >Iran</option><option value='Irlandia' >Irlandia</option><option value='Islandia' >Islandia</option><option value='Izrael' >Izrael</option><option value='Jamajka' >Jamajka</option><option value='Japonia' >Japonia</option><option value='Jemen' >Jemen</option><option value='Jersey' >Jersey</option><option value='Jordania' >Jordania</option><option value='Kajmany' >Kajmany</option><option value='Kambodża' >Kambodża</option><option value='Kamerun' >Kamerun</option><option value='Kanada' >Kanada</option><option value='Katar' >Katar</option><option value='Kazachstan' >Kazachstan</option><option value='Kenia' >Kenia</option><option value='Kirgistan' >Kirgistan</option><option value='Kiribati' >Kiribati</option><option value='Kolumbia' >Kolumbia</option><option value='Komory' >Komory</option><option value='Kongo, Republika' >Kongo, Republika</option><option value='Korea Południowa' >Korea Południowa</option><option value='Korea Północna' >Korea Północna</option><option value='Kostaryka' >Kostaryka</option><option value='Kuba' >Kuba</option><option value='Kuwejt' >Kuwejt</option><option value='Laotańska Republika Ludowo-Demokratyczna' >Laotańska Republika Ludowo-Demokratyczna</option><option value='Lesoto' >Lesoto</option><option value='Liban' >Liban</option><option value='Liberia' >Liberia</option><option value='Libia' >Libia</option><option value='Liechtenstein' >Liechtenstein</option><option value='Litwa' >Litwa</option><option value='Luksemburg' >Luksemburg</option><option value='Macedonia' >Macedonia</option><option value='Madagaskar' >Madagaskar</option><option value='Majotta' >Majotta</option><option value='Makau' >Makau</option><option value='Malawi' >Malawi</option><option value='Malediwy' >Malediwy</option><option value='Malezja' >Malezja</option><option value='Mali' >Mali</option><option value='Malta' >Malta</option><option value='Mariany Północne' >Mariany Północne</option><option value='Maroko' >Maroko</option><option value='Martynika' >Martynika</option><option value='Mauretania' >Mauretania</option><option value='Mauritius' >Mauritius</option><option value='Meksyk' >Meksyk</option><option value='Mikronezja' >Mikronezja</option><option value='Mjanma' >Mjanma</option><option value='Monako' >Monako</option><option value='Mongolia' >Mongolia</option><option value='Montserrat' >Montserrat</option><option value='Mozambik' >Mozambik</option><option value='Mołdawia' >Mołdawia</option><option value='Namibia' >Namibia</option><option value='Nauru' >Nauru</option><option value='Nepal' >Nepal</option><option value='Niemcy' >Niemcy</option><option value='Niger' >Niger</option><option value='Nigeria' >Nigeria</option><option value='Nikaragua' >Nikaragua</option><option value='Niue' >Niue</option><option value='Norwegia' >Norwegia</option><option value='Nowa Kaledonia' >Nowa Kaledonia</option><option value='Nowa Zelandia' >Nowa Zelandia</option><option value='Oman' >Oman</option><option value='Pakistan' >Pakistan</option><option value='Palau' >Palau</option><option value='Palestyna' >Palestyna</option><option value='Panama' >Panama</option><option value='Papua Nowa Gwinea' >Papua Nowa Gwinea</option><option value='Paragwaj' >Paragwaj</option><option value='Peru' >Peru</option><option value='Pitcairn' >Pitcairn</option><option value='Polinezja Francuska' >Polinezja Francuska</option><option value='Polska' selected='selected'>Polska</option><option value='Portoryko' >Portoryko</option><option value='Portugalia' >Portugalia</option><option value='Południowa Afryka' >Południowa Afryka</option><option value='Republika Afryki Środkowej' >Republika Afryki Środkowej</option><option value='Republika Zielonego Przylądka' >Republika Zielonego Przylądka</option><option value='Reunion' >Reunion</option><option value='Rosja' >Rosja</option><option value='Rumunia' >Rumunia</option><option value='Rwanda' >Rwanda</option><option value='Sahara Zachodnia' >Sahara Zachodnia</option><option value='Saint Kitts i Nevis' >Saint Kitts i Nevis</option><option value='Saint Lucia' >Saint Lucia</option><option value='Saint Pierre i Miquelon' >Saint Pierre i Miquelon</option><option value='Saint Vincent i Grenadyny' >Saint Vincent i Grenadyny</option><option value='Saint-Barthélemy' >Saint-Barthélemy</option><option value='Saint-Martin' >Saint-Martin</option><option value='Salwador' >Salwador</option><option value='Samoa' >Samoa</option><option value='Samoa Amerykańska' >Samoa Amerykańska</option><option value='San Marino' >San Marino</option><option value='Senegal' >Senegal</option><option value='Serbia' >Serbia</option><option value='Seszele' >Seszele</option><option value='Sierra Leone' >Sierra Leone</option><option value='Singapur' >Singapur</option><option value='Sint Maarten' >Sint Maarten</option><option value='Somalia' >Somalia</option><option value='Sri Lanka' >Sri Lanka</option><option value='Stany Zjednoczone' >Stany Zjednoczone</option><option value='Stolica Apostolska' >Stolica Apostolska</option><option value='Sudan' >Sudan</option><option value='Sudan Południowy' >Sudan Południowy</option><option value='Surinam' >Surinam</option><option value='Syria' >Syria</option><option value='Szwajcaria' >Szwajcaria</option><option value='Szwecja' >Szwecja</option><option value='Słowacja' >Słowacja</option><option value='Słowenia' >Słowenia</option><option value='Tadżykistan' >Tadżykistan</option><option value='Tajlandia' >Tajlandia</option><option value='Tajwan' >Tajwan</option><option value='Tanzania' >Tanzania</option><option value='Timor-Leste' >Timor-Leste</option><option value='Togo' >Togo</option><option value='Tokelau' >Tokelau</option><option value='Tonga' >Tonga</option><option value='Trynidad i Tobago' >Trynidad i Tobago</option><option value='Tunezja' >Tunezja</option><option value='Turcja' >Turcja</option><option value='Turkmenistan' >Turkmenistan</option><option value='Tuvalu' >Tuvalu</option><option value='US Minor Outlying Islands' >US Minor Outlying Islands</option><option value='Uganda' >Uganda</option><option value='Ukraina' >Ukraina</option><option value='Urugwaj' >Urugwaj</option><option value='Uzbekistan' >Uzbekistan</option><option value='Vanuatu' >Vanuatu</option><option value='Wallis i Futuna' >Wallis i Futuna</option><option value='Wenezuela' >Wenezuela</option><option value='Wietnam' >Wietnam</option><option value='Wybrzeże Kości Słoniowej' >Wybrzeże Kości Słoniowej</option><option value='Wyspa Bożego Narodzenia' >Wyspa Bożego Narodzenia</option><option value='Wyspa Man' >Wyspa Man</option><option value='Wyspa Norfolk' >Wyspa Norfolk</option><option value='Wyspa Świętej Heleny' >Wyspa Świętej Heleny</option><option value='Wyspy Alandzkie' >Wyspy Alandzkie</option><option value='Wyspy Bouvet' >Wyspy Bouvet</option><option value='Wyspy Cooka' >Wyspy Cooka</option><option value='Wyspy Dziewicze, U.S.A.' >Wyspy Dziewicze, U.S.A.</option><option value='Wyspy Dziewicze, Wielka Brytania' >Wyspy Dziewicze, Wielka Brytania</option><option value='Wyspy Heard i McDonalda' >Wyspy Heard i McDonalda</option><option value='Wyspy Kokosowe' >Wyspy Kokosowe</option><option value='Wyspy Marshalla' >Wyspy Marshalla</option><option value='Wyspy Owcze' >Wyspy Owcze</option><option value='Wyspy Salomona' >Wyspy Salomona</option><option value='Wyspy Svalbard i Jan Mayen' >Wyspy Svalbard i Jan Mayen</option><option value='Wyspy Turks i Caicos' >Wyspy Turks i Caicos</option><option value='Wyspy Świętego Tomasza i Książęca' >Wyspy Świętego Tomasza i Książęca</option><option value='Węgry' >Węgry</option><option value='Włochy' >Włochy</option><option value='Zambia' >Zambia</option><option value='Zimbabwe' >Zimbabwe</option><option value='Zjednoczone Emiraty Arabskie' >Zjednoczone Emiraty Arabskie</option><option value='Zjednoczone Królestwo' >Zjednoczone Królestwo</option><option value='Łotwa' >Łotwa</option>";
+                        $badge_html .= '</select>';
+                        if ($url_token != ''){ $badge_html .= '
+                          <select type="text" id="client_status" name="client_status" placeholder="client status" required>
+                              <option value="gosc_a6" >Gość</option>
+                              <option value="vipgold_a6" >Vip</option>
+                          </select>
+                          <select type="text" id="departament" name="departament" placeholder="departament" required>
+                              <option value="" >Wybierz Dział</option>
+                              <option value="Dzial1" >Dzial1</option>
+                              <option value="Diaal2" >Dzial2</option>
+                          </select>
+                          <select type="text" id="kanal" name="kanal" placeholder="kanal" required>
+                              <option value="" >Wybierz Kanał</option>
+                              <option value="Kanal1" >Kanal1</option>
+                              <option value="Kanal2" >Kanal2</option>
+                          </select>
+                      </div>';
+                        } else {$badge_html .= '</div>'; }
+                        $badge_html .= '<input type="hidden" name="token" value="' . $token . '">';
+                        $badge_html .= '<input type="submit" name="submit" value="Submit" id="modal-submit-button">';
 
-                    <div id="badge-modal" style="display: none;" class="badge-modal">
-                        <div class="badge-modal-content">
-                            <?php if($locale == 'pl_PL'){ echo '
+                        $badge_html .= '<div id="badge-modal" style="display: none;" class="badge-modal">';
+                        $badge_html .= '<div class="badge-modal-content">';
+                            if($locale == 'pl_PL'){ $badge_html .= '
                               <p><span id="full_name_label" class="flex-1">Imie i Nazwisko - </span><span id="full_name_check" class="flex-2"></span></p>
                               <p><span id="firm_label" class="flex-1">Nazwa Firmy - </span><span id="firm_check" class="flex-2"></span></p>
                               <p><span id="email_label" class="flex-1">Email - </span><span id="email_check" class="flex-2"></span></p>
@@ -143,7 +142,7 @@ function custom_badge_element_output($atts){
                               <p><span id="miasto_label" class="flex-1">Miasto - </span><span id="miasto_check" class="flex-2"></span></p>
                               <p><span id="kod_label" class="flex-1">Kod pocztowy - </span><span id="kod_check" class="flex-2"></span></p>
                               <p><span id="panstwo_label" class="flex-1">Państwo - </span><span id="panstwo_check" class="flex-2"></span></p>
-                            ';} else { echo '
+                            ';} else { $badge_html .= '
                               <p><span id="full_name_label" class="flex-1">Full name - </span><span id="full_name_check" class="flex-2"></span></p>
                               <p><span id="firm_label" class="flex-1">Company - </span><span id="firm_check" class="flex-2""></span></p>
                               <p><span id="email_label" class="flex-1">Email - </span><span id="email_check" class="flex-2"></span></p>
@@ -151,39 +150,37 @@ function custom_badge_element_output($atts){
                               <p><span id="miasto_label" class="flex-1">City- </span><span id="miasto_check" class="flex-2"></span></p>
                               <p><span id="kod_label" class="flex-1">Zip code - </span><span id="kod_check" class="flex-2"></span></p>
                               <p><span id="panstwo_label" class="flex-1">Country - </span><span id="panstwo_check" class="flex-2"></span></p>
-                            ';} ?>
-                        <?php if ($url_token != ''){ echo '
+                            ';}
+                        if ($url_token != ''){ $badge_html .= '
                             <p>Departament - <span id="departament_check"></span></p>
                             <p>Kanał - <span id="kanal_check"></span></p>';
                             }
-                            if($locale == 'pl_PL'){ echo '
+                            if($locale == 'pl_PL'){ $badge_html .= '
                                 <p class="modal-message">Czy na pewno chcesz wysłać dane?</p>
                                 <button class="modal-button" id="change-form">Popraw</button>
                                 <button class="modal-button" id="submit-form" name="submit">Zatwierdz</button>
-                            ';} else { echo '
+                            ';} else { $badge_html .= '
                                 <p class="modal-message">Is the entry correct?</p>
                                 <button class="modal-button" id="change-form">Corection</button>
                                 <button class="modal-button" id="submit-form" name="submit">Send</button>
                             ';}
-                        ?>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                        $badge_html .= '</div>';
+                    $badge_html .= '</div>';
+                $badge_html .= '</form>';
+           $badge_html .= ' </div>';
 
-            <div id="text-section" class="text-centered single-block-padding" style="display: none;">
-                <h2><?php if($locale == 'pl_PL'){ echo '
+           $badge_html .= '<div id="text-section" class="text-centered single-block-padding" style="display: none;">';
+           $badge_html .= '<h2>';
+                if($locale == 'pl_PL'){ $badge_html .= '
                     Twoja prośba o identyfikator została przekazana do realizacji
-                  ';} else { echo '
+                  ';} else { $badge_html .= '
                     Your paper badge request has been forwarded for processing
-                  ';} ?>
-                  </h2>
-                <p>&nbsp;</p>
-            </div>
-        </div>
-    </div>
-
-  <?php
+                  ';}
+                  $badge_html .= '</h2>';
+                $badge_html .= '<p>&nbsp;</p>';
+            $badge_html .= '</div>';
+        $badge_html .= '</div>';
+    $badge_html .= '</div>';
 
   if (isset($_POST["submit"]) && isset($_POST['token']) && wp_verify_nonce($_POST['token'], 'my_custom_form_token')) {
     
@@ -227,15 +224,18 @@ function custom_badge_element_output($atts){
         Give_me_badge_check($email, $entry_data, $atts, $qr_table_insid);
     }
 
-    echo'<script>
-    document.querySelector("#form-section").style.display = "none";
-    document.querySelector("#text-section").style.display = "block";
+    echo'<script> 
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("#form-section").style.display = "none";
+        document.querySelector("#text-section").style.display = "block";
+      });
     </script>';
     
   }
 
   if (isset($_POST["qr-form"]) && $_SESSION['entry_data'][2] != ''){
     echo '<script>
+      document.addEventListener("DOMContentLoaded", function() {
         document.querySelector("#full_name").value = "'.$_SESSION['entry_data'][6].'";
         document.querySelector("#firm").value = "'.$_SESSION['entry_data'][7].'";
         document.querySelector("#email").value = "'.$_SESSION['entry_data'][1].'";
@@ -270,6 +270,7 @@ function custom_badge_element_output($atts){
               break;
             }
         }
+      });
     </script>';
     
     $form_data = $_SESSION['entry_data'];
@@ -323,10 +324,13 @@ function custom_badge_element_output($atts){
     $entry_id = GFAPI::add_entry($form_data);
 
     echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
         document.querySelector("#identifiers .form-title").innerHTML = "Identyfikator przesłany do wysyłki. <br> Czy chcesz wysłąć kolejny identyfikator? <br>'.$url_token.'";
+        });
       </script>';
     $_SESSION['entry_data'][2] = '';
   }
+  return $badge_html;
 }
 
 function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $user_id){
@@ -374,6 +378,7 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
       
       ?>
         <script>
+          document.addEventListener("DOMContentLoaded", function() {
             targetHeader = document.querySelector("#text-section h2");
             targetHeader.innerText = "Brak unikalnych kodów QR";
             const targetDesc = document.querySelector("#text-section p");
@@ -387,6 +392,7 @@ function Check_all_forms($email_search, $qr_array, &$vip, &$qr_table_inside, $us
                   const messageDesc = "REGISTRATION FOR THE FAIR";
                 ';} ?>
             targetDesc.innerHTML += '<a href="'+urlDesc+'" style="font-size:30px;">'+messageDesc+'</a>';
+          });
         </script>
       <?php
     } else {}
@@ -664,9 +670,11 @@ function Inside_badge($email_search, $entries_data, &$vip, $atts){
               </form>';
       }
       echo '<script>
-        inside_return = '.json_encode($inside_return).';
-        const targetHead = document.querySelector("#text-section");
-        targetHead.innerHTML = inside_return;
+        document.addEventListener("DOMContentLoaded", function() {
+          inside_return = '.json_encode($inside_return).';
+          const targetHead = document.querySelector("#text-section");
+          targetHead.innerHTML = inside_return;
+        });
       </script>';
     }
   } else {

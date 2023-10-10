@@ -2,9 +2,25 @@
     display:flex;
     flex-direction: column;
 }
-.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2 .wpb_element_label,
+/* .vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2 .wpb_element_label,
 .vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-2 .edit_form_line{
     display:none;
+} */
+
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1 .vc_shortcode-param{
+    padding: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 400px;
+    max-width: 50%;
+}
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1 .wpb_element_label{
+    margin: 0 0 0 20px;
+    flex: 1;
+}
+.vc_ui-panel-window[data-vc-shortcode="info_box"] #vc_edit-form-tab-1 .edit_form_line{
+    flex: 1;
 }
 #eventSpeakers{
     display:flex;
@@ -22,3 +38,4 @@
 #eventSpeakers textarea{
     min-height:100px;
 }
+
