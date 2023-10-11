@@ -63,11 +63,13 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.6);
+    text-align: -webkit-center;
+
 }
 .info-modal-content {
     display: flex;
     background-color: #fff;
-    margin: 80px auto;
+    margin: 120px auto;
     padding: 10px;
     border: 1px solid #888;
 }

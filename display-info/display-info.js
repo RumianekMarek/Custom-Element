@@ -23,7 +23,6 @@ jQuery(function ($) {
             const modal = event.target.parentElement.parentElement.querySelector('.info-modal');
             modal.style.display = 'block';
             $('body').css('overflow-y', 'hidden !important');
-            console.log($('body'));
             modal.querySelector('.info-close').addEventListener('click', function(){
                 modal.style.display = 'none';
                 $('body').css('overflow-y', 'initial !important');

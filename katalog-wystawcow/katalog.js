@@ -1,4 +1,4 @@
-if (document.getElementById('full')){
+if (document.getElementById('#full .exhibitors')){
   document.addEventListener("DOMContentLoaded", function () {
     var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
     var exhibitors = exhibitorsAll.reduce((acc, curr) => {

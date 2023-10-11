@@ -238,10 +238,12 @@ function info_box_output($atts, $content = null) {
     $event_modal = substr($event_modal, 3);
     $event_modal = substr($event_modal, 0, -3);
     $event_modal = str_replace("``", '"', $event_modal);
+    $event_modal = str_replace("\n", '<br>', $event_modal);
     $event_modal = "[". $event_modal . "]";
-
+    
     $modal_array = json_decode($event_modal, true);
     $modal_desc = false;
+
     foreach ($modal_array as $modal){
         if ($modal['desc']){
             $modal_desc = true;
@@ -275,6 +277,7 @@ function info_box_output($atts, $content = null) {
         '<div id="lecture-'.$rn.'" class="chevron-slide" style="border:'.$border_width.' '.$border_style.' '.$border_color.'; border-radius:'.$border_radius.';">
             <div class="head-container">
                 ' . $speaker_html;
+    
     if ($modal_desc){
         if (count($speaker_imgs) < 3){
             $html .=
@@ -311,7 +314,6 @@ function info_box_output($atts, $content = null) {
 }
 
 function load_backend_scripts() {
-
     $css_file = plugins_url('backend-info.css', __FILE__);
     $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info.css');
     wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
@@ -319,8 +321,8 @@ function load_backend_scripts() {
     $js_file = plugins_url('backend-info.js', __FILE__);
     $js_version = filemtime(plugin_dir_url(__FILE__) . 'backend-info.js');
     wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
-
 }
+
 add_action('admin_enqueue_scripts', 'load_backend_scripts');
 
 add_action('vc_before_init', 'info_box');
