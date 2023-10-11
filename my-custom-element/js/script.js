@@ -57,14 +57,13 @@ document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg
 });
 
 // AKCENT BACKGROUND FULLSCREEN DO CUSTOM-ELEMENTU
-  var rowContainerOrganizator = document.querySelector('.row-container:has(.custom-container-organizator)');
-  if (rowContainerOrganizator) {
-    rowContainerOrganizator.classList.add('style-accent-bg');
-  }
-  var rowContainerOrganizator = document.querySelector('.row-container:has(#customGallery)');
-  if (rowContainerOrganizator) {
-    rowContainerOrganizator.classList.add('style-accent-bg');
-  }
+jQuery(function ($) {
+  $('.row-container:has(.custom-container-organizator)').addClass('style-accent-bg');
+  $('.row-container:has(#customGallery)').addClass('style-accent-bg');
+});
+jQuery(function ($) {
+  $('.full-width:has(.custom_element)').addClass('no-top-padding no-bottom-padding no-h-padding');
+});
 
   // SOCIAL MEDIA
   if(document.querySelector('.custom-facebook')){

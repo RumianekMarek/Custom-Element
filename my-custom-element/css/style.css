@@ -656,7 +656,7 @@
     display: flex;
     height: 250px;
     position: absolute;
-    left: 249px;
+    left: 247px;
     background-color: black;
     border-radius: 0 8px 8px 0;
 }
@@ -669,6 +669,8 @@
     writing-mode: vertical-rl;
     text-orientation: upright;
     letter-spacing: 0px;
+    background-color: black;
+    border-radius: 0 8px 8px 0;
 }
 .link-more{
     margin:10px;
@@ -706,6 +708,7 @@
 }
 .custom-inner-organizator{
     max-width:1200px;
+    margin: auto;
 }
 .custom-organizator-header{
     margin:0;
@@ -1509,6 +1512,7 @@
 }
 .text-centered{
     text-align: -webkit-center;
+    text-align: -moz-center;
 }
 .custom-line-height{
     line-height: 1.3;

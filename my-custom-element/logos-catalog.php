@@ -279,7 +279,9 @@ echo '
             if(document.querySelector('.media-logos')){
                 document.querySelector('.media-logos').classList.toggle("custom-display-none")
             } else {
-            document.querySelector(".row-container:has(#<?php echo $element_unique_id ?>)").classList.toggle("custom-display-none");
+                jQuery(function ($) {
+                    $(".row-container:has(#<?php echo $element_unique_id ?>)").toggleClass("custom-display-none");
+                });
             }
         }
         // Hide container if input value is empty
