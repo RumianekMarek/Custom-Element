@@ -1,4 +1,4 @@
-if (document.getElementById('#full .exhibitors')){
+if (document.getElementById('full')){
   document.addEventListener("DOMContentLoaded", function () {
     var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
     var exhibitors = exhibitorsAll.reduce((acc, curr) => {
@@ -11,7 +11,6 @@ if (document.getElementById('#full .exhibitors')){
 
         return acc;
     }, []);
-
     if(katalog_data.data){
 
       /* SEARCH ELEMENT */

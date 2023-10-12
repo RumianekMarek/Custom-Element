@@ -98,7 +98,6 @@ function katalog_wystawcow_output($atts, $content = null) {
   $id_targow = $identification;
   $today = new DateTime();
   $formattedDate = $today->format('Y-m-d');
-  echo '<script>console.log("'.$formattedDate.'")</script>';
   $token = md5("#22targiexpo22@@@#".$formattedDate);
   $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
 
