@@ -1454,18 +1454,21 @@
 .custom-generator-wystawcow input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"],
 .custom-generator-wystawcow input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], 
 .custom-generator-wystawcow input[placeholder="FIRMA ZAPRASZAJĄCA"],
-.custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"] {
+.custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"],
+.custom-generator-wystawcow input[placeholder="NAME AND SURNAME (GUEST)"],
+.custom-generator-wystawcow input[placeholder="INVITING COMPANY"],
+.custom-generator-wystawcow input[placeholder="E-MAIL OF THE INVITED PERSON"] {
     background-repeat: no-repeat;
     background-size: 30px;
     background-position: 5px;
 }
-.custom-generator-wystawcow input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"] {
+.custom-generator-wystawcow :is(input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"], input[placeholder="NAME AND SURNAME (GUEST)"]) {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/name.png");
 }
-.custom-generator-wystawcow input[placeholder="FIRMA ZAPRASZAJĄCA"] {
+.custom-generator-wystawcow input[placeholder="FIRMA ZAPRASZAJĄCA"], .custom-generator-wystawcow input[placeholder="INVITING COMPANY"] {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/box.png");
 }
-.custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"] {
+.custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"], .custom-generator-wystawcow input[placeholder="E-MAIL OF THE INVITED PERSON"] {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/email.png");
 }
 
