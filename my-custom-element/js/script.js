@@ -63,6 +63,7 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
   $('.full-width:has(.custom_element)').addClass('no-top-padding no-bottom-padding no-h-padding');
+  $('.limit-width:has(#main-timer)').addClass('no-top-padding no-bottom-padding no-h-padding');
 });
 
   // SOCIAL MEDIA

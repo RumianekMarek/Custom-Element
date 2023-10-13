@@ -19,7 +19,7 @@
                 <a href="#wazne-informacje"><li>Ważne informacje techniczne PTAK WARSAW EXPO (PWE): podłączenia prądu, wody, Internetu, dopuszczalne obciążenie powierzchni ekspozycyjnej, maksymalna masa elementów podwieszanych, maksymalna wysokość zabudowy.</li></a>
                 <a href="#procedury-stoisk"><li>Informacje dotyczące procedur odbiorów stoisk, powierzchni oraz zasad bezpieczeństwa na terenie PWE.</li></a>
                 <a href="#rozladunek"><li>Informacje na temat rozładunku, przesyłek kurierskich i spedycji w PWE.</li></a>
-                <a href="#dokumenty"><li>Documents for download .</li></a>
+                <a href="#dokumenty"><li>Dokumenty do pobrania.</li></a>
             </ol>
         </div>
 
