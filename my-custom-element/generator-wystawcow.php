@@ -181,8 +181,5 @@
 
     var registrationCount = <?php echo $registration_count; ?>
 
-    if (registrationCount == 0) {
-        document.querySelector(".register-count").style.display = "none";
-    }
 </script>
 
