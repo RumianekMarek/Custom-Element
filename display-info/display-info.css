@@ -109,6 +109,10 @@
     margin-top: -10px !important;
     margin-left: -10px !important;
 }
+.no-scroll {
+    overflow: hidden;
+}
+
 
 @media (min-width:960px){
     .info-modal-content{
