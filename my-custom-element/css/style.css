@@ -1451,13 +1451,7 @@
         font-size: 18px;
     }
 }
-.custom-generator-wystawcow input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"],
-.custom-generator-wystawcow input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], 
-.custom-generator-wystawcow input[placeholder="FIRMA ZAPRASZAJĄCA"],
-.custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"],
-.custom-generator-wystawcow input[placeholder="NAME AND SURNAME (GUEST)"],
-.custom-generator-wystawcow input[placeholder="INVITING COMPANY"],
-.custom-generator-wystawcow input[placeholder="E-MAIL OF THE INVITED PERSON"] {
+.custom-generator-wystawcow input{
     background-repeat: no-repeat;
     background-size: 30px;
     background-position: 5px;
