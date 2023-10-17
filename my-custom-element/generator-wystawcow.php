@@ -31,9 +31,9 @@
     <div class="heading-text register-count">
         <h3>
             <?php if($locale == 'pl_PL'){ echo '
-                Wykorzystano <?php echo $registration_count ?> z limitu 100 zaproszeń
+                Wykorzystano '. $registration_count .' z limitu 100 zaproszeń
             '; } else { echo '
-                Already used <?php echo $registration_count ?> from a total of 100 invitations
+                Already used '. $registration_count .' from a total of 100 invitations
             '; } ?>
             
         </h3>
@@ -52,71 +52,76 @@
     <div class="container">
         <div class="container-forms">
             <div class="container-info">
-            <div class="info-item info-item-left none">
-                <div class="table">
-                <div class="table-cell">
-                    <!-- <div class="forms-conteiner-form__left active">
-                    <h2>
-                        <?php if($new_content){
-                            echo 'WYGENERUJ IDENTYFIKATOR <br> DLA SIEBIE I OBSŁUGI STOISKA';
-                        } else {
-                            echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I SWOICH PRACOWNIKÓW!';
-                        }
-                        ?>                    
-                    </h2>
-                    [gravityform id="<?php echo $worker_form_id ?>" title="false" description="false" ajax="false"]
-                    </div> -->
-                </div>
-                </div>
-            </div>
-            <div class="info-item info-item-left">
-                <div class="table">
-                <div class="table-cell">
-                <h4 class="guest-info">
-                    <?php if($locale == 'pl_PL'){ echo '
-                        Goście upoważnieni są do wejścia na teren targów<br> od godziny 10:00</h4>
-                        <div class="forms-conteiner-form__right">
-                        <h2>
-                            WYGENERUJ IDENTYFIKATOR DLA SWOICH </br>GOŚCI!
-                        </h2>
-                    '; } else { echo '
-                        Visitors are entitled to enter the fairgrounds<br> from 10:00</h4>.
-                        <div class="forms-conteiner-form__right">
-                        <h2>
-                            GENERATE AN INVITE FOR YOUR GUESTS!
-                        </h2>
-                    '; } ?>
-                    [gravityform id="<?php echo $guest_form_id ?>" title="false" description="false" ajax="false"]
+                <div class="info-item info-item-left none">
+                    <div class="table">
+                        <div class="table-cell">
+                            <div class="forms-conteiner-form__left active">
+                                <h2>
+                                    <?php if($locale == 'pl_PL'){
+                                        if($new_content){
+                                        echo 'WYGENERUJ IDENTYFIKATOR <br> DLA SIEBIE I OBSŁUGI STOISKA';
+                                    } else {
+                                        echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I SWOICH PRACOWNIKÓW!';
+                                    }} else {
+                                            echo 'GENERATE AN ID FOR YOURSELF <br> AND YOUR COWORKERS';
+                                    }
+                                    ?>                    
+                                </h2>
+                            [gravityform id="<?php echo $worker_form_id ?>" title="false" description="false" ajax="false"]
+                            </div>
+                        </div>
                     </div>
                 </div>
+            <div class="info-item info-item-right">
+                <div class="table">
+                    <div class="table-cell">
+                        <h4 class="guest-info">
+                            <?php if($locale == 'pl_PL'){ echo '
+                                    Goście upoważnieni są do wejścia na teren targów<br> od godziny 10:00
+                                </h4>
+                                <div class="forms-conteiner-form__right">
+                                    <h2>
+                                        WYGENERUJ IDENTYFIKATOR DLA SWOICH </br>GOŚCI!
+                                    </h2>
+                            '; } else { echo '
+                                    Visitors are entitled to enter the fairgrounds<br> from 10:00
+                                </h4>.
+                                <div class="forms-conteiner-form__right">
+                                    <h2>
+                                        GENERATE AN INVITE FOR YOUR GUESTS!
+                                    </h2>
+                            '; } ?>
+                            [gravityform id="<?php echo $guest_form_id ?>" title="false" description="false" ajax="false"]
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
             <div class="container-form">
-            <div class="form-item form-item-element-right log-in">
+            <div class="form-item form-item-element-left log-in">
                 <div class="table">
                 <div class="table-cell">
                     <h2>
-                    <?php if($locale == 'pl_PL'){ echo '
-                        WYGENERUJ IDENTYFIKATOR DLA SWOICH </br>GOŚCI!
-                    '; } else { echo '
-                        GENERATE AN INVITE FOR YOUR GUESTS!
-                    '; } ?>
-                    </h2>
-                    <!-- <h2>
-                    <?php if($new_content){
-                        echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I OBSŁUGI STOISKA
-                        </h2>';
-                    } else {
-                    echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I SWOICH PRACOWNIKÓW
-                    </h2>
-                    <h3>
-                    JEŚLI CHCESZ ZAPROSIĆ NA WYDARZENIE SWOICH WSPÓŁPRACOWNIKÓW, WYPEŁNIJ FORMULARZ
-                    </h3>';
+                    <?php if($locale == 'pl_PL'){
+                        if($new_content){
+                            echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I OBSŁUGI STOISKA
+                            </h2>';
+                        } else {
+                        echo 'WYGENERUJ IDENTYFIKATOR DLA SIEBIE I SWOICH PRACOWNIKÓW
+                        </h2>
+                        <h3>
+                        JEŚLI CHCESZ ZAPROSIĆ NA WYDARZENIE SWOICH WSPÓŁPRACOWNIKÓW, WYPEŁNIJ FORMULARZ
+                        </h3>';
+                        }} else {
+                        echo 'GENERATE AN ID FOR YOURSELF AND YOUR COWORKERS';
                     } ?>
                     <button class="forms-conteiner-info__btn btn-exh" >
-                    KLIKNIJ
-                    </button> -->
+                    <?php if($locale == 'pl_PL'){ echo'
+                        KLIKNIJ
+                    '; } else { echo '
+                        CHANGE
+                    '; } ?>
+                    </button>
                     <img src="/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/bg.png" />
                 </div>
                 </div>
@@ -124,17 +129,26 @@
             <div class="form-item form-item-element-right sign-up">
                 <div class="table">
                 <div class="table-cell ">
-                    <!-- <h2>
+                    <h2>
+                    <?php if($locale == 'pl_PL'){ echo'
                         WYGENERUJ IDENTYFIKATOR DLA SWOICH GOŚCI
+                    '; } else { echo '
+                        GENERATE AN INVITE FOR YOUR GUESTS!
+                    '; } ?>
                     </h2>
-                    <?php if(!$new_content){
+                    <?php if($locale == 'pl_PL'){
+                        if(!$new_content){
                     echo '<h3>
                         JEŚLI CHCESZ ZAPROSIĆ NA WYDARZENIE SWOICH NAJWAŻNIEJSZYCH GOŚCI, KLIENTÓW LUB KONTRACHENTÓW, WYPEŁNIJ FORMULARZ
                     </h3>';
-                    } ?>
+                    }} ?>
                     <button class="forms-conteiner-info__btn  btn-exh">
+                    <?php if($locale == 'pl_PL'){ echo'
                         KLIKNIJ
-                    </button> -->
+                    '; } else { echo '
+                        CHANGE
+                    '; } ?>
+                    </button>
                     <img src="/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/bg.png" />
                 </div>
                 </div>
@@ -144,7 +158,7 @@
     </div>
 </div>
 
-<!-- <script type="text/javascript"> 
+<script type="text/javascript"> 
     var btnExhElements = document.querySelectorAll(".form-item .btn-exh");
 
     btnExhElements.forEach(function(btnExhElement) {
@@ -170,5 +184,5 @@
     if (registrationCount == 0) {
         document.querySelector(".register-count").style.display = "none";
     }
-</script> -->
+</script>
 

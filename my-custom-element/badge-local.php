@@ -1,6 +1,12 @@
 <style>
-    .vc_row:has(#badge-generator){
-        background-color: lightgray;
+    #badge-generator :is(.gform_heading p, .gfield :is(input, legend), .gfield_radio label, .gform_footer input){
+        color: black;
+        border-color: black !important;
+        opacity: 1;
+    }
+    #badge-generator ::placeholder{
+        color:black !important;
+        opacity: 1;
     }
 </style>
 <?php

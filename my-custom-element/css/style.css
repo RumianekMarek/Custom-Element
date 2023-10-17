@@ -1462,7 +1462,7 @@
     background-size: 30px;
     background-position: 5px;
 }
-.custom-generator-wystawcow :is(input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"], input[placeholder="NAME AND SURNAME (GUEST)"]) {
+.custom-generator-wystawcow :is(input[placeholder="IMIĘ I NAZWISKO (PRACOWNIKA)"], input[placeholder="IMIĘ I NAZWISKO (GOŚCIA)"], input[placeholder="NAME AND SURNAME (GUEST)"], input[placeholder="NAME AND SURNAME (EMPLOYEE)"], input[placeholder="NAME AND SURNAME"]) {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/name.png");
 }
 .custom-generator-wystawcow input[placeholder="FIRMA ZAPRASZAJĄCA"], .custom-generator-wystawcow input[placeholder="INVITING COMPANY"] {
@@ -1470,6 +1470,13 @@
 }
 .custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"], .custom-generator-wystawcow input[placeholder="E-MAIL OF THE INVITED PERSON"] {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/email.png");
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #555555 !important;
+  -webkit-box-shadow: 0 0 0px 40rem #D2D2D2 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* all */
