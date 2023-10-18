@@ -32,6 +32,8 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+2.3 -    Added Gravity Entries downloader,
+
 2.2 -    Identyfikator masowy,
         Opis wykładu na konferencje,
 
