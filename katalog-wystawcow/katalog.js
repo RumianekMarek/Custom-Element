@@ -46,6 +46,12 @@ if (document.getElementById('full')){
               www = 'http://' + www.replace(/^http:\/\/www\./i, '');
             } else if (www.indexOf('www.') !== -1) {
               www = 'https://' + www.replace(/^www\./i, '');
+            } else if (www.indexOf('http://') !== -1) {
+              www = www.replace(/^http:\./i, '');
+            } else if (www.indexOf('https://') !== -1) {
+              www = www.replace(/^https:\./i, '');
+            } else {
+              www = 'https://' + www;
             }
           }
 
