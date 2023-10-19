@@ -120,6 +120,24 @@ function info_box() {
             'save_always' => true,
             'admin_label' => true
         ),
+        array(
+            'type' => 'checkbox',
+            'group' => 'options',
+            'heading' => __('Shadow', 'my-custom-plugin'),
+            'param_name' => 'shadow',
+            'description' => __('Check to display shadow. ONLY full catalog.', 'my-custom-plugin'),
+            'admin_label' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        ),
+        array(
+        'type' => 'checkbox',
+        'group' => 'options',
+        'heading' => __('Photo/Bio box', 'my-custom-plugin'),
+        'param_name' => 'photo_box',
+        'description' => __('Check to show Photo/Bio box at left side.', 'my-custom-plugin'),
+        'admin_label' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        ),
       ),
     ));
 }
@@ -140,16 +158,22 @@ function info_box_output($atts, $content = null) {
         'lect_color' => '',
         'bio_color' => '',
         'title_color' => '',
+        'shadow' => '',
+        'photo_box' => '',
         'lecture_id' => $rn,
     ), $atts ) );
 
-    $border_radius = isset($atts['border_radius']) ? $atts['border_radius'] : 'unset';
+    $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
     $border_width = isset($atts['border_width']) ? $atts['border_width'] : '2px';
     $border_style = isset($atts['border_style']) ? $atts['border_style'] : 'solid';
     $border_color = isset($atts['border_color']) ? $atts['border_color'] : 'black';
     $lect_color = isset($atts['lect_color']) ? $atts['lect_color'] : 'black';
     $bio_color = isset($atts['bio_color']) ? $atts['bio_color'] : 'black';
     $title_color = isset($atts['title_color']) ? $atts['title_color'] : 'black';
+    $shadow = isset($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
+    $photo_box = isset($atts['photo_box']) ? $atts['photo_box'] : '';
+    
+    $event_name = str_replace('``','"', $event_name);
 
     $uncode_options = get_option('uncode');
     //var_dump($uncode_options);
@@ -273,26 +297,29 @@ function info_box_output($atts, $content = null) {
         }
     }
     
-    $html =
-        '<div id="lecture-'.$rn.'" class="chevron-slide" style="border:'.$border_width.' '.$border_style.' '.$border_color.'; border-radius:'.$border_radius.';">
-            <div class="head-container">
+    if($photo_box){
+        $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="min-height:280px;  '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+                <div class="head-container">
                 ' . $speaker_html;
     
-    if ($modal_desc){
-        if (count($speaker_imgs) < 3){
-            $html .=
-                    '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
-        } else {
-            $html .=
-                    '<button class="lecturers-bio lecturers-triple btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
+    
+        if ($modal_desc){
+            if (count($speaker_imgs) < 3){
+                $html .=
+                        '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
+            } else {
+                $html .=
+                        '<button class="lecturers-bio lecturers-triple btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important">BIO</button>';
+            }
         }
+        $html .= '</div>';
+        $html .= '<div class="text-container" style="width: 75%;">';
+    } else {
+        $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="'.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+                <div class="text-container" style="margin-left: 36px !important; width: 90%;">';
     }
 
-    $html .=
-        '</div>
-
-        <div class="text-container">
-            <h4 class="lectur-time">' . $event_time . '</p>
+    $html .= '<h4 class="lectur-time">' . $event_time . '</p>
             <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$event_speaker.'</p> 
             <h3 class="inside-title" style="color:'.$title_color.';">' . $event_name . '</h3>';
 
