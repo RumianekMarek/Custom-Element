@@ -24,7 +24,8 @@
         data-autoplay="true" 
         data-arrows="true" 
         data-click="true"
-        data-swipe="false">
+        data-swipe="false"
+        data-thumbwidth="100px">
 
         <?php
         foreach ($files as $file) { 

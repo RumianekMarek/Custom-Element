@@ -1,6 +1,6 @@
 <style>
     #badge-generator :is(.gform_heading p, .gfield :is(input, legend), .gfield_radio label, .gform_footer input){
-        color: black;
+        color: black !important;
         border-color: black !important;
         opacity: 1;
     }

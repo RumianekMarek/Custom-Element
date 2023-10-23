@@ -448,7 +448,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 10px;
 }
 .custom-gallery-desc {
     background-color: #eaeaea;
@@ -463,11 +462,11 @@
 .custom-gallery-thumbs-bottom {
     display: flex;
     width: 100%;
-    gap: 10px; 
 }
 .custom-gallery-thumbs-top img, 
 .custom-gallery-thumbs-bottom img {
     width: 50%;
+    padding: 5px;
 }
 @media (max-width: 960px) {
     .custom-gallery-section {
@@ -1465,9 +1464,9 @@
 .custom-generator-wystawcow input[placeholder="E-MAIL OSOBY ZAPRASZANEJ"], .custom-generator-wystawcow input[placeholder="E-MAIL OF THE INVITED PERSON"] {
     background-image: url("/wp-content/plugins/custom-element/my-custom-element/media/generator-wystawcow/email.png");
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
+.custom-generator-wystawcow input:-webkit-autofill,
+.custom-generator-wystawcow input:-webkit-autofill:hover,
+.custom-generator-wystawcow input:-webkit-autofill:focus {
   -webkit-text-fill-color: #555555 !important;
   -webkit-box-shadow: 0 0 0px 40rem #D2D2D2 inset !important;
   transition: background-color 5000s ease-in-out 0s;

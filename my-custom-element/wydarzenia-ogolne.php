@@ -13,7 +13,7 @@
         <?php if($locale == 'pl_PL'){ echo '
             <p>Zapraszamy na specjalistyczną Konferencję, która odbędzie się w ramach międzynarodowych targów [trade_fair_name]. Tematyka spotkania skupiać się będzie na najnowszych trendach, innowacjach i wyzwaniach w branży [trade_fair_opisbranzy]. W jej programie znajdziecie Państwo prelekcje ekspertów, panele dyskusyjne, warsztaty oraz prezentacje firm powiązanych sektorem.</p>
             <p>Nasze forum dyskusyjne będzie integralną częścią targów, co pozwoli uczestnikom na korzystanie z pełnego wachlarza możliwości, jakie niesie za sobą międzynarodowa wystawa. Udział w nim to doskonała okazja, aby podyskutować z liderami rynkowymi, nawiązać cenne kontakty biznesowe i poznać najnowsze trendy z branży.</p>
-            <p>Celem wydarzenia jest stworzenie platformy spotkań i rozmów dla specjalistów, przedsiębiorców i pasjonatów [trade_fair_opisbranzy], którzy chcą wymieniać się wiedzą, doświadczeniami oraz nawiązywać nowe kontakty biznesowe.</p>
+            <p>Celem wydarzenia jest stworzenie platformy spotkań i rozmów dla specjalistów, przedsiębiorców i pasjonatów branży, którzy chcą wymieniać się wiedzą, doświadczeniami oraz nawiązywać nowe kontakty biznesowe.</p>
             <p>Ramowy program Konferencji podczas [trade_fair_name]:</p>
         ';} else { echo '
             <p>We invite you to a specialized Conference that will take place as part of the international [trade_fair_name_eng] trade fair. The meeting will focus on the latest trends, innovations, and challenges in the [trade_fair_opisbranzy_eng] industry. The conference program will include expert lectures, panel discussions, workshops, and presentations by companies associated with the sector.</p>

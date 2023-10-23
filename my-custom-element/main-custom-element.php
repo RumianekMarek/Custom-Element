@@ -37,6 +37,7 @@ function my_custom_wpbakery_element() {
             'Header' => 'header-custom.php',
             'Identyfikatory' => 'badge-local.php',
             'Informacje organizacyjne' => 'org-information.php',
+            'Informacje kontaktowe' => 'kontakt-info.php',
             'Kontakt' => 'kontakt.php',
             'Logotype Gallery' => 'logos-catalog.php',
             'Main Page Gallery - mini' => 'gallery.php',
@@ -432,6 +433,38 @@ function my_custom_wpbakery_element() {
               'value' => array('badge-local.php')
           ),
         ),
+        array(
+          'type' => 'dropdown',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Number of contacts', 'my-custom-plugin'),
+          'param_name' => 'contact_number',
+          'description' => __('Select number of contacts', 'my-custom-plugin'),
+          'value' => array(
+              '1' => '1',
+              '2' => '2',
+              '3' => '3',
+              '4' => '4',
+              '5' => '5',
+              '6' => '6'
+          ),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('kontakt-info.php')
+          ),
+      ),
+        array(
+          'type' => 'textarea',
+          'group' => 'Contacts',
+          'heading' => esc_html__('All contacts', 'my-custom-plugin'),
+          'param_name' => 'contact_object',
+          'description' => __('All contacts', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('kontakt-info.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -482,6 +515,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['worker_form_id'])) { $worker_form_id = $atts['worker_form_id']; }
     if (isset($atts['guest_form_id'])) { $guest_form_id = $atts['guest_form_id']; }
     if (isset($atts['badge_form_id'])) { $badge_form_id = $atts['badge_form_id']; }
+    if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
+    if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
@@ -597,10 +632,19 @@ function my_custom_element_output($atts, $content = null) {
       'file_list' => $file_list,
     );
 
+    $kontakt_array = array (
+      'contact_number' => $contact_number,
+    );
+
     $js_file_logos = plugins_url('js/logos-catalog.js', __FILE__);
     $js_version_logos = filemtime(plugin_dir_path(__FILE__) . 'js/logos-catalog.js');
     wp_enqueue_script('my-custom-element-logos-js', $js_file_logos, array('jquery'), $js_version_logos, true);
     wp_localize_script( 'my-custom-element-logos-js', 'inner', $inner_array ); 
+
+    $js_file_kontakts = plugins_url('js/kontakt-info-backend.js', __FILE__);
+    $js_version_kontakts = filemtime(plugin_dir_path(__FILE__) . 'js/kontakt-info-backend.js');
+    wp_enqueue_script('my-custom-element-kontakts-js', $js_file_kontakts, array('jquery'), $js_version_kontakts, true);
+    wp_localize_script( 'my-custom-element-kontakts-js', 'inner_kontakt', $kontakt_array ); 
   }
 
   add_action('wp_enqueue_scripts', 'my_custom_element_scripts');

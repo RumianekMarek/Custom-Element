@@ -1,3 +1,6 @@
+.vc_shortcode-param[data-vc-shortcode-param-name="contact_object"] :is(.wpb_element_label, .edit_form_line){
+    display:none;
+}
 .vc_edit-form-tab:has(.exhibitor1){
     justify-content: center;
 }
@@ -28,4 +31,26 @@
 }
 .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2']{
     visibility: hidden;
+}
+.contact-container{
+    width:100%;
+    margin: 20px;
+    gap: 10px;
+}
+.contact-container, .contact-text-container{
+    display: flex;
+    align-items: center;
+}
+.contact-container p{
+    width: 70px;
+}
+.contact-text-container{
+    flex-direction: column;
+}
+.contact-text-container div{
+    display: flex;
+}
+.photo-container{
+    display: flex;
+    flex-direction: column;
 }
