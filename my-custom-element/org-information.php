@@ -39,7 +39,7 @@
                 </ul>
                 <h5>Godziny otwarcia Targów [trade_fair_date]:</h5>
                 <ul>
-                    <li>Dla Wystawców – 9:00 – 18:00</li>
+                    <li>Dla Wystawców – 8:00 – 18:00</li>
                     <li>Dla Odwiedzających – 10:00 – 17:00</li>
                 </ul> 
             </div>
@@ -195,8 +195,8 @@
                 </ul>
                 <h5>[trade_fair_date_eng] opening hours :</h5>
                 <ul>
-                    <li>For exhibitors - 9:00 a.m. – 7:00 p.m.</li>
-                    <li>For visitors - 10 a.m. – 6 p.m.</li>
+                    <li>For exhibitors - 8:00 a.m. – 6:00 p.m.</li>
+                    <li>For visitors - 10 a.m. – 5 p.m.</li>
                 </ul>
             </div>
             <h4 id='customHiddenParagraphEn' class='custom-hidden-paragraph custom-display-none'>All details will appear soon</h4>
