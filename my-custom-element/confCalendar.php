@@ -11,6 +11,6 @@
         <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.php'; ?>
         <?php include plugin_dir_path(__FILE__) . 'calendarApple.php'; ?>
         <?php include plugin_dir_path(__FILE__) . 'calendarOffice365.php'; ?>
-        <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.php'; ?>
+        <!-- <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.php'; ?> -->
     </div>
 </div>

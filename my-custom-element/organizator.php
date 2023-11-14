@@ -61,8 +61,8 @@
 </div>
 <?php 
     } else {
-      echo ' <div class="custom-inner-organizator text-left">
-          <img src="/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg">
+      echo '<div class="custom-inner-organizator text-left">
+          <img src="/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg"/>
           <p class="custom-box-top-left-white">&nbsp;</p>
           <h5 class="custom-organizator-header " style="color:white !important;">';
       if($locale == 'pl_PL'){ echo '
@@ -78,6 +78,9 @@
           ';} else { echo "
             Ptak Warsaw Expo is the largest trade fair and congress centre in Poland and Central and Eastern Europe, located on the outskirts of Warsaw. It has 143,000 m2 of exhibition space in 6 modern pavilions and 500,000 m2 of outdoor space. It is a venue created for trade fairs.
           ";}
-        echo '<p class="custom-box-bottom-right-white">&nbsp;</p>';
+        echo '</p>
+              <p class="custom-box-bottom-right-white">&nbsp;</p>
+            </div>
+          </div>';
     }
 ?>

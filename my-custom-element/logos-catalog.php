@@ -90,8 +90,9 @@ if (isset($element_unique_id)) {
         const sliderDesktop = <?php echo in_array('desktop', explode(',', $slider_off)) ? 'false' : 'true'; ?>;
         const sliderMobileTablet = <?php echo in_array('mobile_tablet', explode(',', $slider_off)) ? 'true' : 'false'; ?>;
         const targetElement = document.querySelector("#<?php echo $element_unique_id ?>");
-
-        if ((!sliderDesktop && <?php echo $mobile ?> === 0 ) || (!sliderMobileTablet  && <?php echo $mobile ?> === 1)) {
+        console.log(document.querySelector("#<?php echo $element_unique_id ?>").children.length);
+        console.log(document.querySelector("#<?php echo $element_unique_id ?>").children.length > 4);
+        if ((!sliderDesktop && <?php echo $mobile ?> === 0 ) || (!sliderMobileTablet  && <?php echo $mobile ?> === 1) && (targetElement.children.length > 4)) {
             
             document.querySelector(".wpb_column:has(.custom-logos-gallery-slider)").style.padding = "0px";
             
