@@ -223,7 +223,7 @@ function info_box_output($atts, $content = null) {
     $speaker_html = '<div class="speakers">';
     $modal_html = '<div class="modal-lecturers">';
     
-    if (count($speakers)>3){
+    if (count($speakers)>3 || (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))){
         $font_lecturers = 'font-size: 14px; margin-top: 9px;';
         $info_box_max_height = 'unset;';
     } else {
