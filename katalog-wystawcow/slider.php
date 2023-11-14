@@ -1,15 +1,18 @@
 <?php
 function custom_media_slider ($media_url, $slide_speed = 3000){
         $id_rnd = rand(10000, 99999);
-        if(count($media_url) < 14){
+        $min_image = -7;
+        if(count($media_url) >= 7 && count($media_url) < 14){
                 $max_image = count($media_url) + 7;
+        } elseif(count($media_url) < 7){
+                $max_image = count($media_url) + count($media_url);
+                $min_image = -count($media_url);
         } else {
                 $max_image = count($media_url);  
-        }
+        }        
         $output = '<div id="custom_element_slider-'.$id_rnd.'" class="custom_element_catalog_slider">
                         <div class ="slides">';
-                                for ($i = -7; $i < ($max_image); $i++) {
-                                        echo '<script>console.log("'.$i.'")</script>';
+                                for ($i = $min_image; $i < ($max_image); $i++) {
                                         if($i<0){
                                                 $imageStyles = "background-image:url('".$media_url[(count($media_url) + $i)]."');";
                                         }
@@ -44,12 +47,11 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                                 imagesMulti = 7;
                         }
                         
-                        const imageWidth = Math.floor((slidesWidth - (imagesMulti - 1) * 10) / imagesMulti);
+                        const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
                         images.forEach((image) => {
                                 image.style.minWidth = imageWidth + "px";
                         });
-                        
-                        slides.style.transform = `translateX(-${(imageWidth + 10) * 7}px)`;
+                        slides.style.transform = `translateX(-${(imageWidth + 10) * '.(-$min_image).'}px)`;
 
                         function nextSlide() {
                                 slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .image-container").forEach(function(image){
@@ -80,8 +82,10 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                         });
 
                         setInterval(function() {
-                                if(!isMouseOver) { 
+                                if(!isMouseOver && '.count($media_url).' > imagesMulti) { 
                                         nextSlide()
+                                } else {
+                                        slides.style.justifyContent = "center";
                                 }
                         }, '.$slide_speed.');
                         }

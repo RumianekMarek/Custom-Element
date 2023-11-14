@@ -251,7 +251,6 @@ function katalog_wystawcow_output($atts, $content = null) {
     $count = 0;
     $displayedCount = 0;
     
-    echo '<script>console.log("'.(!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))).'")</script>';
     if ($format === 'top21') {
       $slider_images_url = array();
       while ($displayedCount < 21 && $count < count($exhibitors)) {
@@ -328,7 +327,8 @@ function katalog_wystawcow_output($atts, $content = null) {
           $singleLogo = '';
 
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-            $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
+            echo '<script>console.log("'.$url.'")</script>';
+            
             if($url){
               $slider_images_url[] = $url;
               $displayedCount++;
