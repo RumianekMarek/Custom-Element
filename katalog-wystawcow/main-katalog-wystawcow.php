@@ -327,7 +327,6 @@ function katalog_wystawcow_output($atts, $content = null) {
           $singleLogo = '';
 
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-            echo '<script>console.log("'.$url.'")</script>';
             
             if($url){
               $slider_images_url[] = $url;
