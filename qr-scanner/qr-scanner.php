@@ -10,6 +10,7 @@ function register_custom_qr_scanner() {
 
 function custom_qr_scanner_output() {
     // Dołączanie skryptu JavaScript
+    var_dump('user- '.$_SERVER['HTTP_USER_AGENT']);
     $js_file = plugins_url('jsQR.js', __FILE__);
     $js_version = filemtime(plugin_dir_path(__FILE__) . 'jsQR.js');
     wp_enqueue_script('jsQR', $js_file, array('jquery'), $js_version);
