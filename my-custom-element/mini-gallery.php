@@ -20,7 +20,7 @@
                                 }
                             ?>
                         </div>
-                        <div class="custom-gallery-thumbs-bottom">
+                        <div class="custom-gallery-thumbs-bottom custom-mobile-display-none">
                             <?php
                                 foreach ($bottomImages as $file) {
                                     $shortPath = substr($file, strpos($file, '/doc/'));

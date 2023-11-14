@@ -1,7 +1,7 @@
 /* Adress Ptak Warsaw Expo */
 #ptakAdress, #socialMedia {
     border: 1px solid black;
-    min-height: 250px;
+    min-height: 270px;
     max-width: 500px;
     margin:auto;
     min-width: 350px;
@@ -35,9 +35,6 @@
     background-size: cover;
     background-image:url('/doc/background.jpg');
     width: 100%;
-}
-#calendar-add h1{
-    font-size:60px;
 }
 #calendar-add :is(.h1, h2, h3){
     font-weight:700;
@@ -251,6 +248,7 @@
     font-size: 14px;
     font-weight: 700;
     color: white;
+    text-shadow: 0 0 10px black;
 }
 .custom-footer-nav {
     background-color: black;
@@ -535,7 +533,7 @@
 }
 /* END Header */
 
-/* kontakt */
+/* CONTACT */
 .raw-custom-container{
     display:flex; 
     align-items: center;
@@ -544,6 +542,9 @@
     max-width:150px !important;
 }
 @media (max-width:860px){
+    .uncell:has(.custom-container-contact) {
+        padding: 36px 18px 36px 18px !important;
+    }
     .raw-custom-container{
         flex-wrap: wrap;
         justify-content: center;
@@ -675,11 +676,6 @@
     margin:10px;
     text-decoration: underline;
 }
-@media (max-width:570px){
-    #niePrzegap{
-        display:none;
-    }
-}
 
 /* Organizator */
 .custom-organizator-video{
@@ -712,15 +708,15 @@
 .custom-organizator-header{
     margin:0;
 }
-@media (max-width:960px){
-    .custom-organizator-video iframe{
-        height:160vh !important;
+@media (max-width:959px){
+    #organizator{
+        padding: 0 36px 36px 36px;
+    }
+    .custom-box-bottom-right-white{
+        margin: -9px -18px 24px 0;
     }
 }
-@media (max-width:570px){
-    .custom-organizator-video iframe{
-        min-width: 250% !important; 
-    }
+@media (max-width: 959px){
 }
 
 /* socialMedia */
@@ -888,7 +884,6 @@
     color: blue;
 }   
 .custom-org-info-header {
-
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -898,6 +893,14 @@
     padding: 100px 18px;
     margin: 0 auto;
     max-width: 1200px;
+}
+.custom-org-info-header h1 span {
+    font-size: 54px;
+}
+@media (min-width: 300px) and (max-width: 1200px) {
+    .custom-org-info-header h1 span {
+        font-size: calc(24px + (54 - 24) * ( (100vw - 300px) / (1200 - 300) ));
+    }
 }
 .custom-org-info-fixed-width {
     margin: 0 auto;
@@ -1002,9 +1005,24 @@
 }
 
 /* wydarzenia */
+.custom-wydarzenia-header {
+    background-image:url('/doc/background.jpg'); 
+    background-position: center; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 100px 18px;
+}
 .custom-wydarzenia-header h1 {
-    max-width: 600px;
+    max-width: 1128px;
     margin: 0 auto;
+}
+.custom-wydarzenia-header h1 span {
+    font-size: 54px;
+}
+@media (min-width: 300px) and (max-width: 1200px) {
+    .custom-wydarzenia-header h1 span {
+        font-size: calc(24px + (54 - 24) * ( (100vw - 300px) / (1200 - 300) ));
+    }
 }
 .media-logos .custom-logos-gallery-wrapper{
     padding-top: 0 !important;
@@ -1377,6 +1395,9 @@
     margin: 0 auto;
     color: #000000 !important;
 }
+.custom-tech-support-text {
+    padding-top: 36px !important;
+}
 @media (max-width:1200px) {
     .custom-generator-wystawcow .container {
         max-width: 900px !important;
@@ -1414,7 +1435,8 @@
         position: absolute;
         top: 350px;
         width: 100%;
-        height: 920px;
+        height: 730px;
+        padding-top: 40px;
     }
 
     .custom-generator-wystawcow .container .container-form {
@@ -1470,6 +1492,11 @@
   -webkit-text-fill-color: #555555 !important;
   -webkit-box-shadow: 0 0 0px 40rem #D2D2D2 inset !important;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+/* CONTACT INFO */
+#contact-info p{
+    margin: 0 !important;
 }
 
 /* all */
@@ -1616,3 +1643,7 @@ strong {
     max-width: 1200px;
     margin: 0 auto;
 }
+.custom-mobile-display-none{
+    display:none;
+}
+

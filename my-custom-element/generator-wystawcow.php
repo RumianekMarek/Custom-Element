@@ -156,6 +156,17 @@
             </div>
         </div>
     </div>
+    <div class="heading-text custom-tech-support-text">
+        <h3>
+            <?php if($locale == 'pl_PL'){ echo '
+                Potrzebujesz pomocy?<br>
+                Skontaktuj się z nami - <a href="mailto:info@warsawexpo.eu">info@warsawexpo.eu</a>
+            '; } else { echo '
+                Need help?<br>
+                Contact us - <a href="mailto:info@warsawexpo.eu">info@warsawexpo.eu</a>
+            '; } ?>
+        </h3>
+    </div>
 </div>
 
 <script type="text/javascript"> 

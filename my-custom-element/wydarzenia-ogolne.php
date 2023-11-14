@@ -1,10 +1,10 @@
 <div id="wydarzenia" class="custom-wydarzenia">
-    <div class="custom-wydarzenia-header" style="background-image:url('/doc/background.jpg'); background-position: center; padding: 100px 18px;">
-        <h1 class="bigtext text-uppercase text-centered" style="color:white !important; text-shadow: 2px 2px black;">
+    <div class="custom-wydarzenia-header">
+        <h1 class="text-uppercase text-centered" style="color:white !important; text-shadow: 2px 2px black;">
         <?php if($locale == 'pl_PL'){ echo '
-                <span class="bigtext-line0">Kongres Branży<br>[trade_fair_opisbranzy]</span>
+                <span>Kongres Branży<br>[trade_fair_opisbranzy]</span>
             ';} else { echo '
-                <span class="bigtext-line0">Trade congress<br>[trade_fair_opisbranzy_eng]</span>
+                <span>Trade congress<br>[trade_fair_opisbranzy_eng]</span>
             ';} 
         ?>
         </h1>
@@ -18,7 +18,7 @@
         ';} else { echo '
             <p>We invite you to a specialized Conference that will take place as part of the international [trade_fair_name_eng] trade fair. The meeting will focus on the latest trends, innovations, and challenges in the [trade_fair_opisbranzy_eng] industry. The conference program will include expert lectures, panel discussions, workshops, and presentations by companies associated with the sector.</p>
             <p>Our discussion forum will be an integral part of the trade fair, allowing participants to take advantage of the full range of opportunities that an international exhibition offers. Participating in the forum is an excellent opportunity to engage in discussions with industry leaders, establish valuable business contacts, and learn about the latest trends in the field.</p>
-            <p>The goal of the event is to create a platform for meetings and conversations among specialists, entrepreneurs, and enthusiasts in the [trade_fair_opisbranzy_eng] industry who want to exchange knowledge, experiences, and establish new business connections.</p>
+            <p>The event aims to provide a platform for industry professionals, entrepreneurs and enthusiasts to meet and talk with each other to exchange knowledge, experiences and make new business contacts.</p>
             <p>Outline of the Conference program during [trade_fair_name_eng]:</p>
         ';} ?>
         <ul>

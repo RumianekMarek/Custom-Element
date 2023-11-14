@@ -9,15 +9,17 @@
         ';} ?>
       </h4>
     </div>
-
-    <p class="custom-line-height">
-      <?php if($locale == 'pl_PL'){ echo '
-        Zobacz katalog stoisk targowych i przygotuj się na udział w targach w sposób jeszcze bardziej efektywny. Dzięki temu katalogowi będziesz miał dostęp do gotowych projektów stoisk, które ułatwią Ci przygotowanie się do targów i zyskasz cenną oszczędność czasu i pieniędzy. Wybierając już gotowy projekt stoiska, będziesz mógł skupić się na innych ważnych aspektach przygotowań do targów, takich jak przygotowanie oferty, zorganizowanie transportu czy zaplanowanie działań marketingowych.
-      ';} else { echo '
-        Check out the trade show booth catalog and prepare for your trade show participation in an even more efficient way. With this catalog, you will have access to ready-made booth designs that will make it easier for you to prepare for the trade show and gain valuable savings in time and money. By choosing an already ready-made booth design, you will be able to focus on other important aspects of preparing for the fair, such as preparing your offer, arranging transportation or planning your marketing activities.
-      ';} ?>
-    </p>
-
+    <?php
+      if (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])) {
+        echo '<p class="custom-line-height">';
+          if($locale == 'pl_PL'){ echo '
+            Zobacz katalog stoisk targowych i przygotuj się na udział w targach w sposób jeszcze bardziej efektywny. Dzięki temu katalogowi będziesz miał dostęp do gotowych projektów stoisk, które ułatwią Ci przygotowanie się do targów i zyskasz cenną oszczędność czasu i pieniędzy. Wybierając już gotowy projekt stoiska, będziesz mógł skupić się na innych ważnych aspektach przygotowań do targów, takich jak przygotowanie oferty, zorganizowanie transportu czy zaplanowanie działań marketingowych.
+          ';} else { echo '
+            Check out the trade show booth catalog and prepare for your trade show participation in an even more efficient way. With this catalog, you will have access to ready-made booth designs that will make it easier for you to prepare for the trade show and gain valuable savings in time and money. By choosing an already ready-made booth design, you will be able to focus on other important aspects of preparing for the fair, such as preparing your offer, arranging transportation or planning your marketing activities.
+          ';}
+        echo '</p>';
+      }
+    ?>
 
     <div class="custom-btn-container">
       <span>

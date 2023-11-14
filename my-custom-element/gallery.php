@@ -8,7 +8,6 @@
     $bottomImages = array_slice($files, 2, 2);
     
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
-
 ?>
 
 <div id="customGallery" class="custom-container-gallery style-accent-bg">

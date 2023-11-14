@@ -72,7 +72,6 @@ jQuery(function ($) {
   } 
 }
 
-
 //NIE PRZEGAP <----------------------------------------------------------------------------------------------------------<
 {
   const niePrzegap = document.querySelector('.custom-container-niePrzegap');

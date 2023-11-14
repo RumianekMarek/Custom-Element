@@ -1,8 +1,7 @@
 <div id="orgInfo"class="custom-container-org-info">
-
     <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
-        <h1 class="bigtext" style="color:black !important; text-shadow: 2px 2px white;">
-            <span class="bigtext-line0">               
+        <h1 style="color:black !important; text-shadow: 2px 2px white;">
+            <span>               
                 <?php if($locale == 'pl_PL'){ echo '
                 Informacje organizacyjne dla Wystawców
                 ';} else { echo '

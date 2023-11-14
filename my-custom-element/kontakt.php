@@ -27,7 +27,7 @@ if ($horizontal == "true") {
         width: 100%;
       }
       .uncell:has(.custom-container-contact) {
-        padding: 36px 18px !important;
+        padding: 36px 18px 36px 18px !important;
       }
       .row:has(.custom-container-contact) {
         max-width: 627px;
@@ -62,7 +62,7 @@ if ($horizontal == "true") {
 ?>
 
 <div id="kontakty" class="custom-container-contact">
-  <div class="heading-text el-text main-heading-text hal-bloack-padding">
+  <div class="heading-text el-text main-heading-text half-block-padding">
     <h4> <?php if($locale == 'pl_PL'){ echo '
       Masz pytania?
       ';} else { echo '

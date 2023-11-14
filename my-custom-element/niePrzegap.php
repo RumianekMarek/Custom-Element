@@ -1,3 +1,6 @@
+<?php 
+    if (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])) {
+?>
 <div id='niePrzegap' class='custom-container-niePrzegap custom-display-none'>
     <div class='custom-inner-niePrzegap'>
         <div class='custom-header-niePrzegap text-centered'>
@@ -36,8 +39,11 @@
         </div>
     </div>
 </div>
-<?php if (current_user_can('administrator')) {
-    $admin_username = 'Anton';
-    $current_user = wp_get_current_user();
-    if ($current_user->user_login == $admin_username) { ?><style>#niePrzegap { display: none !important; }</style><?php }
-} ?>
+<?php   
+        if (current_user_can('administrator')) {
+            $admin_username = 'Anton';
+            $current_user = wp_get_current_user();
+            if ($current_user->user_login == $admin_username) { echo '<style>#niePrzegap { display: none !important; }</style>'; }
+        } 
+    }
+?>

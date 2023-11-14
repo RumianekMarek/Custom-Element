@@ -76,18 +76,12 @@
                             <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '">
                                     ';
-                                    if($footer_logo_color != 'true'){
                                         if($logo_color_invert != 'true'){
-                                            echo '<img src="/doc/logo.png">';
+                                            echo '<img src="/doc/logo.png" alt="logo-[trade_fair_name]">';
                                         } else {
-                                            echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
-                                        }
-                                    } elseif(is_file($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')) {
-                                        echo '<img src="/doc/logo-color.png" alt="logo [trade_fair_name]">';
-                                    } else { 
-                                        echo '<img src="/doc/logo.png" alt="logo [trade_fair_name]">';
-                                    }
-                                        echo '
+                                            echo '<span class="logo-invert-white"><img src="/doc/logo.png" alt="logo-[trade_fair_name]"></span>';
+                                        } 
+                                    echo '
                                 </a>
                             </div>
                         </div>
@@ -143,29 +137,20 @@
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
                             <div class="custom-footer-nav-logo-bottom">
-                                <a href="' . $base_url . '">
+                                <a href="' . $base_url . '/en">
                                     ';
-                                    if($footer_logo_color != 'true'){
-                                        if (file_exists('doc/logo-en.png')) { 
-                                            echo '<img src="/doc/logo-en.png">';
+                                        if (file_exists('doc/logo-en.png') && $logo_color_invert !== 'true') { 
+                                            echo '<img src="/doc/logo-en.png" alt="logo-[trade_fair_name]">';
+                                        } elseif (file_exists('doc/logo-en.png') && $logo_color_invert == 'true') {
+                                            echo '<span class="logo-invert-white"><img src="/doc/logo-en.png" alt="logo-[trade_fair_name]"></span>';
                                         } else {
-                                            if($logo_color_invert != 'true'){
-                                                echo '<img src="/doc/logo.png">';
+                                            if($logo_color_invert == 'true'){
+                                                echo '<span class="logo-invert-white"><img src="/doc/logo.png" alt="logo-[trade_fair_name]"></span>';
                                             } else {
-                                                echo '<span class="logo-invert-white"><img src="/doc/logo.png"></span>';
-                                            }
-                                        }         
-                                    } else {
-                                        if (file_exists('doc/logo-color-en.png')) { 
-                                            echo '<img src="/doc/logo-color-en.png">';
-                                        } else {
-                                            if($logo_color_invert != 'true'){
-                                                echo '<img src="/doc/logo-en.png">';
-                                            } else {
-                                                echo '<span class="logo-invert-white"><img src="/doc/logo-en.png"></span>';
-                                            }
-                                        }         
-                                    } echo '
+                                                echo '<img src="/doc/logo.png" alt="logo-[trade_fair_name]">'; 
+                                            }   
+                                        } 
+                                    echo '
                                 </a>
                             </div>
                         </div>

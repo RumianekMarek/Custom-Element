@@ -169,6 +169,18 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Text for Main Page Gallery for mobile', 'my-custom-plugin'),
+          'param_name' => 'gallery_mobile',
+          'value' => base64_encode($gallery_mobile),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('gallery.php')
+          ),
+        ),
+        array(
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Logos catalog', 'my-custom-plugin'),
@@ -209,6 +221,51 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
+          'heading' => __('Show link url in gallery', 'my-custom-plugin'),
+          'param_name' => 'showurl',
+          'description' => __('Check to create a link in every logotype.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Turn off full width', 'my-custom-plugin'),
+          'param_name' => 'full_width',
+          'description' => __('Turn off full width if slider on', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Turn off the slider', 'my-custom-plugin'),
+          'param_name' => 'slider_off',
+          'description' => __('Check to turn off the slider.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(
+            __('desktop (default off, press to turn on)', 'my-custom-plugin') => 'desktop',
+            __('mobile & tablet', 'my-custom-plugin') => 'mobile_tablet',
+          ),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Dispaly different logo color', 'my-custom-plugin'),
           'param_name' => 'logo_color_promote',
           'description' => __('Check Yes to display different logo color.', 'my-custom-plugin'),
@@ -223,20 +280,6 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Show gallery in slider', 'my-custom-plugin'),
-          'param_name' => 'show_slider',
-          'description' => __('Check to create gallery as slider .', 'my-custom-plugin'),
-          'admin_label' => true,
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
           'heading' => __('Hide registery button', 'my-custom-plugin'),
           'param_name' => 'tickets_available',
           'description' => __('Check to hide the registration button on Fair there is no registration available.', 'my-custom-plugin'),
@@ -246,20 +289,6 @@ function my_custom_wpbakery_element() {
           'dependency' => array(
             'element' => 'element',
             'value' => array('gallery.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Show link url in gallery', 'my-custom-plugin'),
-          'param_name' => 'showurl',
-          'description' => __('Check to create a link in every logotype.', 'my-custom-plugin'),
-          'admin_label' => true,
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
           ),
         ),
         array(
@@ -337,21 +366,7 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Footer logo color', 'my-custom-plugin'),
-          'param_name' => 'footer_logo_color',
-          'description' => __('Check Yes to display footer logo color.', 'my-custom-plugin'),
-          'admin_label' => true,
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('footer.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Footer logo color invert', 'my-custom-plugin'),
+          'heading' => __('Change the logo color to white?', 'my-custom-plugin'),
           'param_name' => 'logo_color_invert',
           'description' => __('Check Yes to display footer logo color white.', 'my-custom-plugin'),
           'admin_label' => true,
@@ -481,6 +496,8 @@ function my_custom_element_output($atts, $content = null) {
     $trade_desc = do_shortcode('[trade_fair_desc]');
     $trade_name_en = do_shortcode('[trade_fair_name_eng]');
 
+    // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
+
     if (isset($atts['color'])) { $color = $atts['color']; }
     if (isset($atts['element'])) { $element = $atts['element']; }
     if (isset($atts['exhibitor1'])) { $exhibitor1 = $atts['exhibitor1']; }
@@ -490,7 +507,6 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['exhibitor5'])) { $exhibitor5 = $atts['exhibitor5']; }
     if (isset($atts['exhibitor6'])) { $exhibitor6 = $atts['exhibitor6']; }
     if (isset($atts['file'])) { $file = $atts['file']; }
-    if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
 
     if (isset($atts['logoscatalog'])) { 
       global $logoscatalog; 
@@ -504,7 +520,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['showurl'])) { $showurl = $atts['showurl']; }
     if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
     if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
-    if (isset($atts['show_slider'])) { $show_slider = $atts['show_slider']; }
+    if (isset($atts['full_width'])) { $full_width = $atts['full_width']; }
+    if (isset($atts['slider_off'])) { $slider_off = $atts['slider_off']; }
     if (isset($atts['tickets_available'])) { $tickets_available = $atts['tickets_available']; }
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
     if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }
@@ -517,6 +534,12 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['badge_form_id'])) { $badge_form_id = $atts['badge_form_id']; }
     if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
     if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
+
+    if (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']) && isset($atts['gallery_mobile'])) {
+        $gallery = $atts['gallery_mobile'];
+    } else {
+      if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
+    }
 
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
