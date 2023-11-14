@@ -1,0 +1,17 @@
+.error-message::before{
+    content: "pole wymagane";
+    color: red;
+}
+.error-message{
+    border: 1px solid red;
+}
+.error-message input{
+    border-color: red;
+}
+.email-error:before{
+    content: "nieprawidłowy email";
+    color: red;
+}
+.email-error{
+    border: 1px solid red;
+}

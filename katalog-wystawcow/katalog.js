@@ -1,5 +1,6 @@
 if (document.getElementById('full')){
   document.addEventListener("DOMContentLoaded", function () {
+
     var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
     var exhibitors = exhibitorsAll.reduce((acc, curr) => {
         const name = curr[1].Nazwa_wystawcy;
@@ -38,7 +39,7 @@ if (document.getElementById('full')){
 					url.replace('/', '$2F');
 
           var www = exhibitors[i][1].www;
-          
+
           if (www !== false && www !== "") {
             if (www.indexOf('https://www.') !== -1) {
               www = 'https://' + www.replace(/^https:\/\/www\./i, '');

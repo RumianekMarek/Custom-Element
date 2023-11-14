@@ -152,8 +152,8 @@ function custom_badge_element_output($atts){
                               <p><span id="panstwo_label" class="flex-1">Country - </span><span id="panstwo_check" class="flex-2"></span></p>
                             ';}
                         if ($url_token != ''){ $badge_html .= '
-                            <p>Departament - <span id="departament_check"></span></p>
-                            <p>Kanał - <span id="kanal_check"></span></p>';
+                            <p><span id="departament_label" class="flex-1">Departament - </span><span id="departament_check" class="flex-2"></span></p>
+                            <p><span id="kanal_label" class="flex-1">Kanał - </span><span id="kanal_check" class="flex-2"></span></p>';
                             }
                             if($locale == 'pl_PL'){ $badge_html .= '
                                 <p class="modal-message">Czy na pewno chcesz wysłać dane?</p>
@@ -651,7 +651,7 @@ function Inside_badge($email_search, $entries_data, &$vip, $atts){
           targetHeader.innerText = "'.$error_text.'";
         </script>';
     } else {
-      if ($qr_table_inside != ''){
+      if (count($qr_table_inside) > 0){
         $i = 0;
         $inside_return =  '<h3> Znalezione już zarejestrowane unikalne kody QR</h3>';
         $inside_return .= '<form id="qr-form" action="" method="post">'; 
@@ -665,10 +665,10 @@ function Inside_badge($email_search, $entries_data, &$vip, $atts){
                   <label for="qr-'. $i .'">'.$key.'</label></div>';
           }
         }
-        $inside_return .= '<h3>Utwórz nowy qr kod</h3><div><input type="radio" name="qr_radio_target" id="qr-new" value="new" required>Gość<br></div>';
-        $inside_return .= '<button type="submit" name="qr-form">Wygeneruj badge</button>
-              </form>';
       }
+      $inside_return .= '<h3>Utwórz nowy qr kod</h3><div><input type="radio" name="qr_radio_target" id="qr-new" value="new" required>Gość<br></div>';
+      $inside_return .= '<button type="submit" name="qr-form">Wygeneruj badge</button>
+            </form>';
       echo '<script>
         document.addEventListener("DOMContentLoaded", function() {
           inside_return = '.json_encode($inside_return).';

@@ -36,4 +36,32 @@ jQuery(function ($) {
             });
         });
     }
+
+    $('.vc_tta-tab').first().each(function(){
+        const tabId = $(this).attr('data-tab-id');
+        const descElem = $('#'+tabId+' .inside-text');
+        HideMore(descElem);
+    });
+
+    $('.vc_tta-tab').on('click', function(){
+        const tabId = $(this).attr('data-tab-id');
+        const descElem = $('#'+tabId+' .inside-text');
+        HideMore(descElem);
+    });
+        
+    function HideMore(targetElement){
+        setTimeout(function(){
+            targetElement.each(function(){
+                const childrens = $(this).children();
+                let childrensHeight = 0;
+                for (let i = 0; i < childrens.length; i++) {
+                    const child = $(childrens[i]);
+                    childrensHeight += child.outerHeight(true);
+                } 
+                if(childrensHeight < 77){
+                    $(childrens).parent().next().hide(0);
+                }
+            })
+        }, 200);
+    }
 });

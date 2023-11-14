@@ -3,8 +3,8 @@ jQuery(document).ready(function($) {
         if(this.innerText === "Pop-UP"){
             let targetElement = '';
             let opisy = [];
-            let eventSpeakers = $('.event_speaker')[0].value.split(',').map(item => item.trim());
-            
+            let eventSpeakersArray = $('.event_speaker')[0].value.split(';');
+            let eventSpeakers = eventSpeakersArray.map(item => item.trim());
             if ((document.querySelector('.event_modal')) && (document.querySelector('.event_modal').value != '')) {
                 wrongJson = document.querySelector('.event_modal').value
                 if (wrongJson.includes(`]}`)){
@@ -37,7 +37,8 @@ jQuery(document).ready(function($) {
 
                 if (typeof archiwOpisy != 'undefined'){
                     for (let j = 0; j < archiwOpisy.length; j++) {
-                        if(archiwOpisy[j].id.toLowerCase() == eventSpeakers[i]){
+                        console.log(archiwOpisy[j].id+ ' ' +eventSpeakers[i])
+                        if(archiwOpisy[j].id == eventSpeakers[i]){
                             if (archiwOpisy[j].desc != '') {
                                 input.value = archiwOpisy[j].desc;
                                 break;

@@ -27,6 +27,29 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'save_always' => true
           ),
           array(
+            'type' => 'textfield',
+            'heading' => __( 'Enter Archive Year', 'my-custom-plugin' ),
+            'param_name' => 'catalog_year',
+            'description' => __( 'Enter year for display in catalog title.', 'my-custom-plugin' ),
+            'save_always' => true,
+            'admin_label' => true
+          ),
+          array(
+            'type' => 'dropdown',
+            'heading' => __( 'Catalog format', 'my-custom-plugin' ),
+            'param_name' => 'format',
+            'description' => __( 'Select catalog format.', 'my-custom-plugin' ),
+            'value' => array(
+              'Select' => '',
+              'Full' => 'full',
+              'Top21' => 'top21',
+              'Top10' => 'top10',
+              'Recently7' => 'recently7'
+            ),
+            'save_always' => true,
+            'admin_label' => true
+          ),
+          array(
             'type' => 'checkbox',
             'heading' => __('Show details', 'my-custom-plugin'),
             'param_name' => 'details',
@@ -49,19 +72,34 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'description' => __('Check if there is a ticket above. ONLY top10.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            'dependency' => array(
+              'element' => 'format',
+              'value' => array('top10')
+            ),
           ),
           array(
-            'type' => 'dropdown',
-            'heading' => __( 'Catalog format', 'my-custom-plugin' ),
-            'param_name' => 'format',
-            'description' => __( 'Select catalog format.', 'my-custom-plugin' ),
-            'value' => array(
-              'Select' => '',
-              'Full' => 'full',
-              'Top21' => 'top21',
-              'Top10' => 'top10',
-              'Recently7' => 'recently7'
-            ),
+            'type' => 'checkbox',
+            'heading' => __('Slider desctop', 'my-custom-plugin'),
+            'param_name' => 'slider_desctop',
+            'description' => __('Check if you want to display in slider on desctop.', 'my-custom-plugin'),
+            'admin_label' => true,
+            'save_always' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          ),
+          array(
+            'type' => 'checkbox',
+            'heading' => __('Grid mobile', 'my-custom-plugin'),
+            'param_name' => 'grid_mobile',
+            'description' => __('Check if you want to display in grid on mobile.', 'my-custom-plugin'),
+            'admin_label' => true,
+            'save_always' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          ),
+          array(
+            'type' => 'textfield',
+            'heading' => __( 'Export link', 'my-custom-plugin' ),
+            'param_name' => 'export_link',
+            'description' => __( 'Export link', 'my-custom-plugin' ),
             'save_always' => true,
             'admin_label' => true
           ),
@@ -79,6 +117,10 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['format'])) { $format = $atts['format']; }
   if (isset($atts['ticket'])) { $ticket = $atts['ticket']; }
   if (isset($atts['color'])) { $color = $atts['color']; }
+  if (isset($atts['export_link'])) { $export_link = $atts['export_link']; }
+  if (isset($atts['catalog_year'])) { $catalog_year = $atts['catalog_year']; }
+  if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
+  if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
 
   $locale = get_locale();
 
@@ -101,6 +143,14 @@ function katalog_wystawcow_output($atts, $content = null) {
   $token = md5("#22targiexpo22@@@#".$formattedDate);
   $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
 
+  if ($export_link === 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token=') {
+    $canUrl = 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token='.$token.'&id_targow='.$id_targow;
+    if (current_user_can('administrator')  && !is_admin()) {
+      ?><script>console.log("www4")</script><?php
+    }
+  } else {
+    $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
+  }
   
   $json = file_get_contents($canUrl);
   $data = json_decode($json, true);
@@ -154,13 +204,13 @@ function katalog_wystawcow_output($atts, $content = null) {
         <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">';
           if($locale == 'pl_PL') {
             $output .= '<div>
-                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców</h1>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców '.$catalog_year.'</h1>
                     <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
                   </div>
                   <input id="search" placeholder="Szukaj"/>';
           } else {
             $output .= '<div>
-                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitor Catalog</h1>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitors Catalog '.$catalog_year.'</h1>
                     <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
                   </div>
                   <input id="search" placeholder="Search"/>';
@@ -200,29 +250,31 @@ function katalog_wystawcow_output($atts, $content = null) {
 
     $count = 0;
     $displayedCount = 0;
-
+    
+    echo '<script>console.log("'.(!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))).'")</script>';
     if ($format === 'top21') {
+      $slider_images_url = array();
       while ($displayedCount < 21 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
-            $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
-            $singleLogo = '';
-
-            if (!empty($url)) {
-              if ($katalog_data['ticket'] == 'true') {
-                $singleLogo .= '<div class="tickets" style="background-image: url(' . $url . ');"></div>';
-                $output .= $singleLogo;
-              } else {
-                $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
-                $output .= $singleLogo;
-              }   
-            }
-
-            $displayedCount++;
+          $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
+          $singleLogo = '';
+          if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
+            $slider_images_url[] = $url;
+          } elseif (!empty($url)) {
+            $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+            $output .= $singleLogo;
+          }
+          $displayedCount++;
         }
         $count++;
       }
-      $output .= '</div>';
 
+      if (count($slider_images_url) > 0){
+        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        $output .= custom_media_slider($slider_images_url);
+      }
+      
+      $output .= '</div>';
       if ($locale == 'pl_PL') {
           $output .= '
             <div>
@@ -244,23 +296,25 @@ function katalog_wystawcow_output($atts, $content = null) {
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
             $singleLogo = '';
 
-            if (!empty($url)) {
-              if ($ticket == 'true') {
-                $singleLogo = '<div class="tickets" style="background-image: url(' . $url . ');"></div>';
-                $output .= $singleLogo;
-              } else {
-                $singleLogo = '<div style="background-image: url(' . $url . ');"></div>';
-                $output .= $singleLogo;
-              }   
+            if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
+              $slider_images_url[] = $url;
+            } elseif (!empty($url)) {
+              $singleLogo = '<div style="background-image: url(' . $url . ');"></div>';
+              $output .= $singleLogo;  
             }
 
             $displayedCount++;
         }
         $count++;
       }
+      if (count($slider_images_url) > 0){
+        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        $output .= custom_media_slider($slider_images_url);
+      }
+
       $output .= '</div>';
     } else if ($format === 'recently7') {
-
+      $slider_images_url = array();
       usort($exhibitors, function($a, $b) {
         return strtotime($b['Data_sprzedazy']) - strtotime($a['Data_sprzedazy']);
       });
@@ -273,8 +327,14 @@ function katalog_wystawcow_output($atts, $content = null) {
           $url = str_replace('$2F', '/', $exhibitor['URL_logo_wystawcy']);
           $singleLogo = '';
 
-          if (!empty($url)) {
-              $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+          if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
+            $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
+            if($url){
+              $slider_images_url[] = $url;
+              $displayedCount++;
+            }
+          } elseif (!empty($url)) {
+              $singleLogo .= '<div class="recent-7" style="background-image: url(' . $url . ');"></div>';
               $output .= $singleLogo;
 
               $displayedCount++;
@@ -285,6 +345,11 @@ function katalog_wystawcow_output($atts, $content = null) {
           if ($displayedCount >= 7 || $count >= count($exhibitors)) {
               break;
           }
+      }
+
+      if (count($slider_images_url) > 0){
+        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        $output .= custom_media_slider($slider_images_url);
       }
       $output .= '</div>';
     }

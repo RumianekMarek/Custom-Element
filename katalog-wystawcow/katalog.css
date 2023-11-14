@@ -301,7 +301,7 @@
 }
 
 @media screen and (max-width:1200px) {
-    .img-container-recently7{
+    .img-container-recently7:has(.recent-7){
         max-width: 768px;
         margin: 0 auto;
     }

@@ -1,0 +1,9 @@
+.image-link-container{
+    width:150px;
+    height: 200px;
+}
+
+.vc_edit-form-tab:has(.image-link-container){
+    gap:5px;
+    justify-content: space-evenly;
+}
