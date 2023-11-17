@@ -103,6 +103,18 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'save_always' => true,
             'admin_label' => true
           ),
+          array(
+            'type' => 'textarea',
+            'heading' => __( 'Logos changer', 'my-custom-plugin' ),
+            'param_name' => 'file_changer',
+            'description' => __( 'Changer for logos', 'my-custom-plugin' ),
+            'save_always' => true,
+            'dependency' => array(
+              'element' => 'format',
+              'value' => array('top10'),
+              'value' => array('top21'),
+            ),
+          ),
         ),
         'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -121,6 +133,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['catalog_year'])) { $catalog_year = $atts['catalog_year']; }
   if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
   if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
+  if (isset($atts['file_changer'])) { $file_changer = explode(';' , $atts['file_changer']); }
 
   $locale = get_locale();
 
@@ -180,13 +193,21 @@ function katalog_wystawcow_output($atts, $content = null) {
       $existingEntry = array_filter($acc, function($item) use ($name) {
           return $item['Nazwa_wystawcy'] === $name;
       });
-
       if (empty($existingEntry)) {
           $acc[] = $curr;
       }
 
       return $acc;
   }, []); 
+
+  if ($file_changer != '') {
+    foreach ($file_changer as $change) {
+      echo '<script>console.log("'.$change.'")</script>';
+        if (strpos($change, '<=>') !== false) {
+            $id = explode('<=>', $change);
+        }
+    }
+  }
 
   // KATALOG
   if($format === 'full'){
@@ -250,7 +271,7 @@ function katalog_wystawcow_output($atts, $content = null) {
 
     $count = 0;
     $displayedCount = 0;
-    
+
     if ($format === 'top21') {
       $slider_images_url = array();
       while ($displayedCount < 21 && $count < count($exhibitors)) {
