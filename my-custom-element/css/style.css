@@ -708,15 +708,16 @@
 .custom-organizator-header{
     margin:0;
 }
+.custom-inner-mobile-text{
+    padding: 0 36px 36px 36px;
+}
 @media (max-width:959px){
-    #organizator{
+    #organizator:has(.custom-inner-organizator){
         padding: 0 36px 36px 36px;
     }
     .custom-box-bottom-right-white{
         margin: -9px -18px 24px 0;
     }
-}
-@media (max-width: 959px){
 }
 
 /* socialMedia */
@@ -931,9 +932,11 @@
 }
 .custom-logo-item {
     width: 140px;
+    padding: 10px;
     min-width: 100%;
     aspect-ratio: 3/2;
     object-fit: contain;
+
 }
 @media (max-width: 600px) {
     .custom-logos-gallery-wrapper {

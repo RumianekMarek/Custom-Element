@@ -90,9 +90,13 @@ if (isset($element_unique_id)) {
         const sliderDesktop = <?php echo in_array('desktop', explode(',', $slider_off)) ? 'false' : 'true'; ?>;
         const sliderMobileTablet = <?php echo in_array('mobile_tablet', explode(',', $slider_off)) ? 'true' : 'false'; ?>;
         const targetElement = document.querySelector("#<?php echo $element_unique_id ?>");
-        console.log(document.querySelector("#<?php echo $element_unique_id ?>").children.length);
-        console.log(document.querySelector("#<?php echo $element_unique_id ?>").children.length > 4);
-        if ((!sliderDesktop && <?php echo $mobile ?> === 0 ) || (!sliderMobileTablet  && <?php echo $mobile ?> === 1) && (targetElement.children.length > 4)) {
+        
+        if (
+            (!sliderDesktop && <?php echo $mobile ?> === 0 ) || 
+            (!sliderMobileTablet  && <?php echo $mobile ?> === 1) && 
+            (targetElement.children.length > 4) || 
+            (targetElement.children.length = 3 && window.innerWidth < 700) || 
+            (targetElement.children.length = 4 && window.innerWidth < 700)) {
             
             document.querySelector(".wpb_column:has(.custom-logos-gallery-slider)").style.padding = "0px";
             
@@ -102,11 +106,48 @@ if (isset($element_unique_id)) {
                     if ("<?php echo $full_width ?>" == "") { //full width on
                         rowContainerBg.classList.remove("limit-width");
                         rowContainerBg.classList.add("full-width");
-                        rowContainerBg.querySelector(".custom-logos-title").style.paddingLeft = "36px";  
+                        rowContainerBg.querySelector(".custom-logos-title").style.paddingLeft = "16px"; 
+                        rowContainerBg.style.marginLeft = "20px"; 
+                        
+                        const breakpoints = [
+                            { breakpoint: 1600, divisor: 9, correctiveValue: 20 },
+                            { breakpoint: 1200, divisor: 7, correctiveValue: 20 },
+                            { breakpoint: 960, divisor: 5, correctiveValue: 25 },
+                            { breakpoint: 800, divisor: 4, correctiveValue: 25 },
+                            { breakpoint: 600, divisor: 2, correctiveValue: 30 }
+                        ];
+
+                        breakpoints.forEach(function (config) {
+                            const maxWidthFull = Math.floor((targetElement.offsetWidth / config.divisor) - config.correctiveValue) + 'px';
+                            
+                            rowContainerBg.querySelectorAll(".custom-logo-item").forEach(function (item) {
+                                if (targetElement.offsetWidth < config.breakpoint) {
+                                    item.style.width = maxWidthFull;
+                                }
+                            });
+                        });
+
                     } else if ("<?php echo $full_width ?>" == "true") { //full width off
                         rowContainerBg.classList.remove("full-width");
                         rowContainerBg.classList.add("limit-width");
                         rowContainerBg.querySelector(".custom-logos-title").style.paddingLeft = "0px";
+
+                        const breakpoints = [
+                            { breakpoint: 1200, divisor: 7, correctiveValue: 16 },
+                            { breakpoint: 960, divisor: 5, correctiveValue: 16 },
+                            { breakpoint: 800, divisor: 4, correctiveValue: 16 },
+                            { breakpoint: 600, divisor: 2, correctiveValue: 5 }
+                        ];
+
+                        breakpoints.forEach(function (config) {
+                            const maxWidthFull = Math.floor((targetElement.offsetWidth / config.divisor) - config.correctiveValue) + 'px';
+
+                            rowContainerBg.querySelectorAll(".custom-logo-item").forEach(function (item) {
+                                if (targetElement.offsetWidth < config.breakpoint) {
+                                    item.style.width = maxWidthFull;
+                                }
+                            });
+                        });
                     }  
                 } 
             });
@@ -237,7 +278,7 @@ if (isset($element_unique_id)) {
                 });
                 
                 slickSlider.slick({
-                    centerMode: true,
+                    // centerMode: true,
                     slidesToShow: 7,
                     slidesToScroll: 1,
                     arrows: false,
@@ -249,27 +290,33 @@ if (isset($element_unique_id)) {
                     variableWidth: true,
                     responsive: [
                         {
-                        breakpoint: 900,
+                        breakpoint: 1600,
+                        settings: {
+                            slidesToShow: 9,
+                        }
+                        },
+                        {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 7,
+                        }
+                        },
+                        {
+                        breakpoint: 960,
                         settings: {
                             slidesToShow: 5,
                         }
                         },
                         {
-                        breakpoint: 768,
+                        breakpoint: 800,
                         settings: {
                             slidesToShow: 4,
                         }
                         },  
                         {
-                        breakpoint: 480,
+                        breakpoint: 600,
                         settings: {
                             slidesToShow: 2,
-                        }
-                        },
-                        {
-                        breakpoint: 350,
-                        settings: {
-                            slidesToShow: 1,
                         }
                         }
                     ] 

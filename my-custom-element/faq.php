@@ -11,7 +11,7 @@
   <?php if($locale == 'pl_PL'){ echo '
     <div class="pytanie-odpowiedz" style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important;">Gdzie odbywają się targi?</div>
-      <div class="odpowiedz half-block-padding" style="color:white !important;">Targi odbywają się w <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+      <div class="odpowiedz half-block-padding" style="color:white !important;">Targi odbywają się w <a style="color:white !important; text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn</div>
     </div>
     <div class="pytanie-odpowiedz" style="border-bottom:1px solid white;">
       <div class="pytanie half-block-padding" style="color:white !important;">W jakich godzinach odbywają się targi?</div>
