@@ -21,7 +21,7 @@ jQuery(function ($) {
     for(i=0;i<allLecturers.length; i++){
         allLecturers[i].addEventListener('click', function(event) {
             const modal = event.target.parentElement.parentElement.querySelector('.info-modal');
-            modal.style.display = 'block';
+            modal.style.display = 'grid';
             $('.no-touch').css("overflow", "hidden");
 
             modal.querySelector('.info-close').addEventListener('click', function(){

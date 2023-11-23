@@ -104,15 +104,14 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'admin_label' => true
           ),
           array(
-            'type' => 'textarea',
+            'type' => 'textfield',
             'heading' => __( 'Logos changer', 'my-custom-plugin' ),
             'param_name' => 'file_changer',
-            'description' => __( 'Changer for logos', 'my-custom-plugin' ),
+            'description' => __( 'Changer for logos divided by ";" try to put names <br> change places "name<=>name/2";<br> move to position "name=>>name/2";', 'my-custom-plugin' ),
             'save_always' => true,
             'dependency' => array(
               'element' => 'format',
-              'value' => array('top10'),
-              'value' => array('top21'),
+              'value' => array('top10', 'top21'),
             ),
           ),
         ),
@@ -133,7 +132,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['catalog_year'])) { $catalog_year = $atts['catalog_year']; }
   if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
   if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
-  if (isset($atts['file_changer'])) { $file_changer = explode(';' , $atts['file_changer']); }
+  if ($atts['file_changer'] != '') { $file_changer = explode(';' , $atts['file_changer']); }
 
   $locale = get_locale();
 
@@ -199,25 +198,93 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       return $acc;
   }, []); 
-
-  if ($file_changer != '') {
+  if ($file_changer != '' && ($format === 'top21' || $format === 'top10')) {    
     foreach ($file_changer as $change) {
-      echo '<script>console.log("'.$change.'")</script>';
-        if (strpos($change, '<=>') !== false) {
-            $id = explode('<=>', $change);
+      $change = trim($change);
+      if (strpos($change, '<=>') !== false) {
+        $finded = false;
+        $id = [];
+        $names = explode('<=>', $change);
+        foreach($names as $name){
+          if(is_numeric($name)){
+            $id[] = $name - 1;
+          } else {            
+            foreach($exhibitors as $index => $exhi){
+              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
+                $id[] = $index;
+                $finded = true;
+                break; 
+              }
+            }
+          }
         }
+        if($finded !== true){
+          echo '<script>console.log("'.$finded.'")</script>';
+          echo '<script>console.error("nie znaleziono wystawcy '. $name .'")</script>';
+        } elseif(count($exhibitors) > $id[0] && count($exhibitors) > $id[1]){
+          list($exhibitors[$id[0]], $exhibitors[$id[1]]) = [$exhibitors[$id[1]], $exhibitors[$id[0]]];
+        } else {
+          echo '<script>console.error("lista zawiera tylko '. count($exhibitors) .' wystawców, wystawców, sprawdź poprawność '.$change.'")</script>';
+        }
+
+      } elseif (strpos($change, '=>>') !== false) {
+        $finded = false;
+        $id = [];
+        $names = explode('=>>', $change);
+        foreach($names as $name){
+          if(is_numeric($name)){
+            $id[] = $name - 1;
+          } else {            
+            foreach($exhibitors as $index => $exhi){
+              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
+                $id[] = $index;
+                $finded = true;
+                break; 
+              }
+            }
+          }
+        }
+        
+        if($finded !== true){
+          echo '<script>console.error("nie znaleziono wystawcy '. $change .'")</script>';
+        } elseif(count($exhibitors) > $id[0] && count($exhibitors) > $id[1]){
+          if($id[0]>$id[1]){
+            $temp = $exhibitors[$id[1]];
+            $exhibitors[$id[1]] = $exhibitors[$id[0]];
+            
+            for($i = $id[1]+1; $i<$id[0]; $i++){
+              $temp1 = $exhibitors[$i];
+              $exhibitors[$i] = $temp;
+              $temp = $temp1;
+            }
+            $exhibitors[$id[0]] = $temp;
+          } else {
+            $temp = $exhibitors[$id[1]];
+            $exhibitors[$id[1]] = $exhibitors[$id[0]];
+            
+            for($i = $id[1]-1; $i>$id[0]; $i--){
+              $temp1 = $exhibitors[$i];
+              $exhibitors[$i] = $temp;
+              $temp = $temp1;
+            }
+            $exhibitors[$id[0]] = $temp;
+          }
+        } else {
+          echo '<script>console.error("lista zawiera tylko '. count($exhibitors) .' wystawców, sprawdź poprawność '.$change.'")</script>';
+        }
+      }
     }
+  }
+  if (current_user_can('administrator')  && !is_admin()) {
+    ?><script>
+      var katalog_data = <?php echo json_encode($script_data); ?>;
+      console.log(katalog_data.data)
+    </script><?php
   }
 
   // KATALOG
   if($format === 'full'){
 
-    if (current_user_can('administrator')  && !is_admin()) {
-      ?><script>
-        var katalog_data = <?php echo json_encode($script_data); ?>;
-        console.log(katalog_data.data)
-      </script><?php
-    }
 
     $output = '
     <div custom-lang="' . $locale . '" id="'. $format .'">
@@ -299,14 +366,14 @@ function katalog_wystawcow_output($atts, $content = null) {
           $output .= '
             <div>
               <span style="display: flex; justify-content: center;" class="btn-container ">
-                  <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square" title="Katalog wystawców">Zobacz więcej</a>
+                  <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Katalog wystawców">Zobacz więcej</a>
               </span>
             </div>';
       } else {
           $output .= '
             <div>
               <span style="display: flex; justify-content: center;" class="btn-container">
-                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square" title="Exhibitor Catalog">See more</a>
+                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitor Catalog">See more</a>
               </span>
             </div>';
       }
