@@ -29,7 +29,7 @@
             <?php
                 $thirdImage = $exhibitorsImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '">';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '"></div></div>';
             ?>
         </div>
     </div>

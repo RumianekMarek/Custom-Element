@@ -876,7 +876,9 @@
 }
 
 /* org-info */
-
+.full-width:has(#wydarzenia){
+    margin-left: 0 !important;
+}
 .row-container:has(.custom-container-org-info) .row-parent {
     padding: 0 !important;
 }
@@ -932,7 +934,7 @@
 }
 .custom-logo-item {
     width: 140px;
-    padding: 10px;
+    padding: 5px;
     min-width: 100%;
     aspect-ratio: 3/2;
     object-fit: contain;
@@ -1506,7 +1508,6 @@
 .full-width:has(.custom_element){
     padding:0 !important;
 }
-
 .half-block-padding-top{
     padding-top:18px !important;
 }

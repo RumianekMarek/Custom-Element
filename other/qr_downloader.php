@@ -53,7 +53,7 @@ if(isset($_POST['submit_haslo'])){
                 shuffle($entries);
                 for($i=0; $i<$download_count; $i++){
                     if ($entries[$i]['id']){
-                        $qr_code_resoult[] = $custom[0] . $entries[$i]['id'] . $custom[0] . $entries[$i]['id'];
+                        $qr_code_resoult[] = $custom[0] . $entries[$i]['id'] . $custom[1] . $entries[$i]['id'];
                     }
                 }
             } else {

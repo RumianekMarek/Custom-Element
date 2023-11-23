@@ -10,7 +10,7 @@
             <?php
                 $firstImage = $visitorImages[0];
                 $shortPath = substr($firstImage, strpos($firstImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '" alt="visitors image 1">';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="visitors image 1"></div></div>';
             ?>
         </div>
         <div class="custom-visitors-text-block">
@@ -56,7 +56,7 @@
             <?php
                 $secondImage = $visitorImages[1];
                 $shortPath = substr($secondImage, strpos($secondImage, '/doc/'));
-                echo '<img class="image-shadow" src="' . $shortPath . '"alt="visitors image 2">';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '"alt="visitors image 2"></div></div>';
             ?>
         </div>
     </div>

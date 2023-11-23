@@ -41,6 +41,6 @@
   </div>
 
   <div class="custom-block-2 single-media-wrapper half-block-padding custom-min-media-wrapper" style="flex:1;">
-    <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/zabudowa.jpg" alt="zdjęcie przykładowej zabudowy"/></div>
+    <div class="image-shadow"><div class="t-entry-visual"><img src="/wp-content/plugins/custom-element/my-custom-element/media/zabudowa.jpg" alt="zdjęcie przykładowej zabudowy"/></div></div>
   </div>
 </div>

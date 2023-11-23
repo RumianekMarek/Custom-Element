@@ -26,6 +26,7 @@ function my_custom_wpbakery_element() {
             'Dodaj do Apple Kalendarz' => 'calendarApple.php',
             'Kalendarz do potwierdzenia' => 'confCalendar.php',
             'Dokumenty' => 'download.php',
+            'Estymacje' => 'estymacje.php',
             'Exhibitors-benefits'=> 'exhibitors-benefits.php',
             'FAQ' => 'faq.php',
             'Footer' => 'footer.php',
@@ -55,6 +56,41 @@ function my_custom_wpbakery_element() {
           ),
           'save_always' => true,
           'admin_label' => true,
+        ),
+        array(
+          'type' => 'param_group',
+          'group' => 'Replace Strings',
+          'param_name' => 'replace_items',
+          'params' => array(
+              array(
+                  'type' => 'textfield',
+                  'heading' => __('Tag', 'my-custom-plugin'),
+                  'param_name' => 'tag_replace',
+                  'save_always' => true,
+                  'admin_label' => true
+              ),
+              array(
+                'type' => 'textfield',
+                'heading' => __('Class', 'my-custom-plugin'),
+                'param_name' => 'class_replace',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+              array(
+                  'type' => 'textfield',
+                  'heading' => __('Input string', 'my-custom-plugin'),
+                  'param_name' => 'input_replace',
+                  'save_always' => true,
+                  'admin_label' => true
+              ),
+              array(
+                  'type' => 'textfield',
+                  'heading' => __('Output string', 'my-custom-plugin'),
+                  'param_name' => 'output_replace',
+                  'save_always' => true,
+                  'admin_label' => true
+              ),
+          ),
         ),
         array(
           'type' => 'textfield',
@@ -539,6 +575,60 @@ function my_custom_element_output($atts, $content = null) {
         $gallery = $atts['gallery_mobile'];
     } else {
       if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
+    }
+
+    if (isset($atts['replace_items'])) {
+      $replace_items = $atts['replace_items'];
+      $replace_items_urldecode = urldecode($replace_items);
+      $replace_items_json = json_decode($replace_items_urldecode, true);
+
+      $tag_replace_array = array();
+      $class_replace_array = array();
+      $input_replace_array = array();
+      $output_replace_array = array();
+      
+      foreach ($replace_items_json as $replace_item) {
+        $tag_replace_array[] = $replace_item["tag_replace"];
+        $class_replace_array[] = $replace_item["class_replace"];
+        $input_replace_array[] = $replace_item["input_replace"];
+        $output_replace_array[] = $replace_item["output_replace"];
+      }
+
+      ?>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const tag_replace_array = <?php echo json_encode($tag_replace_array); ?>;
+        const class_replace_array = <?php echo json_encode($class_replace_array); ?>;
+        const input_replace_array = <?php echo json_encode($input_replace_array); ?>;
+        const output_replace_array = <?php echo json_encode($output_replace_array); ?>;
+
+        // Replace strings  
+        for (let i = 0; i < tag_replace_array.length; i++) {
+          let tag_replace = tag_replace_array[i];
+          let class_replace = class_replace_array[i];
+          let input_replace = input_replace_array[i];
+          let output_replace = output_replace_array[i];
+
+          if ((tag_replace || class_replace) && input_replace && output_replace) {
+            let elementsToReplace;
+
+            if (tag_replace) {
+                elementsToReplace = document.getElementsByTagName(tag_replace);
+            } else if (class_replace) {
+                elementsToReplace = document.getElementsByClassName(class_replace);
+            }
+
+            for (let j = 0; j < elementsToReplace.length; j++) {
+                
+                if (elementsToReplace[j].innerText.toLowerCase() == input_replace.toLowerCase()) {
+                    elementsToReplace[j].innerText = output_replace;
+                }
+            }
+          }
+        }  
+      });
+      </script>
+      <?php
     }
 
     if (empty($element)) {
