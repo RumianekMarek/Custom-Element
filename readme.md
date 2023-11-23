@@ -32,6 +32,8 @@ Odpowiedź na pytanie.
 2. Zrzut ekranu nr 2
 
 ## Zmiany
+2.5 -   Added Logos changes for Exhibitors Catalog,
+
 2.4 -   Added Slider for all mobile galleries,
                 
 2.3 -   Added Gravity Entries downloader,
