@@ -4,10 +4,32 @@
     <div class="custom-row-border">
         <div class="border-top-left-black"></div>
     </div>
-
+    <!-- benefit-container -->
+    <div class="custom-row-benefits">
+        <div class="custom-benefits" style="justify-content: center;">
+            <div class="custom-benefit-item">
+                <div class="custom-benefit-img">
+                <?php if($locale == 'pl_PL'){
+                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/ulga_pl.png" alt="Strefa Networkingu">';
+                } else {
+                    echo '';
+                } ?>
+                </div>
+                <?php if($locale == 'pl_PL'){
+                    echo '<div class="custom-btn-container" style="padding: 18px;">
+                        <span>
+                            <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="https://warsawexpo.eu/dla-organizatorow/#ulga"  target="_blank" style="color:white !important">Zobacz szczegóły</a>
+                        </span>
+                    </div>';
+                } else {
+                    echo '';
+                } ?>
+            </div>
+        </div>
+    </div>
     <div class="custom-row-benefits">
         <div class="custom-benefits">
-
+           
             <!-- benefit-item -->
             <div class="custom-benefit-item">
                 <div class="custom-benefit-img">
@@ -63,8 +85,8 @@
             </div>
 
         </div>
+        
     </div>
-
     <div class="custom-row-border">
         <div class="border-bottom-right-black"></div>
     </div>
