@@ -107,11 +107,11 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'type' => 'textfield',
             'heading' => __( 'Logos changer', 'my-custom-plugin' ),
             'param_name' => 'file_changer',
-            'description' => __( 'Changer for logos divided by ";" try to put names <br> change places "name<=>name/2";<br> move to position "name=>>name/2";', 'my-custom-plugin' ),
+            'description' => __( 'Changer for logos divided by ";" try to put names <br> change places "name<=>name or position";<br> move to position "name=>>name or position";', 'my-custom-plugin' ),
             'save_always' => true,
             'dependency' => array(
               'element' => 'format',
-              'value' => array('top10', 'top21'),
+              'value' => array('top10', 'top21', 'full'),
             ),
           ),
         ),
@@ -132,7 +132,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['catalog_year'])) { $catalog_year = $atts['catalog_year']; }
   if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
   if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
-  if ($atts['file_changer'] != '') { $file_changer = explode(';' , $atts['file_changer']); }
+  if ($atts['file_changer'] != '') { $file_changer = $atts['file_changer']; $file_changer = str_replace('&lt;','<',$file_changer); $file_changer = str_replace('&gt;','>',$file_changer); $file_changer = explode(';' , $file_changer); }
 
   $locale = get_locale();
 
@@ -169,6 +169,92 @@ function katalog_wystawcow_output($atts, $content = null) {
   $name = do_shortcode('[trade_fair_name]');
   $name_eng = do_shortcode('[trade_fair_name_eng]');
 
+  if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {    
+    foreach ($file_changer as $change) {   
+      $change = trim($change);
+      if (strpos($change, '<=>') !== false) {
+        $id = [];
+        $names = explode('<=>', $change);
+        foreach($names as $name){
+          
+          if(is_numeric($name)){
+            $id[] = $name. '.00';
+          } else {         
+            $found = false;   
+            foreach($data[$id_targow]['Wystawcy'] as $index => $exhi){
+              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
+                $id[] = $index;
+                $found = true;
+                break; 
+              }
+            }
+            if (!$found) {
+              echo '<script>console.error("nie znaleziono wystawcy ' . $name . '")</script>';
+              break;
+            }
+          }
+        }
+        
+        if($id[0] && $id[1] && count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){
+          echo '<script>console.log("'.$id[0].' '.$id[1].'")</script>';
+          
+          list($data[$id_targow]['Wystawcy'][$id[0]], $data[$id_targow]['Wystawcy'][$id[1]]) = [$data[$id_targow]['Wystawcy'][$id[1]], $data[$id_targow]['Wystawcy'][$id[0]]];
+        } elseif($id[0] && $id[1]) {
+          echo '<script>console.error("lista zawiera tylko '. count($data[$id_targow]['Wystawcy']) .' wystawców, wystawców, sprawdź poprawność '.$change.'")</script>';
+        }
+      } 
+      elseif (strpos($change, '=>>') !== false) {
+        $id = [];
+        $names = explode('=>>', $change);
+        foreach($names as $name){
+          if(is_numeric($name)){
+            $id[] = $name.'.00';
+          } else {   
+            $found = false;         
+            foreach($data[$id_targow]['Wystawcy'] as $index => $exhi){
+              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
+                $id[] = $index;
+                $found = true;
+                break; 
+              }
+            }
+            if (!$found) {
+              echo '<script>console.error("nie znaleziono wystawcy ' . $name . '")</script>';
+              break;
+            }
+          }
+        }
+
+        if(count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){
+          if($id[0]>$id[1]){
+            $temp = $data[$id_targow]['Wystawcy'][$id[1]];
+            $data[$id_targow]['Wystawcy'][$id[1]] = $data[$id_targow]['Wystawcy'][$id[0]];
+            
+            for($i = ($id[1]+1).'.00'; $i<$id[0]; $i= ($i+1).".00"){
+              
+              $temp1 = $data[$id_targow]['Wystawcy'][$i];
+              $data[$id_targow]['Wystawcy'][$i] = $temp;
+              $temp = $temp1;              
+            }
+            $data[$id_targow]['Wystawcy'][$id[0]] = $temp;
+          } else {
+            $temp = $data[$id_targow]['Wystawcy'][$id[1]];
+            $data[$id_targow]['Wystawcy'][$id[1]] = $data[$id_targow]['Wystawcy'][$id[0]];
+            
+            for($i = ($id[1]-1).'.00'; $i>$id[0]; $i= ($i-1).'.00'){
+              $temp1 = $data[$id_targow]['Wystawcy'][$i];
+              $data[$id_targow]['Wystawcy'][$i] = $temp;
+              $temp = $temp1;
+            }
+            $data[$id_targow]['Wystawcy'][$id[0]] = $temp;
+          }
+        } else {
+          echo '<script>console.error("lista zawiera tylko '. count($data[$id_targow]['Wystawcy']) .' wystawców, sprawdź poprawność '.$change.'")</script>';
+        }
+      }
+    }
+  }
+
   $script_data = array(
       'data' => $data,
       'json' => $json,
@@ -198,87 +284,11 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       return $acc;
   }, []); 
-  if ($file_changer != '' && ($format === 'top21' || $format === 'top10')) {    
-    foreach ($file_changer as $change) {
-      $change = trim($change);
-      if (strpos($change, '<=>') !== false) {
-        $finded = false;
-        $id = [];
-        $names = explode('<=>', $change);
-        foreach($names as $name){
-          if(is_numeric($name)){
-            $id[] = $name - 1;
-          } else {            
-            foreach($exhibitors as $index => $exhi){
-              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
-                $id[] = $index;
-                $finded = true;
-                break; 
-              }
-            }
-          }
-        }
-        if($finded !== true){
-          echo '<script>console.log("'.$finded.'")</script>';
-          echo '<script>console.error("nie znaleziono wystawcy '. $name .'")</script>';
-        } elseif(count($exhibitors) > $id[0] && count($exhibitors) > $id[1]){
-          list($exhibitors[$id[0]], $exhibitors[$id[1]]) = [$exhibitors[$id[1]], $exhibitors[$id[0]]];
-        } else {
-          echo '<script>console.error("lista zawiera tylko '. count($exhibitors) .' wystawców, wystawców, sprawdź poprawność '.$change.'")</script>';
-        }
 
-      } elseif (strpos($change, '=>>') !== false) {
-        $finded = false;
-        $id = [];
-        $names = explode('=>>', $change);
-        foreach($names as $name){
-          if(is_numeric($name)){
-            $id[] = $name - 1;
-          } else {            
-            foreach($exhibitors as $index => $exhi){
-              if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
-                $id[] = $index;
-                $finded = true;
-                break; 
-              }
-            }
-          }
-        }
-        
-        if($finded !== true){
-          echo '<script>console.error("nie znaleziono wystawcy '. $change .'")</script>';
-        } elseif(count($exhibitors) > $id[0] && count($exhibitors) > $id[1]){
-          if($id[0]>$id[1]){
-            $temp = $exhibitors[$id[1]];
-            $exhibitors[$id[1]] = $exhibitors[$id[0]];
-            
-            for($i = $id[1]+1; $i<$id[0]; $i++){
-              $temp1 = $exhibitors[$i];
-              $exhibitors[$i] = $temp;
-              $temp = $temp1;
-            }
-            $exhibitors[$id[0]] = $temp;
-          } else {
-            $temp = $exhibitors[$id[1]];
-            $exhibitors[$id[1]] = $exhibitors[$id[0]];
-            
-            for($i = $id[1]-1; $i>$id[0]; $i--){
-              $temp1 = $exhibitors[$i];
-              $exhibitors[$i] = $temp;
-              $temp = $temp1;
-            }
-            $exhibitors[$id[0]] = $temp;
-          }
-        } else {
-          echo '<script>console.error("lista zawiera tylko '. count($exhibitors) .' wystawców, sprawdź poprawność '.$change.'")</script>';
-        }
-      }
-    }
-  }
   if (current_user_can('administrator')  && !is_admin()) {
     ?><script>
       var katalog_data = <?php echo json_encode($script_data); ?>;
-      console.log(katalog_data.data)
+      console.log(katalog_data.data["<?php echo $id_targow ?>"]["Wystawcy"])
     </script><?php
   }
 
@@ -357,7 +367,7 @@ function katalog_wystawcow_output($atts, $content = null) {
       }
 
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
       
@@ -395,7 +405,7 @@ function katalog_wystawcow_output($atts, $content = null) {
         $count++;
       }
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
 
@@ -435,7 +445,7 @@ function katalog_wystawcow_output($atts, $content = null) {
       }
 
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . 'slider.php';
+        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
       $output .= '</div>';

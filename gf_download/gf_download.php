@@ -40,12 +40,35 @@ function gf_finder($gf_id, $form_title){
         $page_size = 1000; // Liczba wpisów do przetworzenia w jednej partii
         $offset = 0; // Początkowy offset
         $entry_data = ''; // Inicjalizacja zmiennej dla danych
+        $feeds = GFAPI::get_form($gf_id);
+        $entry_labels = array();
+
+        foreach ($feeds['fields'] as $id => $feed){
+                $entry_labels[$feed['id']] = $feed['label'];
+        }
+
+        $entry_labels["source_url"] = "source_url";
+        $entry_labels["date_created"] = "date_created";
+
+        $sample_entry = GFAPI::get_entries($gf_id, null, null, array('offset' => 0, 'page_size' => 1));
+
+        $labels_array = array();
+        foreach ($sample_entry[0] as $key => $sample){
+            foreach($entry_labels as $klucz => $wartosc){
+                if($key === $klucz){
+                    $label_array[] = $wartosc;
+                    break;
+                }
+            }
+        }
+        $entry_data .= implode(',', $label_array) . '\n';
+
         do {
             $entries = GFAPI::get_entries($gf_id, null, null, array('offset' => $offset, 'page_size' => $page_size));
             foreach ($entries as $entry) {
                 $entry_line = array();
                 foreach ($entry as $id => $key) {
-                    if (is_int($id)) {
+                    if (is_int($id) || $id === "source_url" || $id ==="date_created") {
                         $key = str_replace(',',' ',$key);
                         $entry_line[] = $key;
                     }
