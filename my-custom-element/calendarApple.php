@@ -1,6 +1,5 @@
 <?php
-include_once plugin_dir_path(__FILE__) . '/main-custom-element.php';
-
+    
     $data = 'BEGIN:VCALENDAR' . PHP_EOL .
             'VERSION:2.0' . PHP_EOL .
             'BEGIN:VEVENT' . PHP_EOL .
@@ -11,7 +10,7 @@ include_once plugin_dir_path(__FILE__) . '/main-custom-element.php';
             'LOCATION:Al. Katowicka 62, 05-830 Nadarzyn' . PHP_EOL .
             'END:VEVENT' . PHP_EOL .
             'END:VCALENDAR' . PHP_EOL;
-
+    
     $filePath = $_SERVER['DOCUMENT_ROOT'] . '/doc/Iphone.ics';
     $fileSaved = file_put_contents($filePath, $data);
 

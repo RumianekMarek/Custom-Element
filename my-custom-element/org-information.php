@@ -1,6 +1,62 @@
+<?php 
+if ($color != '#000000'){
+    $color = '#ffffff';
+    $shadow = '#000000';
+} else {
+    $shadow = '#ffffff';
+}
+?>
+
+<style>
+.custom_element_<?php echo $rnd_id ?> .orgInfo-header-text{
+    color: <?php echo $color ?> !important; 
+    text-shadow: 2px 2px <?php echo $shadow ?>;
+}
+.full-width:has(#wydarzenia){
+    margin-left: 0 !important;
+}
+.row-container:has(.custom-container-org-info) .row-parent {
+    padding: 0 !important;
+}
+.custom-container-org-info a {
+    font-weight: 600;
+    color: blue;
+}   
+.custom-org-info-header {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.custom-org-info-header h1 {
+    text-align: center;
+    padding: 100px 18px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.custom-org-info-header h1 span {
+    font-size: 54px;
+}
+@media (min-width: 300px) and (max-width: 1200px) {
+    .custom-org-info-header h1 span {
+        font-size: calc(24px + (54 - 24) * ( (100vw - 300px) / (1200 - 300) ));
+    }
+}
+.custom-org-info-fixed-width {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+#dane-kontaktowe, #wazne-informacje, #procedury-stoisk, #rozladunek, #dokumenty,
+#dane-kontaktowe_en, #wazne-informacje_en, #procedury-stoisk_en, #rozladunek_en, #dokumenty_en {
+    scroll-margin: 90px;
+} 
+.custom-container-org-info a{
+    text-decoration: underline;
+}
+</style>
+
 <div id="orgInfo"class="custom-container-org-info">
     <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
-        <h1 style="color:black !important; text-shadow: 2px 2px white;">
+        <h1 class="orgInfo-header-text">
             <span>               
                 <?php if($locale == 'pl_PL'){ echo '
                 Informacje organizacyjne dla Wystawców
@@ -92,7 +148,7 @@
             <p>Wystawców dekorujących samodzielnie stoiska obowiązuje zakaz wbijania, wkręcania gwoździ, śrub i pinezek w ściany.</p>
             <p>W przypadku uszkodzenia elementów zabudowy stoiska Wystawca będzie obciążony kosztami wymiany lub naprawy uszkodzonego elementu.</p>
             <h3>Pozostawianie elementów wystawcy na stoisku:</h3>
-            <p>Zgodnie z regulaminem Targów, wywóz eksponatów oraz likwidacja ekspozycji na stoisku, przed zakończeniem Targów jest zabronione.</p>
+            <p>Zgodnie z regulaminem Targów, wywóz eksponatów oraz likwidacja ekspozycji na stoisku przed zakończeniem Targów są zabronione.</p>
             <p>Demontaż elementów stoiska odbywa się w godzinach określonych przez Organizatora. Wystawcy zobowiązani są do usunięcia wszelkich dekoracji użytych na stoisku (eksponaty, tablice reklamowe, bannery, plakaty wraz z taśmą dwustronną, kolorowa folia na modułach zabudowy) oraz przywrócić zajmowaną powierzchnię wystawienniczą (stoisko) do stanu z dnia przekazania przez Organizatora.</p>
             <h4>UWAGA!!!</h4>
             <p>W przypadku uszkodzenia modułów stoiska lub pozostawienia na stoisku elementów dekoracji (grafiki), Wystawca będzie obciążony kosztami renowacji lub czyszczenia modułów stoiska.</p>
@@ -170,7 +226,7 @@
     <div class='custom-org-info-fixed-width single-block-padding'>
         <div class='custom-org-info-content-item'>
             <ol>
-                <a href='#dane-kontaktowe_en'><li>Contact details, assembly and disassembly dates, trade fair opening hours.</li></a>
+                <a href='#dane-kontaktowe_en'><li>Contact information, installation and dismantling deadlines, and trade fair opening hours.</li></a>
                 <a href='#wazne-informacje_en'><li>PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</li></a>
                 <a href='#procedury-stoisk_en'><li>Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</li></a>
                 <a href='#rozladunek_en'><li>Information on unloading, courier packages and forwarding in PWE.</li></a>
@@ -179,7 +235,7 @@
         </div>
 
         <div id='dane-kontaktowe_en' class='custom-org-info-content-item'>
-            <h2>1. Contact details, assembly and disassembly dates, trade fair opening hours. </h2>
+            <h2>1. Contact information, installation and dismantling deadlines, and trade fair opening hours. </h2>
             
             <div class='custom-org-info-block-dates custom-display-none'>
                 <h5>Exhibitors’ support: <a href='mailto:konsultanttechniczny@warsawexpo.eu'>konsultanttechniczny@warsawexpo.eu</a></h5>
@@ -193,122 +249,125 @@
                     <li>[trade_fair_1stdismantlday]</li>
                     <li>[trade_fair_2nddismantlday]</li>
                 </ul>
-                <h5>[trade_fair_date_eng] opening hours :</h5>
+                <h5>Exhibition Opening Hours at [trade_fair_date_eng]:</h5>
                 <ul>
                     <li>For exhibitors - 8:00 a.m. – 6:00 p.m.</li>
                     <li>For visitors - 10 a.m. – 5 p.m.</li>
                 </ul>
             </div>
-            <h4 id='customHiddenParagraphEn' class='custom-hidden-paragraph custom-display-none'>All details will appear soon</h4>
+            <h4 id='customHiddenParagraphEn' class='custom-hidden-paragraph custom-display-none'>All details will be available soon</h4>
         </div>
 
         <div id='wazne-informacje_en' class='custom-org-info-content-item'>
-            <h2>2. PTAK WARSAW EXPO (PWE) important technical information: electricity, water and Internet connections, permissible load on the exhibition area, maximum weight of suspended elements, maximum height of the construction.</h2>
+            <h2>2. Important technical information for PTAK WARSAW EXPO (PWE): power, water, Internet connections, allowable load on exhibition space, maximum weight of suspended elements, maximum height of structures.</h2>
             <h5>Electrical connections:</h5>
             <p>
-            The Exhibitor is obliged to order the appropriate power of electrical connections, necessary to power all electrical devices used at the stand.
+            The exhibitor is obligated to order the appropriate power for electrical connections necessary to supply all electrical devices used at the stand.
             <br>
-            The sum of the devices and lighting’s power at the stand will be the basis for ensuring the appropriate power of connections.
+            The total power of devices and lighting at the stand will be the basis for ensuring the appropriate power supply.
             </p>
             <h5>Water connections:</h5>
-            <p>The exhibitor is obliged to order water connection in the amount corresponding to the number of machines and devices used at the stand. It is forbidden to connect more than one appliance or sink to one water connection (applies to both the inflow and outflow). Using switching stations and adapters for several devices is prohibited.</p>
-            <h3>PWE connections characteristics: </h3>
+            <p>The exhibitor is obligated to order water connections corresponding to the number of connected machines and devices at the stand. Connecting more than one device or sink to a single water connection is prohibited (applies to both inflow and outflow). The use of distribution points and branching for multiple devices is not allowed.</p>
+            <h3>Description of connections on the premises of PWE: </h3>
             <h5>Electrical connections:</h5>
             <ul>
-                <li>we offer power ranges (in kWh) specified in the Organiser's order form,</li>
-                <li>three-phase current is supplied (min. 9 kW),</li>
-                <li>Exhibitors ordering three-phase current are asked to specify the socket type (16 A, 32 A, 63 A) and the power consumption of the machines / devices connected at the stand. The Exhibitor / subcontractor of the installation is obliged to precisely define the point of exit of individual connections on the project.</li>
+                <li>are delivered within the specified power ranges (in kWh) as determined in the Organizer's order form,</li>
+                <li>three-phase power is supplied from 9 kW,</li>
+                <li>Exhibitors ordering three-phase electricity are requested to specify the type of socket (16 A, 32 A, 63 A) and the power consumption of the machine/device being connected at the stand. The exhibitor/subcontractor responsible for the construction is obliged to accurately determine the location of each connection outlet on the project.</li>
             </ul>
             <h5>Water connections:</h5>
             <ul>
-                <li>inflow - 0.5 inch hose diameter with a valve,</li>
-                <li>sink drain - 1 inch conduit,</li>
-                <li>device / machine drain - PVC cable, 2 inch diameter.</li>
+                <li>inlet – pipe diameter 0.5 inches, terminated with a valve,</li>
+                <li>sink drain – 1-inch pipe,</li>
+                <li>device/machine drainage – PVC pipe, diameter 2 inches.</li>
             </ul>
             <p>
-                <strong>Internet connection:</strong>  cable or Wi-Fi (depending on the Exhibitor's needs)
+                <strong>Internet connection:</strong>  wired or Wi-Fi connection (depending on the Exhibitor's needs).
                 <br>
-                One Internet connection is assigned to only one computer.
+                One internet connection is assigned to only one computer.
             </p>
-            <h4>EXHIBITION’S AREA 1m2 MAXIMUM LOAD: 2.5 T / m2; AND MEDIA CHANNELS: 500 kg.</h4>
-            <h4>MAXIMUM WEIGHT OF SUSPENDED ELEMENTS: 50 kg / 1 point *</h4>
-            <p>* All kinds of suspensions must be agreed with the technical consultant. Suspending the customer's element to the hall's ceiling is possible only after providing the required documentation - declaration regarding the suspension of the elements, the stand base with the design and marked places for suspensions (documents, approvals, manufacturer) regarding the Trilock / Quadrolock structure or other / own structure to which the elements will be suspended - not later than 40 days before the start of the event and after obtaining the consent of the Organizer.</p>
-            <p><strong>MAXIMUM HEIGHT OF INDIVIDUAL STANDS CONSTRUCTION:</strong> in accordance with the stand’s technical plan from the Organizer.</p>
+            <h4>MAXIMUM LOAD of the 1 m2 OF EXHIBITION SPACE: 2.5 T/m2 AND MEDIA CHANNELS: 500 kg.</h4>
+            <h4>MAXIMUM ALLOWABLE WEIGHT OF SUSPENDED ELEMENTS: 50 kg/1 point *</h4>
+            <p>* All types of hangings are always coordinated with the technical consultant. Hanging of the client's element to the ceiling of the Hall is possible only after submitting the required documentation (declaration regarding the hanging of elements, stand base with a design and marked hanging points, documents attesting to the Trilock/Quadrolock construction or any other, whether proprietary design to which the elements will be attached - no later than 40 days before the start of the event and after obtaining the Organizer's consent).</p>
+            <p><strong>MAXIMUM HEIGHT OF INDIVIDUAL STAND CONSTRUCTION:</strong> according to the technical plan of the stand received from the Organizer.</p>
         </div>
 
         <div id='procedury-stoisk_en' class='custom-org-info-content-item'>
-            <h2>3. Procedures for the approval of stands, surfaces and safety rules on the premises of PWE.</h2>
-            <p>Collection of the stands takes place in the Exhibitors' Technical Service Point located on the premises of PWE.</p>
-            <p>Additional orders or changes to the construction of the stands will be implemented, if possible, on the stand’s collection day.</p>
-            <p>In accordance with the trade fair regulations, only non-flammable materials or materials protected with fire retardants to the degree of low flammability may be used to decorate the stand.</p>
-            <p>Fire-proof impregnated materials must have a valid fire safety certificate.</p>
-            <p>The Exhibitor is obliged to present current certificates confirming the level of low flammability and non-flammability of the materials used at the Exhibitors' Technical Service Point.</p>
-            <p>There is a total ban on smoking, bringing in and using gas cylinders, also of the tourist type, on the premises of PWE.</p>
-            <p>Decorations used at the stand may not damage the walls and floor of PWE, therefore it is forbidden to lean metal, glass or furniture against the walls without proper protection.</p>
-            <p>It is forbidden for exhibitors who decorate their stands to hammer or screw nails, screws and thumbtacks into the walls.</p>
-            <p>In the event of damage to the elements of the stand construction, the Exhibitor will be charged with the costs of replacing or repairing the damaged element.</p>
-            <h3>Leaving exibitor’s stand elements:</h3>
-            <p>In accordance with the regulations of the Fair, it is forbidden to take down exhibits and clear the display at the stand before the end of the Fair.</p>
-            <p>The elements of the stand must be disassembled during the hours specified by the Organizer. Exhibitors are required to remove all decorations used at the stand (exhibits, billboards, banners, posters with double-sided tape, colored foil on the construction modules) and restore the exhibition space (stand) to the state found on the date of handover by the Organizer.</p>
+            <h2>3. Information regarding the procedures for stand handovers, space allocation, and safety regulations at the PWE premises.</h2>
+            <p><strong>The place of stand pickup is</strong> the Exhibitors' Technical Service Point located on the premises of PWE.</p>
+            <p>Additional orders or changes to the constructed stands will be carried out, if possible, on the day of stand delivery.</p>
+            <p>The arrangement of stands by Exhibitors takes place on the day of stand reception</p>
+            <p>According to the trade fair regulations, only non-flammable materials or materials treated with fire-resistant agents to a degree of difficulty in ignitability are allowed for stand decoration.</p>
+            <p>Fireproof impregnated materials must have a current fireproof certification.</p>
+            <p>The exhibitor is required to present current certificates confirming the level of fire resistance and non-flammability of the materials used at the Exhibitors' Technical Service Point.</p>
+            <p>In the PWE area, smoking, bringing, and using gas cylinders, including the tourist type, are strictly prohibited.</p>
+            <p>The decorations used at the stand cannot damage the walls and floor of PWE, so leaning metal, glass, or furniture elements against the walls without proper protection is prohibited.</p>
+            <p>Exhibitors decorating their stands themselves are prohibited from hammering, screwing nails, screws, and pins into the walls.</p>
+            <p>In case of damage to the components of the stand structure, the Exhibitor will be responsible for the costs of replacing or repairing the damaged component.</p>
+            <h3>Leaving exhibitor items at the stand:</h3>
+            <p>According to the trade fair regulations, the removal of exhibits and the dismantling of the stand before the end of the fair is prohibited.</p>
+            <p>The dismantling of stand elements takes place during hours specified by the Organizer. Exhibitors are obliged to remove all decorations used at the stand (exhibits, advertising boards, banners, posters along with double-sided tape, colored foil on construction modules) and restore the occupied exhibition space (stand) to the condition as of the day handed over by the Organizer.</p>
             <h4>ATTENTION!!! </h4>
-            <p>In the event of damage to the stand modules or the decoration elements (graphics) left at the stand, the Exhibitor will be charged with the costs of renovation or cleaning the stand modules. </p>
+            <p>In case of damage to the stand modules or leaving decorative elements (graphics) on the stand, the Exhibitor will be responsible for the costs of renovation or cleaning of the stand modules. </p>
             <p>
-            The Organizer shall not be liable in any way for the destruction or loss of the Exhibitor's property not removed from the Fair by the Exhibitor on time. 
+            The organizer is not liable for any damage or loss of property of the Exhibitor not removed from the Trade Fair premises by the Exhibitor within the specified timeframe. 
             <br>
-            On the premises of PWE, it is strictly forbidden to use open fire, machines such as grinders or welding machines, as well as dusting tools without an extraction vacuum cleaner.  
+            In the PWE area, there is a complete prohibition on using open fire, machinery such as a grinder or welder, as well as dusty tools without a vacuum extractor.  
             </p>
-            <p>Collection of the space along with the ordered connections takes place in the Exhibitors' Technical Service Point located on the premises of PWE. </p>
-            <p>Collecting the stand space along with the media connections for the construction of the stand takes place on the day of assembly, based on the <a href='https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf' target='_blank' rel='noopener'><strong>Exhibition Area Acceptance Report.</strong></a></p>
-            <p>The person collecting the space, if it is not the Exhibitor (e.g. the building contractor), should have an original authorization document signed and stamped by the Exhibitor. Upon arrival at the assembly and trade fair, please report to the Exhibitors' Office (hall B, entrance B9) to collect your badges and to collect your stand. We issue 'MONTAGE' stickers for the assembly period and 'EXHIBITOR' badges for the trade fair period. ID BADGES ARE ISSUED ONLY AT THE EXHIBITORS' OFFICE. Each person who prepares and operates a stand is obliged to wear an ID badge (in a visible place) during the entire assembly and trade fair.
-            EXHIBITOR' badges will be issued at the earliest on the day before the opening of the fair.
-            For efficient issuing of badges, we recommend filling in the data in the generator.</p>
-            <p>Stands, their furnishings and decorations must be made only of non-flammable materials or protected with flame retardants with an appropriate level of slow flammability. The Exhibitor is obliged to present the Organizer with an appropriate certificate confirming the flammability level of the materials.</p>
-            <p><strong>Scans or photocopies of the certificates should be sent to the Organizer along with the architectural design of the stand 40 days before the start of the Fair.</strong></p>
+            <p>The place of surface pickup along with the ordered connections is the Exhibitors' Technical Service Point located on the premises of the PWE . </p>
+            <p>The acceptance of the surface together with the connections of utilities for the construction of the stand takes place on the day of the assembly commencement based on  <a href='https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf' target='_blank' rel='noopener'><strong>the Protocol of Acceptance of the exhibition space.</strong></a></p>
+            <p>Person picking up the area, if not an Exhibitor (e.g., stand contractor), should have the Exhibitor's original authorization signed and sealed by the Exhibitor. Upon arrival for setup and the exhibition, please report to the Exhibitor Office (Hall B, Entrance B9) to collect identifiers and receive the stand. During setup, we issue 'SETUP' stickers, and during the exhibition, an 'EXHIBITOR' identifier. IDENTIFIERS ARE ISSUED ONLY AT THE EXHIBITOR OFFICE. Each person preparing and managing the stand is required to wear the identifier (in a visible location) throughout the setup and exhibition period.
+            The 'EXHIBITOR' identifiers will be issued no earlier than the day before the opening of the exhibition. To facilitate the efficient issuance of identifiers, we recommend filling in the information in the generator.
+            </p>
+            <p>The technical identifiers are only valid during assembly and disassembly and do not authorize access to the fairgrounds during the event.</p>
+            <p>: Stands, their equipment, and decorations must be made exclusively from non-flammable materials or protected with fire-retardant substances of the appropriate degree of flame resistance. The exhibitor is obliged to present to the Organizer the relevant certificate confirming the flammability rating of the materials.</p>
+            <p><strong>The scan or photocopy of certificates should be sent to the Organizer along with the architectural design of the stand 40 days before the start of the Fair.</strong></p>
             <p>
-            The stand construction contractor is obliged to remove all waste and elements left over from the construction site from the stand and communication routes.
+            The contractor responsible for the construction of the stand is obliged to remove all waste and elements remaining from the construction from the stand and communication pathways.
             <br>
-            The building contractor is obliged to finish or expose each wall adjacent to the neighboring stand and which is higher than 2.4meters in an aesthetic manner, in white. It should be made from non-transparent materials.
+            The contractor responsible for the installation is obligated to finish or expose, in an aesthetically pleasing manner and in white color, every wall adjacent to the neighboring stand and higher than 2.4 m. The exposure should be made of non-transparent materials.
             </p>
             <p>
-            The Exhibitor is fully responsible for any loss or damage resulting from improper use of the space, rooms and PWE’s devices by its own employees or the company building the Exhibitor's stand.
+            The exhibitor bears full responsibility for any losses or damages resulting from improper use of the exhibition space, as well as the premises and equipment of the Exhibition and Congress Centre by their own employees or the company responsible for building the exhibitor's stand.
             <br>
-            Workers performing electrical installations must have valid SEP certificates in the field of electrical devices operation.
+            Employees performing electrical installations must have current SEP certificates for the operation of electrical devices.
             </p>
-            <h5>The Exhibitor who builds the exhibition space on his own or through a hired external company is obliged to:</h5>
+            <h5>Exhibitor performing stand construction independently or through a hired external company is obligated to:</h5>
             <ul>
-                <li>provide the name and address of the company building the stand,</li>
-                <li>authorize the construction contractor to take over (in a protocol) the exhibition space for the construction works,</li>
-                <li>submit the architectural, electrical and plumbing design of the stand for approval by the Organizer <strong>40 dni</strong> days before the start of the fair,</li>
-                <li>obtain consent to perform the above-mentioned technical installations,</li>
-                <li>send the contractor's authorization and declaration, along with certificates confirming that the materials used for the construction of the stand are non-flammable,</li>
-                <li>send full documentation of any suspended structures.</li>
+              <li>provide the name and address of the company carrying out the stand construction,</li>
+              <li>authorize the stand construction contractor to formally take over the exhibition space for the construction of the trade fair stand,</li>
+              <li><strong>submit the architectural, electrical, and plumbing project</strong> of the stand for approval by the Organizer <strong>40 days</strong> before the start of the fair,</li>
+              <li>obtain approval for the installation of the mentioned technical systems,</li>
+              <li>submit the authorization and a statement from the contractor, along with certificates confirming that the materials used for stand construction are non-flammable,</li>
+              <li>submit complete documentation regarding suspended structures.</li>
             </ul>
-            <h5>Dismantling of self-built exhibition stands</h5>
-            <p>In accordance with the regulations of the Fair, it is forbidden to take down exhibits and clear the display at the stand before the end of the Fair.</p>
-            <p>The elements of the stand must be disassembled during the hours specified by the Organizer. Exhibitors are required to remove all decorations used at the stand (exhibits, billboards, banners, posters with double-sided tape, colored foil on the development modules) and restore the exhibition space (stand) to the state found on the date of handover by the Organizer.</p>
-            <p>Disassembly of the stand must be completed no later than by the end of the date set by the Organizer. Failure to meet the deadlines will result in charging the Exhibitor with additional costs. After the dismantling is completed, the exhibition space should be handed over to the Organizer in an intact condition, corresponding to the condition of the space before the assembly of the stand. All elements used in the construction of the stand, carpeting and adhesive tape must be removed from the surface.</p>
-            <p>The exhibitor is responsible for any damage resulting from improper disassembly. The Organizer shall not be liable in any way for the destruction or loss of the Exhibitor's property not removed from the Fair site on time by the Exhibitor.</p>
-            <p>The teams entering the disassembly must have “technical” IDs (to be collected at the Exhibitor Service Point, on the premises of PWE).</p>
-            <p>Entry of vans and trucks for disassembly is possible only after the Fair ends.</p>
+            <h5>Dismantling of self-constructed exhibition stands</h5>
+            <p>According to the Trade Fair regulations, the removal of exhibits and the dismantling of the stand before the end of the Trade Fair is prohibited.</p>
+            <p>The dismantling of stand elements takes place during hours specified by the Organizer. Exhibitors are obliged to remove all decorations used at the stand (exhibits, advertising boards, banners, posters along with double-sided tape, colored foil on construction modules) and restore the occupied exhibition space to the condition it was in on the day handed over by the Organizer.</p>
+            <p>Dismantling of the stand must be completed no later than the end of the specified deadline set by the Organizer. Failure to meet deadlines will result in additional costs for the Exhibitor. After dismantling, the exhibition space should be handed over to the Organizer in an undamaged condition, corresponding to the condition of the space before the stand was assembled. All elements used for stand construction, carpeting, and adhesive tape must be removed from the space. The Exhibitor is responsible for any damages resulting from dismantling conducted improperly. The Organizer assumes no responsibility for the destruction or loss of the Exhibitor's property not removed from the Fairgrounds by the Exhibitor within the specified timeframe.
+            Teams entering for dismantling must have 'technical' identifiers (available for pickup at the Exhibitors' Technical Service Point, on the Fairgrounds).
+            Entry of delivery and heavy-duty vehicles for dismantling is only possible from the time of the Fair's conclusion.</p>
         </div>
 
         <div id='rozladunek_en' class='custom-org-info-content-item'>
-            <h2>4. Information on unloading, courier packages and forwarding in PWE.</h2>
-            <p>Materials unloading and transporting on the premises of PWE - EXHIBITORS USING COURIER COMPANIES ARE OBLIGED TO PERSONALLY COLLECT THE PACKAGES.</p>
-            <p>The delivery of goods and fair displays during the Fair must be completed at least 30 minutes before the opening of the Fair. On other days, it should take place during the assembly hours of the stands.</p>
-            <p>The Organizer is not responsible for packages sent to Exhibitors, therefore no shipment will be collected from a courier company at the Exhibitors' Technical Service Point.</p>
-            <h5>The following companies have exclusivity for transport services (e.g. driving forklifts in the exhibition halls and other transport vehicles):</h5>
+            <h2>4. Information about unloading, courier shipments, and freight at PWE.</h2>
+            <p>Unloading and transport of materials on the premises of PWE. EXHIBITORS USING COURIER COMPANIES ARE REQUIRED TO PERSONALLY RECEIVE THE DISPATCHED PACKAGES.</p>
+            <p>The delivery of goods and trade show exhibits during the Trade Fair must be completed at least 30 minutes before the opening of the Fair, and on the remaining days, it takes place during the stand setup hours.</p>
+            <p>The organizer does not take responsibility for packages sent to exhibitors, therefore, no shipment will be accepted from the courier company at the Exhibitors' Technical Service Point.</p>
+            <h5>The exclusive rights for transportation services (including the movement of forklifts and other transport vehicles in trade fair halls) belong to the following companies:</h5>
             <p>NETLOG POLSKA Sp. z o.o.<br>Rafał Skrobutan<br>Koordynator/ Coordinator<br>tel. +48 22 256 70 55<br>tel. +48 668 890 274<br>e-mail <a href='mailto:rafal.skrobutan@netlog.org.pl'>rafal.skrobutan@netlog.org.pl</a><br><a href='http://www.netlog.org.pl'>www.netlog.org.pl</a></p>
             <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href='mailto:marcin@transmeble.com.pl'>marcin@transmeble.com.pl</a></p>
-            <p>The Official Freight Forwarder of the Fair provides exclusive unloading / loading services on the premises of PWE with the use of mechanical devices, i.e. forklifts and crane trucks. Therefore, on the premises of PWE, it is forbidden for Exhibitors and third parties to use mechanical devices for unloading, e.g. cranes, mechanical forklifts, to the premises of the facility, without the consent of the Organizer or the Official Freight Forwarder of the Fair.</p>
+            <p><strong>The official Trade Fair Freight Forwarder performs, on an exclusive basis, loading and unloading services on the premises of the PWE (Polish Exhibition and Congress Center) using mechanical devices such as forklifts and cranes.</strong> In connection with this, a prohibition on the introduction of mechanical devices for unloading, such as cranes and mechanical forklifts, onto the premises by Exhibitors and third parties is in force at the PWE (Exhibition Grounds), without the consent of the Organizer or the Official Fair Freight Forwarder.</p>
+            <h5>The Freight Forwarder provides services through:</h5>
             <h5>The Freight Forwarder provides services through:</h5>
             <ul>
-                <li>organization of transport of exhibits, comprehensive customs services,</li>
-                <li>unloading and loading of fair goods in accordance with the sender's instructions,</li>
-                <li>support of qualified personnel in unpacking / packing exhibits at the stand,</li>
-                <li>professional storage of empty packaging, exhibits and stand construction materials,</li>
-                <li>rental of trolleys and transport platforms.</li>
+                <li>organization of exhibition transport, comprehensive customs services,</li>
+                <li>unloading and loading of trade goods in accordance with the sender's instructions,</li>
+                <li>assistance of qualified personnel in unpacking/packing exhibits at the stand,</li>
+                <li>professional storage of empty packaging, exhibits, and stand construction materials,</li>
+                <li>rental of forklifts and transport platforms,</li>
             </ul>
+
         </div>
 
         <div id='dokumenty_en' class='custom-org-info-content-item'>

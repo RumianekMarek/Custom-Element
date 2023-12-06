@@ -1,3 +1,108 @@
+<?php 
+if ($color != '#ffffff'){
+    $color = '#000000';
+}
+if ($color === '#ffffff') {
+    $invert = 'filter: invert(1);';
+}
+
+?>
+<style>
+.custom_element_<?php echo $rnd_id ?> #dojazd :is(h4, h5, p){
+    color: <?php echo $color ?>;
+}
+.custom-route-title-wrapper h4 {
+    width: auto !important;
+}
+.custom-route-transport-item-img {
+    display: flex;
+    align-items: center;
+    padding-right: 18px;
+}
+.custom_element_<?php echo $rnd_id ?> .custom-route-transport-item-img img {
+    width: 60px !important;
+    min-width: 60px;
+    <?php echo $invert ?>
+}
+.custom-route-image-bg {
+    aspect-ratio: 16/9;
+    background-position: center;
+    background-size: cover;
+}
+.custom-route-image-bg h3 {
+    font-size: 22px !important;
+    max-width: 90%;
+    padding: 8px;
+    margin: 0;
+}
+.custom-route-area-wrapper {
+    padding-top: 36px;
+    display: flex;
+    gap: 36px;
+    flex-direction: column;
+}
+.custom-route-area-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+.custom-route-area-block img {
+    width: 80px;
+    padding: 0 18px;
+}
+.custom-route-area-item-text {
+    align-items: center;
+}
+.custom-route-area-item-text h5 {
+    margin: 0;
+}
+@media (max-width:960px) {
+    #route{
+        padding: 36px 0;
+    }
+    .custom-route-transport-wrapper, 
+    .custom-route-area-wrapper {
+        flex-direction: column;
+    }
+    .custom-route-map-block, 
+    .custom-route-transport-block, 
+    .custom-route-image-bg-block, 
+    .custom-route-area-block {
+        width: 100% !important;
+    }
+    .custom-route-image-bg h3 {
+        font-size: 18px !important;
+    }
+    .custom-route-area-block {
+        padding: 36px 0;
+    }
+}
+@media (max-width:600px){
+    .custom-align-center {
+        font-size: 16px !important;
+    }
+    .custom-route-transport-item {
+        flex-direction: column;
+    }
+    .custom-route-transport-block h5{
+        margin: 0;
+    }
+    .custom-route-transport-block img{
+        margin: 27px 0 0;
+    }
+    .custom-route-transport-item-text {
+        text-align: center;
+    }
+    .custom-route-transport-item-img,
+    .custom-route-transport-item-text h5 {
+        padding: 0;
+        width: inherit !important;
+        justify-content: center;
+    }
+}
+</style>
 
 <div id="dojazd"class="custom-container-route">
 

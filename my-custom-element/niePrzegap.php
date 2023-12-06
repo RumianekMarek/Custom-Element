@@ -1,6 +1,97 @@
 <?php 
     if (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])) {
 ?>
+<style>
+#niePrzegap {
+    z-index: 100;
+}
+.custom-container-niePrzegap{
+    display:flex;
+}
+.custom-container-niePrzegap{
+    position: fixed;
+    left: -250px;
+    top: 30%;
+    z-index: 11;
+    transition: left 0.3s ease;
+}
+.custom-container-niePrzegap:hover,
+.niePrzegap-hover,
+.custom-container-niePrzegap.hovered-cal {
+    left: 0 !important;
+}
+.row-container:has(.custom-container-niePrzegap) .row-parent,
+.row-container:has(.custom-container-niePrzegap) .wpb_column  {
+    padding: 0 !important;
+}
+.custom-inner-niePrzegap{
+    width: 250px !important;
+    height: 250px;
+    background-color:#fff;
+    border: 4px solid #000;
+    padding: 10px 0;
+}
+.custom-pointer-niePrzegap {
+    margin: 0 -30px;
+}
+.custom-pointer-niePrzegap i{
+    text-shadow: 5px 0 #fff;
+}
+.custom-header-niePrzegap h4{
+    margin:10px;
+}
+.custom-container-calendar-niePrzegap{
+    display:flex;
+    margin:20px 5px;
+    gap: 5px;
+    justify-content: space-evenly;
+}
+.custom-container-calendar-niePrzegap .custom-container-calendar-add {
+    width: 100px;
+}
+.custom-container-calendar-niePrzegap img{
+    height:50px !important;
+    object-fit: contain;
+}
+.custom-container-calendar-niePrzegap p{
+    margin-top: 5px;
+    line-height: 1.2;
+    text-wrap: wrap;
+    width: 80%;
+}
+.custom-pointer-wrapper-niePrzegap {
+    display: flex;
+}
+.custom-pointer-wrapper-niePrzegap i {
+    color:black;
+    position: absolute;
+    left: 251px;
+}
+.custom-vertival-text-niePrzegap {
+    display: flex;
+    height: 250px;
+    position: absolute;
+    left: 247px;
+    background-color: black;
+    border-radius: 0 8px 8px 0;
+}
+.custom-vertival-text-niePrzegap p {
+    color: white;
+    padding: 11px 2px;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0px;
+    background-color: black;
+    border-radius: 0 8px 8px 0;
+}
+.link-more{
+    margin:10px;
+    text-decoration: underline;
+}
+</style>
 <div id='niePrzegap' class='custom-container-niePrzegap custom-display-none'>
     <div class='custom-inner-niePrzegap'>
         <div class='custom-header-niePrzegap text-centered'>

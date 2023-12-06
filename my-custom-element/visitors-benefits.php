@@ -1,4 +1,47 @@
-   
+<?php 
+if ($color != '#ffffff'){
+    $color = '#000000';
+}
+
+?>
+<style>
+.custom_element_<?php echo $rnd_id ?> #visitorsBenefits :is(h3, h4){
+    color: <?php echo $color ?>;
+}
+.custom-visitors-benefits-row {
+    padding-top: 18px;
+    width: 100%;
+    text-align: center;
+}
+.custom-visitors-benefits {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+}
+.custom-visitors-benefits-item {
+    width: 33%;
+}
+@media (max-width:768px) {
+    .custom-visitors-benefits {
+        gap: 18px;
+    }
+    .custom-visitors-benefits-item-heading h4 {
+        font-size: 16px;
+    }
+}
+@media (max-width:570px) {
+    .custom-visitors-benefits {
+        flex-direction: column;
+    }
+    .custom-visitors-benefits-item {
+        width: 100%;
+    }  
+    .custom-visitors-benefits-item-heading h4 {
+        font-size: 20px;
+    }
+} 
+</style>
 <div id="visitorsBenefits"class="custom-container-visitors-benefits">
 
     <div class="custom-visitors-benefits-heading main-heading-text">

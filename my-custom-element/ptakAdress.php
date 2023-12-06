@@ -1,5 +1,40 @@
+<?php 
+if ($color != '#ffffff'){
+    $color = '#000000';
+}
+?>
+<style>
+#ptakAdress{
+    border: 1px solid black;
+    min-height: 270px;
+    max-width: 500px;
+    margin:auto;
+    min-width: 350px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.custom_element_<?php echo $rnd_id ?>  #ptakAdress li{
+    color: <?php echo $color ?>;
+}
+.custom-text-ptakAdress li {
+    font-size:30px !important;
+    font-weight: 700;
+    color:black;
+    line-height: 1.2;
+}
+@media (max-width: 760px) {
+    #ptakAdress, #socialMedia {
+        min-width: 260px;
+    }
+    .custom-text-ptakAdress li {
+        font-size:24px !important;
+    }
+}
+</style>
 <div id='ptakAdress' class='custom-container-ptakAdress  text-centered drive'>
-<ul class='list-style-none custom-text-ptakAdress' style='padding-left:0 !important;'>
+<ul class='list-style-none custom-text-ptakAdress' style='padding-left:0 !important; margin: 0 !important'>
         <li> Ptak Warsaw Expo </li>
         <li> Al. Katowicka 62, </li>
         <?php if($locale == 'pl_PL'){ echo '

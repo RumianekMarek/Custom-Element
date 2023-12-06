@@ -1,6 +1,42 @@
+<?php 
+if ($color != '#000000'){
+    $color = '#ffffff';
+    $shadow = '#000000';
+} else {
+    $shadow = '#ffffff';
+}
+?>
+<style>
+    .custom_element_<?php echo $rnd_id ?> #wydarzenia h1{
+        color: <?php echo $color ?>;
+        text-shadow: 2px 2px <?php echo $shadow ?>;
+    }
+    .custom-wydarzenia-header {
+        background-image:url('/doc/background.jpg'); 
+        background-position: center; 
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 100px 18px;
+    }
+    .custom-wydarzenia-header h1 {
+        max-width: 1128px;
+        margin: 0 auto;
+    }
+    .custom-wydarzenia-header h1 span {
+        font-size: 54px;
+    }
+    @media (min-width: 300px) and (max-width: 1200px) {
+        .custom-wydarzenia-header h1 span {
+            font-size: calc(24px + (54 - 24) * ( (100vw - 300px) / (1200 - 300) ));
+        }
+    }
+    .media-logos .custom-logos-gallery-wrapper{
+        padding-top: 0 !important;
+    }
+</style>
 <div id="wydarzenia" class="custom-wydarzenia">
     <div class="custom-wydarzenia-header">
-        <h1 class="text-uppercase text-centered" style="color:white !important; text-shadow: 2px 2px black;">
+        <h1 class="text-uppercase text-centered">
         <?php if($locale == 'pl_PL'){ echo '
                 <span>Kongres Branży<br>[trade_fair_opisbranzy]</span>
             ';} else { echo '
@@ -50,14 +86,16 @@
             ';} ?>
         </p>
     </div>
-    <div class="media-logos text-centered custom-width-limit single-block-padding">
-        <h2>
-            <?php if($locale == 'pl_PL'){ echo '
-                PARTNERZY MEDIALNI
-            ';} else { echo '
-                MEDIA PATRONAGE
-            ';} ?>
-        </h2>
-        <?php include 'logos-catalog.php'; ?>
-    </div>
+    <?php if($logoscatalog != ''){ ?>
+        <div class="media-logos text-centered custom-width-limit single-block-padding">
+            <h2>
+                <?php if($locale == 'pl_PL'){ echo '
+                    PARTNERZY MEDIALNI
+                ';} else { echo '
+                    MEDIA PATRONAGE
+                ';} ?>
+            </h2>
+            <?php include 'logos-catalog.php'; ?>
+        </div>
+    <?php } ?>
 </div>

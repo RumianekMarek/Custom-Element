@@ -1,14 +1,86 @@
-<?php 
+<?php
     $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
     $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
 
-    $files = !empty($miniFiles) ? $miniFiles : $originalFiles;
+    if($gallery_images[0] != false){
+        $files = $gallery_images;
+        $file_count = count($files);
+    } else {
+        $file_count = 0;
+    }
+
+    if($file_count === 0){
+        $files = !empty($miniFiles) ? $miniFiles : $originalFiles;
+    } else {
+        for($i=$file_count; $i<4; $i++){
+            $files[] = !empty($miniFiles) ? $miniFiles[$i] : $originalFiles[$i];
+        }
+    }
 
     $topImages = array_slice($files, 0, 2);
     $bottomImages = array_slice($files, 2, 2);
-    
-    include plugin_dir_url( __FILE__ ) . 'custom-element.php';
+
+    if ($btn_color != ''){
+        $btn_color = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color;
+    }    
 ?>
+<style>
+    <?php echo $btn_color ?>
+    
+    .custom-gallery-wrapper {
+        margin: 0 auto;
+    }
+    .custom-gallery-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 36px;
+    }
+    .custom-gallery-thumbs-wrapper, .custom-gallery-desc-wrapper{
+        width: 50%;
+    }
+    .custom-gallery-thumbs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .custom-gallery-desc {
+        background-color: #eaeaea;
+    }
+    .custom-gallery-desc-wrapper .custom-btn-container, 
+    .custom-gallery-thumbs-wrapper .custom-btn-container {
+        display: flex;
+        justify-content: left;
+        text-align: center;
+    } 
+    .custom-gallery-thumbs-top, 
+    .custom-gallery-thumbs-bottom {
+        display: flex;
+        width: 100%;
+    }
+    .custom-gallery-thumbs-top img, 
+    .custom-gallery-thumbs-bottom img {
+        width: 50%;
+        padding: 5px;
+    }
+    @media (max-width: 960px) {
+        .custom-gallery-section {
+            flex-direction: column;
+        }
+        .custom-gallery-thumbs-wrapper {
+            width: 100%;
+        }
+        .custom-gallery-desc-wrapper {
+            width: 100%;
+        }
+    }
+    @media (max-width: 500px) {
+        .custom-gallery-desc-wrapper .custom-btn-container, 
+        .custom-gallery-thumbs-wrapper .custom-btn-container {
+            justify-content: center;
+        }
+    }
+</style>
 
 <div id="customGallery" class="custom-container-gallery style-accent-bg">
     <div class="custom-gallery-wrapper double-bottom-padding single-top-padding">
@@ -34,7 +106,7 @@
                             }
                         ?>
                     </div>
-                    <div class="custom-btn-container">
+                    <div class="custom-btn-container gallery-link-btn">
                         <span><?php if($locale == 'pl_PL'){ echo '
                             <a class="custom-link btn border-width-0 btn-custom-black btn-flat" href="/galeria/" alt="link do galerii">Przejdź do galerii</a>
                         ';} else { echo '
@@ -48,11 +120,18 @@
             <div class="custom-gallery-desc-wrapper">
                 <div class="custom-gallery-desc shadow-black">
                     <div class="custom-gallery-desc-content single-block-padding custom-align-left">
-                        <h3 style="margin: 0;"><?php if($locale == 'pl_PL'){ echo '
-                            [trade_fair_desc]
-                            ';} else { echo '
-                            [trade_fair_desc_eng]
-                            ';} ?>
+                        <h3 style="margin: 0;">
+                        <?php 
+                            if ($gallery_title != ''){
+                                echo $gallery_title;
+                            } else {
+                                if($locale == 'pl_PL'){ 
+                                    echo '[trade_fair_desc]';
+                                } else { 
+                                    echo '[trade_fair_desc_eng]';
+                                }
+                            }
+                            ?>
                         </h3>
 
                         <p><?php if($locale == 'pl_PL'){
@@ -66,16 +145,25 @@
                             } ?>
                         </p>
                         <?php if($tickets_available !== 'true'){
-                        echo'<div class="custom-btn-container">';
-                            if($locale == 'pl_PL'){
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/" alt="link do rejestracji" style="color:white !important;">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
-                            } else {
-                                echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/" alt="link to registration" style="color:white !important;">REGISTER<span style="display: block;font-weight: 300;">GET A FREE TICKET</span></a>';
+                            if($gallery_btn_link == '' && $gallery_btn_text == ''){
+                                if($locale == 'pl_PL'){
+                                    $gallery_btn_link ='/rejestracja/';
+                                    $gallery_btn_text ='Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span>';
+                                } else {
+                                    $gallery_btn_link ='/en/registration/';
+                                    $gallery_btn_text ='REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span>';
+                                }
                             }
+
+                        echo'<div class="custom-btn-container">';
+                            echo'<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'.$gallery_btn_link.'" alt="link do rejestracji">'.$gallery_btn_text.'</a>';
                         echo'</div>';
                         } ?>
                     </div>
                 </div>
+                <?php if ($gallery_countdown === "true") {
+                    include plugin_dir_path(__FILE__) . 'countdown.php'; 
+                } ?>
             </div>
         </div>
         <div class="custom-row-border">

@@ -1,35 +1,107 @@
 <?php 
     $exhibitorsImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    include plugin_dir_url( __FILE__ ) . 'custom-element.php';
+
+    if ($color != '#000000'){
+        $color = '#ffffff';
+    }
+    if ($btn_color != ''){
+        $btn_color = '.custom_element_'.$rnd_id.' .btn-container '.$btn_color;
+    }
 ?>
+<style>
+.custom-exhibitors-text-block img{
+    float: right;
+    max-width: 45%;
+    margin:18px;
+}
+<?php echo $btn_color ?>
+.custom-content-promote-item {
+    padding:0 5px 25px 5px;
+    flex-wrap: wrap;
+}
+.custom-content-promote-item .btn-icon-right {
+    color:white !important;
+}
+.custom-content-promote-item .custom-content-promote-element {
+    flex:1;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 250px;
+    display:flex !important;
+}
+.custom-content-promote-item div .img-bg  {
+    width: 250px;
+    min-height: 150px;
+}
+.custom-content-promote-item div .btn {
+    transform: none !important;
+    white-space: unset !important;
+    font-size: 16px;
+}
+.custom-content-promote-item div .btn-container {
+    display: flex;
+    justify-content: center;
+}
+.custom-content-promote-item__help {
+    width: 80%;
+}
+.custom_element_<?php echo $rnd_id ?> .custom-content-promote-item__help h2 {
+    margin-top: 0;
+    color: <?php echo $color ?>;
+}
+.custom-hide-promote {
+    width: 66%;
+    margin: 0 auto;
+}
+@media (max-width:950px){
+    .custom-content-promote-item__help {
+        width: 100%;
+    }
+    .custom-hide-promote {
+        width: 100%;
+    }
+}
+@media (max-width:600px) {
+    .promote-img-contener{
+        order: 2;
+        text-align: center;
+    }
+    .custom-exhibitors-text-block img{
+        float: unset;
+        max-width: 90%;
+    }
+    .custom-exhibitors-text-block{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.promote-element-background-element {
+    background: lightgrey;
+}
+</style>
 <div id="promoteYourself" >
     <div class="custom-content-exhibitors-item column-reverse custom-align-left">
         <div class="custom-exhibitors-text-block">
-            <div class="main-heading-text">
-                <h3>
-                    <?php if($locale == 'pl_PL'){ echo 'Wypromuj się na [trade_fair_name]!
-                    ';} else { echo '
-                    Promote yourself at the [trade_fair_name_eng]!
-                    ';} ?>
-                </h3>
-            </div>
-            <div class="custom-exhibitors-text">
-                <?php if($locale == 'pl_PL'){ echo '
-                <p>Drogi Wystawco!</p>
-                <p>[trade_fair_desc] – to niepowtarzalna okazja do wypromowania Twojej firmy! Chcesz by Twoje stoisko odwiedziło jak najwięcej osób? Pomożemy Ci sprawić, że Twoi klienci dowiedzą się, że jesteś częścią [trade_fair_name]!</p>
-                <p>Poniżej KROK po KROKU wyjaśniamy jak sprawić, by o Twojej obecności na Targach dowiedzieli się Twoi klienci!</p>
-                ';} else { echo '
-                <p>Dear Exhibitor!</p>
-                <p>[trade_fair_desc_eng] - is a unique opportunity to promote your company! You want your stand to visit how the most people? We will help you make your clients know that you are part of [trade_fair_name_eng].</p>
-                <p>Below we explain STEP by STEP how to make your presence at the Fair known to your customers!</p>
-                ';} ?>
-            </div>
-        </div>
-        <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
                 $thirdImage = $exhibitorsImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '"></div></div>';
+                echo '<div class="t-entry-visual promote-img-contener"><img class="image-shadow" src="' . $shortPath . '"></div>';
+
+                if($locale == 'pl_PL'){ 
+                    echo '<h3>Wypromuj się na [trade_fair_name]!</h3>';
+                } else { 
+                    echo '<h3>Promote yourself at the [trade_fair_name_eng]!</h3>';}
+                if($locale == 'pl_PL'){ 
+                    echo '
+                        <p>Drogi Wystawco!</p>
+                        <p>[trade_fair_desc] – to niepowtarzalna okazja do wypromowania Twojej firmy! Chcesz by Twoje stoisko odwiedziło jak najwięcej osób? Pomożemy Ci sprawić, że Twoi klienci dowiedzą się, że jesteś częścią [trade_fair_name]!</p>
+                        <p>Poniżej KROK po KROKU wyjaśniamy jak sprawić, by o Twojej obecności na Targach dowiedzieli się Twoi klienci!</p>';
+                } else { 
+                    echo '
+                        <p>Dear Exhibitor!</p>
+                        <p>[trade_fair_desc_eng] - is a unique opportunity to promote your company! You want your stand to visit how the most people? We will help you make your clients know that you are part of [trade_fair_name_eng].</p>
+                        <p>Below we explain STEP by STEP how to make your presence at the Fair known to your customers!</p>';
+                } 
             ?>
         </div>
     </div>
@@ -101,7 +173,7 @@
             <p>800×800</p>
             <div>
                 <span class="btn-container">
-                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800" >Pobierz<i class="fa fa-inbox2"></i></a>
+                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="800x800" >Pobierz<i class="fa fa-inbox2"></i></a>
                 </span>
             </div>
             ';
@@ -115,7 +187,7 @@
         <p>800×800</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="800x800">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -127,7 +199,7 @@
         echo ' <p>1200x200</p>
                 <div>
                     <span class="btn-container">
-                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="1200x200">Pobierz<i class="fa fa-inbox2"></i></a>
+                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="1200x200">Pobierz<i class="fa fa-inbox2"></i></a>
                     </span>
                 </div> ';
     }
@@ -140,7 +212,7 @@
         <p>1200x200</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="1200x200">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="1200x200">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -219,7 +291,7 @@
         </div>
     </div>
     <div class="custom-shadow-border-black style-accent-bg custom-content-promote-item__help" style="margin:35px auto; padding: 35px 20px;">
-        <h2 class="text-color-xsdn-color" style="margin-top:0;">
+        <h2>
             <?php if($locale == 'pl_PL'){ echo '
                 Gdybyś potrzebował więcej napisz do nas, a my postaramy się pomóc! Tylko działając razem jesteśmy w stanie osiągnąć sukces.
             ';} else { echo '

@@ -39,30 +39,40 @@ if(isset($_POST['submit_haslo'])){
         </form>
         <p>Pobierane są losowe recordy, jeżęli ilość będzie pusta zostaną pobrane wszystkie</p>';
     
-    function Create_JSON ($form_id, $download_count){
-        
+    function Create_JSON ($form_ids, $download_count){
+
         if (class_exists('GFAPI')) {
-            $entries = $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 0 ));
             $qr_code_resoult = array();
             
-            $feeds = GFAPI::get_feeds( NULL, $form_id);
-            $custom[0] = $feeds[0]['meta']['qrcodeFields'][0]['custom_key'];
-            $custom[1] = $feeds[0]['meta']['qrcodeFields'][1]['custom_key'];
+            foreach($form_ids as $form_id){
+                $entries = $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 0 ));
+                $feeds = GFAPI::get_feeds( NULL, $form_id);
 
-            if (is_array($entries)) {
-                shuffle($entries);
-                for($i=0; $i<$download_count; $i++){
-                    if ($entries[$i]['id']){
-                        $qr_code_resoult[] = $custom[0] . $entries[$i]['id'] . $custom[1] . $entries[$i]['id'];
-                    }
+                if(isset($feeds[0]['meta']['hash']) == false){
+                    $custom[0] = $feeds[0]['meta']['qrcodeFields'][0]['custom_key'];
+                    $custom[1] = $feeds[0]['meta']['qrcodeFields'][1]['custom_key'];
+                } else {
+                    $custom[0] = $feeds[1]['meta']['qrcodeFields'][0]['custom_key'];
+                    $custom[1] = $feeds[1]['meta']['qrcodeFields'][1]['custom_key'];
                 }
-            } else {
-                echo 'formularz nie istnieje lub jest pusty';
+                
+                if (is_array($entries)) {
+                    shuffle($entries);
+                    for($i=0; $i<$download_count; $i++){
+                        if ($entries[$i]['id']){
+                            $qr_code_resoult[] = '"' . $custom[0] . $entries[$i]['id'] . $custom[1] . $entries[$i]['id'] . '"';
+                        }
+                    }
+                } else {
+                    echo 'formularz nie istnieje lub jest pusty';
+                }
             }
         }
 
         $jsonData = json_encode($qr_code_resoult);
-        $file_name = 'form_'.$form_id.'_'.date('y_m_d').'.json';
+        $trade_name = do_shortcode("[trade_fair_name]");
+
+        $file_name = 'form '. $trade_name.' '.date('y.m.d').'.json';
     ?>
         <script>
             DownloadFile(<?php echo $jsonData ?>, "<?php echo $file_name ?>")
@@ -72,10 +82,8 @@ if(isset($_POST['submit_haslo'])){
 
     if(isset($_POST["submit"])){
         require_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
-        $array = explode(",", $_POST["form_id"]);
-        foreach ($array as $form){
-            Create_JSON ($form, $_POST['donwload_number']);
-        } 
+        $forms_array = explode(",",$_POST["form_id"]);
+        Create_JSON ($forms_array, $_POST['donwload_number']); 
     }
 }
 ?>

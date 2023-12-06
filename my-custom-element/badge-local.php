@@ -4,7 +4,7 @@
         border-color: black !important;
         opacity: 1;
     }
-    #badge-generator ::placeholder{
+    #badge-generator ::placeholder, .gform-field-label, .gform-field-label span{
         color:black !important;
         opacity: 1;
     }

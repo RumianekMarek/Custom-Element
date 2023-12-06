@@ -1,36 +1,3 @@
-
-    <div id="custom-estymacje" class="custom-estymacje" style="color:black;">
-        <div class="custom-estymacje-left">
-            <p class="estymacje-main-title">Estymacje 1. edycji</p>
-            <div>
-                <p class="estymacje-title">Polska - 90%</p>
-                <p class="estymacje-desc">7 200</p>
-            </div>
-            <div>
-                <p class="estymacje-title">Zagranica - 10%</p>
-                <p class="estymacje-desc">800</p>
-            </div>
-            <div>
-                <p class="estymacje-title">Suma<span style="color: black; font-weight:500"> - 8000</span></p>
-                <p class="estymacje-desc">Branżowych</p>
-                <p class="estymacje-desc">Odwiedzających</p>
-            </div>
-        </div>
-        <div class="custom-estymacje-right">
-            <div class="custom-estymacje-img-box">
-                <img src="/doc/logo-color.png"/>
-                <p class="estymacje-data" style="text-align: center;">20-23 Maja 2023</p>
-            </div>
-            <div style="margin-bottom: 20%;">
-                <p class="estymacje-metr">20 000 m<sup>2</sup></p>
-                <p class="estymacje-desc">powierzchni<br>wystawienniczej</p>
-                <br>
-                <p class="estymacje-title">90</sup></p>
-                <p class="estymacje-desc">wystawców</p>
-            </div>
-        </div>
-    </div>
-    <div class="mobile-estymacje-image"></div>
 <style>
     .custom-estymacje p{
         line-height: 1;
@@ -40,10 +7,7 @@
         text-transform:uppercase;
     }
     .custom-estymacje :is(.estymacje-title, .estymacje-metr, .estymacje-data, .estymacje-main-title){
-        font-weight:800;
-    }
-    .custom-estymacje .estymacje-title{
-        color: #48b8e0;
+        font-weight:750;
     }
     @media (min-width: 1200px){
         .custom-estymacje{
@@ -57,10 +21,12 @@
             justify-content: space-between;
         }
         .estymacje-main-title{
-            font-size:36px;
+            text-transform: uppercase;
+            font-size:40px;
+            max-width: 550px;
         }
         .custom-estymacje-left{
-            align-self: center;
+            align-self: top;
         }
         .custom-estymacje-left div{
             margin-top:50px;
@@ -69,10 +35,13 @@
             display: flex; 
             flex-direction: column; 
             align-items: flex-end; 
-            justify-content: space-around;
+            justify-content: space-between;
         }
         .custom-estymacje-right{
             max-width:250px;
+        }
+        .custom-estymacje-right-bottom{
+            margin:auto;
         }
         .estymacje-title{
             font-size:32px;
@@ -82,7 +51,7 @@
             font-size:28px;
         }
         .estymacje-data{
-            font-size:24px;
+            font-size:20px;
         }
         .estymacje-metr{
             font-size:24px;
@@ -100,7 +69,10 @@
             justify-content: space-between;
         }
         .custom-estymacje-left{
-            align-self: center;
+            align-self: top;
+        }
+        .custom-estymacje-left p{
+            max-width: 43vw;
         }
         .custom-estymacje-left div{
             margin-top:20px;
@@ -109,12 +81,16 @@
             display: flex; 
             flex-direction: column; 
             align-items: flex-end; 
-            justify-content: space-around;
+            justify-content: space-between;
+        }
+        .custom-estymacje-right-bottom{
+            margin:auto 0 auto auto;
         }
         .custom-estymacje-right img{
             max-width:22vw;
         }
         .estymacje-main-title{
+            text-transform: uppercase;
             font-size: 3vw;
             margin-bottom:50px;
         }
@@ -160,3 +136,38 @@
         }
     }
 </style>
+<div id="custom-estymacje" class="custom-estymacje" style="color:black;">
+    <div class="custom-estymacje-left">
+        <p class="text-accent-color estymacje-main-title"><?php echo $title_estymacje ?></p>
+        <div>
+            <p class="text-accent-color estymacje-title">Polska - <?php echo $polish_estymacje ?>%</p>
+            <p class="estymacje-desc"><?php echo floor($visitors_estymacje / 100 * $polish_estymacje) ?></p>
+        </div>
+        <div>
+            <p class="text-accent-color estymacje-title">Zagranica - <?php echo (100 - $polish_estymacje) ?>%</p>
+            <p class="estymacje-desc"><?php echo ($visitors_estymacje - floor($visitors_estymacje / 100 * $polish_estymacje)) ?></p>
+        </div>
+        <div>
+            <p class="text-accent-color estymacje-title">Suma<span style="color: black; font-weight:500"> - <?php echo $visitors_estymacje ?></span></p>
+            <p class="estymacje-desc">Branżowych</p>
+            <p class="estymacje-desc">Odwiedzających</p>
+        </div>
+    </div>
+    <div class="custom-estymacje-right">
+        <div class="custom-estymacje-img-box">
+            <img src="/doc/logo-color.png"/>
+            <p class="estymacje-data" style="text-align: center;"><?php echo $date_estymacje ?></p>
+        </div>
+        <div class="custom-estymacje-right-bottom">
+            <p class="estymacje-metr"><?php echo $space_estymacje ?> m<sup>2</sup></p>
+            <p class="estymacje-desc">powierzchni<br>wystawienniczej</p>
+            <br>
+            <?php if($exhibitors_estymacje != ''){ 
+                $estymacje_array = explode(' ', $exhibitors_estymacje, 2);
+                echo '<p class="text-accent-color estymacje-title">'.$estymacje_array[0].'</p>
+                <p class="estymacje-desc">'.$estymacje_array[1].'</p>';
+            }?>
+        </div>
+    </div>
+</div>
+<div class="mobile-estymacje-image"></div>

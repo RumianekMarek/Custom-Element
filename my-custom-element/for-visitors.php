@@ -1,4 +1,48 @@
 <?php 
+if ($color != '#ffffff'){
+    $color = '#000000';
+}
+if ($btn_color != ''){
+    $btn_color = '.custom_element_'.$rnd_id.' #forVisitors ' . $btn_color;
+}
+
+?> 
+<style>
+.custom_element_<?php echo $rnd_id ?> #forVisitors p{
+    color: <?php echo $color ?>;
+}
+
+<?php echo $btn_color ?>
+
+.custom-content-visitors-item{
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    gap: 36px;
+    padding-bottom: 36px;
+}
+.custom-visitors-image-block, .custom-visitors-text-block{
+    width: 50%;
+}
+.custom-visitors-image-block img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+@media (max-width:768px){
+    .custom-content-visitors-item{
+        flex-direction: column;
+    }
+    .custom-visitors-image-block,
+    .custom-visitors-text-block {
+        width: 100%;
+    }
+    .custom-visitors-text {
+        padding: 18px 0;
+    }
+}
+</style>
+<?php 
     $visitorImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
 ?>
@@ -45,9 +89,9 @@
             <div class="custom-btn-container">
                 <span>
                 <?php if($locale == 'pl_PL'){
-                   echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank" style="color:white !important">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>
+                   echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/rejestracja/"  target="_blank">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>
                 ';} else { echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank" style="color:white !important">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/registration/"  target="_blank">REGISTER<span style="display: block; font-weight: 300;">GET A FREE TICKET</span></a>
                 ';} ?>
                 </span>
             </div>

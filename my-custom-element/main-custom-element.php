@@ -47,7 +47,8 @@ function my_custom_wpbakery_element() {
             'Organizator' => 'organizator.php',
             'Mapka dojazdu' => 'route.php',
             'Ramka Facebook' => 'socialMedia.php',
-            'Timer' => 'main-timer.php',
+            'Main timer' => 'main-timer.php',
+            'Countdown' => 'countdown.php',
             'Visitors Benefits' => 'visitors-benefits.php',
             'Voucher' => 'voucher.php',
             'Wydarzenia - ogólne informacje' => 'wydarzenia-ogolne.php',
@@ -56,41 +57,6 @@ function my_custom_wpbakery_element() {
           ),
           'save_always' => true,
           'admin_label' => true,
-        ),
-        array(
-          'type' => 'param_group',
-          'group' => 'Replace Strings',
-          'param_name' => 'replace_items',
-          'params' => array(
-              array(
-                  'type' => 'textfield',
-                  'heading' => __('Tag', 'my-custom-plugin'),
-                  'param_name' => 'tag_replace',
-                  'save_always' => true,
-                  'admin_label' => true
-              ),
-              array(
-                'type' => 'textfield',
-                'heading' => __('Class', 'my-custom-plugin'),
-                'param_name' => 'class_replace',
-                'save_always' => true,
-                'admin_label' => true
-            ),
-              array(
-                  'type' => 'textfield',
-                  'heading' => __('Input string', 'my-custom-plugin'),
-                  'param_name' => 'input_replace',
-                  'save_always' => true,
-                  'admin_label' => true
-              ),
-              array(
-                  'type' => 'textfield',
-                  'heading' => __('Output string', 'my-custom-plugin'),
-                  'param_name' => 'output_replace',
-                  'save_always' => true,
-                  'admin_label' => true
-              ),
-          ),
         ),
         array(
           'type' => 'textfield',
@@ -104,9 +70,22 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'dropdown',
           'group' => 'Main Settings',
-          'heading' => __('Select a color', 'my-custom-plugin'),
+          'heading' => __('Select text color', 'my-custom-plugin'),
           'param_name' => 'color',
-          'description' => __('Select a color for the element.', 'my-custom-plugin'),
+          'description' => __('Select text color for the element.', 'my-custom-plugin'),
+          'value' => array(
+            'Default' => '',
+            'White' => '#ffffff',
+            'Black' => '#000000'
+          ),
+          'save_always' => true
+        ),
+        array(
+          'type' => 'dropdown',
+          'group' => 'Main Settings',
+          'heading' => __('Select button color', 'my-custom-plugin'),
+          'param_name' => 'btn_color',
+          'description' => __('Select button color for the element.', 'my-custom-plugin'),
           'value' => array(
             'Default' => '',
             'White' => '#ffffff',
@@ -193,6 +172,64 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Title for Main Page Gallery', 'my-custom-plugin'),
+          'param_name' => 'gallery_title',
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('gallery.php')
+          ),
+        ),array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Button Register Text', 'my-custom-plugin'),
+          'param_name' => 'gallery_btn_text',
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('gallery.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Button Register Link', 'my-custom-plugin'),
+          'param_name' => 'gallery_btn_link',
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('gallery.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Hide registery button', 'my-custom-plugin'),
+          'param_name' => 'tickets_available',
+          'description' => __('Check to hide the registration button on Fair there is no registration available.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('gallery.php')
+          ),
+        ),
+        array(
+          'type' => 'attach_images',
+          'group' => 'Images',
+          'heading' => __('Select 4 Images ~300/200', 'my-custom-plugin'),
+          'param_name' => 'gallery_images',
+          'description' => __('Choose images from the gallery.', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('gallery.php')
+          ),
+        ),
+        array(
           'type' => 'textarea_raw_html',
           'group' => 'Main Settings',
           'heading' => esc_html__('Text for Main Page Gallery', 'my-custom-plugin'),
@@ -214,6 +251,19 @@ function my_custom_wpbakery_element() {
           'dependency' => array(
               'element' => 'element',
               'value' => array('gallery.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Turn on countdown', 'my-custom-plugin'),
+          'param_name' => 'gallery_countdown',
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('gallery.php')
           ),
         ),
         array(
@@ -311,20 +361,6 @@ function my_custom_wpbakery_element() {
           'dependency' => array(
             'element' => 'element',
             'value' => array('promote-yourself.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Hide registery button', 'my-custom-plugin'),
-          'param_name' => 'tickets_available',
-          'description' => __('Check to hide the registration button on Fair there is no registration available.', 'my-custom-plugin'),
-          'admin_label' => true,
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('gallery.php')
           ),
         ),
         array(
@@ -503,7 +539,7 @@ function my_custom_wpbakery_element() {
               'element' => 'element',
               'value' => array('kontakt-info.php')
           ),
-      ),
+        ),
         array(
           'type' => 'textarea',
           'group' => 'Contacts',
@@ -516,6 +552,172 @@ function my_custom_wpbakery_element() {
               'value' => array('kontakt-info.php')
           ),
         ),
+        array(
+          'type' => 'param_group',
+          'group' => 'Replace Strings',
+          'param_name' => 'replace_items',
+          'params' => array(
+            array(
+              'type' => 'textarea',
+              'heading' => __('Input HTML', 'my-custom-plugin'),
+              'param_name' => 'input_replace_html',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+                'type' => 'textarea',
+                'heading' => __('Output HTML', 'my-custom-plugin'),
+                'param_name' => 'output_replace_html',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+          ),
+        ),
+        array(
+          'type' => 'textarea',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Title', 'my-custom-plugin'),
+          'param_name' => 'title_estymacje',
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('All visitors', 'my-custom-plugin'),
+          'param_name' => 'visitors_estymacje',
+          'description' => __('Set how many visitors entered the fair', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Visitors from Poland in %', 'my-custom-plugin'),
+          'param_name' => 'polish_estymacje',
+          'description' => __('How much percentage of visitors ware from poland, the rest will by from abroad', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Data of previus Edition', 'my-custom-plugin'),
+          'param_name' => 'date_estymacje',
+          'description' => __('Set up a date of previus edition', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('Exhibitors space', 'my-custom-plugin'),
+          'param_name' => 'space_estymacje',
+          'description' => __('How much was total exhibitors space', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => esc_html__('More discription', 'my-custom-plugin'),
+          'param_name' => 'exhibitors_estymacje',
+          'description' => __('Set more descriptions ex. "25 krajów"', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+              'element' => 'element',
+              'value' => array('estymacje.php')
+          ),
+        ),
+        array(
+          'type' => 'param_group',
+          'group' => 'Main Settings',
+          'heading' => __('Add countdown', 'my-custom-plugin'),
+          'param_name' => 'countdowns',
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('countdown.php', 'gallery.php')
+          ),
+          'params' => array(
+            array(
+              'type' => 'textfield',
+              'heading' => __('Start', 'my-custom-plugin'),
+              'param_name' => 'countdown_start',
+              'description' => __('Format (Y/M/D H:M)', 'my-custom-plugin'),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('End', 'my-custom-plugin'),
+              'param_name' => 'countdown_end',
+              'description' => __('Format (Y/M/D H:M)', 'my-custom-plugin'),
+              'save_always' => true,
+              'admin_label' => true
+            ), 
+            array(
+              'type' => 'textfield',
+              'heading' => __('Placeholder text PL', 'my-custom-plugin'),
+              'param_name' => 'countdown_text_pl',
+              'description' => __('Default: "Do targów pozostało/Until the start of the fair"', 'my-custom-plugin'),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Placeholder text EN', 'my-custom-plugin'),
+              'param_name' => 'countdown_text_en',
+              'description' => __('Default: "Do targów pozostało/Until the start of the fair"', 'my-custom-plugin'),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Font size', 'my-custom-plugin'),
+              'param_name' => 'countdown_font_size',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Color', 'my-custom-plugin'),
+              'param_name' => 'countdown_color',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'checkbox',
+              'heading' => __('Turn on placeholder text', 'my-custom-plugin'),
+              'param_name' => 'turn_on_countdown_text',
+              'value' => array(__('True', 'my-custom-plugin') => 'true',),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'checkbox',
+              'heading' => __('Row->Column', 'my-custom-plugin'),
+              'param_name' => 'countdown_column',
+              'value' => array(__('True', 'my-custom-plugin') => 'true',),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -524,17 +726,41 @@ function my_custom_wpbakery_element() {
 function my_custom_element_output($atts, $content = null) {
     // Get the current language of the website
     $locale = get_locale();
+    $rnd_id = rand(10000, 99999);
 
-    $trade_date = do_shortcode('[trade_fair_date]');
+    if ($locale === 'pl_PL'){
+      $trade_date = do_shortcode('[trade_fair_date]');
+      $trade_name = do_shortcode('[trade_fair_name]');
+      $trade_desc = do_shortcode('[trade_fair_desc]');
+    } else {
+      $trade_date = do_shortcode('[trade_fair_date_eng]');
+      $trade_name = do_shortcode('[trade_fair_name_eng]');
+      $trade_desc = do_shortcode('[trade_fair_desc_eng]');
+    }
     $trade_start = do_shortcode('[trade_fair_datetotimer]');
     $trade_end = do_shortcode('[trade_fair_enddata]');
-    $trade_name = do_shortcode('[trade_fair_name]');
-    $trade_desc = do_shortcode('[trade_fair_desc]');
-    $trade_name_en = do_shortcode('[trade_fair_name_eng]');
 
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
+
+    if ($atts['btn_color'] === '') { 
+     $btn_color = '';
+    } elseif ($atts['btn_color'] === '#ffffff'){ 
+      $btn_color = '.btn {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        box-shadow: 9px 9px 0px -5px #000000 !important;
+       }'; 
+    } elseif ($atts['btn_color'] === '#000000'){ 
+      $btn_color = '.btn {
+        background-color: #000000 !important;
+        border-color: #000000 !important;
+        box-shadow: 9px 9px 0px -5px #ffffff !important;
+      }'; 
+    }
+    
     if (isset($atts['element'])) { $element = $atts['element']; }
     if (isset($atts['exhibitor1'])) { $exhibitor1 = $atts['exhibitor1']; }
     if (isset($atts['exhibitor2'])) { $exhibitor2 = $atts['exhibitor2']; }
@@ -549,6 +775,7 @@ function my_custom_element_output($atts, $content = null) {
       $logoscatalog = $atts['logoscatalog'];
     }
 
+    if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
     if (isset($atts['titlecatalog'])) { $titlecatalog = $atts['titlecatalog']; }
     if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
@@ -566,129 +793,78 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['footer_logo_color'])) { $footer_logo_color = $atts['footer_logo_color']; }
     if (isset($atts['horizontal'])) { $horizontal = $atts['horizontal']; }
     if (isset($atts['worker_form_id'])) { $worker_form_id = $atts['worker_form_id']; }
+    if (isset($atts['gallery_countdown'])) { $gallery_countdown = $atts['gallery_countdown']; }
     if (isset($atts['guest_form_id'])) { $guest_form_id = $atts['guest_form_id']; }
     if (isset($atts['badge_form_id'])) { $badge_form_id = $atts['badge_form_id']; }
     if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
     if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
+
 
     if (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']) && isset($atts['gallery_mobile'])) {
         $gallery = $atts['gallery_mobile'];
     } else {
       if (isset($atts['gallery'])) { $gallery = $atts['gallery']; }
     }
+    if (isset($atts['gallery_title'])) { $gallery_title = $atts['gallery_title']; }
+    if (isset($atts['gallery_btn_link'])) { $gallery_btn_link = $atts['gallery_btn_link']; }
+    if (isset($atts['gallery_btn_text'])) { $gallery_btn_text = $atts['gallery_btn_text']; }
 
     if (isset($atts['replace_items'])) {
       $replace_items = $atts['replace_items'];
       $replace_items_urldecode = urldecode($replace_items);
       $replace_items_json = json_decode($replace_items_urldecode, true);
 
-      $tag_replace_array = array();
-      $class_replace_array = array();
-      $input_replace_array = array();
-      $output_replace_array = array();
+      $input_replace_array_html = array();
+      $output_replace_array_html = array();
       
       foreach ($replace_items_json as $replace_item) {
-        $tag_replace_array[] = $replace_item["tag_replace"];
-        $class_replace_array[] = $replace_item["class_replace"];
-        $input_replace_array[] = $replace_item["input_replace"];
-        $output_replace_array[] = $replace_item["output_replace"];
+        $input_replace_array_html[] = $replace_item["input_replace_html"];
+        $output_replace_array_html[] = $replace_item["output_replace_html"];
       }
-
-      ?>
-      <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const tag_replace_array = <?php echo json_encode($tag_replace_array); ?>;
-        const class_replace_array = <?php echo json_encode($class_replace_array); ?>;
-        const input_replace_array = <?php echo json_encode($input_replace_array); ?>;
-        const output_replace_array = <?php echo json_encode($output_replace_array); ?>;
-
-        // Replace strings  
-        for (let i = 0; i < tag_replace_array.length; i++) {
-          let tag_replace = tag_replace_array[i];
-          let class_replace = class_replace_array[i];
-          let input_replace = input_replace_array[i];
-          let output_replace = output_replace_array[i];
-
-          if ((tag_replace || class_replace) && input_replace && output_replace) {
-            let elementsToReplace;
-
-            if (tag_replace) {
-                elementsToReplace = document.getElementsByTagName(tag_replace);
-            } else if (class_replace) {
-                elementsToReplace = document.getElementsByClassName(class_replace);
-            }
-
-            for (let j = 0; j < elementsToReplace.length; j++) {
-                
-                if (elementsToReplace[j].innerText.toLowerCase() == input_replace.toLowerCase()) {
-                    elementsToReplace[j].innerText = output_replace;
-                }
-            }
-          }
-        }  
-      });
-      </script>
-      <?php
     }
 
+    if (isset($atts['title_estymacje'])) { $title_estymacje = $atts['title_estymacje']; } else { $title_estymacje = 'Branżowi odwiedzający<br>1. Edycji'; }
+    if (isset($atts['visitors_estymacje'])) { $visitors_estymacje = $atts['visitors_estymacje']; } else { $visitors_estymacje = '3638'; }
+    if (isset($atts['polish_estymacje'])) { $polish_estymacje = $atts['polish_estymacje']; } else {$polish_estymacje = '93'; }
+    if (isset($atts['date_estymacje'])) { $date_estymacje = $atts['date_estymacje']; } else {$date_estymacje = $trade_date; }
+    if (isset($atts['space_estymacje'])) { $space_estymacje = $atts['space_estymacje']; } else {$space_estymacje = '20 000'; }
+    if (isset($atts['exhibitors_estymacje'])) { $exhibitors_estymacje = $atts['exhibitors_estymacje']; } else {$exhibitors_estymacje = '90'; }
+    
+    if (isset($atts['gallery_images'])) {
+      $gallery_array = explode(',' , $atts['gallery_images']);
+      $gallery_images = array(); 
+      foreach($gallery_array as $image){
+        $gallery_images[] = wp_get_attachment_url($image);
+      }
+    }
+    
     if (empty($element)) {
       $file_path = plugin_dir_path(__FILE__) . $atts['file'];
     } else {
       $file_path = plugin_dir_path(__FILE__) . $atts['element'];
     }
-    
+
     if (file_exists($file_path)) {
       ob_start();
       include $file_path;
       $file_cont = ob_get_clean();
   
       $file_cont = do_shortcode($file_cont);
-  
-      if ($color != '') {
-        $file_cont = str_replace(
-          array('color:white !important', 'color:black !important','color:#ffffff !important', 'color:#000000 !important', 'box-shadow: 9px 9px 0px -6px white', 'box-shadow: 9px 9px 0px -6px black','border-bottom:1px solid white','border-bottom:1px solid black'),
-          array('color:'.$color.' !important', 'color:'.$color.' !important','color:'.$color.' !important', 'color:'.$color.' !important', 'box-shadow: 9px 9px 0px -6px '.$color, 'box-shadow: 9px 9px 0px -6px '.$color,'border-bottom:1px solid '.$color,'border-bottom:1px solid '.$color),
-          $file_cont
-        );  
-      }
-      
-      if ($color != '') {
-        if ($color == '#ffffff') {
-          $color1 = '#000000';
-        } elseif ($color == '#000000') {
-          $color1 = '#ffffff';
-        }
-        $file_cont = str_replace(
-          array('text-shadow: 2px 2px white', 'text-shadow: 2px 2px black'),
-          array('text-shadow: 2px 2px '.$color1, 'text-shadow: 2px 2px '.$color1),
-          $file_cont
-        );  
-      }
 
-      if ($color != '') {
-        if ($color == '#ffffff') {
-          $color2 = 'white';
-        } elseif ($color == '#000000') {
-          $color2 = 'black';
-        }
-        $file_cont = str_replace(
-          array('btn-custom-black','btn-custom-white','custom-box-top-left-white','custom-box-top-left-black','custom-box-bottom-right-white','custom-box-bottom-right-black'),
-          array('btn-custom-'.$color2,'btn-custom-'.$color2,'custom-box-top-left-'.$color2,'custom-box-top-left-'.$color2,'custom-box-bottom-right-'.$color2,'custom-box-bottom-right-'.$color2),
-          $file_cont
-        );  
-      }
-
-
-  
-      if ($color == '#000000') {
-        $file_cont = str_replace(
-          array('saturate'),
-          array('invert'),
-          $file_cont
-        );  
+      // Replace HTML elements
+      if ($input_replace_array_html && $output_replace_array_html) {
+        $original_html = $file_cont;
+        $file_cont = str_replace($input_replace_array_html, $output_replace_array_html, $file_cont);
+        if (current_user_can('administrator')  && !is_admin()) {
+          if ($original_html === $file_cont) {
+            echo '<script>console.error("Błąd: Zamiana nie została dokonana w elemencie '. $element .'");</script>';
+          } else {
+            echo '<script>console.log("Zamiana została dokonana w elemencie '. $element .'");</script>';
+          }
+        }  
       }
   
-      $file_cont = '<div class="custom_element">' . $file_cont . '</div>';
+      $file_cont = '<div class="custom_element custom_element_'.$rnd_id.'">' . $file_cont . '</div>';
       return $file_cont;
     } else {
       echo '<script>console.error("File not found: ' . $file_path . '");</script>';

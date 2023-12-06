@@ -1,7 +1,52 @@
 <?php 
     $exhibitorsImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
+
+    if ($color != '#ffffff'){
+        $color = '#000000';
+    }
 ?>
+<style>
+    .custom_element_<?php echo $rnd_id ?> #forExhibitors :is(h4, p){
+        color: <?php echo $color ?>
+    }
+
+    .custom-container-exhibitors {
+        margin: 0 auto;
+    }
+    .custom-content-exhibitors-item{
+        width: 100%;
+        display:flex;
+        justify-content: center;
+        gap: 36px;
+        padding-bottom: 36px;
+    }
+    .custom-exhibitors-image-block, .custom-exhibitors-text-block{
+        width: 50%;
+    }
+    .custom-exhibitors-image-block img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+
+    @media (max-width:768px) {
+        .custom-content-exhibitors-item{
+            flex-direction: column;
+        }
+        .column-reverse {
+            flex-direction: column-reverse !important;
+        }
+        .custom-exhibitors-image-block,
+        .custom-exhibitors-text-block {
+            width: 100%;
+        }
+        .custom-exhibitors-text {
+            padding: 18px 0;
+        }  
+    }
+
+</style>
 <div id="forExhibitors"class="custom-container-exhibitors">
 
     <!-- for-exhibitors-item -->

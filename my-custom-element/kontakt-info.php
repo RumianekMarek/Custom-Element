@@ -12,7 +12,34 @@
         $content_array[$cont['id']] = $cont['value'];
     }
 
+    if ($color != '#ffffff'){
+        $color = '#000000';
+    } else {
+        $invert = '.custom_element_'.$rnd_id.' #contact-info .contact-info-img-default{
+            filter: invert(100%);
+        }';
+    }
 ?>
+<style>
+    .custom_element_<?php echo $rnd_id ?> #contact-info :is(a, p, h4, b){
+        color: <?php echo $color ?>
+    }
+
+    <?php echo $invert ?>
+
+    .raw-custom-container {
+        display: flex;
+        align-items: center;
+    }
+    .custom-container-contact-info-items .contact-info-img-custom {
+        width:120px;
+        height:120px;
+    }
+    .custom-container-contact-info-items .contact-info-img-default {
+        width:120px;
+        height:100px;
+    }
+</style>
 <div id="contact-info" class="custom-container-contact">
   <div class="heading-text el-text main-heading-text hal-bloack-padding">
     <h4> <?php if($locale == 'pl_PL'){ echo '
@@ -29,9 +56,9 @@
                 <div class="raw-custom-container">
                 <div class="half-block-padding">';
             if ($content_array['photo'.$i]){
-                echo '<div class="image-shadow"><img width="100px"height="100px" src="'.$content_array['photo'.$i].'" alt="zdjęcie"></div>';
+                echo '<div class="image-shadow"><img class="contact-info-img-custom" src="'.$content_array['photo'.$i].'" alt="zdjęcie"></div>';
             } else {
-                echo '<div class="image-shadow"><img width="100px"height="100px" src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="zdjęcie"></div>';
+                echo '<div class="image-shadow"><img class="contact-info-img-default" src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="zdjęcie"></div>';
             }
                 echo '</div>
                 <div class="uncode_text_column">';

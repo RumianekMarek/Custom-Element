@@ -1,65 +1,57 @@
+<?php 
+if ($color === '#ffffff'){
+    $invert = '.custom_element_'.$rnd_id.' #kontakty img{
+      filter: invert(100%);
+    }';
+}
+?>
+<style>
+    <?php echo $invert ?>
+
+    .raw-custom-container{
+        display:flex; 
+        align-items: center;
+        gap: 18px;
+    }
+    .custom-container-contact img{
+        max-width:150px !important;
+    }
+
+    .custom_element_<?php echo $rnd_id ?>  .uncode_text_column :is(p, a),
+    .custom_element_<?php echo $rnd_id ?>  .heading-text h4{
+        color: <?php echo $color ?> !important;
+    }
+    @media (max-width:860px){
+        .uncell:has(.custom-container-contact) {
+            padding: 36px 18px 36px 18px !important;
+        }
+        .raw-custom-container{
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+        .raw-custom-container p{ 
+            min-width: 160px;
+        }
+    }
 <?php
 if ($horizontal == "true") {
 ?>
-  <style>
     .custom-container-contact-items { 
-      display: flex; 
-      flex-wrap: wrap;
-      justify-content: space-around;
+        display: flex; 
+        flex-wrap: wrap;
+        justify-content: space-evenly;
     }
+
     .raw-custom-container {
-      flex-direction: column;
-      text-align: center;
-      width: 33%;
+        flex-direction: column;
+        text-align: center;
     }
-    .custom-container-contact a {
-      font-size: 15px;
-    }
-    @media (max-width:960px) {
-      .contact-section .image-shadow {
-        max-width: 95px !important;
-        margin: 0 auto;
-      }
-      .contact-item {
-        text-align: center;  
-      }
-      .raw-custom-container {
-        width: 100%;
-      }
-      .uncell:has(.custom-container-contact) {
-        padding: 36px 18px 36px 18px !important;
-      }
-      .row:has(.custom-container-contact) {
-        max-width: 627px;
-        margin: 0 auto;
-      }
-    }
-    @media (max-width:600px) {
-      .row:has(.custom-container-contact) {
-        padding: 36px 18px !important;
-      }
-    }
-    @media (max-width: 480px) {
-      .contact-item p {
-        font-size: 14px;
-      }
-      .contact-section .single-block-padding {
-        padding: 18px !important;  
-      }
-    }
-    @media (max-width: 420px) {
-      .contact-item p {
-        font-size: 13px;
-      }
-      .custom-container-contact a {
-      font-size: 13px;
-    }
-      
-    }
-  </style>
 <?php
 }
 ?>
+</style>
 
 <div id="kontakty" class="custom-container-contact">
   <div class="heading-text el-text main-heading-text half-block-padding">
@@ -72,10 +64,10 @@ if ($horizontal == "true") {
   </div>
 
   <div class="custom-container-contact-items">
-    <div class="raw-custom-container">
-      <div class="half-block-padding">
-        <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy"></div>
-      </div>
+    <div class="raw-custom-container half-block-padding">
+        <div class="image-shadow">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy">
+        </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Zostań wystawcą<br><a href="tel:48 517 121 906">+48 517 121 906</a>
@@ -86,10 +78,10 @@ if ($horizontal == "true") {
       </div>
     </div>
         
-    <div class="raw-custom-container">
-      <div class="half-block-padding">
-        <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy"></div>
-      </div>
+    <div class="raw-custom-container half-block-padding">
+        <div class="image-shadow">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy">
+        </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Odwiedzający<br><a href="tel:48 513 903 628">+48 513 903 628</a>
@@ -100,10 +92,10 @@ if ($horizontal == "true") {
       </div>
     </div>
     
-    <div class="raw-custom-container">
-      <div class="half-block-padding">
-        <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"  alt="grafika media"></div>
-      </div>
+    <div class="raw-custom-container half-block-padding">
+        <div class="image-shadow">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"  alt="grafika media">
+        </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Współpraca z mediami<br><a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a>
@@ -114,10 +106,10 @@ if ($horizontal == "true") {
       </div>
     </div>
     
-    <div class="raw-custom-container">
-      <div class="half-block-padding">
-        <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="grafika obsluga"></div>
-      </div>
+    <div class="raw-custom-container half-block-padding">
+        <div class="image-shadow">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="grafika obsluga">
+        </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Obsługa Wystawców<br><a href="tel:48 501 239 338">+48 501 239 338</a>
@@ -128,16 +120,21 @@ if ($horizontal == "true") {
       </div>
     </div>
     
-    <div class="raw-custom-container">
-      <div class="half-block-padding">
-        <div class="image-shadow"><img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg" alt="grafika technicy"></div>
-      </div>
+    <div class="raw-custom-container half-block-padding">
+        <div class="image-shadow">
+            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg" alt="grafika technicy">
+        </div>
       <div class="uncode_text_column" style="overflow-wrap: anywhere;">
-        <p><?php if($locale == 'pl_PL'){ echo '
-          Obsługa techniczna wystawców<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a>
-          ';} else { echo '
-          Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a>
-          ';} ?>
+        <p><?php 
+        if ($horizontal == "true"){ 
+            echo '<a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a>';
+        } else {
+            if($locale == 'pl_PL'){ echo '
+            Obsługa techniczna wystawców<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a>
+            ';} else { echo '
+            Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a>
+            ';} 
+        } ?>
         </p>
       </div>
     </div>

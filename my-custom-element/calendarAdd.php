@@ -1,10 +1,84 @@
+<?php 
+if ($color != '#000000'){
+    $color = '#ffffff';
+    $text_shadow = '2px 2px #000000;';
+} else {
+    $filter ='#download img{
+        filter: invert(100%);
+      }';
+}
+?> 
+<style>
+    #calendar-add{
+        background: no-repeat;
+        background-size: cover;
+        background-image:url('/doc/background.jpg');
+        width: 100%;
+    }
+    .custom_element_<?php echo $rnd_id ?> #calendar-add :is(h2, h1, h3){
+        color: <?php echo $color ?>;  
+        text-shadow: <?php echo $text_shadow ?>;
+        font-weight:700;
+    }
+    .custom-container-calendar-icons, .custom-header-calendarAdd{
+        display: flex;
+        justify-content: center;
+        gap:30px;
+        margin-top: 20px;
+    }
+    .custom-inner-calendarAdd, .custom-container-calendar-icons{
+        max-width: 1200px;
+    }
+    .custom-inner-calendarAdd img {
+        object-fit: contain;
+        max-width: 300px !important;
+    }
+    .custom-container-calendar-icons{ 
+        top:-30px;
+        position: relative; 
+    }
+    .custom-inner-calendar-icons{
+        margin-top:30px;
+    }
+    .custom-container-calendar-add{
+        flex:1;
+        min-width: 100px;
+        max-width: 180px;
+        background: white;
+        padding:5px 0;
+    }
+    .custom-container-calendar-add p{
+        color:black;
+        margin:5px;
+        line-height: 1.2;
+    }
+    .custom-container-calendar-add img, .custom-header-calendarAdd img{
+        max-height: 150px;
+        width: auto;
+        max-width:100%;
+    }
+    @media (max-width:959px){
+        .custom-container-calendar-icons{
+            padding: 10px;
+        }
+    }
+    @media (max-width:570px){
+        .custom-container-calendar-icons, .custom-header-calendarAdd {
+            flex-wrap: wrap;
+        }
+        .custom-container-calendar-add{
+            min-width: 35%;
+            max-width: 130px;
+        }
+        .custom-container-calendar-add img{
+            max-height: 100px;
+        }  
+    }
+</style>
 <div id='calendar-add' class='custom-container-calendar-main text-centered style-accent-bg'>
     <div class='custom-inner-calendarAdd single-block-padding'>
         <div class='custom-header-calendarAdd'>
-                <?php 
-                    $exist = is_file($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.png');
-                    echo '<script>console.log("'.$exist.'")</script>';
-                    
+                <?php
                     if($color == '#000000' && $locale == 'en_US' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png')){
                         echo '<img src="/doc/logo-color-en.png"/>';
                     } elseif($color == '#000000' && $locale == 'pl_PL' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')){
@@ -17,16 +91,16 @@
                 ?>   
             <div class='custom-header-text-calendarAdd'>
                 <?php if($locale == 'pl_PL'){ echo '
-                    <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_name]</h2>
-                    <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_desc]</h2>
+                    <h2>[trade_fair_name]</h2>
+                    <h2>[trade_fair_desc]</h2>
                 ';} else { echo '
-                    <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_name_eng]</h2>
-                    <h2 style="color:white !important; text-shadow: 2px 2px black;">[trade_fair_desc_eng]</h2>
+                    <h2>[trade_fair_name_eng]</h2>
+                    <h2>[trade_fair_desc_eng]</h2>
                 ';} ?>
             </div>
         </div>
         <div class='custom-header-calendar-add text-centered'>
-            <h1 class='bigtext' style="color:white !important; text-shadow: 2px 2px black;">
+            <h1 class='bigtext'>
                 <span class="text-uppercase bigtext-line0">
                 <?php if($locale == 'pl_PL'){
                     echo '<span>Dodaj do kalendarza</span>';
@@ -39,25 +113,25 @@
 
         <div class='custom-text-calendar-add text-centered'>
             <?php if($locale == 'pl_PL'){
-                echo '<h3 style="color:white !important; text-shadow: 2px 2px black;">Wybierz ikonę swojej poczty aby dodać wydarzenie do kalendarza.</h3>';
+                echo '<h3>Wybierz ikonę swojej poczty aby dodać wydarzenie do kalendarza.</h3>';
             } else {
-                echo '<h3 style="color:white !important; text-shadow: 2px 2px black;">Select your mail icon to add the event to your calendar.</h3>';
+                echo '<h3>Select your mail icon to add the event to your calendar.</h3>';
             } ?>
         </div>
     </div>
     <div class='custom-inner-calendar-icons text-centered style-accent-bg'>
         <div class='custom-container-main-icons custom-container-calendar-icons custom-display-none'>
             <?php include plugin_dir_path(__FILE__) . 'calendarGoogle.php'; ?> 
-            <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.php'; ?>
             <?php include plugin_dir_path(__FILE__) . 'calendarApple.php'; ?>
+            <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.php'; ?>
             <?php include plugin_dir_path(__FILE__) . 'calendarOffice365.php'; ?>
             <!-- <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.php'; ?> -->
         </div>
         <div class="custom-container-calendar-icons-empty double-bottom-padding double-top-padding custom-display-none">
         <?php if($locale == 'pl_PL'){
-            echo '<h2 style="color:white !important; text-shadow: 2px 2px black; margin:0;" class="custom-uppercase text-centered">Nowa data wkrótce</h2>';
+            echo '<h2 style="margin:0;" class="custom-uppercase text-centered">Nowa data wkrótce</h2>';
         } else {
-            echo '<h2 style="color:white !important; text-shadow: 2px 2px black; margin:0;" class="custom-uppercase text-centered">New date coming soon</h2>';
+            echo '<h2 style="margin:0;" class="custom-uppercase text-centered">New date coming soon</h2>';
         } ?>
         </div>
     </div>

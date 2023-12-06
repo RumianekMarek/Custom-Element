@@ -1,3 +1,27 @@
+<?php 
+if ($color != '#ffffff'){
+    $color = '#000000';
+}
+if ($btn_color != ''){
+    $btn_color = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color;
+}
+?>
+<style>
+    .custom_element_<?php echo $rnd_id ?> #voucher :is(h4, p){
+        color: <?php echo $color ?>
+    }
+    <?php echo $btn_color ?>
+    .custom-container-voucher{
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    @media (max-width:960px){
+        .custom-container-voucher{
+            flex-direction: column;
+        }
+    }
+</style>
 <div id="voucher"class="custom-container-voucher">
     <div class="uncode-single-media-wrapper half-block-padding custom-min-media-wrapper" style="flex:1;">
         <div class="image-shadow"><div class="t-entry-visual"><img style="vertical-align: bottom;" src="/wp-content/plugins/custom-element/my-custom-element/media/voucher.jpg" alt="grafika przykładowego vouchera"/></div></div>
@@ -29,9 +53,9 @@
         <div class="custom-btn-container">
             <span>
                 <?php if($locale == 'pl_PL'){ echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/kontakt/"  target="_blank" style="color:white !important;">Zapytaj o voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/kontakt/"  target="_blank">Zapytaj o voucher</a>
                 ';} else { echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/contact/"  target="_blank" style="color:white !important;">Ask for a voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/contact/"  target="_blank">Ask for a voucher</a>
                 ';} ?>
             </span>
         </div>

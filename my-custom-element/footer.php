@@ -4,6 +4,198 @@
     $base_url .= "://".$_SERVER['HTTP_HOST'];
 ?>
 
+<style>
+.custom-footer-bg {
+    position: relative;
+    padding: 36px;
+    background-size: cover;
+}
+.custom-footer-bg:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: .4;
+}
+.custom-footer-bg-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.custom-footer-bg-limit {
+    max-width: 950px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.custom-footer-images-bg img {
+    width: 100%;
+    object-fit: contain;
+}
+.custom-footer-bg, .custom-footer-images-bg {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.custom-footer-logo-pwe {
+    width: 100%;
+    display: flex;
+    float: left;
+}
+.custom-footer-logo-pwe img {
+    width: 140px;
+}
+.custom-footer-title-section h4 span {
+    color: white;
+    width: auto;
+}
+.custom-footer-title-section h2 {
+    margin: 0;
+    width: auto !important;
+}
+.custom-footer-title-pl {
+    color: white;
+    font-size: 96px;  
+}
+.custom-footer-title-en {
+    color: white;
+    font-size: 84px; 
+}
+@media (min-width: 320px) and (max-width: 1200px) { 
+    .custom-footer-title-pl { 
+        font-size: calc(24px + (96 - 24) * ( (100vw - 320px) / ( 1200 - 320) )); 
+    } 
+    .custom-footer-title-en { 
+        font-size: calc(24px + (84 - 24) * ( (100vw - 320px) / ( 1200 - 320) )); 
+    } 
+}
+.custom-footer-benefits {
+    display: flex;
+    justify-content: space-around;
+}
+.custom-footer-benefits p {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 10px black;
+}
+.custom-footer-nav {
+    background-color: black;
+    padding: 36px;
+}
+.custom-footer-nav-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 18px;
+}
+.custom-footer-nav-left-column, 
+.custom-footer-nav-right-column {
+    display: flex;
+    gap: 18px;
+}
+.custom-footer-nav-left-column {
+    width: 25%;
+}
+.custom-footer-nav-right-column {
+    width: 75%;
+}
+.custom-footer-nav-logo-column {
+    width: 100%;
+}
+.custom-footer-nav-column {
+    width: 33.333%;
+}
+.custom-footer-nav-column h5 span {
+    color: white;
+}
+.custom-footer-nav-logo-top,
+.custom-footer-nav-logo-bottom {
+    max-width: 200px !important;
+}
+.custom-footer-nav-logo-bottom img {
+    padding: 8px;
+    max-height: 150px;
+    object-fit: contain;
+}
+.custom-footer-nav-links ul {
+    padding: 0 !important;
+    list-style: none !important;
+}
+.custom-footer-nav-links ul li a {
+    color: white !important;
+}
+@media (max-width:1000px){
+    .custom-footer-benefits {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .custom-footer-nav-column h5 span {
+        font-size: 16px;
+    }
+    .custom-footer-nav-left-column {
+        width: 30%;
+    }
+    .custom-footer-nav-right-column {
+        width: 70%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .custom-footer-nav-column {
+        width: 47%;
+    }
+}
+@media (max-width:720px) {
+    .custom-footer-nav-column h5 span {
+        font-size: 14px;
+    }
+    .custom-footer-nav-links ul li a {
+        font-size: 14px;
+    }
+}
+@media (max-width:640px) {
+    .custom-footer-nav-wrapper {
+        flex-direction: column;
+    }
+    .custom-footer-nav-left-column {
+        width: 100%;
+    }
+    .custom-footer-nav-logo-top,
+    .custom-footer-nav-logo-bottom {
+        margin: 0 auto;
+    }
+    .custom-footer-nav-right-column {
+        width: 100%;
+    }
+}
+@media (max-width:500px) {
+    .custom-footer-bg {
+        padding: 18px;
+    }
+    .custom-footer-title-section h4 {
+        text-align: center;
+        width: auto;
+    }
+    .custom-footer-title-section h4 span {
+        font-size: 16px;
+    }
+    .custom-footer-nav-right-column {
+        flex-direction: column;
+    }
+    .custom-footer-nav-column {
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
 <div id="customFooter" class="custom-footer">
 
     <div class="custom-footer-bg" style="background-image: url(/wp-content/plugins/custom-element/my-custom-element/media/footer.jpg)">
