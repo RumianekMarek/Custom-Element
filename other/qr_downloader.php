@@ -45,26 +45,26 @@ if(isset($_POST['submit_haslo'])){
             $qr_code_resoult = array();
             
             foreach($form_ids as $form_id){
-                $entries = $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 0 ));
                 $feeds = GFAPI::get_feeds( NULL, $form_id);
-
-                if(isset($feeds[0]['meta']['hash']) == false){
-                    $custom[0] = $feeds[0]['meta']['qrcodeFields'][0]['custom_key'];
-                    $custom[1] = $feeds[0]['meta']['qrcodeFields'][1]['custom_key'];
+                if(is_wp_error($feeds)){
+                    echo '<br>Formularz '.$form_id.' nie istnieje, podany w '.$_POST["form_id"].'<br>';
                 } else {
-                    $custom[0] = $feeds[1]['meta']['qrcodeFields'][0]['custom_key'];
-                    $custom[1] = $feeds[1]['meta']['qrcodeFields'][1]['custom_key'];
-                }
-                
-                if (is_array($entries)) {
+                    $entries = $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 0 ));
+
+                    if(isset($feeds[0]['meta']['hash']) == false){
+                        $custom[0] = $feeds[0]['meta']['qrcodeFields'][0]['custom_key'];
+                        $custom[1] = $feeds[0]['meta']['qrcodeFields'][1]['custom_key'];
+                    } else {
+                        $custom[0] = $feeds[1]['meta']['qrcodeFields'][0]['custom_key'];
+                        $custom[1] = $feeds[1]['meta']['qrcodeFields'][1]['custom_key'];
+                    }
+                    
                     shuffle($entries);
                     for($i=0; $i<$download_count; $i++){
                         if ($entries[$i]['id']){
                             $qr_code_resoult[] = '"' . $custom[0] . $entries[$i]['id'] . $custom[1] . $entries[$i]['id'] . '"';
                         }
                     }
-                } else {
-                    echo 'formularz nie istnieje lub jest pusty';
                 }
             }
         }

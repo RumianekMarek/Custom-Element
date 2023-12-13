@@ -1,4 +1,5 @@
 <?php
+echo '<script>console.log("'.$_SERVER['HTTP_USER_AGENT'].'")</script>';
 function media_opinions() {
     vc_map(array(
         'name' => __('Opinions slider', 'my-custom-plugin'),
@@ -7,19 +8,44 @@ function media_opinions() {
         'params' => array(
             array(
                 'type' => 'textfield',
-                'group' => 'Main',
-                'heading' => __('Custom id', 'my-custom-plugin'),
-                'param_name' => 'custom_opinions_id',
-                'description' => __('Set custom id for opinions not to have the same id as other opinionss.', 'my-custom-plugin'),
+                'group' => 'main',
+                'heading' => __('Opinions Header', 'my-custom-plugin'),
+                'param_name' => 'opinions_header',
+                'description' => __('Header for opinions slider section', 'my-custom-plugin'),
                 'save_always' => true,
             ),
             array(
-                'type' => 'attach_images',
-                'group' => 'Main',
-                'heading' => __('Select Images', 'my-custom-plugin'),
-                'param_name' => 'custom_opinions_images',
-                'description' => __('Choose images from the media library.', 'my-custom-plugin'),
-                'save_always' => true,
+                'type' => 'param_group',
+                'group' => 'main',
+                'param_name' => 'opinion_slides',
+                'params' => array(
+                    array(
+                        'type' => 'attach_image',
+                        'heading' => __('Select Image', 'my-custom-plugin'),
+                        'param_name' => 'opinions_image',
+                        'description' => __('Choose logo image from the opinions slider.', 'my-custom-plugin'),
+                        'save_always' => true,
+                        'dependency' => array(
+                            'element' => 'multiple',
+                            'value' => array('false'),
+                        ),
+                    ),
+                    array(
+                        'type' => 'textarea',
+                        'heading' => __('Quote', 'my-custom-plugin'),
+                        'param_name' => 'opinions_quote',
+                        'description' => __('Put quote max 300 characters.', 'my-custom-plugin'),
+                        'save_always' => true,
+                    ),
+                    array(
+                        'type' => 'textfield',
+                        'heading' => __('Opinions signature', 'my-custom-plugin'),
+                        'param_name' => 'opinions_sign',
+                        'description' => __('Put opinions author name', 'my-custom-plugin'),
+                        'save_always' => true,
+                        'admin_label' => true,
+                    ),
+                ),
             ),
         ),
     ));
@@ -27,95 +53,187 @@ function media_opinions() {
 
 function media_opinions_output($atts, $content = null) {
     extract(shortcode_atts(array(
-        'custom_opinions_id' => '',
-        'custom_opinions_name' => '',
+        'opinions_header' => '',
+        'opinion_slides' => '',
     ), $atts));
-
-    if ($custom_opinions_id_random) {
-        $custom_opinions_id_random = 'opinions-' . rand(10000, 99999);
-    }
-
-    $custom_opinions_id = ($atts['custom_opinions_id']) ? $atts['custom_opinions_id'] : $custom_opinions_id_random;
-    $custom_opinions_images = ($atts['custom_opinions_images']) ? explode(',', $atts['custom_opinions_images']) : '';
-
-    $html_opinions = '<div id="' . $custom_opinions_id . '" class="slider-opinions-container">';
-    $html_opinions .= '<div class="slider-opinions-content">';
-
-    foreach ($custom_opinions_images as $image) {
-        $image_src = wp_get_attachment_image_src($image, 'full');
-        $image_alt = get_post_meta($image, '_wp_attachment_image_alt', true);
-
-        $html_opinions .= '<div class="slide-opinion">';
-        $html_opinions .= '<div class="slide-opinion-content">';
-        $html_opinions .= '<img class="apostrof-left" src="/wp-content/plugins/custom-element/opinions_slider/apostrof-left.png"/>';
-        $html_opinions .= '<div class="slider-opinions-content-element">';
-        $html_opinions .= '<img src="' . $image_src[0] . '" alt="' . $image_alt . '" class="slider-opinions-image">';
-        $html_opinions .= '<p>'. $image_alt .'</p>';
-        $html_opinions .= '</div>';
-        $html_opinions .= '<img class="apostrof-right" src="/wp-content/plugins/custom-element/opinions_slider/apostrof-right.png"/>';
-        $html_opinions .= '</div>';
-        $html_opinions .= '</div>';
-    }
-
-    $html_opinions .= '</div></div>';
-
-    // Add CSS for the slider
-    $html_opinions .= '<style>
-        .slider-opinions-container {
-            display: flex;
-            overflow: hidden;
+    $opinions_id_random = rand(10000, 99999);
+    $slider_local = get_locale();
+    $opinion_slides = urldecode($opinion_slides);
+    $opinion_slides = json_decode($opinion_slides, true);
+    $html_opinions .=
+    '<style>
+        #opinion-slider-'.$opinions_id_random.'{
+            overflow:hidden;
+            position: relative;
         }
-
-        .slider-opinions-content {
-            display: flex;
-            transition: transform 1s ease;
+        #opinion-slider-'.$opinions_id_random.' :is(.arrow-left, .arrow-right){
+            cursor: pointer;
+            z-index: 5;
+            top: 50%;
+            position: absolute;
         }
-
-        .slide-opinion {
-            flex: 0 0 100%;
-            display:flex;
-            align-items: stretch;
+        #opinion-slider-'.$opinions_id_random.' .arrow-right{
+            right: 0;
         }
-
-        .slide-opinion-content {
-            display: flex;
-            flex-direction: row;
-            align-items: stretch;
-            justify-content: center;
+        #opinion-slider-'.$opinions_id_random.' h2{
             text-align: center;
-        }
-        .slide-opinion-content p {
             margin: 18px;
         }
-        .slide-opinion-content .apostrof-left, .slide-opinion-content .apostrof-right {
-            height:50px;
+        .slide-container{
+            display: flex;
+            justify-content: space-evenly;
+            transform: translateX(-279px);
         }
-        .slide-opinion-content .apostrof-left {
-            align-self: flex-start;
+        .slide-container h4{
+            margin: 9px;
         }
-        .slide-opinion-content .apostrof-right {
-            align-self: flex-end;
+        .slide-container p{
+            line-height: 1.4 !important;
+            margin: 9px;
         }
-        .slider-opinions-image {
-            width: 180px;
-            height: auto;
+        .single-slide{
+            margin: 0 29px;
+            padding: 9px 18px;
+            border: 2px solid black;
+            border-radius: 15px;
+            min-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+        }
+        .single-slide img{
+            height: 100px;
+        }
+        .single-slide :has(.opinions-hidden){
+            height: 300px;
+        }
+        @keyframes slideAnimation {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .slides{
+            animation: slideAnimation 0.5s ease-in-out;
+        }
+        .opinions-hidden{
+            overflow: hidden;
+        }
+        @media (min-width:1000px) and (max-width: 1200px){
+            #opinion-slider-'.$opinions_id_random.' .arrow-left{
+                left: 1vw;
+            }
+            #opinion-slider-'.$opinions_id_random.' .arrow-right{
+                right: 1vw;
+            }
+            .slide-container{
+                transform: translateX(-23vw);
+            }
+            .single-slide{
+                padding: 9px 36px;
+                margin: 0 1vw;
+                min-width: 44vw;
+            }
+        }
+        @media (max-width: 1000px){
+            #opinion-slider-'.$opinions_id_random.'{
+                width:80vw;
+                margin: auto;
+            }
+            .slide-container{
+                display: flex;
+                justify-content: center;
+                transform: unset;
+            }
+            .single-slide{
+                min-width: 70vw;
+            }
+        }
+        @media (max-width: 600px){
+            #opinion-slider-'.$opinions_id_random.' :is(.arrow-left, .arrow-right){
+                width: 5vw;
+            }
         }
     </style>';
 
-    // Add JavaScript for automatic sliding to the left
-    $html_opinions .= '<script>
-        const sliderContainer = document.getElementById("' . $custom_opinions_id . '");
-        const sliderContent = sliderContainer.querySelector(".slider-opinions-content");
-        const slides = sliderContainer.querySelectorAll(".slide-opinion");
-        let currentIndex = 0;
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            sliderContent.style.transform = "translateX(-" + currentIndex * 100 + "%)";
-        }
+        $html_opinions .= '<div id="opinion-slider-'.$opinions_id_random.'" class="opinions-slider">';
+            $html_opinions .= '<img class="arrow-left" src="'.plugin_dir_url(__DIR__).'/media/arrow-left.webp">';
+            $html_opinions .= '<h2 class="opinions-header">';
+                if ($opinions_header === ""){
+                    if($slider_local === "pl_PL"){
+                        $html_opinions .= 'Opinie naszych gości</h2>'; 
+                    } else {
+                        $html_opinions .= "Guests' opinions about the fair</h2>";
+                    }
+                } else {
+                    $html_opinions .= $opinions_header.'</h2>';
+                }
+            $html_opinions .= '<div class="slide-container">';
+            if(count($opinion_slides) <3){
+                $count_min = 0;
+                $count_max = count($opinion_slides);
+            } else {
+                $count_min = -1;
+                $count_max = count($opinion_slides) -1;
+            }
+                for($i= $count_min; $i<$count_max; $i++){
+                    if($i<0){
+                        $target = count($opinion_slides) + $i;
+                    } else {
+                        $target = $i;
+                    }
+                    $html_opinions .= '<div class="single-slide">
+                        <img class="container-img" src="'.wp_get_attachment_url($opinion_slides[$target]['opinions_image']).'">
+                        <p class="opinions-quote opinions-hidden">'.$opinion_slides[$target]['opinions_quote'].'</p>
+                        <h4 class="opinions-signature">'.$opinion_slides[$target]['opinions_sign'].'</h4>
+                    </div>';
+                }
+            $html_opinions .= '</div>';
+            $html_opinions .= '<img class="arrow-right" src="'.plugin_dir_url(__DIR__).'/media/arrow-right.webp">';
+        $html_opinions .= '</div>';
         
-        setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    </script>';
+        $html_opinions .= 
+        '<script>
+        function nextSlide() {
+            quotesSlides.querySelectorAll(".single-slide").forEach(function(image){
+                    image.classList.add("slides");
+            })
+            quotesSlides.firstChild.classList.add("first-slide");
+            const firstSlide = quotesSlides.querySelector(".first-slide");  
+
+            quotesSlides.appendChild(firstSlide);
+
+            firstSlide.classList.remove("first-slide");
+
+            setTimeout(function() {
+                quotesSlides.querySelectorAll(".single-slide").forEach(function(image){
+                            image.classList.remove("slides");
+                    })
+            }, 2500);
+        }
+        const quotesSlides = document.querySelector("#opinion-slider-'.$opinions_id_random.' .slide-container");
+
+        let isMouseOver = false;
+
+        quotesSlides.addEventListener("mousemove", function() {
+            isMouseOver = true;
+        });
+        
+        quotesSlides.addEventListener("mouseleave", function() {
+            isMouseOver = false;
+        });
+
+
+        // setInterval(function() {
+        //     if(!isMouseOver) { 
+        //         nextSlide()
+        //     }
+        // }, 5000);  
+        </script>'; 
 
     return $html_opinions;
 }
@@ -123,3 +241,4 @@ function media_opinions_output($atts, $content = null) {
 add_action('vc_before_init', 'media_opinions');
 add_shortcode('media_opinions', 'media_opinions_output');
 ?>
+
