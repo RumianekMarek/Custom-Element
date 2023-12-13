@@ -159,7 +159,7 @@ function dodaj_plik() {
     if (isset($_FILES['plik'])) {
         $pliki = $_FILES['plik'];
 
-        $dozwolone_rozszerzenia = array('jpg', 'jpeg', 'png', 'pdf');
+        $dozwolone_rozszerzenia = array('jpg', 'jpeg', 'png', 'pdf', 'webp');
 
         foreach ($pliki['error'] as $key => $error) {
             if ($error === UPLOAD_ERR_OK) {

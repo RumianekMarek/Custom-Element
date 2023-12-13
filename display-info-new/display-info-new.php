@@ -1,192 +1,200 @@
 <?php
 
-function info_box() {
+function info_box_new() {
     // Define the element name and path to the element file
     vc_map(array(
-      'name' => __('Info box', 'my-custom-plugin'),
-      'base' => 'info_box',
+      'name' => __('Info box v2', 'my-custom-plugin'),
+      'base' => 'info_box_new',
       'category' => __('My Elements', 'my-custom-plugin'),
-      'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info.css',
+      'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info-new.css',
       'params' => array(
-        array(
-            'type' => 'checkbox',
-            'group' => 'main',
-            'heading' => __('Simple form', 'my-custom-plugin'),
-            'param_name' => 'simple_mode',
-            'description' => __('To display in simpler form.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'main',
-            'heading' => __('Event time', 'my-custom-plugin'),
-            'param_name' => 'event_time',
-            'save_always' => true,
-            'admin_label' => true
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'main',
-            'heading' => __('Event Speakers (pictures order)', 'my-custom-plugin'),
-            'param_name' => 'event_speaker',
-            'description' => __('Put all names with "," separator, in order of pictures.', 'my-custom-plugin'),
-            'save_always' => true,
-            'admin_label' => true
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'main',
-            'heading' => __('Event Name', 'my-custom-plugin'),
-            'param_name' => 'event_name',
-            'save_always' => true,
-            'admin_label' => true
-        ),
-        array(
-            'type' => 'attach_images',
-            'group' => 'main',
-            'heading' => __('Select Images', 'my-custom-plugin'),
-            'param_name' => 'event_images',
-            'description' => __('Choose lecturers images from the media library.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'textarea',
-            'group' => 'main',
-            'heading' => __('Description', 'my-custom-plugin'),
-            'param_name' => 'event_desc',
-            'description' => __('Put event description.', 'my-custom-plugin'),
-            'save_always' => true,
-            'admin_label' => true
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'options',
-            'heading' => __('Border Radius', 'my-custom-plugin'),
-            'param_name' => 'border_radius',
-            'description' => __('Outside border radius(px or %).', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'options',
-            'heading' => __('Border Width', 'my-custom-plugin'),
-            'param_name' => 'border_width',
-            'description' => __('Outside border width.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'options',
-            'heading' => __('Border Style', 'my-custom-plugin'),
-            'param_name' => 'border_style',
-            'description' => __('Outside style (example -> solid).', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'colorpicker',
-            'group' => 'options',
-            'heading' => __('Border Color', 'my-custom-plugin'),
-            'param_name' => 'border_color',
-            'description' => __('Outside border color.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'colorpicker',
-            'group' => 'options',
-            'heading' => __('Lecturers color', 'my-custom-plugin'),
-            'param_name' => 'lect_color',
-            'description' => __('Color for lecturers names.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'checkbox',
-            'group' => 'options',
-            'heading' => __('Shadow', 'my-custom-plugin'),
-            'param_name' => 'shadow',
-            'description' => __('Check to display shadow. ONLY full catalog.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        ),
-        array(
-            'type' => 'colorpicker',
-            'group' => 'options',
-            'heading' => __('Tile Color', 'my-custom-plugin'),
-            'param_name' => 'title_color',
-            'description' => __('Color for buton lecture Title.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'options',
-            'heading' => __('Tile size', 'my-custom-plugin'),
-            'param_name' => 'title_size',
-            'description' => __('Title font size.', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'checkbox',
-            'group' => 'options',
-            'heading' => __('Tittle on top', 'my-custom-plugin'),
-            'param_name' => 'title_top',
-            'description' => __('Check to move Title to top of Lecturers.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        ),
-        array(
-            'type' => 'textarea',
-            'group' => 'pop-UP',
-            'heading' => __('Modal info for pictures', 'my-custom-plugin'),
-            'param_name' => 'event_modal',
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'textfield',
-            'group' => 'options',
-            'heading' => __('BIO Img size', 'my-custom-plugin'),
-            'param_name' => 'modal_img_size',
-            'description' => __('Size of the Img for "BIO" description. max 300px', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'colorpicker',
-            'group' => 'options',
-            'heading' => __('BIO BTN Color', 'my-custom-plugin'),
-            'param_name' => 'bio_color',
-            'description' => __('Color for buton "BIO".', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'colorpicker',
-            'group' => 'options',
-            'heading' => __('BIO BTN Text Color', 'my-custom-plugin'),
-            'param_name' => 'bio_text',
-            'description' => __('Color for text on buton "BIO" .', 'my-custom-plugin'),
-            'save_always' => true,
-        ),
-        array(
-            'type' => 'checkbox',
-            'group' => 'options',
-            'heading' => __('Photo/Bio box', 'my-custom-plugin'),
-            'param_name' => 'photo_box',
-            'description' => __('Check to show Photo/Bio box at left side.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            array(
+                'type' => 'checkbox',
+                'group' => 'main',
+                'heading' => __('Simple form', 'my-custom-plugin'),
+                'param_name' => 'simple_mode',
+                'description' => __('To display in simpler form.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
-        array(
-            'type' => 'checkbox',
-            'group' => 'options',
-            'heading' => __('Photo as square', 'my-custom-plugin'),
-            'param_name' => 'photo_squer',
-            'description' => __('Check to show photos as square.', 'my-custom-plugin'),
-            'admin_label' => true,
-            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            array(
+                'type' => 'textfield',
+                'group' => 'main',
+                'heading' => __('Event time', 'my-custom-plugin'),
+                'param_name' => 'event_time',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'main',
+                'heading' => __('Event Name', 'my-custom-plugin'),
+                'param_name' => 'event_name',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textarea',
+                'group' => 'main',
+                'heading' => __('Description', 'my-custom-plugin'),
+                'param_name' => 'event_desc',
+                'description' => __('Put event description.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'param_group',
+                'group' => 'speakers',
+                'param_name' => 'speakers',
+                'params' => array(
+                    array(
+                        'type' => 'attach_image',
+                        'heading' => __('Select Image', 'my-custom-plugin'),
+                        'param_name' => 'event_images',
+                        'description' => __('Choose lecturers image from the media library.', 'my-custom-plugin'),
+                        'save_always' => true,
+                        'dependency' => array(
+                            'element' => 'multiple',
+                            'value' => array('false'),
+                        ),
+                    ),
+                    array(
+                        'type' => 'textfield',
+                        'heading' => __('Event Speaker', 'my-custom-plugin'),
+                        'param_name' => 'event_speaker',
+                        'description' => __('Put all names with "," separator, in order of pictures.', 'my-custom-plugin'),
+                        'save_always' => true,
+                        'admin_label' => true,
+                    ),
+                    array(
+                        'type' => 'textarea',
+                        'heading' => __('Bio', 'my-custom-plugin'),
+                        'param_name' => 'speaker_bio',
+                        'description' => __('Put event description.', 'my-custom-plugin'),
+                        'save_always' => true,
+                    ),
+                ),
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'options',
+                'heading' => __('Border Radius', 'my-custom-plugin'),
+                'param_name' => 'border_radius',
+                'description' => __('Outside border radius(px or %).', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'options',
+                'heading' => __('Border Width', 'my-custom-plugin'),
+                'param_name' => 'border_width',
+                'description' => __('Outside border width.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'options',
+                'heading' => __('Border Style', 'my-custom-plugin'),
+                'param_name' => 'border_style',
+                'description' => __('Outside style (example -> solid).', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'colorpicker',
+                'group' => 'options',
+                'heading' => __('Border Color', 'my-custom-plugin'),
+                'param_name' => 'border_color',
+                'description' => __('Outside border color.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'colorpicker',
+                'group' => 'options',
+                'heading' => __('Lecturers color', 'my-custom-plugin'),
+                'param_name' => 'lect_color',
+                'description' => __('Color for lecturers names.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'checkbox',
+                'group' => 'options',
+                'heading' => __('Shadow', 'my-custom-plugin'),
+                'param_name' => 'shadow',
+                'description' => __('Check to display shadow. ONLY full catalog.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            ),
+            array(
+                'type' => 'colorpicker',
+                'group' => 'options',
+                'heading' => __('Tile Color', 'my-custom-plugin'),
+                'param_name' => 'title_color',
+                'description' => __('Color for buton lecture Title.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'options',
+                'heading' => __('Tile size', 'my-custom-plugin'),
+                'param_name' => 'title_size',
+                'description' => __('Title font size.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'checkbox',
+                'group' => 'options',
+                'heading' => __('Tittle on top', 'my-custom-plugin'),
+                'param_name' => 'title_top',
+                'description' => __('Check to move Title to top of Lecturers.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'options',
+                'heading' => __('BIO Img size', 'my-custom-plugin'),
+                'param_name' => 'modal_img_size',
+                'description' => __('Size of the Img for "BIO" description. max 300px', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'colorpicker',
+                'group' => 'options',
+                'heading' => __('BIO BTN Color', 'my-custom-plugin'),
+                'param_name' => 'bio_color',
+                'description' => __('Color for buton "BIO".', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'colorpicker',
+                'group' => 'options',
+                'heading' => __('BIO BTN Text Color', 'my-custom-plugin'),
+                'param_name' => 'bio_text',
+                'description' => __('Color for text on buton "BIO" .', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'type' => 'checkbox',
+                'group' => 'options',
+                'heading' => __('Photo/Bio box', 'my-custom-plugin'),
+                'param_name' => 'photo_box',
+                'description' => __('Check to show Photo/Bio box at left side.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
+                ),
+            array(
+                'type' => 'checkbox',
+                'group' => 'options',
+                'heading' => __('Photo as square', 'my-custom-plugin'),
+                'param_name' => 'photo_squer',
+                'description' => __('Check to show photos as square.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            ),
         ),
-      ),
     ));
 }
 
-function info_box_output($atts, $content = null) {
+function info_box_new_output($atts, $content = null) {
     $rn = rand(10000, 99999);
     extract( shortcode_atts( array(
         'simple_mode' => '',
@@ -232,12 +240,12 @@ function info_box_output($atts, $content = null) {
 
         $css_file = plugins_url('display-info.css', __FILE__);
         $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info.css');
-        wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
+        wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
 
         $js_file = plugins_url('display-info.js', __FILE__);
         $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info.js');
-        wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
-        wp_localize_script('info_box-js', 'inner' , $atts);
+        wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
+        wp_localize_script('info_box_new-js', 'inner' , $atts);
 
         if (!$simple_mode){
             
@@ -248,10 +256,10 @@ function info_box_output($atts, $content = null) {
         
         if (count($speakers)>3 || (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))){
             $font_lecturers = 'font-size: 14px; margin-top: 9px;';
-            $info_box_max_height = 'unset;';
+            $info_box_new_max_height = 'unset;';
         } else {
             $font_lecturers = '';
-            $info_box_max_height = '280px;';
+            $info_box_new_max_height = '280px;';
         }
 
         if ($event_images == ''){
@@ -366,7 +374,7 @@ function info_box_output($atts, $content = null) {
         }
         
         if($photo_box){
-            $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="min-height:280px; max-height: '.$info_box_max_height.' '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+            $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="min-height:280px; max-height: '.$info_box_new_max_height.' '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="head-container">
                     ' . $speaker_html;
         
@@ -434,19 +442,19 @@ function info_box_output($atts, $content = null) {
     return $html;
 }
 
-function load_backend_scripts() {
-    $css_file = plugins_url('backend-info.css', __FILE__);
-    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info.css');
-    wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
+function load_backend_scripts_new() {
+    $css_file = plugins_url('backend-info-new.css', __FILE__);
+    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info-new.css');
+    wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
 
-    $js_file = plugins_url('backend-info.js', __FILE__);
-    $js_version = filemtime(plugin_dir_url(__FILE__) . 'backend-info.js');
-    wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
+    // $js_file = plugins_url('backend-info-new.js', __FILE__);
+    // $js_version = filemtime(plugin_dir_url(__FILE__) . 'backend-info-new.js');
+    // wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
 }
 
-add_action('admin_enqueue_scripts', 'load_backend_scripts');
+add_action('admin_enqueue_scripts', 'load_backend_scripts_new');
 
-add_action('vc_before_init', 'info_box');
-add_shortcode('info_box', 'info_box_output');
+add_action('vc_before_init', 'info_box_new');
+add_shortcode('info_box_new', 'info_box_new_output');
 
 ?>

@@ -172,11 +172,13 @@ function katalog_wystawcow_output($atts, $content = null) {
   if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {    
     foreach ($file_changer as $change) {   
       $change = trim($change);
+      echo '<script>console.log("'.$change.'")</script>';
+      
       if (strpos($change, '<=>') !== false) {
         $id = [];
-        $names = explode('<=>', $change);
+        $names = trim(explode('<=>', $change));
         foreach($names as $name){
-          
+          $name = trim($name);
           if(is_numeric($name)){
             $id[] = $name. '.00';
           } else {         
@@ -207,6 +209,7 @@ function katalog_wystawcow_output($atts, $content = null) {
         $id = [];
         $names = explode('=>>', $change);
         foreach($names as $name){
+          $name = trim($name);
           if(is_numeric($name)){
             $id[] = $name.'.00';
           } else {   
