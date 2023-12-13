@@ -1,5 +1,4 @@
 <?php
-echo '<script>console.log("'.$_SERVER['HTTP_USER_AGENT'].'")</script>';
 function media_opinions() {
     vc_map(array(
         'name' => __('Opinions slider', 'my-custom-plugin'),
