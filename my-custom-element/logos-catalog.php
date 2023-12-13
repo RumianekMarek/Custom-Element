@@ -12,17 +12,26 @@ if ($logoscatalog != ''){
     }
 
     if ($logoscatalog == "partnerzy obiektu") {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        if (glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{webp,WEBP}', GLOB_BRACE)) {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{webp,WEBP}', GLOB_BRACE);
+        } else {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy obiektu/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        } 
     } else {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{webp,WEBP}', GLOB_BRACE)) {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{webp,WEBP}', GLOB_BRACE);
+        } else {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        } 
     } 
+    
     $element_unique_id = 'custom-logos-gallery-' . uniqid();
     $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
 
     if($color != ''){
         echo '
             <style>
-            .custom_element_'.$rnd_id.' .custom-logos-title span{
+                .custom_element_'.$rnd_id.' .custom-logos-title span{
                     color: '.$color.';
                 }
             </style>';
@@ -33,7 +42,7 @@ if ($logoscatalog != ''){
             </div>
             <div class="custom-logos-gallery-wrapper single-top-padding">
                 <div id="'. $element_unique_id .'" class="custom-logos-gallery-slider slider-inner-container">';
-                
+                // var_dump($files);
                     foreach ($files as $index => $file) {
                         $shortPath = '';
                         if ($logoscatalog == "partnerzy obiektu") {
@@ -91,7 +100,7 @@ if ($logoscatalog != ''){
     <?php
     if (isset($element_unique_id)) {
     ?>
-            <script>
+        <script>
         { 
             const sliderDesktop = <?php echo in_array('desktop', explode(',', $slider_off)) ? 'false' : 'true'; ?>;
             const sliderMobileTablet = <?php echo in_array('mobile_tablet', explode(',', $slider_off)) ? 'true' : 'false'; ?>;
@@ -332,24 +341,24 @@ if ($logoscatalog != ''){
             }
         } 
 
-            // Hide container if gallery length = 0
-            if(document.querySelector("#<?php echo $element_unique_id ?>").children.length == 0) {
-                if(document.querySelector('.media-logos')){
-                    document.querySelector('.media-logos').classList.toggle("custom-display-none")
-                } else {
-                    jQuery(function ($) {
-                        $(".row-container:has(#<?php echo $element_unique_id ?>)").toggleClass("custom-display-none");
-                    });
-                }
+        // Hide container if gallery length = 0
+        if(document.querySelector("#<?php echo $element_unique_id ?>") && '<?php echo count($files) ?>' == '0') {
+            if(document.querySelector('.media-logos')){
+                document.querySelector('.media-logos').classList.toggle("custom-display-none")
+            } else {
+                document.querySelector(".row-container:has(#<?php echo $element_unique_id ?>)").classList.toggle("custom-display-none");
             }
-            // Hide container if input value is empty
-            logoscatalog = "<?php echo $logoscatalog; ?>";
-            if (logoscatalog === "") {
-                document.querySelector(".media-logos").classList.toggle("custom-display-none");
-            }
-
-            </script>
-    <?php
         }
+        
+
+        // Hide container if input value is empty
+        logoscatalog = "<?php echo $logoscatalog; ?>";
+        if (logoscatalog === "") {
+            document.querySelector(".media-logos").classList.toggle("custom-display-none");
+        }
+
+        </script>
+    <?php
     }
+}
 ?>

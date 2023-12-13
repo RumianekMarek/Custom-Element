@@ -47,6 +47,9 @@
                 font-size: 16px;
             }
         }
+        .custom-container-main-timer .countdown-text {
+            display: none !important;
+        }
         .countdown-container {
             display: flex;
             flex-wrap: wrap;
@@ -70,6 +73,9 @@
 $countdown_container_id = 'countdown-container-' . uniqid();
 $countdown_id = 'countdown-' . uniqid();
 
+date_default_timezone_set('Europe/Warsaw');
+$current_date = date("Y-m-d H:i:s");
+
 $countdowns_urldecode = urldecode($countdowns);
 $countdowns_json = json_decode($countdowns_urldecode, true);
 
@@ -78,9 +84,8 @@ $countdowns = array();
 if (is_array($countdowns_json)) {
     foreach ($countdowns_json as $countdown) {
         $countdowns[] = array(
-            $turn_on_countdown_text[] = $countdown["turn_on_countdown_text"],
-            $countdown_text_pl[] = $countdown["countdown_text_pl"],
-            $countdown_text_en[] = $countdown["countdown_text_en"],
+            $turn_off_countdown_text[] = $countdown["turn_off_countdown_text"],
+            $countdown_text[] = $countdown["countdown_text"],
             $countdown_column[] = $countdown["countdown_column"],
             $countdown_font_size[] = $countdown["countdown_font_size"],
             $countdown_color[] = $countdown["countdown_color"],
@@ -89,31 +94,37 @@ if (is_array($countdowns_json)) {
         );
     }
 }
-
 $countdowns_array = json_encode($countdowns);
 ?>
+
 <style>
     .countdown-container:has(#<?php echo $countdown_id ?>) p {
-        margin: 0 auto;
         font-size: <?php echo $countdown_font_size[0] ?> !important;
         color: <?php echo $countdown_color[0] ?> !important;
     }
 </style>
+
 <?php
-if (isset($countdown_id)) {
+if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($countdown_start[0]) - strtotime($current_date)) <= 0 && (strtotime($countdown_end[0]) - strtotime($current_date)) >= 0) {
 ?>
 
     <div id="<?php echo $countdown_container_id; ?>" class="countdown-container">
         <?php
-            if (isset($turn_on_countdown_text[0]) && $turn_on_countdown_text[0] == true) {
+            if (empty($turn_off_countdown_text[0]) && $turn_off_countdown_text[0] !== true && empty($countdown_start[0]) && empty($countdown_end[0])) {
                 echo '<p class="countdown-text text-uppercase">';
-                if (strtotime($trade_start) - strtotime('+2 hour', time()) >= 0 || strtotime($trade_end) - strtotime('+2 hour', time()) <= 0) {
+                if ((strtotime($trade_start) - strtotime($current_date)) >= 0 || (strtotime($trade_end) - strtotime($current_date)) <= 0){
                     if ($locale == 'pl_PL') {
-                        echo (!empty($countdown_text_pl[0])) ? $countdown_text_pl[0] : 'Do targów pozostało:';
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Do targów pozostało:';
                     } else {
-                        echo (!empty($countdown_text_en[0])) ? $countdown_text_en[0] : 'Until the start of the fair:';    
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the start of the fair:';    
                     }
-                } 
+                } else {
+                    if ($locale == 'pl_PL') {
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Do końca targów pozostało:';
+                    } else {
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the end of the fair:';    
+                    }
+                }
                 echo '</p>';
             }
         ?>
@@ -125,7 +136,6 @@ if (isset($countdown_id)) {
         if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => ("<?php echo $trade_date ?>").toLowerCase().includes(season.toLowerCase()))) {
             document.querySelector('#main-timer').style.display = 'none';
         }
-
         function startEndCountdown(targetDate) {
             const countdownsArray = <?php echo $countdowns_array ?>;
             const now = new Date().getTime();
@@ -139,12 +149,14 @@ if (isset($countdown_id)) {
                 countdownsArray.forEach(countdown => {
                     var countdownStart = new Date(<?php echo json_encode($countdown_start[0]); ?>).getTime();
                     var countdownEnd = new Date(<?php echo json_encode($countdown_end[0]); ?>).getTime();
-
                     if (now > countdownStart && now < countdownEnd) {
                         targetDate = countdownEnd;
                         foundMatchingCountdown = true;
-                    } else if (!countdownStart && !countdownEnd) {
+                    } else if (!countdownStart && !countdownEnd && now < startDate && now < endDate) {
                         targetDate = startDate;
+                        foundMatchingCountdown = true;
+                    } else if (!countdownStart && !countdownEnd && now > startDate && now < endDate) {
+                        targetDate = endDate;
                         foundMatchingCountdown = true;
                     } else {
                         foundMatchingCountdown = false;

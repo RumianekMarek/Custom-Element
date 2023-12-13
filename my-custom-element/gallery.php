@@ -1,6 +1,15 @@
 <?php
-    $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+
+    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE)) {
+        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE);
+    } else {
+        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    }
+    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE)) {
+        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE);
+    } else {
+        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    }
 
     if($gallery_images[0] != false){
         $files = $gallery_images;

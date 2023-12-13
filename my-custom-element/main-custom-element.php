@@ -18,6 +18,7 @@ function my_custom_wpbakery_element() {
           'value' => array(
             'Select' => '',
             'Adres Ptak Warsaw Expo' => 'ptakAdress.php',
+            'Call Center Formularz' => 'callcenter.php',
             'Dodaj do kalendarza' => 'calendarAdd.php',
             'Dodaj do Google Kalendarz' => 'calendarGoogle.php',
             'Dodaj do Outlook Kalendarz' => 'calendarOutlook.php',
@@ -47,6 +48,7 @@ function my_custom_wpbakery_element() {
             'Organizator' => 'organizator.php',
             'Mapka dojazdu' => 'route.php',
             'Ramka Facebook' => 'socialMedia.php',
+            'Sticky buttons' => 'sticky-buttons.php',
             'Main timer' => 'main-timer.php',
             'Countdown' => 'countdown.php',
             'Visitors Benefits' => 'visitors-benefits.php',
@@ -517,7 +519,7 @@ function my_custom_wpbakery_element() {
           'save_always' => true,
           'dependency' => array(
               'element' => 'element',
-              'value' => array('badge-local.php')
+              'value' => array('badge-local.php', 'callcenter.php')
           ),
         ),
         array(
@@ -672,16 +674,8 @@ function my_custom_wpbakery_element() {
             ), 
             array(
               'type' => 'textfield',
-              'heading' => __('Placeholder text PL', 'my-custom-plugin'),
-              'param_name' => 'countdown_text_pl',
-              'description' => __('Default: "Do targów pozostało/Until the start of the fair"', 'my-custom-plugin'),
-              'save_always' => true,
-              'admin_label' => true
-            ),
-            array(
-              'type' => 'textfield',
-              'heading' => __('Placeholder text EN', 'my-custom-plugin'),
-              'param_name' => 'countdown_text_en',
+              'heading' => __('Placeholder text', 'my-custom-plugin'),
+              'param_name' => 'countdown_text',
               'description' => __('Default: "Do targów pozostało/Until the start of the fair"', 'my-custom-plugin'),
               'save_always' => true,
               'admin_label' => true
@@ -702,8 +696,8 @@ function my_custom_wpbakery_element() {
             ),
             array(
               'type' => 'checkbox',
-              'heading' => __('Turn on placeholder text', 'my-custom-plugin'),
-              'param_name' => 'turn_on_countdown_text',
+              'heading' => __('Turn off placeholder text', 'my-custom-plugin'),
+              'param_name' => 'turn_off_countdown_text',
               'value' => array(__('True', 'my-custom-plugin') => 'true',),
               'save_always' => true,
               'admin_label' => true
@@ -713,6 +707,117 @@ function my_custom_wpbakery_element() {
               'heading' => __('Row->Column', 'my-custom-plugin'),
               'param_name' => 'countdown_column',
               'value' => array(__('True', 'my-custom-plugin') => 'true',),
+              'save_always' => true,
+              'admin_label' => true
+            ),
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Hide dropdown buttons', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_dropdown',
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'colorpicker',
+          'group' => 'Main Settings',
+          'heading' => __('Background kolor', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_background',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Aspect ratio (default 21/9)', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_aspect_ratio',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Full size images', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_full_size',
+          'description' => __('Turn on full size images', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'colorpicker',
+          'group' => 'Main Settings',
+          'heading' => __('Background full size kolor', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_full_size_background',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Aspect ratio full size (default 1/1)', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_aspect_ratio_full_size',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'param_group',
+          'group' => 'Main Settings',
+          'param_name' => 'sticky_buttons',
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+          'params' => array(
+            array(
+              'type' => 'attach_images',
+              'heading' => __('Select Image', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_images',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'attach_images',
+              'heading' => __('Select Full Size Image', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_full_size_images',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Button link', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_link',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Button id (czytaj opis!!!)', 'my-custom-plugin'),
+              'description' => __('Jeżeli chcesz urzyć element jako TAB to wpisując tutaj ID musisz dodać taki sam ID w elemencie który chcesz ukryć i DODATKOWO dodaj klasę "hide-section do tego elementu."', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_id',
               'save_always' => true,
               'admin_label' => true
             ),
@@ -799,6 +904,13 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
     if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
 
+    if (isset($atts['sticky_buttons'])) { $sticky_buttons = $atts['sticky_buttons']; }
+    if (isset($atts['sticky_buttons_dropdown'])) { $sticky_buttons_dropdown = $atts['sticky_buttons_dropdown']; }
+    if (isset($atts['sticky_buttons_background'])) { $sticky_buttons_background = $atts['sticky_buttons_background']; }
+    if (isset($atts['sticky_buttons_aspect_ratio'])) { $sticky_buttons_aspect_ratio = $atts['sticky_buttons_aspect_ratio']; }
+    if (isset($atts['sticky_buttons_full_size'])) { $sticky_buttons_full_size = $atts['sticky_buttons_full_size']; }
+    if (isset($atts['sticky_buttons_full_size_background'])) { $sticky_buttons_full_size_background = $atts['sticky_buttons_full_size_background']; }
+    if (isset($atts['sticky_buttons_aspect_ratio_full_size'])) { $sticky_buttons_aspect_ratio_full_size = $atts['sticky_buttons_aspect_ratio_full_size']; }
 
     if (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']) && isset($atts['gallery_mobile'])) {
         $gallery = $atts['gallery_mobile'];
@@ -821,6 +933,8 @@ function my_custom_element_output($atts, $content = null) {
         $input_replace_array_html[] = $replace_item["input_replace_html"];
         $output_replace_array_html[] = $replace_item["output_replace_html"];
       }
+      $input_replace_array = json_encode($input_replace_array_html);
+      $output_replace_array = json_encode($output_replace_array_html);
     }
 
     if (isset($atts['title_estymacje'])) { $title_estymacje = $atts['title_estymacje']; } else { $title_estymacje = 'Branżowi odwiedzający<br>1. Edycji'; }
@@ -855,14 +969,15 @@ function my_custom_element_output($atts, $content = null) {
       if ($input_replace_array_html && $output_replace_array_html) {
         $original_html = $file_cont;
         $file_cont = str_replace($input_replace_array_html, $output_replace_array_html, $file_cont);
-        if (current_user_can('administrator')  && !is_admin()) {
-          if ($original_html === $file_cont) {
-            echo '<script>console.error("Błąd: Zamiana nie została dokonana w elemencie '. $element .'");</script>';
-          } else {
-            echo '<script>console.log("Zamiana została dokonana w elemencie '. $element .'");</script>';
-          }
-        }  
+        // if (current_user_can('administrator') && !is_admin()) {
+        //     if (($original_html === $file_cont) && ($input_replace_array[0] !== "" || $output_replace_array[0] !== "")) {
+        //         echo '<script>console.error("Błąd: Zamiana nie została dokonana w elemencie '. $element.'");</script>';
+        //     } else {
+        //         echo '<script>console.log("Zamiana została dokonana w elemencie '. $element .'");</script>';
+        //     }
+        // }  
       }
+    
   
       $file_cont = '<div class="custom_element custom_element_'.$rnd_id.'">' . $file_cont . '</div>';
       return $file_cont;

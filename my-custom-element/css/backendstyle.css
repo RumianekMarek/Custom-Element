@@ -35,9 +35,9 @@
     display: none;
 }
 
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2'] {
+/* .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2'] {
     visibility: hidden;
-}
+} */
 
 /* KONTAKT INFO*/
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_object"] :is(.wpb_element_label, .edit_form_line) {

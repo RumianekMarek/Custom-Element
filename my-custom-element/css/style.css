@@ -66,11 +66,12 @@
 
 .slick-track {
     display: flex !important;
+    width: 100%;
+    justify-content: center;
     gap: 20px !important;
 }
 
 .custom-logos-title {
-    width: 1200px;
     margin: 0 auto;
 }
 

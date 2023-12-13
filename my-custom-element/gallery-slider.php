@@ -1,10 +1,21 @@
 <?php
     include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
     if ($logoscatalog == "") {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+        if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE)) {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE);
+        } else {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+        }
     } else {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        
+        if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{webp,WEBP}', GLOB_BRACE)) {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{webp,WEBP}', GLOB_BRACE);
+        } else {
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,JPEG,JPG,PNG}', GLOB_BRACE);
+        }
     }
+
+    
     
     ?>
 <link href="/wp-content/plugins/custom-element/my-custom-element/css/fotorama.css" rel="stylesheet">

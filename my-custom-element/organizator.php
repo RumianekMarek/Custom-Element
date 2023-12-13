@@ -26,12 +26,7 @@ if ($color != '#000000'){
 .custom_element_<?php echo $rnd_id ?> .custom-organizator-text :is(h5, p){
     color: <?php echo $color ?>;
 }
-.custom-organizator-text .custom-box-top-left-white, .custom-organizator-text .custom-box-top-left-black{
-    margin-bottom: -10px !important;
-}
-.custom-organizator-text .custom-box-bottom-right-white, .custom-organizator-text .custom-box-bottom-right-black{
-    margin-top: -20px !important;
-}
+
 .custom-inner-organizator{
     max-width:1200px;
     margin: auto;
@@ -78,7 +73,7 @@ if ($color != '#000000'){
 </div>
 <div class="custom-organizator-text style-accent-bg">
     <div class='custom-inner-organizator text-left'>
-    <p class="border-top-left-<?php echo $color ?>">&nbsp;</p>
+    <p class="organizator-box-shadow-left">&nbsp;</p>
     <h5 class="custom-organizator-header">
         <?php if($locale == 'pl_PL'){ echo '
         O organizatorze
@@ -107,7 +102,7 @@ if ($color != '#000000'){
     echo '<div class="custom-inner-organizator-mobile">
         <img src="/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg"/>
         <div class="custom-inner-mobile-text text-left">
-            <p class="custom-box-top-left-white">&nbsp;</p>
+            <p class="organizator-box-shadow-left">&nbsp;</p>
             <h5 class="custom-organizator-header " style="color:white !important;">';
         if($locale == 'pl_PL'){ echo '
             O organizatorze
@@ -123,7 +118,7 @@ if ($color != '#000000'){
             Ptak Warsaw Expo is the largest trade fair and congress centre in Poland and Central and Eastern Europe, located on the outskirts of Warsaw. It has 143,000 m2 of exhibition space in 6 modern pavilions and 500,000 m2 of outdoor space. It is a venue created for trade fairs.
             ";}
         echo '</p>
-                <p class="border-bottom-right-'.$color.'">&nbsp;</p>
+                <p class="organizator-box-shadow-right">&nbsp;</p>
             </div>
             </div>
         </div>';
