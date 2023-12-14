@@ -288,6 +288,8 @@ function katalog_wystawcow_output($atts, $content = null) {
       return $acc;
   }, []); 
 
+  echo '<script>console.log("'.count($exhibitors).'")</script>';
+  
   if (current_user_can('administrator')  && !is_admin()) {
     ?><script>
       var katalog_data = <?php echo json_encode($script_data); ?>;
