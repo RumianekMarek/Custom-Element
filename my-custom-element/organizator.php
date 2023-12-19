@@ -103,14 +103,14 @@ if ($color != '#000000'){
         <img src="/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg"/>
         <div class="custom-inner-mobile-text text-left">
             <p class="organizator-box-shadow-left">&nbsp;</p>
-            <h5 class="custom-organizator-header " style="color:white !important;">';
+            <h5 class="custom-organizator-header">';
         if($locale == 'pl_PL'){ echo '
             O organizatorze
         ';} else { echo '
             About the organizer
         ';}
         echo '</h5>
-            <p  class="" style="color:white !important;">';
+            <p>';
 
         if($locale == 'pl_PL'){ echo '
             Ptak Warsaw Expo to największe centrum targowokongresowe w Polsce i Europie Środkowo-Wschodniej, które zlokalizowane jest na przedmieściach Warszawy. Posiada 143 000 m2 powierzchni wystawienniczej w 6 nowoczesnych pawilonach oraz 500 000 m2 powierzchni zewnętrznej. To miejsce stworzone do organizacji imprez targowych.

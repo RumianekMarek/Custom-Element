@@ -95,7 +95,33 @@ function my_custom_wpbakery_element() {
           ),
           'save_always' => true
         ),
+        array( // FOR VISITORS <-------------------------------------------------------------------------<
+          'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
+          'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
+          'param_name' => 'visitor1',
+          'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+          'value' => base64_encode($visitor1),
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('for-visitors.php')
+          ),
+        ),
         array(
+          'type' => 'textarea_raw_html',
+          'group' => 'Main Settings',
+          'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
+          'param_name' => 'visitor2',
+          'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
+          'value' => base64_encode($visitor2),
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('for-visitors.php')
+          ),
+        ),
+        array( // FOR EXHIBITORS <-------------------------------------------------------------------------<
           'type' => esc_html__('textarea_raw_html'),
           'group' => 'Main Settings',
           'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
@@ -173,7 +199,7 @@ function my_custom_wpbakery_element() {
             'value' => array('for-exhibitors.php')
           ),
         ),
-        array(
+        array( // GALLERY <-------------------------------------------------------------------------<
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Title for Main Page Gallery', 'my-custom-plugin'),
@@ -268,7 +294,7 @@ function my_custom_wpbakery_element() {
             'value' => array('gallery.php')
           ),
         ),
-        array(
+        array( // LOGOTYPES <-------------------------------------------------------------------------<
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Logos catalog', 'my-custom-plugin'),
@@ -292,21 +318,7 @@ function my_custom_wpbakery_element() {
               'value' => array('logos-catalog.php')
           ),
         ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Hide baners to download', 'my-custom-plugin'),
-          'param_name' => 'show_banners',
-          'description' => __('Check Yes to hide download options for baners.', 'my-custom-plugin'),
-          'admin_label' => true,
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('promote-yourself.php')
-          ),
-        ),
-        array(
+        array( 
           'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Show link url in gallery', 'my-custom-plugin'),
@@ -323,9 +335,9 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Turn off full width', 'my-custom-plugin'),
-          'param_name' => 'full_width',
-          'description' => __('Turn off full width if slider on', 'my-custom-plugin'),
+          'heading' => __('Turn on full width', 'my-custom-plugin'),
+          'param_name' => 'slider_full_width_on',
+          'description' => __('Turn on full width', 'my-custom-plugin'),
           'admin_label' => true,
           'save_always' => true,
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -337,25 +349,85 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Turn off the slider', 'my-custom-plugin'),
-          'param_name' => 'slider_off',
-          'description' => __('Check to turn off the slider.', 'my-custom-plugin'),
+          'heading' => __('Slider desktop', 'my-custom-plugin'),
+          'param_name' => 'slider_desktop',
+          'description' => __('Check if you want to display in slider on desktop.', 'my-custom-plugin'),
           'admin_label' => true,
           'save_always' => true,
-          'value' => array(
-            __('desktop (default off, press to turn on)', 'my-custom-plugin') => 'desktop',
-            __('mobile & tablet', 'my-custom-plugin') => 'mobile_tablet',
-          ),
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
           'dependency' => array(
             'element' => 'element',
-            'value' => array('logos-catalog.php', 'wydarzenia-ogolne.php')
+            'value' => array('logos-catalog.php')
           ),
         ),
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
+          'heading' => __('Grid mobile', 'my-custom-plugin'),
+          'param_name' => 'grid_mobile',
+          'description' => __('Check if you want to display in grid on mobile.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Logotypes white', 'my-custom-plugin'),
+          'param_name' => 'slider_logo_white',
+          'description' => __('Check if you want to change the logotypes color to white. ', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Pliki',
+          'heading' => __('Pliki', 'my-custom-plugin'),
+          'param_name' => 'pliki_tab',
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'heading' => __('Logos Data Base', 'my-custom-plugin'),
+          'group' => 'Hidden',
+          'param_name' => 'logo_url',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+        ),
+        array( // PROMOTE YOURSELF <-------------------------------------------------------------------------<
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Hide baners to download', 'my-custom-plugin'),
+          'param_name' => 'show_banners',
+          'description' => __('Check Yes to hide download options for baners.', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('promote-yourself.php')
+          ),
+        ),
+        array( 
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
           'heading' => __('Dispaly different logo color', 'my-custom-plugin'),
-          'param_name' => 'logo_color_promote',
+          'param_name' => 'logo_white_promote',
           'description' => __('Check Yes to display different logo color.', 'my-custom-plugin'),
           'admin_label' => true,
           'save_always' => true,
@@ -365,33 +437,7 @@ function my_custom_wpbakery_element() {
             'value' => array('promote-yourself.php')
           ),
         ),
-        array(
-          'type' => 'textarea_raw_html',
-          'group' => 'Main Settings',
-          'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
-          'param_name' => 'visitor1',
-          'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-          'value' => base64_encode($visitor1),
-          'save_always' => true,
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('for-visitors.php')
-          ),
-        ),
-        array(
-          'type' => 'textarea_raw_html',
-          'group' => 'Main Settings',
-          'heading' => __('Text for Visitors 2', 'my-custom-plugin'),
-          'param_name' => 'visitor2',
-          'description' => __('Text ten pojawi się obok zdjęcia liczone od góry strony', 'my-custom-plugin'),
-          'value' => base64_encode($visitor2),
-          'save_always' => true,
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('for-visitors.php')
-          ),
-        ),
-        array(
+        array( // HEADER <-------------------------------------------------------------------------<
           'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Button on', 'my-custom-plugin'),
@@ -437,7 +483,7 @@ function my_custom_wpbakery_element() {
             'value' => array('header-custom.php')
           ),
         ),
-        array(
+        array( // FOOTER <-------------------------------------------------------------------------<
           'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Change the logo color to white?', 'my-custom-plugin'),
@@ -451,28 +497,7 @@ function my_custom_wpbakery_element() {
             'value' => array('footer.php')
           ),
         ),
-        array(
-          'type' => 'textfield',
-          'group' => 'Pliki',
-          'heading' => __('Pliki', 'my-custom-plugin'),
-          'param_name' => 'pliki_tab',
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php')
-          ),
-        ),
-        array(
-          'type' => 'textfield',
-          'heading' => __('Logos Data Base', 'my-custom-plugin'),
-          'group' => 'Hidden',
-          'param_name' => 'logo_url',
-          'save_always' => true,
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php')
-          ),
-        ),
-        array(
+        array( // CONTACT <-------------------------------------------------------------------------<
           'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Horizontal', 'my-custom-plugin'),
@@ -486,7 +511,7 @@ function my_custom_wpbakery_element() {
             'value' => array('kontakt.php')
           ),
         ),
-        array(
+        array( // GENERATOR WYSTAWCÓW <-------------------------------------------------------------------------<
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Worker form id', 'my-custom-plugin'),
@@ -510,7 +535,7 @@ function my_custom_wpbakery_element() {
               'value' => array('generator-wystawcow.php')
           ),
         ),
-        array(
+        array( // BADGE <-------------------------------------------------------------------------<
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => esc_html__('Badge form id', 'my-custom-plugin'),
@@ -522,7 +547,7 @@ function my_custom_wpbakery_element() {
               'value' => array('badge-local.php', 'callcenter.php')
           ),
         ),
-        array(
+        array( // CONTACT INFO <-------------------------------------------------------------------------<
           'type' => 'dropdown',
           'group' => 'Main Settings',
           'heading' => esc_html__('Number of contacts', 'my-custom-plugin'),
@@ -575,7 +600,7 @@ function my_custom_wpbakery_element() {
             ),
           ),
         ),
-        array(
+        array( // ESTYMACJE <-------------------------------------------------------------------------<
           'type' => 'textarea',
           'group' => 'Main Settings',
           'heading' => esc_html__('Title', 'my-custom-plugin'),
@@ -646,7 +671,7 @@ function my_custom_wpbakery_element() {
               'value' => array('estymacje.php')
           ),
         ),
-        array(
+        array( // COUNTDOWN <-------------------------------------------------------------------------<
           'type' => 'param_group',
           'group' => 'Main Settings',
           'heading' => __('Add countdown', 'my-custom-plugin'),
@@ -712,7 +737,7 @@ function my_custom_wpbakery_element() {
             ),
           ),
         ),
-        array(
+        array( // STICKY BUTTONS <-------------------------------------------------------------------------<
           'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Hide dropdown buttons', 'my-custom-plugin'),
@@ -849,21 +874,27 @@ function my_custom_element_output($atts, $content = null) {
 
     if (isset($atts['color'])) { $color = $atts['color']; }
 
-    if ($atts['btn_color'] === '') { 
-     $btn_color = '';
-    } elseif ($atts['btn_color'] === '#ffffff'){ 
+    if ($atts['btn_color'] === '') {
       $btn_color = '.btn {
-        color: #000000 !important;
-        background-color: #ffffff !important;
-        border-color: #ffffff !important;
-        box-shadow: 9px 9px 0px -5px #000000 !important;
-       }'; 
-    } elseif ($atts['btn_color'] === '#000000'){ 
-      $btn_color = '.btn {
+        color: #FFFFFF !important;
         background-color: #000000 !important;
         border-color: #000000 !important;
-        box-shadow: 9px 9px 0px -5px #ffffff !important;
-      }'; 
+        box-shadow: 9px 9px 0px -5px #FFFFFF !important;
+      }';
+    } elseif ($atts['btn_color'] === '#FFFFFF'){
+      $btn_color = '.btn {
+        color: #000000 !important;
+        background-color: #FFFFFF !important;
+        border-color: #FFFFFF !important;
+        box-shadow: 9px 9px 0px -5px #000000 !important;
+      }';
+    } elseif ($atts['btn_color'] === '#000000'){
+      $btn_color = '.btn {
+        color: #FFFFFF !important;
+        background-color: #000000 !important;
+        border-color: #000000 !important;
+        box-shadow: 9px 9px 0px -5px #FFFFFF !important;
+      }';
     }
     
     if (isset($atts['element'])) { $element = $atts['element']; }
@@ -884,12 +915,14 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
     if (isset($atts['titlecatalog'])) { $titlecatalog = $atts['titlecatalog']; }
     if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
-    if (isset($atts['logo_color_promote'])) { $logo_color_promote = $atts['logo_color_promote']; }
+    if (isset($atts['logo_white_promote'])) { $logo_white_promote = $atts['logo_white_promote']; }
     if (isset($atts['showurl'])) { $showurl = $atts['showurl']; }
     if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
     if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
-    if (isset($atts['full_width'])) { $full_width = $atts['full_width']; }
-    if (isset($atts['slider_off'])) { $slider_off = $atts['slider_off']; }
+    if (isset($atts['slider_full_width_on'])) { $slider_full_width_on = $atts['slider_full_width_on']; }
+    if (isset($atts['slider_desktop'])) { $slider_desktop = $atts['slider_desktop']; }
+    if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
+    if (isset($atts['slider_logo_white'])) { $slider_logo_white = $atts['slider_logo_white']; }
     if (isset($atts['tickets_available'])) { $tickets_available = $atts['tickets_available']; }
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
     if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }

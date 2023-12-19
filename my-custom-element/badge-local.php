@@ -10,8 +10,6 @@
     }
 </style>
 <?php
-include_once plugin_dir_path(__FILE__) . 'main-custom-element.php';
-
 echo '<div id="badge-generator">[gravityform id="'.$badge_form_id.'" title="false" description="false" ajax="false"]</div>';
 if ($_GET['parametr'] === 'masowy') {
     if (isset($_POST["submit"])){

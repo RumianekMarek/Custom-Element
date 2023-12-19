@@ -1,14 +1,6 @@
 <?php
-    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE)) {
-        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE);
-    } else {
-        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    }
-    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE)) {
-        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE);
-    } else {
-        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    }
+    $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);    
     
     $files = !empty($miniFiles) ? $miniFiles : $originalFiles;
 
@@ -37,10 +29,10 @@
             </div>
             <div class="custom-btn-container">
                 <span class="pl_PL">
-                    <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/"  target="_blank" style="color:white !important;">Przejdź do galerii</a>
+                    <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/"  target="_blank">Przejdź do galerii</a>
                 </span>
                 <span class="en_US">
-                    <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/en/gallery/"  target="_blank" style="color:white !important;">Go to gallery</a>
+                    <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/en/gallery/"  target="_blank">Go to gallery</a>
                 </span>
             </div>
         </div>

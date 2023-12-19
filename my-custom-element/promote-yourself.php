@@ -1,5 +1,5 @@
 <?php 
-    $exhibitorsImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    $promoteImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
 
     if ($color != '#000000'){
         $color = '#ffffff';
@@ -9,7 +9,7 @@
     }
 ?>
 <style>
-.custom-exhibitors-text-block img{
+.custom-promote-text-block img{
     float: right;
     max-width: 45%;
     margin:18px;
@@ -62,15 +62,16 @@
     }
 }
 @media (max-width:600px) {
+    
     .promote-img-contener{
         order: 2;
         text-align: center;
     }
-    .custom-exhibitors-text-block img{
+    .custom-promote-text-block img{
         float: unset;
         max-width: 90%;
     }
-    .custom-exhibitors-text-block{
+    .custom-promote-text-block{
         display: flex;
         flex-direction: column;
     }
@@ -80,10 +81,10 @@
 }
 </style>
 <div id="promoteYourself" >
-    <div class="custom-content-exhibitors-item column-reverse custom-align-left">
-        <div class="custom-exhibitors-text-block">
+    <div class="custom-content-promote-item column-reverse custom-align-left">
+        <div class="custom-promote-text-block">
             <?php
-                $thirdImage = $exhibitorsImages[2];
+                $thirdImage = $promoteImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
                 echo '<div class="t-entry-visual promote-img-contener"><img class="image-shadow" src="' . $shortPath . '"></div>';
 
@@ -232,17 +233,7 @@
                 <p><strong>[trade_fair_name_eng]</strong></p>
                 ';} ?>
             <?php
-            if ($logo_color_promote != 'true') {
-                if($locale == 'pl_PL'){
-                    $backgroundImage = "/doc/logo.png";}
-                else {
-                    if (file_exists('doc/logo-en.png')) { 
-                        $backgroundImage = "/doc/logo-en.png";
-                    } else {
-                        $backgroundImage = "/doc/logo.png";
-                    }
-                }
-            } else {
+            if ($logo_white_promote != 'true') {
                 if($locale == 'pl_PL'){
                     $backgroundImage = "/doc/logo-color.png";
                 } else {
@@ -250,6 +241,16 @@
                         $backgroundImage = "/doc/logo-color-en.png";
                     } else {
                         $backgroundImage = "/doc/logo-color.png";
+                    }
+                }
+            } else {
+                if($locale == 'pl_PL'){
+                    $backgroundImage = "/doc/logo.png";
+                } else {
+                    if (file_exists('doc/logo-en.png')) { 
+                        $backgroundImage = "/doc/logo-en.png";
+                    } else {
+                        $backgroundImage = "/doc/logo.png";
                     }
                 }
             }

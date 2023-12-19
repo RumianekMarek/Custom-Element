@@ -1,15 +1,7 @@
 <?php
 
-    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE)) {
-        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{webp,WEBP}', GLOB_BRACE);
-    } else {
-        $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    }
-    if (glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE)) {
-        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{webp,WEBP}', GLOB_BRACE);
-    } else {
-        $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    }
+    $miniFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/mini/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    $originalFiles = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);    
 
     if($gallery_images[0] != false){
         $files = $gallery_images;
@@ -117,9 +109,9 @@
                     </div>
                     <div class="custom-btn-container gallery-link-btn">
                         <span><?php if($locale == 'pl_PL'){ echo '
-                            <a class="custom-link btn border-width-0 btn-custom-black btn-flat" href="/galeria/" alt="link do galerii">Przejdź do galerii</a>
+                            <a class="custom-link btn border-width-0 btn-flat" href="/galeria/" alt="link do galerii">Przejdź do galerii</a>
                         ';} else { echo '
-                            <a class="custom-link btn border-width-0 btn-custom-black btn-flat" href="/en/gallery/" alt="link to gallery">Go to gallery</a>
+                            <a class="custom-link btn border-width-0 btn-flat" href="/en/gallery/" alt="link to gallery">Go to gallery</a>
                         ';} ?>
                         </span>
                     </div>

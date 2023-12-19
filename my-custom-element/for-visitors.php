@@ -30,8 +30,11 @@ if ($btn_color != ''){
     object-fit: cover;
 }
 @media (max-width:768px){
-    .custom-content-visitors-item{
+    .custom-content-visitors-item {
         flex-direction: column;
+    }
+    .custom-column-reverse{
+        flex-direction: column-reverse;
     }
     .custom-visitors-image-block,
     .custom-visitors-text-block {
@@ -43,7 +46,8 @@ if ($btn_color != ''){
 }
 </style>
 <?php 
-    $visitorImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+
+    $visitorImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
 ?>
 <div id="forVisitors"class="custom-container-visitors">
@@ -73,7 +77,7 @@ if ($btn_color != ''){
     </div>
 
     <!-- for-visitors-item -->
-    <div class="custom-content-visitors-item custom-align-left column-reverse">
+    <div class="custom-content-visitors-item custom-column-reverse custom-align-left column-reverse">
         <div class="custom-visitors-text-block">
             <div class="custom-visitors-text">
                 <p>
