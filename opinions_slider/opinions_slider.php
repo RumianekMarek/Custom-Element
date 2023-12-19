@@ -92,15 +92,15 @@ function media_opinions_output($atts, $content = null) {
         }
         .single-slide{
             margin: 0 29px;
-            padding: 9px 18px;
+            padding: 36px 18px;
             border: 2px solid black;
             border-radius: 15px;
             min-width: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-around;
-
+            justify-content: space-between;
+            height: auto;
         }
         .single-slide img{
             height: 100px;
@@ -110,7 +110,15 @@ function media_opinions_output($atts, $content = null) {
         }
         @keyframes slideAnimation {
             from {
-                transform: translateX(100%);
+                transform: translateX(111%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideAnimation {
+            from {
+                transform: translateX(111%);
             }
             to {
                 transform: translateX(0);
@@ -119,8 +127,12 @@ function media_opinions_output($atts, $content = null) {
         .slides{
             animation: slideAnimation 0.5s ease-in-out;
         }
+        .slides-revers{
+            animation: slideAnimation 0.5s reverse ease-in-out;
+        }
         .opinions-hidden{
             overflow: hidden;
+            height: 105px;
         }
         @media (min-width:1000px) and (max-width: 1200px){
             #opinion-slider-'.$opinions_id_random.' .arrow-left{
@@ -197,42 +209,66 @@ function media_opinions_output($atts, $content = null) {
         
         $html_opinions .= 
         '<script>
-        function nextSlide() {
-            quotesSlides.querySelectorAll(".single-slide").forEach(function(image){
-                    image.classList.add("slides");
-            })
-            quotesSlides.firstChild.classList.add("first-slide");
-            const firstSlide = quotesSlides.querySelector(".first-slide");  
+        jQuery(function ($) { 
+            function nextSlide_'.$opinions_id_random.'() {     
+                $("#opinion-slider-'.$opinions_id_random.' .single-slide").addClass("slides");
 
-            quotesSlides.appendChild(firstSlide);
+                $("#opinion-slider-'.$opinions_id_random.' .single-slide:first-child").appendTo(quotesSlides);
+                $("#opinion-slider-'.$opinions_id_random.' .single-slide:first-child").removeClass("first-slide");
+            
+                setTimeout(function() {        
+                    $("#opinion-slider-'.$opinions_id_random.' .single-slide").removeClass("slides");
+                }, 500);
+            }
+        
+            function previousSlide_'.$opinions_id_random.'() {
+                $("#opinion-slider-'.$opinions_id_random.' .single-slide").addClass("slides-revers");
+            
+                setTimeout(function() {
+                    $("#opinion-slider-'.$opinions_id_random.' .single-slide:last-child").prependTo(quotesSlides);
+                    $("#opinion-slider-'.$opinions_id_random.' .single-slide").removeClass("slides-revers");
+                }, 500);
+            }
 
-            firstSlide.classList.remove("first-slide");
+            const quotesSlides = document.querySelector("#opinion-slider-'.$opinions_id_random.' .slide-container");
+            let isMouseOver_'.$opinions_id_random.' = false;
+            
+            $("#opinion-slider-'.$opinions_id_random.'").on("mousemove", function() {
+                isMouseOver_'.$opinions_id_random.' = true;
+            });
+            
+            $("#opinion-slider-'.$opinions_id_random.'").on("mouseleave", function() {
+                isMouseOver_'.$opinions_id_random.'= false;
+            });
 
-            setTimeout(function() {
-                quotesSlides.querySelectorAll(".single-slide").forEach(function(image){
-                            image.classList.remove("slides");
-                    })
-            }, 2500);
-        }
-        const quotesSlides = document.querySelector("#opinion-slider-'.$opinions_id_random.' .slide-container");
+            $(document).ready(function() {
+                $(".single-slide").on("mousemove", function() {
+                    if ($(this).find("p").hasClass("opinions-hidden")){
+                        $(this).find("p").removeClass("opinions-hidden");
+                    }
+                });
+            
+                $(".single-slide").on("mouseleave", function() {
+                    if (!$(this).find("p").hasClass("opinions-hidden")) {
+                        $(this).find("p").addClass("opinions-hidden");
+                    }
+                });
 
-        let isMouseOver = false;
-
-        quotesSlides.addEventListener("mousemove", function() {
-            isMouseOver = true;
+                $("#opinion-slider-'.$opinions_id_random.' .arrow-left").on("click", function() {
+                    nextSlide_'.$opinions_id_random.'();
+                });
+                $("#opinion-slider-'.$opinions_id_random.' .arrow-right").on("click", function() {
+                    previousSlide_'.$opinions_id_random.'();
+                });
+            });
+            setInterval(function() {
+                if(!isMouseOver_'.$opinions_id_random.') { 
+                    nextSlide_'.$opinions_id_random.'()
+                }
+            }, 5000);  
         });
         
-        quotesSlides.addEventListener("mouseleave", function() {
-            isMouseOver = false;
-        });
-
-
-        // setInterval(function() {
-        //     if(!isMouseOver) { 
-        //         nextSlide()
-        //     }
-        // }, 5000);  
-        </script>'; 
+    </script>'; 
 
     return $html_opinions;
 }
