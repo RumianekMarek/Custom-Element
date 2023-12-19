@@ -44,7 +44,7 @@ function info_box_new() {
             array(
                 'type' => 'param_group',
                 'group' => 'speakers',
-                'param_name' => 'speakers',
+                'param_name' => 'all_speakers',
                 'params' => array(
                     array(
                         'type' => 'attach_image',
@@ -215,10 +215,16 @@ function info_box_new_output($atts, $content = null) {
         'photo_box' => '',
         'photo_squer' => '',
         'title_top' => '',
+        'all_speakers' => '',
         'lecture_id' => $rn,
     ), $atts ) );
 
-    
+        $replace_items_urldecode = urldecode($replace_items);
+        $replace_items_json = json_decode($replace_items_urldecode, true);
+
+        $all_speakers = urldecode($all_speakers);
+        $all_speakers = json_decode($all_speakers, true);
+
         $locale = get_locale();
 
         $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
@@ -230,7 +236,7 @@ function info_box_new_output($atts, $content = null) {
         $title_color = isset($atts['title_color']) ? $atts['title_color'] : '#000000';
         $shadow = isset($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
         $photo_box = isset($atts['photo_box']) ? $atts['photo_box'] : '';
-        $modal_img_size = isset($atts['modal_img_size']) ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px';
+        $modal_img_size = ($atts['modal_img_size'] != '') ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px;';
         $bio_text = isset($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
         $title_size = isset($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
@@ -238,19 +244,25 @@ function info_box_new_output($atts, $content = null) {
 
         $uncode_options = get_option('uncode');
 
-        $css_file = plugins_url('display-info.css', __FILE__);
-        $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info.css');
+        $css_file = plugins_url('display-info-new.css', __FILE__);
+        $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info-new.css');
         wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
 
-        $js_file = plugins_url('display-info.js', __FILE__);
-        $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info.js');
+        $js_file = plugins_url('display-info-new.js', __FILE__);
+        $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info-new.js');
         wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
         wp_localize_script('info_box_new-js', 'inner' , $atts);
 
+        foreach($all_speakers as $key){
+            $speakers .= $key['event_speaker']. ';';
+            $modal_sp_name[] = $key['event_speaker'];
+            $speaker_imgs[] = $key['event_images'];
+            $speaker_desc[] = $key['speaker_bio'];
+        }
+        
+        $speakers = substr($speakers, 0, -1);
         if (!$simple_mode){
-            
-        $speakers = explode(';', $event_speaker);
-        $speaker_imgs = explode(',',$event_images);
+    
         $speaker_html = '<div class="speakers">';
         $modal_html = '<div class="modal-lecturers">';
         
@@ -262,7 +274,7 @@ function info_box_new_output($atts, $content = null) {
             $info_box_new_max_height = '280px;';
         }
 
-        if ($event_images == ''){
+        if ($speaker_imgs == ''){
             $speaker_html = '<div class="speakers">';
 
             // foreach ($speakers as $speaker) {
@@ -273,7 +285,6 @@ function info_box_new_output($atts, $content = null) {
             for ($i = 0; $i < count($speaker_imgs); $i++) {            
                 if (isset($speaker_imgs[$i])) {
                     $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
-
                     
                     if ($image_src) {
                         if (!$photo_squer){
@@ -306,21 +317,19 @@ function info_box_new_output($atts, $content = null) {
                                 break;
                         
                             case 3:
+                                $max_width_index = "35%";
                                 switch ($i) {
                                     case 0:
-                                        $max_width_index = "35%";
                                         $top_index = "15px";
                                         $left_index = "unset";
                                         break;
                         
                                     case 1:
-                                        $max_width_index = "35%";
                                         $top_index = "40px";
                                         $left_index = "-15px";
                                         break;
                         
                                     case 2:
-                                        $max_width_index = "35%";
                                         $top_index = "-15px";
                                         $left_index = "-30px";
                                         break;
@@ -335,42 +344,35 @@ function info_box_new_output($atts, $content = null) {
         }
         $speaker_html .= '</div>';
         
-        $event_modal = substr($event_modal, 3);
-        $event_modal = substr($event_modal, 0, -3);
-        $event_modal = str_replace("``", '"', $event_modal);
-        $event_modal = str_replace("\n", '<br>', $event_modal);
-        $event_modal = "[". $event_modal . "]";
+        // $event_modal = substr($event_modal, 3);
+        // $event_modal = substr($event_modal, 0, -3);
+        // $event_modal = str_replace("``", '"', $event_modal);
+        // $event_modal = str_replace("\n", '<br>', $event_modal);
+        // $event_modal = "[". $event_modal . "]";
         
-        $modal_array = json_decode($event_modal, true);
-        $modal_desc = false;
+        // $modal_array = json_decode($event_modal, true);
+        // $modal_desc = false;
 
-        foreach ($modal_array as $modal){
-            if ($modal['desc']){
-                $modal_desc = true;
-            }
-        }
+        // foreach ($modal_array as $modal){
+        //     if (count($speaker_desc) > 0){
+        //         $modal_desc = true;
+        //     }
+        // }
 
-        for($i=0; $i<count($modal_array); $i++){
-            if($modal_array[$i]['id']){
-                $image_src = '';
-                $modal_lecturer_display = '';
+        for($i=0; $i<count($speaker_desc); $i++){
+            if($speaker_desc[$i]){
                 if($speaker_imgs[$i]){
                     $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
                 }
 
-                if(!$speaker_imgs[$i] && !$modal_array[$i]['desc']){
-                    $modal_lecturer_display = 'style="display:none;"';
-                }
-                $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'>';
-                $modal_html .= '<div class="modal-image"><img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size .'"><h3 style="'.$lect_color.'">'.$modal_array[$i]['id'].'</h3>';
+                $modal_html .= '<div class="lecturer">';
+                $modal_html .= '<div class="modal-image">
+                                    <img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size .'">
+                                    <h3 style="'.$lect_color.'">'.$modal_sp_name[$i].'</h3>';
             } else {
                 $modal_html .= '<div class="modal-image">';
             }
-            if($modal_array[$i]['desc']){
-                $modal_html .= '<p>'.$modal_array[$i]['desc'].'</p></div></div>';
-            } else {
-                $modal_html .= '</div></div>';
-            }
+                $modal_html .= '<p>'.$speaker_desc[$i].'</p></div></div>';
         }
         
         if($photo_box){
@@ -378,7 +380,7 @@ function info_box_new_output($atts, $content = null) {
                     <div class="head-container">
                     ' . $speaker_html;
         
-            if ($modal_desc){
+            if (count($speaker_desc) > 0){
                 if (count($speaker_imgs) < 3){
                     $html .=
                             '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
@@ -407,8 +409,8 @@ function info_box_new_output($atts, $content = null) {
         }
 
         if($event_desc != ''){        
-            $html .='<div class="inside-text" style="max-height: 77px;"><p>' . $event_desc . '</p></div>
-                        <p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
+            $html .='<div class="inside-text" style="max-height: 145px;"><p>' . $event_desc . '</p></div>
+                        <p class="open-desc" style="display:none;"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
                         if ($locale == 'pl_PL') {
                             $html .= 'Czytaj więcej';
                         } else {
@@ -427,7 +429,7 @@ function info_box_new_output($atts, $content = null) {
         </div>';
     } else {
 
-        $simple_speakers = str_replace('``', '"', $event_speaker);
+        $simple_speakers = str_replace('``', '"', $speakers);
         $simple_speakers = str_replace(';', ' , ', $simple_speakers);
         
         $html .= '<div id="lecture-'.$rn.'" class="simple-lecture">
@@ -446,15 +448,10 @@ function load_backend_scripts_new() {
     $css_file = plugins_url('backend-info-new.css', __FILE__);
     $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info-new.css');
     wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
-
-    // $js_file = plugins_url('backend-info-new.js', __FILE__);
-    // $js_version = filemtime(plugin_dir_url(__FILE__) . 'backend-info-new.js');
-    // wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
 }
 
 add_action('admin_enqueue_scripts', 'load_backend_scripts_new');
 
 add_action('vc_before_init', 'info_box_new');
 add_shortcode('info_box_new', 'info_box_new_output');
-
 ?>

@@ -166,13 +166,10 @@ function katalog_wystawcow_output($atts, $content = null) {
   
   $json = file_get_contents($canUrl);
   $data = json_decode($json, true);
-  $name = do_shortcode('[trade_fair_name]');
-  $name_eng = do_shortcode('[trade_fair_name_eng]');
 
   if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {    
     foreach ($file_changer as $change) {   
       $change = trim($change);
-      echo '<script>console.log("'.$change.'")</script>';
       
       if (strpos($change, '<=>') !== false) {
         $id = [];
@@ -197,9 +194,7 @@ function katalog_wystawcow_output($atts, $content = null) {
           }
         }
         
-        if($id[0] && $id[1] && count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){
-          echo '<script>console.log("'.$id[0].' '.$id[1].'")</script>';
-          
+        if($id[0] && $id[1] && count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){          
           list($data[$id_targow]['Wystawcy'][$id[0]], $data[$id_targow]['Wystawcy'][$id[1]]) = [$data[$id_targow]['Wystawcy'][$id[1]], $data[$id_targow]['Wystawcy'][$id[0]]];
         } elseif($id[0] && $id[1]) {
           echo '<script>console.error("lista zawiera tylko '. count($data[$id_targow]['Wystawcy']) .' wystawców, wystawców, sprawdź poprawność '.$change.'")</script>';
@@ -287,15 +282,17 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       return $acc;
   }, []); 
-
-  echo '<script>console.log("'.count($exhibitors).'")</script>';
-  
+    echo '<script>console.log("'.count($exhibitors).'")</script>';
+    
   if (current_user_can('administrator')  && !is_admin()) {
     ?><script>
       var katalog_data = <?php echo json_encode($script_data); ?>;
       console.log(katalog_data.data["<?php echo $id_targow ?>"]["Wystawcy"])
     </script><?php
   }
+
+  $trade_fair_name = do_shortcode('[trade_fair_name]');
+  $trade_fair_name_eng = do_shortcode('[trade_fair_name_eng]');
 
   // KATALOG
   if($format === 'full'){
@@ -308,13 +305,13 @@ function katalog_wystawcow_output($atts, $content = null) {
           if($locale == 'pl_PL') {
             $output .= '<div>
                     <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców '.$catalog_year.'</h1>
-                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $trade_fair_name . '</h2>
                   </div>
                   <input id="search" placeholder="Szukaj"/>';
           } else {
             $output .= '<div>
                     <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitors Catalog '.$catalog_year.'</h1>
-                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $name . '</h2>
+                    <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $trade_fair_name_eng . '</h2>
                   </div>
                   <input id="search" placeholder="Search"/>';
           }
