@@ -60,6 +60,10 @@ function funkcja_renderujaca_podmenu_alty() {
             echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($alt_text) . '">';
             echo '</a>';
 
+            if (strlen($alt_text) <= 1){
+                $alt_text = str_replace(array('-', '_'), ' ', $image_title);
+            }
+
             // Display the input field for "alt" attribute
             echo '<p>' . esc_html($image_title) . '</p>';
             echo '<input type="text" name="alt_attributes[' . esc_attr($media_id) . ']" value="' . esc_attr($alt_text) . '">';

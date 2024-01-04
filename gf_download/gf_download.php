@@ -56,11 +56,12 @@ function gf_finder($gf_id, $form_title){
         foreach ($sample_entry[0] as $key => $sample){
             foreach($entry_labels as $klucz => $wartosc){
                 if($key === $klucz){
-                    $label_array[] = $wartosc;
+                    $label_array[$key] = $wartosc;
                     break;
                 }
             }
         }
+        ksort($label_array);
         $entry_data .= implode(',', $label_array) . '\n';
 
         do {
@@ -70,12 +71,12 @@ function gf_finder($gf_id, $form_title){
                 foreach ($entry as $id => $key) {
                     if (is_int($id) || $id === "source_url" || $id ==="date_created") {
                         $key = str_replace(',',' ',$key);
-                        $entry_line[] = $key;
+                        $entry_line[$id] = $key;
                     }
                 }
+                ksort($entry_line);
                 $entry_data .= implode(',', $entry_line) . '\n';
             }
-    
             $offset += $page_size;
         } while (count($entries) === $page_size); // Kontynuuj, dopóki pobierane są kolejne partie
     

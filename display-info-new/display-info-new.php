@@ -1,16 +1,42 @@
 <?php
 
+function custom_row_shortcode($atts, $content = null) {
+    return '<div class="custom-row">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('custom_row', 'custom_row_shortcode');
+
 function info_box_new() {
     // Define the element name and path to the element file
     vc_map(array(
-      'name' => __('Info box v2', 'my-custom-plugin'),
-      'base' => 'info_box_new',
-      'category' => __('My Elements', 'my-custom-plugin'),
-      'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info-new.css',
-      'params' => array(
+        'name' => __('Info box v2', 'my-custom-plugin'),
+        'base' => 'info_box_new',
+        'category' => __('My Elements', 'my-custom-plugin'),
+        'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info-new.css',
+        'params' => array(
+            array(
+                'type' => 'textfield',
+                'heading' => __('Event Name', 'my-custom-plugin'),
+                'param_name' => 'event_name',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textfield',
+                'heading' => __('Event Date', 'my-custom-plugin'),
+                'param_name' => 'event_date',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textarea_raw_html',
+                'holder' => 'div',
+                'heading' => __('Description', 'my-custom-plugin'),
+                'param_name' => 'l_desc',
+                'description' => __('Put lecture description.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
             array(
                 'type' => 'checkbox',
-                'group' => 'main',
                 'heading' => __('Simple form', 'my-custom-plugin'),
                 'param_name' => 'simple_mode',
                 'description' => __('To display in simpler form.', 'my-custom-plugin'),
@@ -18,59 +44,60 @@ function info_box_new() {
                 'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
             array(
-                'type' => 'textfield',
-                'group' => 'main',
-                'heading' => __('Event time', 'my-custom-plugin'),
-                'param_name' => 'event_time',
-                'save_always' => true,
-                'admin_label' => true
-            ),
-            array(
-                'type' => 'textfield',
-                'group' => 'main',
-                'heading' => __('Event Name', 'my-custom-plugin'),
-                'param_name' => 'event_name',
-                'save_always' => true,
-                'admin_label' => true
-            ),
-            array(
-                'type' => 'textarea',
-                'group' => 'main',
-                'heading' => __('Description', 'my-custom-plugin'),
-                'param_name' => 'event_desc',
-                'description' => __('Put event description.', 'my-custom-plugin'),
-                'save_always' => true,
-            ),
-            array(
+                'heading' => __('Lecture', 'my-custom-plugin'),
                 'type' => 'param_group',
-                'group' => 'speakers',
-                'param_name' => 'all_speakers',
+                'param_name' => 'lecture',
                 'params' => array(
                     array(
-                        'type' => 'attach_image',
-                        'heading' => __('Select Image', 'my-custom-plugin'),
-                        'param_name' => 'event_images',
-                        'description' => __('Choose lecturers image from the media library.', 'my-custom-plugin'),
+                        'type' => 'textfield',
+                        'heading' => __('Lecture time', 'my-custom-plugin'),
+                        'param_name' => 'lecture_time',
                         'save_always' => true,
-                        'dependency' => array(
-                            'element' => 'multiple',
-                            'value' => array('false'),
-                        ),
+                        'admin_label' => true
                     ),
                     array(
                         'type' => 'textfield',
-                        'heading' => __('Event Speaker', 'my-custom-plugin'),
-                        'param_name' => 'event_speaker',
-                        'description' => __('Put all names with "," separator, in order of pictures.', 'my-custom-plugin'),
+                        'heading' => __('Lecture Name', 'my-custom-plugin'),
+                        'param_name' => 'lecture_name',
                         'save_always' => true,
-                        'admin_label' => true,
+                        'admin_label' => true
                     ),
                     array(
-                        'type' => 'textarea',
-                        'heading' => __('Bio', 'my-custom-plugin'),
-                        'param_name' => 'speaker_bio',
-                        'description' => __('Put event description.', 'my-custom-plugin'),
+                        'type' => 'textarea_raw_html',
+                        'holder' => 'div',
+                        'heading' => __('Description', 'my-custom-plugin'),
+                        'param_name' => 'lecture_desc',
+                        'description' => __('Put lecture description.', 'my-custom-plugin'),
                         'save_always' => true,
+                    ),
+                    array(
+                        'heading' => __('Speakers', 'my-custom-plugin'),
+                        'type' => 'param_group',
+                        'value' => '',
+                        'param_name' => 'Speakers',
+                        'params' => array(
+                            array(
+                                'type' => 'attach_image',
+                                'heading' => __('Select Speaker Image', 'my-custom-plugin'),
+                                'param_name' => 'speaker_images',
+                                'description' => __('Choose speaker image from the media library.', 'my-custom-plugin'),
+                                'save_always' => true,
+                            ),
+                            array(
+                                'type' => 'textfield',
+                                'heading' => __('Speaker Name', 'my-custom-plugin'),
+                                'param_name' => 'event_speaker',
+                                'save_always' => true,
+                                'admin_label' => true,
+                            ),
+                            array(
+                                'type' => 'textarea',
+                                'heading' => __('Bio', 'my-custom-plugin'),
+                                'param_name' => 'speaker_bio',
+                                'save_always' => true,
+                                'std' => '',
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -197,27 +224,32 @@ function info_box_new() {
 function info_box_new_output($atts, $content = null) {
     $rn = rand(10000, 99999);
     extract( shortcode_atts( array(
-        'simple_mode' => '',
-        'event_time' => '',
         'event_name' => '',
-        'event_speaker' => '',
-        'event_images' => '',
-        'event_desc' => '',
-        'event_modal' => '',
-        'border_radius' => '',
-        'border_width' => '',
-        'border_style' => '',
-        'border_color' => '',
+        'event_date' => '',
+        'simple_mode' => '',
+        'lecture' => '',
         'lect_color' => '',
-        'bio_color' => '',
-        'title_color' => '',
-        'shadow' => '',
+        'title_top' => '',
         'photo_box' => '',
         'photo_squer' => '',
-        'title_top' => '',
-        'all_speakers' => '',
         'lecture_id' => $rn,
     ), $atts ) );
+        
+        
+        $lecture_json = json_decode(urldecode($lecture));
+
+        $uncode_options = get_option('uncode');
+
+        // foreach($lecture_json as $id => $at){
+        //     echo $id.' => ';
+        //     print_r($at);
+        //     echo'<br><br>';
+        // }
+        // foreach($uncode_options as $id => $opt){
+        //     echo $id.' => ';
+        //     print_r($opt);
+        //     echo'<br><br>';
+        // }
 
         $replace_items_urldecode = urldecode($replace_items);
         $replace_items_json = json_decode($replace_items_urldecode, true);
@@ -226,7 +258,10 @@ function info_box_new_output($atts, $content = null) {
         $all_speakers = json_decode($all_speakers, true);
 
         $locale = get_locale();
-
+        
+        if (isset($atts['l_desc'])) {
+            return '<div>'.$l_desc.'</div>';
+        }
         $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
         $border_width = isset($atts['border_width']) ? $atts['border_width'] : '2px';
         $border_style = isset($atts['border_style']) ? $atts['border_style'] : 'solid';
@@ -235,14 +270,12 @@ function info_box_new_output($atts, $content = null) {
         $bio_color = isset($atts['bio_color']) ? $atts['bio_color'] : '#000000';
         $title_color = isset($atts['title_color']) ? $atts['title_color'] : '#000000';
         $shadow = isset($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
-        $photo_box = isset($atts['photo_box']) ? $atts['photo_box'] : '';
         $modal_img_size = ($atts['modal_img_size'] != '') ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px;';
         $bio_text = isset($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
         $title_size = isset($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
         $event_name = str_replace('``','"', $event_name);
 
-        $uncode_options = get_option('uncode');
 
         $css_file = plugins_url('display-info-new.css', __FILE__);
         $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info-new.css');
@@ -253,6 +286,7 @@ function info_box_new_output($atts, $content = null) {
         wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
         wp_localize_script('info_box_new-js', 'inner' , $atts);
 
+        // Speakers Images Left Side Full View
         foreach($all_speakers as $key){
             $speakers .= $key['event_speaker']. ';';
             $modal_sp_name[] = $key['event_speaker'];
