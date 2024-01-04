@@ -2,7 +2,7 @@
     $promoteImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
 
     if ($color != '#000000'){
-        $color = '#ffffff';
+        $color = '#ffffff !important';
     }
     if ($btn_color != ''){
         $btn_color = '.custom_element_'.$rnd_id.' .btn-container '.$btn_color;
@@ -86,7 +86,7 @@
             <?php
                 $thirdImage = $promoteImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<div class="t-entry-visual promote-img-contener"><img class="image-shadow" src="' . $shortPath . '"></div>';
+                echo '<div class="image-shadow promote-img-contener"><img class="t-entry-visual" src="' . $shortPath . '"></div>';
 
                 if($locale == 'pl_PL'){ 
                     echo '<h3>Wypromuj się na [trade_fair_name]!</h3>';

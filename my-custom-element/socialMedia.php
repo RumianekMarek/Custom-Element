@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#ffffff'){
-    $color = '#000000';
+    $color = '#000000 !important';
 }
 if ($btn_color != ''){
     $btn_color = '.custom_element_'.$rnd_id.' '.$btn_color;

@@ -13,7 +13,7 @@
     }
 
     if ($color != '#ffffff'){
-        $color = '#000000';
+        $color = '#000000 !important';
     } else {
         $invert = '.custom_element_'.$rnd_id.' #contact-info .contact-info-img-default{
             filter: invert(100%);

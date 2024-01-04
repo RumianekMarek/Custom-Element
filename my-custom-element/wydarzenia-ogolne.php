@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#000000'){
-    $color = '#ffffff';
+    $color = '#ffffff !important';
     $shadow = '#000000';
 } else {
     $shadow = '#ffffff';
@@ -86,7 +86,8 @@ if ($color != '#000000'){
             ';} ?>
         </p>
     </div>
-    <?php if($logoscatalog != ''){ ?>
+    
+    <?php if($logoscatalog !== ''){ ?>
         <div class="media-logos text-centered custom-width-limit single-block-padding">
             <h2>
                 <?php if($locale == 'pl_PL'){ echo '
@@ -99,3 +100,29 @@ if ($color != '#000000'){
         </div>
     <?php } ?>
 </div>
+
+<script>
+    
+const congresSections = document.querySelectorAll('[class^="konferencja-"]');
+const customWydarzenia = document.querySelector('.row-container:has(.custom-wydarzenia)');
+const pageHeader = document.querySelector('#page-header');
+congresSections.forEach(function(section) {
+    const classList = section.classList;
+    // Znalezienie klasy zaczynającej się od "konferencja-"
+    const congresClass = Array.from(classList).find(cls => cls.startsWith("konferencja-"));
+    if (congresClass) {
+        const congresYear = congresClass.slice(-4);
+        const currentDate = new Date().getTime();
+        const tradeStart = new Date("<?php echo $trade_start; ?>").getTime();
+        const tradeEnd = new Date("<?php echo $trade_end; ?>").getTime();
+        if ((tradeStart - currentDate) <= 10368000000 && customWydarzenia.classList.contains("desktop-hidden")) {
+            section.classList.add("desktop-hidden", "tablet-hidden", "mobile-hidden");
+            customWydarzenia.classList.remove("desktop-hidden", "tablet-hidden", "mobile-hidden");
+            if (pageHeader) {
+                pageHeader.style.display = "none";
+            }
+        }
+    }
+});
+
+</script>

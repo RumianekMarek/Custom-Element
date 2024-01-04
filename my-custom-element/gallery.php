@@ -23,7 +23,8 @@
 
     if ($btn_color != ''){
         $btn_color = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color;
-    }    
+    }
+    
 ?>
 <style>
     <?php echo $btn_color ?>

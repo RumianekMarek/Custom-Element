@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#000000'){
-    $color = '#ffffff';
+    $color = '#ffffff !important';
 }
 ?>
 <style>

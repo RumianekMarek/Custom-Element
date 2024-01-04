@@ -1,17 +1,17 @@
 <?php 
-if ($color != '#000000'){
-    $color = 'white';
+if ($color != '#000000') {
+    $color = 'white !important';
 } else {
     $color = 'black';
 }
 ?>
 <style>
-.custom-organizator-video{
+.custom-organizator-video {
     height:500px;
     position: relative;
     overflow: hidden;
 }
-.custom-organizator-video iframe{
+.custom-organizator-video iframe {
     min-width: 180%; 
     height:120vh; 
     position: absolute;
@@ -19,32 +19,32 @@ if ($color != '#000000'){
     left:50%;
     transform: translate(-50%, -50%);
 }
-.custom-organizator-text{
+.custom-organizator-text {
     position: relative;
     padding: 1px 36px 50px 36px !important;
 }
-.custom_element_<?php echo $rnd_id ?> .custom-organizator-text :is(h5, p){
+.custom_element_<?php echo $rnd_id ?> .custom-organizator-text :is(h5, p),
+.custom_element_<?php echo $rnd_id ?> .custom-inner-mobile-text :is(h5, p) {
     color: <?php echo $color ?>;
 }
-
-.custom-inner-organizator{
+.custom-inner-organizator {
     max-width:1200px;
     margin: auto;
 }
-.custom-organizator-header{
+.custom-organizator-header {
     margin:0;
 }
-.custom-inner-mobile-text{
+.custom-inner-mobile-text {
     padding: 0 36px 36px 36px;
 }
-.custom_element_<?php echo $rnd_id ?> .organizator-box-shadow-left{
+.custom_element_<?php echo $rnd_id ?> .organizator-box-shadow-left {
     margin-left: -18px;
     margin-bottom: -20px;
     box-shadow: -3px -3px <?php echo $color ?>;
     width: 170px !important;
     height: 40px;
 }
-.custom_element_<?php echo $rnd_id ?> .organizator-box-shadow-right{
+.custom_element_<?php echo $rnd_id ?> .organizator-box-shadow-right {
     margin-right: -18px;
     margin-top: -20px;
     box-shadow: 3px 3px <?php echo $color ?>;
@@ -53,10 +53,10 @@ if ($color != '#000000'){
     float: right;
 }
 @media (max-width:959px){
-    #organizator:has(.custom-inner-organizator){
+    #organizator:has(.custom-inner-organizator) {
         padding: 0 36px 36px 36px;
     }
-    .custom-box-bottom-right-white{
+    .custom-box-bottom-right-white {
         margin: -9px -18px 24px 0;
     }
 }

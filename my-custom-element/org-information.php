@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#000000'){
-    $color = '#ffffff';
+    $color = '#ffffff !important';
     $shadow = '#000000';
 } else {
     $shadow = '#ffffff';
@@ -9,7 +9,7 @@ if ($color != '#000000'){
 
 <style>
 .custom_element_<?php echo $rnd_id ?> .orgInfo-header-text{
-    color: <?php echo $color ?> !important; 
+    color: <?php echo $color ?>; 
     text-shadow: 2px 2px <?php echo $shadow ?>;
 }
 .full-width:has(#wydarzenia){

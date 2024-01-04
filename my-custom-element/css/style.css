@@ -293,9 +293,3 @@ strong {
     text-transform: uppercase !important;
     
 }
-.main-heading-text :is(h2, h3, h4) {
-    color: black !important;
-}
-.secondary-heading-text :is(h2, h3, h4) {
-    color: white !important;
-}

@@ -65,9 +65,11 @@ if ($horizontal == "true") {
 
   <div class="custom-container-contact-items">
     <div class="raw-custom-container half-block-padding">
-        <div class="image-shadow">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy">
         </div>
+      </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Zostań wystawcą<br><a href="tel:48 517 121 906">+48 517 121 906</a>
@@ -79,9 +81,11 @@ if ($horizontal == "true") {
     </div>
         
     <div class="raw-custom-container half-block-padding">
-        <div class="image-shadow">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy">
         </div>
+      </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Odwiedzający<br><a href="tel:48 513 903 628">+48 513 903 628</a>
@@ -93,9 +97,11 @@ if ($horizontal == "true") {
     </div>
     
     <div class="raw-custom-container half-block-padding">
-        <div class="image-shadow">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"  alt="grafika media">
         </div>
+      </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Współpraca z mediami<br><a href="mailto:media@warsawexpo.eu">media@warsawexpo.eu</a>
@@ -107,9 +113,11 @@ if ($horizontal == "true") {
     </div>
     
     <div class="raw-custom-container half-block-padding">
-        <div class="image-shadow">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="grafika obsluga">
         </div>
+      </div>
       <div class="uncode_text_column">
         <p><?php if($locale == 'pl_PL'){ echo '
           Obsługa Wystawców<br><a href="tel:48 501 239 338">+48 501 239 338</a>
@@ -121,9 +129,11 @@ if ($horizontal == "true") {
     </div>
     
     <div class="raw-custom-container half-block-padding">
-        <div class="image-shadow">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg" alt="grafika technicy">
         </div>
+      </div>
       <div class="uncode_text_column" style="overflow-wrap: anywhere;">
         <p><?php 
         if ($horizontal == "true"){ 

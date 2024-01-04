@@ -1,6 +1,6 @@
 <?php
     if ($color != '#ffffff'){
-        $color = '#000000';
+        $color = '#000000 !important';
     } else {
         $color = '#ffffff';
     }
@@ -11,7 +11,7 @@
         max-width:700px;
     }
     #call-center :is(label, span, .gfield_description){
-        color: <?php echo $color ?> !important;
+        color: <?php echo $color ?>;
     }
     .custom-submit{
         font-size: 1em !important;

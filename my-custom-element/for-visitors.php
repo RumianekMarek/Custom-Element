@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#ffffff'){
-    $color = '#000000';
+    $color = '#000000 !important';
 }
 if ($btn_color != ''){
     $btn_color = '.custom_element_'.$rnd_id.' #forVisitors ' . $btn_color;
@@ -58,7 +58,7 @@ if ($btn_color != ''){
             <?php
                 $firstImage = $visitorImages[0];
                 $shortPath = substr($firstImage, strpos($firstImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="visitors image 1"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="visitors image 1"></div></div>';
             ?>
         </div>
         <div class="custom-visitors-text-block">
@@ -104,7 +104,7 @@ if ($btn_color != ''){
             <?php
                 $secondImage = $visitorImages[1];
                 $shortPath = substr($secondImage, strpos($secondImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '"alt="visitors image 2"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '"alt="visitors image 2"></div></div>';
             ?>
         </div>
     </div>

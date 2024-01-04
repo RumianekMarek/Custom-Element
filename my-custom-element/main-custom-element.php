@@ -848,6 +848,20 @@ function my_custom_wpbakery_element() {
             ),
           ),
         ),
+        array( // MAIN TIMER <-------------------------------------------------------------------------< 
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Turn on to hide register', 'my-custom-plugin'),
+          'param_name' => 'show_register_bar',
+          'description' => __('Turn on to hide register button on bar', 'my-custom-plugin'),
+          'admin_label' => true,
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('main-timer.php')
+          ),
+        ),
       ),
       'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -944,6 +958,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_full_size'])) { $sticky_buttons_full_size = $atts['sticky_buttons_full_size']; }
     if (isset($atts['sticky_buttons_full_size_background'])) { $sticky_buttons_full_size_background = $atts['sticky_buttons_full_size_background']; }
     if (isset($atts['sticky_buttons_aspect_ratio_full_size'])) { $sticky_buttons_aspect_ratio_full_size = $atts['sticky_buttons_aspect_ratio_full_size']; }
+    if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 
     if (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']) && isset($atts['gallery_mobile'])) {
         $gallery = $atts['gallery_mobile'];

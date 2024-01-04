@@ -1,6 +1,6 @@
 <?php 
     if ($color != '#ffffff'){
-        $color = 'black';
+        $color = 'black !important';
     } else {
         $color = 'white';
         $filter ='filter: invert(100%);';
@@ -58,12 +58,14 @@
     <div class="custom-row-benefits">
         <div class="custom-benefits" style="justify-content: center;">
             <div class="custom-benefit-item">
-                <div class="custom-benefit-img">
-                <?php if($locale == 'pl_PL'){
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/ulga_pl.png" alt="Strefa Networkingu">';
-                } else {
-                    echo '';
-                } ?>
+                <div class="image-shadow">
+                    <div class="custom-benefit-img t-entry-visual">
+                        <?php if($locale == 'pl_PL'){
+                            echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/ulga_pl.png" alt="Strefa Networkingu">';
+                        } else {
+                            echo '';
+                        } ?>
+                    </div>
                 </div>
                 <?php if($locale == 'pl_PL'){
                     echo '<div class="custom-btn-container" style="padding: 18px;">
@@ -82,12 +84,14 @@
 
             <!-- benefit-item -->
             <div class="custom-benefit-item">
-                <div class="custom-benefit-img">
-                <?php if($locale == 'pl_PL'){
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Strefa_Networkingu.png" alt="Strefa Networkingu">';
-                } else {
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Networking_Zone.png" alt="Networking Zone">';
-                } ?>
+                <div class="image-shadow">
+                    <div class="custom-benefit-img t-entry-visual">
+                        <?php if($locale == 'pl_PL'){
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Strefa_Networkingu.png" alt="Strefa Networkingu">';
+                        } else {
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Networking_Zone.png" alt="Networking Zone">';
+                        } ?>
+                    </div>
                 </div>
                 <div class="custom-benefit-text uncode_text_column custom-align-left">
                 <?php if($locale == 'pl_PL'){
@@ -100,12 +104,14 @@
 
             <!-- benefit-item -->
             <div class="custom-benefit-item">
-                <div class="custom-benefit-img">
-                <?php if($locale == 'pl_PL'){
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Panel_Edukacyjny.png" alt="Panel Edukacyjny">';
-                } else {
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Educational_Panel.png" alt="Educational Panel">';
-                } ?>
+                <div class="image-shadow">
+                    <div class="custom-benefit-img t-entry-visual">
+                        <?php if($locale == 'pl_PL'){
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Panel_Edukacyjny.png" alt="Panel Edukacyjny">';
+                        } else {
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Educational_Panel.png" alt="Educational Panel">';
+                        } ?>
+                    </div>
                 </div>
                 <div class="custom-benefit-text uncode_text_column custom-align-left">
                 <?php if($locale == 'pl_PL'){
@@ -118,12 +124,14 @@
 
             <!-- benefit-item -->
             <div class="custom-benefit-item">
-                <div class="custom-benefit-img">
-                <?php if($locale == 'pl_PL'){
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Pakiety_Powitalne.png" alt="Pakiety Powitalne">';
-                } else {
-                    echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Welcome_Package.png" alt="Welcome Package">';
-                } ?>
+                <div class="image-shadow">
+                    <div class="custom-benefit-img t-entry-visual">
+                        <?php if($locale == 'pl_PL'){
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Pakiety_Powitalne.png" alt="Pakiety Powitalne">';
+                        } else {
+                            echo '<img class="image-shadow" src="/wp-content/plugins/custom-element/my-custom-element/media/Welcome_Package.png" alt="Welcome Package">';
+                        } ?>
+                    </div>
                 </div>
                 <div class="custom-benefit-text uncode_text_column custom-align-left">
                 <?php if($locale == 'pl_PL'){

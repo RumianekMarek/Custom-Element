@@ -1,6 +1,6 @@
 <?php
     if ($color != '#000000'){
-        $color = '#ffffff';
+        $color = '#ffffff !important';
     }
     if ($btn_color != ''){
         $btn_color = '#main-timer ' . $btn_color;

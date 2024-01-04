@@ -19,11 +19,9 @@
         margin: 0;
     }
 
-    <?php if ($slider_full_width_on == "true") { ?>
-        .custom_element_catalog_slider {
-            overflow: visible !important;
-        }
-    <?php } ?>
+    .custom-full-width .custom_element_catalog_slider {
+        overflow: visible !important;
+    }
 
     .custom-white-logos div[style*="background-image"] {
         filter: brightness(0) invert(1);
@@ -40,9 +38,8 @@
         text-align: -webkit-center;
     }
     #page-header .custom-logos-title h4 {
-        color:white;
         margin-top: 0;
-        box-shadow: 9px 9px 0px -6px white;
+        color: white;
     }
 
 </style>
@@ -55,6 +52,9 @@
         $domain = $_SERVER['HTTP_HOST'];
         $server_url = ($is_https ? 'https://' : 'http://') . $domain;
         $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
+
+        $unique_id = rand(10000, 99999);
+        $element_unique_id = 'customLogotypes-' . $unique_id;
 
         $pattern = '/``id``:``(.*?)``,``url``:``(.*?)``/';
         // Search for matches and save the results to an array of $matches
@@ -71,22 +71,27 @@
 
         if (count($files) > 0) {
 
-            if($color != ''){
-                echo '
-                    <style>
+            if ($color != ''){
+                echo '<style>
                         .custom_element_'.$rnd_id.' .custom-logos-title span{
-                            color: '.$color.';
+                            color: '. $color .' !important;
+                        }
+                        .custom_element_'.$rnd_id.' .custom-logos-title h4 {
+                            box-shadow: 9px 9px 0px -6px '. $color .' !important;
                         }
                     </style>';
             }
     
-            $output = '<div id="customLogos" class="custom-container-logos-gallery">
+            $output = '<div id="'.$element_unique_id.'" class="custom-container-logos-gallery">
                         <div class="custom-logos-title main-heading-text">
                             <h4 class="custom-uppercase"><span>'. $titlecatalog .'</span></h4>
                         </div>
-                        <div class="custom-logos-gallery-wrapper single-top-padding ';
+                        <div class="custom-logos-gallery-wrapper single-top-padding';
                         if ($slider_logo_white == "true") {
-                            $output .= 'custom-white-logos';
+                            $output .= ' custom-white-logos';
+                        }
+                        if (isset($slider_full_width_on) && $slider_full_width_on == "true") {
+                            $output .= ' custom-full-width';
                         }
                         $output .= '">';
                                 
@@ -180,7 +185,20 @@
             </div>';
     
             echo $output;
-        }  
+        }
     }
 ?>
+
+<?php if (isset($element_unique_id)) { ?>
+    
+<script>
+    // Hide container if slider length = 0 (wydarzenia-ogolne.php)
+    if(<?php echo count($files) ?>  > 0) {
+        if(document.querySelector('.media-logos')){
+            document.querySelector('.media-logos').classList.toggle("custom-display-none")
+        }
+    }
+</script>
+
+<?php } ?>
 

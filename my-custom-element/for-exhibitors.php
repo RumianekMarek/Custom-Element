@@ -4,7 +4,7 @@
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
 
     if ($color != '#ffffff'){
-        $color = '#000000';
+        $color = '#000000 !important';
     }
 ?>
 <style>
@@ -75,7 +75,7 @@
             <?php
                 $thirdImage = $exhibitorsImages[2];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 1"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 1"></div></div>';
             ?>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <?php
                 $fourthImage = $exhibitorsImages[3];
                 $shortPath = substr($fourthImage, strpos($fourthImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 2"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 2"></div></div>';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">
@@ -137,7 +137,7 @@
             <?php
                 $fifthImage = $exhibitorsImages[4];
                 $shortPath = substr($fifthImage, strpos($fifthImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 3"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 3"></div></div>';
             ?>
         </div>
     </div>
@@ -148,7 +148,7 @@
             <?php
                 $sixthImage = $exhibitorsImages[5];
                 $shortPath = substr($sixthImage, strpos($sixthImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 4"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 4"></div></div>';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">
@@ -199,7 +199,7 @@
             <?php
                 $seventhImage = $exhibitorsImages[6];
                 $shortPath = substr($seventhImage, strpos($seventhImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 5"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 5"></div></div>';
             ?>
         </div>
     </div>
@@ -210,7 +210,7 @@
             <?php
                 $eighthImage = $exhibitorsImages[7];
                 $shortPath = substr($eighthImage, strpos($eighthImage, '/doc/'));
-                echo '<div class="image-shadow"><div class="t-entry-visual"><img class="image-shadow" src="' . $shortPath . '" alt="exhibitors image 6"></div></div>';
+                echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 6"></div></div>';
             ?>
         </div>
         <div class="custom-exhibitors-text-block">

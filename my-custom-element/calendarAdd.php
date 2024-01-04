@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#000000'){
-    $color = '#ffffff';
+    $color = '#ffffff !important';
     $text_shadow = '2px 2px #000000;';
 } else {
     $filter ='#download img{
@@ -79,31 +79,40 @@ if ($color != '#000000'){
     <div class='custom-inner-calendarAdd single-block-padding'>
         <div class='custom-header-calendarAdd'>
                 <?php
-                    if($color == '#000000' && $locale == 'en_US'){
-                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp')){
+                    if ($color == '#000000' && $locale == 'en_US') {
+                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp')) {
                             echo '<img src="/doc/logo-color-en.webp"/>';
-                        } elseif ((file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png'))) {
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png')) {
                             echo '<img src="/doc/logo-color-en.png"/>';
-                        }
-                    } elseif($color == '#000000' && $locale == 'pl_PL'){
-                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp')){
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp')) {
                             echo '<img src="/doc/logo-color.webp"/>';
-                        } elseif ((file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png'))) {
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')) {
                             echo '<img src="/doc/logo-color.png"/>';
                         }
-                    } elseif ($locale == 'en_US'){
-                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp')){
+                    } elseif ($color == '#000000' && $locale == 'pl_PL') {
+                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp')) {
+                            echo '<img src="/doc/logo-color.webp"/>';
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.png')) {
+                            echo '<img src="/doc/logo-color.png"/>';
+                        }
+                    } elseif ($locale == 'en_US') {
+                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp')) {
                             echo '<img src="/doc/logo-en.webp"/>';
-                        } elseif ((file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.png'))) {
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.png')) {
                             echo '<img src="/doc/logo-en.png"/>';
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp')) {
+                            echo '<img src="/doc/logo.webp"/>';
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.png')) {
+                            echo '<img src="/doc/logo.png"/>';
                         }
                     } else {
-                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp')){
+                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp')) {
                             echo '<img src="/doc/logo.webp"/>';
-                        } elseif ((file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.png'))) {
+                        } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.png')) {
                             echo '<img src="/doc/logo.png"/>';
                         }
                     }
+                    
                 ?>   
             <div class='custom-header-text-calendarAdd'>
                 <?php if($locale == 'pl_PL'){ echo '

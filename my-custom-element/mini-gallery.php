@@ -27,7 +27,7 @@
                     }
                 ?>
             </div>
-            <div class="custom-btn-container">
+            <div class="custom-btn-container gallery-link-btn">
                 <span class="pl_PL">
                     <a class="custom-link btn border-width-0 shadow-white btn-flat" href="/galeria/"  target="_blank">Przejdź do galerii</a>
                 </span>

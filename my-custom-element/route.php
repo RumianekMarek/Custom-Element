@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#ffffff'){
-    $color = '#000000';
+    $color = '#000000 !important';
 }
 if ($color === '#ffffff') {
     $invert = 'filter: invert(1);';

@@ -1,6 +1,6 @@
 <?php 
 if ($color != '#000000'){
-    $color = '#ffffff';
+    $color = '#ffffff !important';
 } else {
   $filter ='.custom_element_'.$rnd_id.' #download img{
     filter: invert(100%);
