@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.5.10
+Version: 2.5.11
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
