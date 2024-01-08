@@ -222,7 +222,13 @@ function info_box_output($atts, $content = null) {
         $title_color = isset($atts['title_color']) ? $atts['title_color'] : '#000000';
         $shadow = isset($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
         $photo_box = isset($atts['photo_box']) ? $atts['photo_box'] : '';
-        $modal_img_size = isset($atts['modal_img_size']) ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px';
+        echo '<script>console.log("'.count($atts['modal_img_size']).'")</script>';
+        
+        if(count($atts['modal_img_size']) > 1){
+            $modal_img_size = 'width: '.$atts['modal_img_size'].';';
+        } else {
+            $modal_img_size = 'width: 150px;';
+        }
         $bio_text = isset($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
         $title_size = isset($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
@@ -318,6 +324,27 @@ function info_box_output($atts, $content = null) {
                                         break;
                                 }
                                 break;
+                            case 4:
+                                switch ($i) {
+                                    case 0:
+                                        $max_width_index = "35%";
+                                        break;
+                                    case 1:
+                                        $max_width_index = "35%";
+                                        $left_index = "-10px";
+                                        break;
+                                    case 2:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "0";
+                                        break;
+                                    case 3:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "-10px";
+                                        break;
+                                }
+                                break;
                         }
                         
                         $speaker_html .= '<img class="speaker" src="' . esc_url($image_src[0]) . '" alt="'.$speakers[$i].' portrait" style="position:relative; '.$b_radius.' z-index:'.$z_index.'; top:'.$top_index.'; left:'.$left_index.'; max-width: '.$max_width_index.';'.$margin_top_index.';" />';
@@ -343,6 +370,12 @@ function info_box_output($atts, $content = null) {
         }
 
         for($i=0; $i<count($modal_array); $i++){
+            $modal_class_array = explode(" ", $modal_array[$i]['id']);
+            if(count($modal_class_array) >= 2 ){
+                $modal_class = $modal_class_array[0] . "-" . $modal_class_array[1];
+            } else if($modal_class_array) {
+                $modal_class = $modal_class_array[0] ;
+            }
             if($modal_array[$i]['id']){
                 $image_src = '';
                 $modal_lecturer_display = '';
@@ -353,7 +386,7 @@ function info_box_output($atts, $content = null) {
                 if(!$speaker_imgs[$i] && !$modal_array[$i]['desc']){
                     $modal_lecturer_display = 'style="display:none;"';
                 }
-                $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'>';
+                $modal_html .= '<div class="lecturer '.$modal_class.'" '.$modal_lecturer_display.'>';
                 $modal_html .= '<div class="modal-image"><img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size .'"><h3 style="'.$lect_color.'">'.$modal_array[$i]['id'].'</h3>';
             } else {
                 $modal_html .= '<div class="modal-image">';

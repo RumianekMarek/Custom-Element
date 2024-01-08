@@ -1,42 +1,26 @@
 <?php
 
-function custom_row_shortcode($atts, $content = null) {
-    return '<div class="custom-row">' . do_shortcode($content) . '</div>';
-}
-add_shortcode('custom_row', 'custom_row_shortcode');
-
-function info_box_new() {
+function info_box_v2() {
     // Define the element name and path to the element file
     vc_map(array(
         'name' => __('Info box v2', 'my-custom-plugin'),
-        'base' => 'info_box_new',
+        'base' => 'info_box_v2',
         'category' => __('My Elements', 'my-custom-plugin'),
         'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info-new.css',
+        'admin_enqueue_script' => plugin_dir_url(__FILE__) . 'backend-info-new.js',
         'params' => array(
             array(
                 'type' => 'textfield',
-                'heading' => __('Event Name', 'my-custom-plugin'),
-                'param_name' => 'event_name',
-                'save_always' => true,
-                'admin_label' => true
-            ),
-            array(
-                'type' => 'textfield',
-                'heading' => __('Event Date', 'my-custom-plugin'),
-                'param_name' => 'event_date',
-                'save_always' => true,
-                'admin_label' => true
-            ),
-            array(
-                'type' => 'textarea_raw_html',
-                'holder' => 'div',
-                'heading' => __('Description', 'my-custom-plugin'),
-                'param_name' => 'l_desc',
-                'description' => __('Put lecture description.', 'my-custom-plugin'),
-                'save_always' => true,
+                'group' => 'main',
+                'heading' => __('Custom Id', 'my-custom-plugin'),
+                'param_name' => 'lecture_id',
+                'description' => __('Custom ID will by added to main lecture ID.', 'my-custom-plugin'),
+                'admin_label' => true,
+                'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
             array(
                 'type' => 'checkbox',
+                'group' => 'main',
                 'heading' => __('Simple form', 'my-custom-plugin'),
                 'param_name' => 'simple_mode',
                 'description' => __('To display in simpler form.', 'my-custom-plugin'),
@@ -44,60 +28,54 @@ function info_box_new() {
                 'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
             array(
-                'heading' => __('Lecture', 'my-custom-plugin'),
+                'type' => 'textfield',
+                'group' => 'main',
+                'heading' => __('Title', 'my-custom-plugin'),
+                'param_name' => 'event_title',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textfield',
+                'group' => 'main',
+                'heading' => __('Event time', 'my-custom-plugin'),
+                'param_name' => 'event_time',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+                'type' => 'textarea_html',
+                'group' => 'main',
+                'heading' => __('Description', 'my-custom-plugin'),
+                'param_name' => 'event_desc',
+                'description' => __('Put event description.', 'my-custom-plugin'),
+                'save_always' => true,
+            ),
+            array(
+                'heading' => __('Speakers', 'my-custom-plugin'),
+                'group' => 'main',
                 'type' => 'param_group',
-                'param_name' => 'lecture',
+                'param_name' => 'speakers',
+                'save_always' => true,
                 'params' => array(
                     array(
+                        'type' => 'attach_image',
+                        'heading' => __('Select Speaker Image', 'my-custom-plugin'),
+                        'param_name' => 'speaker_image',
+                        'description' => __('Choose speaker image from the media library.', 'my-custom-plugin'),
+                        'save_always' => true,
+                    ),
+                    array(
                         'type' => 'textfield',
-                        'heading' => __('Lecture time', 'my-custom-plugin'),
-                        'param_name' => 'lecture_time',
+                        'heading' => __('Speaker Name', 'my-custom-plugin'),
+                        'param_name' => 'speaker_name',
                         'save_always' => true,
-                        'admin_label' => true
+                        'admin_label' => true,
                     ),
                     array(
-                        'type' => 'textfield',
-                        'heading' => __('Lecture Name', 'my-custom-plugin'),
-                        'param_name' => 'lecture_name',
-                        'save_always' => true,
-                        'admin_label' => true
-                    ),
-                    array(
-                        'type' => 'textarea_raw_html',
-                        'holder' => 'div',
-                        'heading' => __('Description', 'my-custom-plugin'),
-                        'param_name' => 'lecture_desc',
-                        'description' => __('Put lecture description.', 'my-custom-plugin'),
-                        'save_always' => true,
-                    ),
-                    array(
-                        'heading' => __('Speakers', 'my-custom-plugin'),
-                        'type' => 'param_group',
-                        'value' => '',
-                        'param_name' => 'Speakers',
-                        'params' => array(
-                            array(
-                                'type' => 'attach_image',
-                                'heading' => __('Select Speaker Image', 'my-custom-plugin'),
-                                'param_name' => 'speaker_images',
-                                'description' => __('Choose speaker image from the media library.', 'my-custom-plugin'),
-                                'save_always' => true,
-                            ),
-                            array(
-                                'type' => 'textfield',
-                                'heading' => __('Speaker Name', 'my-custom-plugin'),
-                                'param_name' => 'event_speaker',
-                                'save_always' => true,
-                                'admin_label' => true,
-                            ),
-                            array(
-                                'type' => 'textarea',
-                                'heading' => __('Bio', 'my-custom-plugin'),
-                                'param_name' => 'speaker_bio',
-                                'save_always' => true,
-                                'std' => '',
-                            ),
-                        ),
+                        'type' => 'textarea',
+                        'heading' => __('Bio', 'my-custom-plugin'),
+                        'param_name' => 'speaker_bio',
                     ),
                 ),
             ),
@@ -176,6 +154,13 @@ function info_box_new() {
                 'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
             array(
+                'type' => 'textarea',
+                'group' => 'pop-UP',
+                'heading' => __('Modal info for pictures', 'my-custom-plugin'),
+                'param_name' => 'event_modal',
+                'save_always' => true,
+            ),
+            array(
                 'type' => 'textfield',
                 'group' => 'options',
                 'heading' => __('BIO Img size', 'my-custom-plugin'),
@@ -221,104 +206,93 @@ function info_box_new() {
     ));
 }
 
-function info_box_new_output($atts, $content = null) {
+function info_box_v2_output($atts, $content = null) {
     $rn = rand(10000, 99999);
     extract( shortcode_atts( array(
-        'event_name' => '',
-        'event_date' => '',
         'simple_mode' => '',
-        'lecture' => '',
+        'event_time' => '',
+        'event_title' => '',
+        'event_desc' => '',
+        'border_radius' => '',
+        'border_width' => '',
+        'border_style' => '',
+        'border_color' => '',
         'lect_color' => '',
-        'title_top' => '',
+        'bio_color' => '',
+        'title_color' => '',
+        'shadow' => '',
         'photo_box' => '',
         'photo_squer' => '',
-        'lecture_id' => $rn,
+        'title_top' => '',
     ), $atts ) );
+    
+        $locale = get_locale();
+
+        $lecture_id = !empty($atts['lecture_id']) ? $atts['lecture_id'] : $rn;
+
+        $speakers = urldecode($atts['speakers']);
+        $speakers = json_decode($speakers);
+
+        $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
+        $border_width = !empty($atts['border_width']) ? $atts['border_width'] : '2px';
+        $border_style = !empty($atts['border_style']) ? $atts['border_style'] : 'solid';
+        $border_color = !empty($atts['border_color']) ? $atts['border_color'] : '#000000';
+        $lect_color = !empty($atts['lect_color']) ? 'color: '.$atts['lect_color'].';' : 'color: #000000;';
+        $bio_color = !empty($atts['bio_color']) ? $atts['bio_color'] : '#000000';
+        $title_color = !empty($atts['title_color']) ? $atts['title_color'] : '#000000';
+        $shadow = !empty($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
+        $photo_box = !empty($atts['photo_box']) ? $atts['photo_box'] : '';
+        $modal_img_size = !empty($atts['modal_img_size']) ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px;';
+        $bio_text = !empty($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
+        $title_size = !empty($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
-        
-        $lecture_json = json_decode(urldecode($lecture));
+        $event_title = str_replace('``','"', $event_title);
 
         $uncode_options = get_option('uncode');
 
-        // foreach($lecture_json as $id => $at){
-        //     echo $id.' => ';
-        //     print_r($at);
-        //     echo'<br><br>';
-        // }
-        // foreach($uncode_options as $id => $opt){
-        //     echo $id.' => ';
-        //     print_r($opt);
-        //     echo'<br><br>';
-        // }
-
-        $replace_items_urldecode = urldecode($replace_items);
-        $replace_items_json = json_decode($replace_items_urldecode, true);
-
-        $all_speakers = urldecode($all_speakers);
-        $all_speakers = json_decode($all_speakers, true);
-
-        $locale = get_locale();
-        
-        if (isset($atts['l_desc'])) {
-            return '<div>'.$l_desc.'</div>';
-        }
-        $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
-        $border_width = isset($atts['border_width']) ? $atts['border_width'] : '2px';
-        $border_style = isset($atts['border_style']) ? $atts['border_style'] : 'solid';
-        $border_color = isset($atts['border_color']) ? $atts['border_color'] : '#000000';
-        $lect_color = isset($atts['lect_color']) ? 'color: '.$atts['lect_color'].';' : 'color: #000000;';
-        $bio_color = isset($atts['bio_color']) ? $atts['bio_color'] : '#000000';
-        $title_color = isset($atts['title_color']) ? $atts['title_color'] : '#000000';
-        $shadow = isset($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
-        $modal_img_size = ($atts['modal_img_size'] != '') ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px;';
-        $bio_text = isset($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
-        $title_size = isset($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
-        
-        $event_name = str_replace('``','"', $event_name);
-
-
         $css_file = plugins_url('display-info-new.css', __FILE__);
         $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'display-info-new.css');
-        wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
+        wp_enqueue_style('info_box-css', $css_file, array(), $css_version);
 
         $js_file = plugins_url('display-info-new.js', __FILE__);
         $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info-new.js');
-        wp_enqueue_script('info_box_new-js', $js_file, array('jquery'), $js_version, true);
-        wp_localize_script('info_box_new-js', 'inner' , $atts);
+        wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
+        wp_localize_script('info_box-js', 'inner' , $atts);
 
-        // Speakers Images Left Side Full View
-        foreach($all_speakers as $key){
-            $speakers .= $key['event_speaker']. ';';
-            $modal_sp_name[] = $key['event_speaker'];
-            $speaker_imgs[] = $key['event_images'];
-            $speaker_desc[] = $key['speaker_bio'];
+        $speakers_names = array();
+        $speakers_images = array();
+        $speakers_bios = array();
+        foreach($speakers as $speaker){
+            foreach($speaker as $id => $key){
+                if($id == 'speaker_name'){
+                    $speakers_names[] = $key;
+                }
+                if($id == 'speaker_image'){
+                    $speakers_images[] = $key;
+                }
+                if($id == 'speaker_bio'){
+                    $speakers_bios[] = $key;
+                }
+            }
         }
-        
-        $speakers = substr($speakers, 0, -1);
+
         if (!$simple_mode){
-    
+
         $speaker_html = '<div class="speakers">';
         $modal_html = '<div class="modal-lecturers">';
-        
-        if (count($speakers)>3 || (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))){
-            $font_lecturers = 'font-size: 14px; margin-top: 9px;';
-            $info_box_new_max_height = 'unset;';
-        } else {
-            $font_lecturers = '';
-            $info_box_new_max_height = '280px;';
-        }
 
-        if ($speaker_imgs == ''){
+        if (count($speakers_images) <= 0){
             $speaker_html = '<div class="speakers">';
-
-            // foreach ($speakers as $speaker) {
-            //     $speaker_html .= '<h4 class="name-container" style="'.$font_lecturers.' text-align:left;">' . $speaker . '</h4>';
-            // } 
         } else {
             $speaker_html = '<div class="speakers-img">';
-            for ($i = 0; $i < count($speaker_imgs); $i++) {            
-                if (isset($speaker_imgs[$i])) {
-                    $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
+            $haed_images = array_filter($speakers_images);
+            $haed_images = array_values($haed_images);
+            echo '<script>console.log("'.count($haed_images).'")</script>';
+            
+            for ($i = 0; $i < count($haed_images); $i++) {            
+                if (isset($haed_images[$i])) {
+                    $image_src = wp_get_attachment_image_src($haed_images[$i], 'full');
+
                     
                     if ($image_src) {
                         if (!$photo_squer){
@@ -326,7 +300,8 @@ function info_box_new_output($atts, $content = null) {
                         }
                         $z_index = (1 + $i);
                         $margin_top_index = '';
-                        switch (count($speaker_imgs)) {
+                        
+                        switch (count($haed_images)) {
                             case 1:
                                 $top_index = "unset";
                                 $left_index = "unset";
@@ -351,71 +326,154 @@ function info_box_new_output($atts, $content = null) {
                                 break;
                         
                             case 3:
-                                $max_width_index = "35%";
                                 switch ($i) {
                                     case 0:
+                                        $max_width_index = "35%";
                                         $top_index = "15px";
                                         $left_index = "unset";
                                         break;
                         
                                     case 1:
+                                        $max_width_index = "35%";
                                         $top_index = "40px";
                                         $left_index = "-15px";
                                         break;
                         
                                     case 2:
+                                        $max_width_index = "35%";
                                         $top_index = "-15px";
                                         $left_index = "-30px";
                                         break;
                                 }
                                 break;
+                            case 4:
+                                switch ($i) {
+                                    case 0:
+                                        $max_width_index = "35%";
+                                        break;
+                        
+                                    case 1:
+                                        $max_width_index = "35%";
+                                        $left_index = "-10px";
+                                        break;
+                        
+                                    case 2:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "0";
+                                        break;
+                                    case 3:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "-10px";
+                                        break;
+                                }
+                                break;
+                            default:
+                                switch ($i) {
+                                    case 0:
+                                        $margin_top_index = 'margin-top: 5px !important;';
+                                        $max_width_index = "35%";
+                                        break;
+                        
+                                    case 1:
+                                        $max_width_index = "35%";
+                                        $left_index = "-10px";
+                                        break;
+                        
+                                    case 2:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "0";
+                                        break;
+                                    case 4:
+                                        $max_width_index = "35%";
+                                        $top_index = "-30px";
+                                        $left_index = "0";
+                                        break;
+                                    case 6:
+                                        $max_width_index = "35%";
+                                        $top_index = "-45px";
+                                        $left_index = "0";
+                                        break;
+                                    case 8:
+                                        $max_width_index = "35%";
+                                        $top_index = "-60px";
+                                        $left_index = "0";
+                                        break;
+                                    case 10:
+                                        $max_width_index = "35%";
+                                        $top_index = "-75px";
+                                        $left_index = "0";
+                                        break;
+
+                                    case 3:
+                                        $max_width_index = "35%";
+                                        $top_index = "-15px";
+                                        $left_index = "-10px";
+                                        break;
+                                    case 5:
+                                        $max_width_index = "35%";
+                                        $top_index = "-30px";
+                                        $left_index = "-10px";
+                                        break;
+                                    case 7:
+                                        $max_width_index = "35%";
+                                        $top_index = "-45px";
+                                        $left_index = "-10px";
+                                        break;
+                                    case 9:
+                                        $max_width_index = "35%";
+                                        $top_index = "-60px";
+                                        $left_index = "-10px";
+                                        break;
+                                    case 11:
+                                        $max_width_index = "35%";
+                                        $top_index = "-75px";
+                                        $left_index = "-10px";
+                                        break;
+                                }
+                                break;
                         }
                         
-                        $speaker_html .= '<img class="speaker" src="' . esc_url($image_src[0]) . '" alt="'.$speakers[$i].' portrait" style="position:relative; '.$b_radius.' z-index:'.$z_index.'; top:'.$top_index.'; left:'.$left_index.'; max-width: '.$max_width_index.';'.$margin_top_index.';" />';
+                        $speaker_html .= '<img class="speaker" src="' . esc_url($image_src[0]) . '" alt="'.$speakers_names[$i].'-'.$i.' portrait" style="position:relative; '.$b_radius.' z-index:'.$z_index.'; top:'.$top_index.'; left:'.$left_index.'; max-width: '.$max_width_index.';'.$margin_top_index.';" />';
                     }
                 }
             }
         }
         $speaker_html .= '</div>';
-        
-        // $event_modal = substr($event_modal, 3);
-        // $event_modal = substr($event_modal, 0, -3);
-        // $event_modal = str_replace("``", '"', $event_modal);
-        // $event_modal = str_replace("\n", '<br>', $event_modal);
-        // $event_modal = "[". $event_modal . "]";
-        
-        // $modal_array = json_decode($event_modal, true);
-        // $modal_desc = false;
 
-        // foreach ($modal_array as $modal){
-        //     if (count($speaker_desc) > 0){
-        //         $modal_desc = true;
-        //     }
-        // }
-
-        for($i=0; $i<count($speaker_desc); $i++){
-            if($speaker_desc[$i]){
-                if($speaker_imgs[$i]){
-                    $image_src = wp_get_attachment_image_src($speaker_imgs[$i], 'full');
+        foreach($speakers_bios as $id => $bio){
+            if(!empty($bio)){
+                $modal_desc = true;
+                $modal_lecturer_display = '';
+                if(!empty($speakers_images[$id])){
+                    $image_src = wp_get_attachment_image_src($speakers_images[$id], 'full');
+                    $modal_img_size_add = '';
+                } else {
+                    $image_src = '';
+                    $modal_img_size_add = ' height: 100px; visibility:hidden;';
                 }
 
-                $modal_html .= '<div class="lecturer">';
-                $modal_html .= '<div class="modal-image">
-                                    <img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size .'">
-                                    <h3 style="'.$lect_color.'">'.$modal_sp_name[$i].'</h3>';
+                $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'>';
+                $modal_html .= '<div class="modal-image"><img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size . $modal_img_size_add.'"><h3 style="'.$lect_color.'">'.$speakers_names[$id].'</h3>';
             } else {
                 $modal_html .= '<div class="modal-image">';
             }
-                $modal_html .= '<p>'.$speaker_desc[$i].'</p></div></div>';
+            if($speakers_bios[$id]){
+                $modal_html .= '<p>'.$speakers_bios[$id].'</p></div></div>';
+            } else {
+                $modal_html .= '</div></div>';
+            }
         }
-        
+
         if($photo_box){
-            $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="min-height:280px; max-height: '.$info_box_new_max_height.' '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+            $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="min-height:280px; '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="head-container">
                     ' . $speaker_html;
         
-            if (count($speaker_desc) > 0){
-                if (count($speaker_imgs) < 3){
+            if ($modal_desc){
+                if (count($speakers_images) < 3){
                     $html .=
                             '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
                 } else {
@@ -426,7 +484,7 @@ function info_box_new_output($atts, $content = null) {
             $html .= '</div>';
             $html .= '<div class="text-container" style="width: 75%;">';
         } else {
-            $html .= '<div id="lecture-'.$rn.'" class="chevron-slide" style="'.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+            $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="'.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="text-container" style="width: 90%;">';
         }
         $display_speakers = str_replace('``', '"', $event_speaker);
@@ -434,17 +492,19 @@ function info_box_new_output($atts, $content = null) {
 
         if($title_top != ''){
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>
-                    <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_name . '</h3>
+                    <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_title . '</h3>
                     <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$display_speakers.'</h5> ';
         } else {
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>
             <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$display_speakers.'</h5> 
-            <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_name . '</h3>';
+            <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_title . '</h3>';
         }
 
         if($event_desc != ''){        
-            $html .='<div class="inside-text" style="max-height: 145px;"><p>' . $event_desc . '</p></div>
-                        <p class="open-desc" style="display:none;"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
+            // echo '<script>console.log("'..'")</script>';
+            
+            $html .='<div class="inside-text" style="max-height: 120px;"><p>' . $event_desc . '</p></div>
+                        <p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
                         if ($locale == 'pl_PL') {
                             $html .= 'Czytaj więcej';
                         } else {
@@ -463,13 +523,13 @@ function info_box_new_output($atts, $content = null) {
         </div>';
     } else {
 
-        $simple_speakers = str_replace('``', '"', $speakers);
+        $simple_speakers = str_replace('``', '"', $event_speaker);
         $simple_speakers = str_replace(';', ' , ', $simple_speakers);
         
-        $html .= '<div id="lecture-'.$rn.'" class="simple-lecture">
+        $html .= '<div id="lecture-'.$lecture_id.'" class="simple-lecture">
                     <h5 class="simple-lecture-hour">'.$event_time.'</h5>
                     <div class="simple-lecture-text">
-                        <h5>'.$event_name.'</h5>
+                        <h5>'.$event_title.'</h5>
                         <p class="text-accent-color">'.$simple_speakers.'</p>
                     </div>
                 </div>';
@@ -478,14 +538,7 @@ function info_box_new_output($atts, $content = null) {
     return $html;
 }
 
-function load_backend_scripts_new() {
-    $css_file = plugins_url('backend-info-new.css', __FILE__);
-    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'backend-info-new.css');
-    wp_enqueue_style('info_box_new-css', $css_file, array(), $css_version);
-}
+add_action('vc_before_init', 'info_box_v2');
+add_shortcode('info_box_v2', 'info_box_v2_output');
 
-add_action('admin_enqueue_scripts', 'load_backend_scripts_new');
-
-add_action('vc_before_init', 'info_box_new');
-add_shortcode('info_box_new', 'info_box_new_output');
 ?>

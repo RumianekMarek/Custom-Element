@@ -297,11 +297,12 @@ function katalog_wystawcow_output($atts, $content = null) {
   // KATALOG
   if($format === 'full'){
 
+    $bg_link = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg';
 
     $output = '
     <div custom-lang="' . $locale . '" id="'. $format .'">
       <div class="exhibitors">
-        <div class="exhibitor__header" style="background-image: url(&quot;/doc/background.jpg&quot;);">';
+        <div class="exhibitor__header" style="background-image: url(&quot;'. $bg_link .'&quot;);">';
           if($locale == 'pl_PL') {
             $output .= '<div>
                     <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców '.$catalog_year.'</h1>

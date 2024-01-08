@@ -1,37 +1,52 @@
-.vc_ui-panel-window[data-vc-shortcode="info_box_new"] #vc_edit-form-tab-0 {
-    .wpb_element_label {
-        width: 100px;
-    }
-
-    .edit_form_line {
-        width: calc(100% - 120px);
-    }
+#wpb_tinymce_event_desc_ifr,
+#wpb_tinymce_Speakers_speaker_bio_ifr {
+    height: 150px;
 }
 
-.vc_ui-panel-window[data-vc-shortcode="info_box_new"] #vc_edit-form-tab-1 {
-    .vc_shortcode-param {
-        padding: 0;
-        flex: 1;
-        display: flex;
-        margin: 5px !important;
-        align-items: center;
-        min-width: 300px;
-        max-width: 50%;
-    }
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-2>div {
+    display: flex;
+    flex-direction: column;
+}
 
-    .vc_shortcode-param input {
-        margin: 0px !important;
-    }
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-2 .wpb_element_label,
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-2 .edit_form_line {
+    display: none;
+}
 
-    .wpb_element_label {
-        text-align: right;
-        margin: 0 20px;
-        flex: 1;
-    }
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-1 .vc_shortcode-param {
+    padding: 0;
+    flex: 1;
+    display: flex;
+    margin: 5px !important;
+    align-items: center;
+    min-width: 300px;
+    max-width: 50%;
+}
 
-    .edit_form_line {
-        flex: 1;
-    }
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-1 .vc_shortcode-param input {
+    margin: 0px !important;
+}
+
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-1 .wpb_element_label {
+    text-align: right;
+    margin: 0 20px;
+    flex: 1;
+}
+
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-1 .edit_form_line {
+    flex: 2;
+}
+
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-0 .wpb_element_label {
+    width: 150px;
+}
+
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-0 .edit_form_line {
+    width: calc(100% - 180px);
+}
+
+.vc_ui-panel-window[data-vc-shortcode="info_box_v2"] #vc_edit-form-tab-0 iframe {
+    max-height: 150px;
 }
 
 #eventSpeakers {

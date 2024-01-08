@@ -106,8 +106,8 @@
 }
 
 .modal-lecturers img {
-    margin: 5px 15px 5px 5px;
-    max-width: 200px !important;
+    margin: 5px;
+    max-width: 300px !important;
 }
 
 .modal-lecturers p {
@@ -133,8 +133,13 @@
 
 .lecturer p {
     font-size: 12px;
-    line-height: 1.5;
+    line-height: 1.2;
     margin-top: 9px;
+}
+
+.lecturer modal-no-image {
+    height: 120px;
+    visibility: hidden;
 }
 
 .chevron-slide .head-container .lecturers-triple {
@@ -216,14 +221,8 @@
     }
 }
 
-/* SIMPLE */
 .vc_row .simple-lecture:nth-child(even) {
     background-color: #f7f7f7;
-}
-
-.simple-lecture {
-    margin-top: 0 !important;
-    padding: 9px;
 }
 
 .simple-lecture .simple-lecture-hour {
@@ -285,6 +284,5 @@
     .simple-lecture {
         display: flex;
         gap: 5px;
-        align-items: center;
     }
 }
