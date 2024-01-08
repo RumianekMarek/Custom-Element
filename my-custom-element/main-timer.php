@@ -1,4 +1,4 @@
-<?php 
+<?php
 date_default_timezone_set('Europe/Warsaw');
 $current_date = date("Y-m-d H:i:s");
 ?>
@@ -40,7 +40,11 @@ $current_date = date("Y-m-d H:i:s");
         </span>
     </div>
 </div>
-
+<style>
+    .is_stucked:has(.custom-container-main-timer) .row-parent {
+        margin-top: 5px !important;
+    }
+</style>
 <script>
     // Funkcja, która będzie wywoływana przy zmianie klasy
     function handleClassChange(mutationsList, observer) {

@@ -54,6 +54,7 @@
     object-fit: contain;
 }
 .custom-container-calendar-niePrzegap p{
+    font-size: 15px !important;
     margin-top: 5px;
     line-height: 1.2;
     text-wrap: wrap;

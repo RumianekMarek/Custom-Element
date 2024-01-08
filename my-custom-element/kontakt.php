@@ -21,6 +21,9 @@ if ($color === '#ffffff'){
     .custom_element_<?php echo $rnd_id ?>  .heading-text h4{
         color: <?php echo $color ?> !important;
     }
+    .custom-container-contact .main-heading-text {
+      padding-top: 0;
+    }
     @media (max-width:860px){
         .uncell:has(.custom-container-contact) {
             padding: 36px 18px 36px 18px !important;

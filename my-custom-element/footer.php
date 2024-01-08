@@ -198,11 +198,11 @@
 </style>
 <div id="customFooter" class="custom-footer">
 
-    <div class="custom-footer-bg" style="background-image: url(/wp-content/plugins/custom-element/my-custom-element/media/footer.jpg)">
+    <div class="custom-footer-bg" style="background-image: url(/wp-content/plugins/custom-element/media/footer.webp)">
         <div class="custom-footer-bg-wrapper">
             <div class="custom-footer-bg-limit">
                 <div class="custom-footer-logo-pwe">
-                    <img src="/wp-content/plugins/custom-element/my-custom-element/media/logo-pwe.png" alt="pwe logo">
+                    <img src="/wp-content/plugins/custom-element/media/logo_pwe.webp" alt="pwe logo">
                 </div>
                 <div class="custom-footer-title-section">
                     <?php if($locale == 'pl_PL'){ echo '
@@ -231,7 +231,7 @@
     </div>
 
     <div class="custom-footer-images-bg">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/footer-images.jpg" alt="footer background">
+            <img src="/wp-content/plugins/custom-element/media/footer-images.webp" alt="footer background">
     </div>
 
     <?php 
@@ -264,15 +264,15 @@
     
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
-                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png" alt="logo pwe & ufi"></a></div>
+                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '"><img src="/wp-content/plugins/custom-element/media/logo_pwe_ufi.webp" alt="logo pwe & ufi"></a></div>
                             <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '">
                                     ';
-                                        if($logo_color_invert != 'true'){
-                                            echo '<img src="/doc/logo.png" alt="logo-[trade_fair_name]">';
+                                        if ($logo_color_invert != 'true') {
+                                            echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]">';
                                         } else {
-                                            echo '<span class="logo-invert-white"><img src="/doc/logo.png" alt="logo-[trade_fair_name]"></span>';
-                                        } 
+                                            echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]"></span>';
+                                        }
                                     echo '
                                 </a>
                             </div>
@@ -332,14 +332,14 @@
                                 <a href="' . $base_url . '/en">
                                     ';
                                         if (file_exists('doc/logo-en.png') && $logo_color_invert !== 'true') { 
-                                            echo '<img src="/doc/logo-en.png" alt="logo-[trade_fair_name]">';
+                                            echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]">';
                                         } elseif (file_exists('doc/logo-en.png') && $logo_color_invert == 'true') {
-                                            echo '<span class="logo-invert-white"><img src="/doc/logo-en.png" alt="logo-[trade_fair_name]"></span>';
+                                            echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]"></span>';
                                         } else {
                                             if($logo_color_invert == 'true'){
-                                                echo '<span class="logo-invert-white"><img src="/doc/logo.png" alt="logo-[trade_fair_name]"></span>';
+                                                echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]"></span>';
                                             } else {
-                                                echo '<img src="/doc/logo.png" alt="logo-[trade_fair_name]">'; 
+                                                echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]">'; 
                                             }   
                                         } 
                                     echo '

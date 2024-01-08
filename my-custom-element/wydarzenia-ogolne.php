@@ -12,7 +12,7 @@ if ($color != '#000000'){
         text-shadow: 2px 2px <?php echo $shadow ?>;
     }
     .custom-wydarzenia-header {
-        background-image:url('/doc/background.jpg'); 
+        background-image:url('<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg'; ?>'); 
         background-position: center; 
         background-size: cover;
         background-repeat: no-repeat;

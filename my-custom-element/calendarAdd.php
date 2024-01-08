@@ -12,7 +12,7 @@ if ($color != '#000000'){
     #calendar-add{
         background: no-repeat;
         background-size: cover;
-        background-image:url('/doc/background.jpg');
+        background-image:url('<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg'; ?>');
         width: 100%;
     }
     .custom_element_<?php echo $rnd_id ?> #calendar-add :is(h2, h1, h3){

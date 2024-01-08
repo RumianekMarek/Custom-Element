@@ -55,7 +55,7 @@ if ($color != '#000000'){
 </style>
 
 <div id="orgInfo"class="custom-container-org-info">
-    <div style="background-image: url('/doc/background.jpg');" class="custom-org-info-header custom-kv-bg">
+<div class="custom-org-info-header custom-kv-bg" style="background-image: url('<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg'; ?>');">
         <h1 class="orgInfo-header-text">
             <span>               
                 <?php if($locale == 'pl_PL'){ echo '

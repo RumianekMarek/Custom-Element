@@ -12,8 +12,8 @@
             color: <?php echo $color ?>;
         }
         <?php echo $btn_color ?>
-        .row-container:has(.custom-container-main-timer) .row-parent {
-            padding: 0 !important;
+        .is_stucked:has(.custom-container-main-timer) .row-parent {
+            margin-top: 25px !important;
         }
         .custom-main-timer-before,
         .custom-main-timer-after {
@@ -67,7 +67,7 @@
             }
         <?php } ?>
     </style>
-    
+
 
 <?php
 $countdown_container_id = 'countdown-container-' . uniqid();
@@ -116,13 +116,13 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
                     if ($locale == 'pl_PL') {
                         echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Do targów pozostało:';
                     } else {
-                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the start of the fair:';    
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the start of the fair:';
                     }
                 } else {
                     if ($locale == 'pl_PL') {
                         echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Do końca targów pozostało:';
                     } else {
-                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the end of the fair:';    
+                        echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the end of the fair:';
                     }
                 }
                 echo '</p>';
@@ -167,7 +167,7 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
                     }
                 });
             }
-            
+
             const distance = new Date(targetDate) - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -207,7 +207,7 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
                 setTimeout(function () {
                     startEndCountdown(targetDate);
                 }, 1000);
-            }   
+            }
         }
 
         function closeMainTimer() {

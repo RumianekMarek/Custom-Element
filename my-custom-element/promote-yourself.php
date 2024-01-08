@@ -1,5 +1,5 @@
 <?php 
-    $promoteImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+    $promoteImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPG,JPEG,PNG,WEBP}', GLOB_BRACE);
 
     if ($color != '#000000'){
         $color = '#ffffff !important';
@@ -234,31 +234,23 @@
                 ';} ?>
             <?php
             if ($logo_white_promote != 'true') {
-                if($locale == 'pl_PL'){
-                    $backgroundImage = "/doc/logo-color.png";
+                if ($locale == 'pl_PL') {
+                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? "/doc/logo-color.webp" : "/doc/logo-color.png";
                 } else {
-                    if (file_exists('doc/logo-color-en.png')) {
-                        $backgroundImage = "/doc/logo-color-en.png";
-                    } else {
-                        $backgroundImage = "/doc/logo-color.png";
-                    }
+                    $logo_url = file_exists($webp_path) ? "/doc/logo-color-en.webp" : "/doc/logo-color-en.png";
                 }
             } else {
-                if($locale == 'pl_PL'){
-                    $backgroundImage = "/doc/logo.png";
+                if ($locale == 'pl_PL') {
+                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? "/doc/logo.webp" : "/doc/logo.png";
                 } else {
-                    if (file_exists('doc/logo-en.png')) { 
-                        $backgroundImage = "/doc/logo-en.png";
-                    } else {
-                        $backgroundImage = "/doc/logo.png";
-                    }
+                    $logo_url = file_exists($webp_path) ? "/doc/logo-en.webp" : "/doc/logo-en.png";
                 }
             }
-            echo '<div style="background-image:url(\'' . $backgroundImage . '\'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>';
+            echo '<div style="background-image:url(\'' . $logo_url . '\'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>';
             ?>
         <div>
             <span class="btn-container">
-                <a href="<?php echo $backgroundImage; ?>" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800" >
+                <a href="<?php echo $logo_url; ?>" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800" >
                     <?php if($locale == 'pl_PL'){ echo '
                     Pobierz
                     ';} else { echo '
@@ -277,7 +269,7 @@
                 ';} ?>
             </h3>
             <p><strong>Ptak Warsaw Expo</strong></p>
-            <div style="background-image:url('https://forumwarzywa.com/wp-content/uploads/2023/05/pwe-logo.jpg'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>
+            <div style="background-image:url('/wp-content/plugins/custom-element/media/logo_pwe_black.webp'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>
             <div>
                 <span class="btn-container">
                     <a href="https://warsawexpo.eu/docs/Logo_PWE.zip" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800">
