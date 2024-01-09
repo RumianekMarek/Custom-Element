@@ -237,13 +237,22 @@
                 if ($locale == 'pl_PL') {
                     $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? "/doc/logo-color.webp" : "/doc/logo-color.png";
                 } else {
-                    $logo_url = file_exists($webp_path) ? "/doc/logo-color-en.webp" : "/doc/logo-color-en.png";
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp') || file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png')) {
+                        $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp') ? "/doc/logo-color-en.webp" : "/doc/logo-color-en.png";
+                    } else {
+                        $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? "/doc/logo-color.webp" : "/doc/logo-color.png";
+                    }
+                    
                 }
             } else {
                 if ($locale == 'pl_PL') {
                     $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? "/doc/logo.webp" : "/doc/logo.png";
                 } else {
-                    $logo_url = file_exists($webp_path) ? "/doc/logo-en.webp" : "/doc/logo-en.png";
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') || file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.png')) {
+                        $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? "/doc/logo-en.webp" : "/doc/logo-en.png";
+                    } else {
+                        $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? "/doc/logo.webp" : "/doc/logo.png";
+                    }    
                 }
             }
             echo '<div style="background-image:url(\'' . $logo_url . '\'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>';

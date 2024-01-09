@@ -53,6 +53,7 @@
         width: 80%;
     }
 }
+
 /* END Header */
 
 /* Widget-header*/
@@ -80,6 +81,10 @@
 }
 
 /* all */
+.row-parent:has(#niePrzegap) {
+    padding: 0 !important;
+}
+
 .full-width:has(.custom_element) {
     padding: 0 !important;
 }
@@ -286,10 +291,10 @@ strong {
     height: 40px;
 }
 
-.main-heading-text :is(h2, h3, h4), 
+.main-heading-text :is(h2, h3, h4),
 .secondary-heading-text :is(h2, h3, h4) {
     font-size: 20px !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
-    
+
 }

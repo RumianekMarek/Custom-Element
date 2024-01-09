@@ -137,5 +137,9 @@
             $current_user = wp_get_current_user();
             if ($current_user->user_login == $admin_username) { echo '<style>#niePrzegap { display: none !important; }</style>'; }
         } 
+    } else {
+        ?>
+        <div id='niePrzegap'></div>
+        <?php
     }
 ?>
