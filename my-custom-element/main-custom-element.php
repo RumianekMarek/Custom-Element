@@ -46,6 +46,7 @@ function my_custom_wpbakery_element() {
             'Mini-Galery' => 'mini-gallery.php',
             'Nie przegap' => 'niePrzegap.php',
             'Organizator' => 'organizator.php',
+            'Posts' => 'posts.php',
             'Mapka dojazdu' => 'route.php',
             'Ramka Facebook' => 'socialMedia.php',
             'Sticky buttons' => 'sticky-buttons.php',
@@ -399,6 +400,32 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'param_group',
+          'group' => 'Pliki',
+          'heading' => __('Logotypes files', 'my-custom-plugin'),
+          'param_name' => 'logotypes_files',
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+          ),
+          'params' => array(
+            array(
+              'type' => 'textfield',
+              'heading' => __('Filename', 'my-custom-plugin'),
+              'param_name' => 'logotype_filename',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Link', 'my-custom-plugin'),
+              'param_name' => 'logotype_link',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+          ),
+        ),
+        array(
           'type' => 'textfield',
           'heading' => __('Logos Data Base', 'my-custom-plugin'),
           'group' => 'Hidden',
@@ -435,6 +462,52 @@ function my_custom_wpbakery_element() {
           'dependency' => array(
             'element' => 'element',
             'value' => array('promote-yourself.php')
+          ),
+        ),
+        array( // POSTS <-------------------------------------------------------------------------<
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Category', 'my-custom-plugin'),
+          'param_name' => 'posts_cat',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('posts.php')
+          ),
+        ),
+        // array(
+        //   'type' => 'textfield',
+        //   'group' => 'Main Settings',
+        //   'heading' => __('Posts count', 'my-custom-plugin'),
+        //   'param_name' => 'posts_count',
+        //   'save_always' => true,
+        //   'dependency' => array(
+        //     'element' => 'element',
+        //     'value' => array('posts.php')
+        //   ),
+        // ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Aspect ratio', 'my-custom-plugin'),
+          'param_name' => 'posts_ratio',
+          'description' => __('Default 1/1', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('posts.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Button link', 'my-custom-plugin'),
+          'param_name' => 'posts_link',
+          'description' => __('Default aktualnosci-news', 'my-custom-plugin'),
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('posts.php')
           ),
         ),
         array( // HEADER <-------------------------------------------------------------------------<
@@ -928,6 +1001,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
     if (isset($atts['titlecatalog'])) { $titlecatalog = $atts['titlecatalog']; }
+    if (isset($atts['logotypes_files'])) { $logotypes_files = $atts['logotypes_files']; }
     if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
     if (isset($atts['logo_white_promote'])) { $logo_white_promote = $atts['logo_white_promote']; }
     if (isset($atts['showurl'])) { $showurl = $atts['showurl']; }
@@ -950,6 +1024,10 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['badge_form_id'])) { $badge_form_id = $atts['badge_form_id']; }
     if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
     if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
+    if (isset($atts['posts_cat'])) { $posts_cat = $atts['posts_cat']; }
+    if (isset($atts['posts_count'])) { $posts_count = $atts['posts_count']; }
+    if (isset($atts['posts_ratio'])) { $posts_ratio = $atts['posts_ratio']; }
+    if (isset($atts['posts_link'])) { $posts_link = $atts['posts_link']; }
 
     if (isset($atts['sticky_buttons'])) { $sticky_buttons = $atts['sticky_buttons']; }
     if (isset($atts['sticky_buttons_dropdown'])) { $sticky_buttons_dropdown = $atts['sticky_buttons_dropdown']; }

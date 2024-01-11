@@ -7,6 +7,7 @@
         gap: 10px;
     }
     .custom-logos-gallery-wrapper .custom-logo-item,
+    .custom-logos-gallery-wrapper .custom-logo-item div,
     .custom-logos-gallery-wrapper .slides div {
         background-size: contain;
         background-repeat: no-repeat;
@@ -103,57 +104,29 @@
                                 
                                 if ($logoscatalog == "partnerzy obiektu") {
                                     $short_path = substr($file, strpos($file, '/wp-content/'));
-                                    // if (strpos($short_path, '/doc/'.$logoscatalog.'/') !== false) {
-                                    //     $altText = str_replace('/doc/'.$logoscatalog.'/', '', $short_path);
-                                    // } else {$altText = 'partner logotyp';}
                                 } else {
                                     $short_path = substr($file, strpos($file, '/doc/'));
-                                    // if (strpos($short_path, '/doc/'.$logoscatalog.'/') !== false) {
-                                    //     $altText = str_replace('/doc/'.$logoscatalog.'/', '', $short_path);
-                                    // } else {$altText = 'logotyp';}
                                 }
                                 $file_name = pathinfo($file, PATHINFO_FILENAME);
                                 $file_base_name = pathinfo($file, PATHINFO_BASENAME);
-                                $full_path = $server_url . $short_path;
-    
-                                // Looking for the index of the match "id" in the array $ids
-                                $idIndex = array_search(strtolower($file_base_name), array_map('strtolower', $ids));
-    
-                                if ($idIndex !== false && $url_values[$idIndex] !== "") {
-                                    if (strpos($url_values[$idIndex], 'https://www.') !== false) {
-                                        $url = 'https://' . preg_replace('/https:\/\/www\./i', '', $url_values[$idIndex]);
-                                    } else if (strpos($url_values[$idIndex], 'http://www.') !== false) {
-                                        $url = 'https://' . preg_replace('/http:\/\/www\./i', '', $url_values[$idIndex]);
-                                    } else if (strpos($url_values[$idIndex], 'www.') !== false) {
-                                        $url = 'https://' . preg_replace('/www\./i', '', $url_values[$idIndex]);
-                                    }  else if (strpos($url_values[$idIndex], 'http://') !== false) {
-                                        $url = 'https://' . substr($url_values[$idIndex], 7); 
-                                    } else if (strpos($url_values[$idIndex], 'https://') !== false) {
-                                        $url = $url_values[$idIndex];
-                                    } else {
-                                        $url = 'https://' . $url_values[$idIndex];
-                                    }
-                                } else {
-                                    $url = "";  
-                                }
-    
-                                // if ($showurl == "true" && $url_custom !== "") {
-                                //     $singleLogo .= '<a href="' . $url_custom . '" title="logo ' . $file_name . '" target="_blank"><div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div></a>';
-                                // } else {
-                                //     if ($showurl == "true" && $url_custom == "") {
-                                //         $singleLogo .= '<div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div>';
-                                //     } else {
-                                //         $singleLogo .= '<div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div>';
-                                //     }
-                                // }
-    
-                                // $url_custom = $url;
-                                // $urls_custom[$index] = $url_custom;
+                                $full_path = $server_url . $short_path;  
     
                                 $slider_images_url[] = $full_path;
-    
                             }
-                            
+
+                            $logotypes_files_urldecode = urldecode($logotypes_files);
+                            $logotypes_files_json = json_decode($logotypes_files_urldecode, true);
+
+                            $logotype_filename_array = array();
+                            $logotype_link_array = array();
+
+                            foreach ($logotypes_files_json as $logotype) {
+                                $logotype_filename_array[] = $logotype["logotype_filename"];
+                                $logotype_link_array[] = $logotype["logotype_link"];
+                            }
+
+                            $logotypes_files_json_encode = json_encode($logotypes_files_json);
+
                             if ($mobile == 1 && count($slider_images_url) > 0) {
                                 if ($grid_mobile == true) {
                                     foreach ($slider_images_url as $full_path) {
@@ -192,12 +165,91 @@
 <?php if (isset($element_unique_id)) { ?>
     
 <script>
-    // Hide container if slider length = 0 (wydarzenia-ogolne.php)
-    if(<?php echo count($files) ?>  > 0) {
-        if(document.querySelector('.media-logos')){
-            document.querySelector('.media-logos').classList.toggle("custom-display-none")
+
+    {
+        const logotypesFiles = <?php echo $logotypes_files_json_encode ?>;
+
+        function processGalleryChildren(galleryChildren, containerClass) {
+            for (let i = 0; i < galleryChildren.length; i++) {
+                const backgroundImage = galleryChildren[i].style.backgroundImage;
+                // Sprawdzamy, czy backgroundImage pasuje do wzoru
+                const matchResult = backgroundImage.match(/"([^"]+)"/);
+
+                if (matchResult) {
+                    const filename = matchResult[1];
+                    // Używamy metody split, aby uzyskać tablicę fragmentów
+                    const filenameParts = filename.split("/");
+                    // Pobieramy ostatni fragment, który powinien być nazwą pliku
+                    const actualFilename = filenameParts[filenameParts.length - 1];
+                    // Inicjujemy zmienną na znaleziony logotyp
+                    let matchingLogotype = null;
+
+                    for (let j = 0; j < logotypesFiles.length; j++) {
+                        if (logotypesFiles[j].logotype_filename === actualFilename) {
+                            matchingLogotype = logotypesFiles[j];
+                            break;
+                        }
+                    }
+
+                    if (matchingLogotype) {
+                        // Tworzymy nowy element 'a'
+                        const linkElement = document.createElement('a');
+                        if (document.querySelector('.slides')) {
+                            // Dodajemy klasę 'slide' i 'image-container' do nowego elementu 'a'
+                            linkElement.classList.add('slide');
+                            linkElement.classList.add('image-container');
+                        } else {
+                            // Dodajemy klasę 'custom-logo-item' do nowego elementu 'a'
+                            linkElement.classList.add('custom-logo-item');
+                        }
+                        // Dodajemy target = "_blank"
+                        linkElement.target = "_blank";
+                        // Ustawiamy atrybut 'href' na wartość logotype_link
+                        linkElement.href = matchingLogotype.logotype_link;
+                        // Tworzymy nowy element 'div' (custom-logo-item)
+                        const divElement = document.createElement('div');
+                        // Ustawiamy atrybut 'style' z tła jako backgroundImage
+                        divElement.style.backgroundImage = backgroundImage;
+                        linkElement.appendChild(divElement);
+                        if (document.querySelector('.slides')) {
+                            // Usuwamy klasę 'slide' i 'image-container' z istniejącego elementu dziecka '.slides'
+                            galleryChildren[i].classList.remove('slide');
+                            galleryChildren[i].classList.remove('image-container');
+                        } else {
+                            // Usuwamy klasę 'custom-logo-item' z istniejącego elementu dziecka
+                            galleryChildren[i].classList.remove('custom-logo-item');
+                        }
+                        // Zastępujemy obecny element dziecka nowym elementem 'a'
+                        galleryChildren[i].replaceWith(linkElement);
+                    }
+                }
+            }
+        }
+
+        // SLIDER
+        if (document.querySelector('.slides')) {
+            const slideChildren = document.querySelector('.slides').children;
+            if (logotypesFiles && Array.isArray(logotypesFiles)) {
+                processGalleryChildren(slideChildren, 'slides');
+            }
+        }
+
+        // JUSTIFY
+        if (document.querySelector('.custom-logos-gallery-wrapper')) {
+            const galleryChildren = document.querySelector('.custom-logos-gallery-wrapper').children;
+            if (logotypesFiles && Array.isArray(logotypesFiles)) {
+                processGalleryChildren(galleryChildren, 'custom-logos-gallery-wrapper');
+            }
+        }
+        
+        // Hide container if slider length = 0 (wydarzenia-ogolne.php)
+        if(<?php echo count($files) ?>  > 0) {
+            if(document.querySelector('.media-logos')){
+                document.querySelector('.media-logos').classList.toggle("custom-display-none")
+            }
         }
     }
+
 </script>
 
 <?php } ?>
