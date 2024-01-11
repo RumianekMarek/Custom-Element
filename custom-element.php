@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.6
+Version: 2.6.1
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -40,6 +40,9 @@ include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystaw
 
 // Info + Modal
 include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
+
+// Speakers
+include_once plugin_dir_path(__FILE__) . '/display-info/display-info-speakers.php';
 
 // Badge
 include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
