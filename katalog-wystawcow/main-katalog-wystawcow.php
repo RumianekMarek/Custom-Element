@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Rejestracja elementu Katalog wystawców
 function my_custom_wpbakery_element_katalog_wystawcow() {
     vc_map( array(
@@ -118,7 +118,7 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
         'description' => __( 'Enter description.', 'my-text-domain' )
     ));
 }
-  
+
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
 
@@ -163,14 +163,14 @@ function katalog_wystawcow_output($atts, $content = null) {
   } else {
     $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
   }
-  
+
   $json = file_get_contents($canUrl);
   $data = json_decode($json, true);
 
-  if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {    
-    foreach ($file_changer as $change) {   
+  if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {
+    foreach ($file_changer as $change) {
       $change = trim($change);
-      
+
       if (strpos($change, '<=>') !== false) {
         $id = [];
         $names = trim(explode('<=>', $change));
@@ -178,13 +178,13 @@ function katalog_wystawcow_output($atts, $content = null) {
           $name = trim($name);
           if(is_numeric($name)){
             $id[] = $name. '.00';
-          } else {         
-            $found = false;   
+          } else {
+            $found = false;
             foreach($data[$id_targow]['Wystawcy'] as $index => $exhi){
               if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
                 $id[] = $index;
                 $found = true;
-                break; 
+                break;
               }
             }
             if (!$found) {
@@ -193,13 +193,13 @@ function katalog_wystawcow_output($atts, $content = null) {
             }
           }
         }
-        
-        if($id[0] && $id[1] && count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){          
+
+        if($id[0] && $id[1] && count($data[$id_targow]['Wystawcy']) > $id[0] && count($data[$id_targow]['Wystawcy']) > $id[1]){
           list($data[$id_targow]['Wystawcy'][$id[0]], $data[$id_targow]['Wystawcy'][$id[1]]) = [$data[$id_targow]['Wystawcy'][$id[1]], $data[$id_targow]['Wystawcy'][$id[0]]];
         } elseif($id[0] && $id[1]) {
           echo '<script>console.error("lista zawiera tylko '. count($data[$id_targow]['Wystawcy']) .' wystawców, wystawców, sprawdź poprawność '.$change.'")</script>';
         }
-      } 
+      }
       elseif (strpos($change, '=>>') !== false) {
         $id = [];
         $names = explode('=>>', $change);
@@ -207,13 +207,13 @@ function katalog_wystawcow_output($atts, $content = null) {
           $name = trim($name);
           if(is_numeric($name)){
             $id[] = $name.'.00';
-          } else {   
-            $found = false;         
+          } else {
+            $found = false;
             foreach($data[$id_targow]['Wystawcy'] as $index => $exhi){
               if(stripos($exhi['Nazwa_wystawcy'],  $name) !== false){
                 $id[] = $index;
                 $found = true;
-                break; 
+                break;
               }
             }
             if (!$found) {
@@ -227,18 +227,18 @@ function katalog_wystawcow_output($atts, $content = null) {
           if($id[0]>$id[1]){
             $temp = $data[$id_targow]['Wystawcy'][$id[1]];
             $data[$id_targow]['Wystawcy'][$id[1]] = $data[$id_targow]['Wystawcy'][$id[0]];
-            
+
             for($i = ($id[1]+1).'.00'; $i<$id[0]; $i= ($i+1).".00"){
-              
+
               $temp1 = $data[$id_targow]['Wystawcy'][$i];
               $data[$id_targow]['Wystawcy'][$i] = $temp;
-              $temp = $temp1;              
+              $temp = $temp1;
             }
             $data[$id_targow]['Wystawcy'][$id[0]] = $temp;
           } else {
             $temp = $data[$id_targow]['Wystawcy'][$id[1]];
             $data[$id_targow]['Wystawcy'][$id[1]] = $data[$id_targow]['Wystawcy'][$id[0]];
-            
+
             for($i = ($id[1]-1).'.00'; $i>$id[0]; $i= ($i-1).'.00'){
               $temp1 = $data[$id_targow]['Wystawcy'][$i];
               $data[$id_targow]['Wystawcy'][$i] = $temp;
@@ -281,9 +281,9 @@ function katalog_wystawcow_output($atts, $content = null) {
       }
 
       return $acc;
-  }, []); 
+  }, []);
     echo '<script>console.log("'.count($exhibitors).'")</script>';
-    
+
   if (current_user_can('administrator')  && !is_admin()) {
     ?><script>
       var katalog_data = <?php echo json_encode($script_data); ?>;
@@ -317,7 +317,7 @@ function katalog_wystawcow_output($atts, $content = null) {
                   <input id="search" placeholder="Search"/>';
           }
           $output .= '</div>';
-      
+
         $allExhibitorsArray = '';
         $divContainerExhibitors = '<div class="exhibitors__container">';
         // WYSTAWCY
@@ -325,7 +325,7 @@ function katalog_wystawcow_output($atts, $content = null) {
           $singleExhibitor = '<div class="exhibitors__container-list">';
           if ($exhibitor['URL_logo_wystawcy']) {
             $singleExhibitor .= '<div class="exhibitors__container-list-img" style="background-image: url(' . $exhibitor['URL_logo_wystawcy'] . ')"></div>';
-          } 
+          }
           if ($stand !== 'true') {
               $singleExhibitor .= '<div class="exhibitors__container-list-text">';
               $singleExhibitor .= '<h2 class="exhibitors__container-list-text-name">' . $exhibitor['Nazwa_wystawcy'] . '</h2>';
@@ -339,12 +339,12 @@ function katalog_wystawcow_output($atts, $content = null) {
               $singleExhibitor .= '<h2 class="exhibitors__container-list-text-name">' . $exhibitor['Nazwa_wystawcy'] . '</h2>';
           }
           $singleExhibitor .= '</div>';
-          $divContainerExhibitors .= $singleExhibitor; 
+          $divContainerExhibitors .= $singleExhibitor;
           $allExhibitorsArray .= $singleExhibitor;
         }
         $divContainerExhibitors .= '</div>';
-        $output .= $divContainerExhibitors;  
-        $output .= '</div></div>'; 
+        $output .= $divContainerExhibitors;
+        $output .= '</div></div>';
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'">';
     $output .= '<div class="img-container-'. $format .'">';
@@ -357,12 +357,18 @@ function katalog_wystawcow_output($atts, $content = null) {
       while ($displayedCount < 21 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
           $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
+          $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
           $singleLogo = '';
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
             $slider_images_url[] = $url;
           } elseif (!empty($url)) {
-            $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
-            $output .= $singleLogo;
+            if(!empty($urlWebsite)){
+              $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
+              $output .= $singleLogo;
+            } elseif(empty($urlWebsite)){
+              $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+              $output .= $singleLogo;
+            }
           }
           $displayedCount++;
         }
@@ -373,7 +379,7 @@ function katalog_wystawcow_output($atts, $content = null) {
         include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
-      
+
       $output .= '</div>';
       if ($locale == 'pl_PL') {
           $output .= '
@@ -400,7 +406,7 @@ function katalog_wystawcow_output($atts, $content = null) {
               $slider_images_url[] = $url;
             } elseif (!empty($url)) {
               $singleLogo = '<div style="background-image: url(' . $url . ');"></div>';
-              $output .= $singleLogo;  
+              $output .= $singleLogo;
             }
 
             $displayedCount++;
@@ -428,7 +434,7 @@ function katalog_wystawcow_output($atts, $content = null) {
           $singleLogo = '';
 
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-            
+
             if($url){
               $slider_images_url[] = $url;
               $displayedCount++;
@@ -455,7 +461,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     }
     $output .= '</div>';
   }
- 
+
   $spinner = '<div class="spinner"></div>';
   if (empty($exhibitorsAll)) {
     $output .= $spinner;
@@ -466,7 +472,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   $js_version = filemtime(plugin_dir_path(__FILE__) . 'katalog.js');
   wp_enqueue_style('katalog_wystawcow-css', $css_file, array(), $css_version);
   wp_enqueue_script('katalog_wystawcow-js', $js_file, array(), $js_version);
-  wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data ); 
+  wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data );
 
   return $output;
 }

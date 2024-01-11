@@ -5,7 +5,7 @@
 }
 
 .chevron-slide {
-    transition: max-height 0.3s;
+    transition: max-height 0.6s;
     display: flex;
     gap: 10px;
     border: 5px solid;
@@ -27,7 +27,7 @@
 }
 
 .chevron-slide .text-container .inside-text {
-    transition: max-height 0.3s;
+    transition: max-height 0.6s;
     overflow: hidden;
 }
 
@@ -57,7 +57,6 @@
 
 /* MODAL */
 .info-modal {
-    display: none;
     position: fixed;
     z-index: 100;
     place-items: center;
@@ -118,8 +117,8 @@
 .info-close {
     position: absolute;
     cursor: pointer;
-    right: 30px;
-    top: 15px;
+    right: 5px;
+    top: 10px;
     color: darkred;
 }
 
@@ -284,5 +283,59 @@
     .simple-lecture {
         display: flex;
         gap: 5px;
+    }
+}
+
+/*Spekers Info*/
+.speakersInfo {
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.speakersInfo :is(.custom-speaker-img, .custom-speaker-modal-img) {
+    border-radius: 50%;
+}
+
+.info-modal .speaker {
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    max-height: 75%;
+    overflow: scroll;
+
+}
+
+.info-modal .speaker p {
+    padding: 0 36px;
+    text-align: left;
+}
+
+.info-modal .custom-speaker-modal-img {
+    max-width: 200px;
+}
+
+@media (min-width:959px) {
+    .info-modal .custom-speaker-img {
+        max-width: 250px;
+    }
+}
+
+@media (max-width:959px) {
+    .info-modal .custom-speaker-img {
+        max-width: 150px;
+    }
+
+    .info-modal .speaker {
+        max-width: 90% !important;
+    }
+
+    .info-modal .speaker p {
+        padding: 0 9px;
     }
 }

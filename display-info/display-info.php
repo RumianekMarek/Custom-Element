@@ -7,7 +7,6 @@ function info_box() {
         'base' => 'info_box',
         'category' => __('My Elements', 'my-custom-plugin'),
         'admin_enqueue_css' => plugin_dir_url( __FILE__ ) . 'backend-info.css',
-        'admin_enqueue_script' => plugin_dir_url(__FILE__) . 'backend-info.js',
         'params' => array(
             array(
                 'type' => 'textfield',
@@ -16,7 +15,6 @@ function info_box() {
                 'param_name' => 'lecture_id',
                 'description' => __('Custom ID will by added to main lecture ID.', 'my-custom-plugin'),
                 'admin_label' => true,
-                'value' => array(__('True', 'my-custom-plugin') => 'true',),
             ),
             array(
                 'type' => 'checkbox',
@@ -47,7 +45,7 @@ function info_box() {
                 'type' => 'textarea_html',
                 'group' => 'main',
                 'heading' => __('Description', 'my-custom-plugin'),
-                'param_name' => 'event_desc',
+                'param_name' => 'content',
                 'description' => __('Put event description.', 'my-custom-plugin'),
                 'save_always' => true,
             ),
@@ -212,7 +210,6 @@ function info_box_output($atts, $content = null) {
         'simple_mode' => '',
         'event_time' => '',
         'event_title' => '',
-        'event_desc' => '',
         'border_radius' => '',
         'border_style' => '',
         'border_color' => '',
@@ -259,6 +256,7 @@ function info_box_output($atts, $content = null) {
 
 
         /* End of old data */
+        $event_desc = !empty($content) ? nl2br($content) : $atts['event_desc'];
         $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
         $border_width = !empty($atts['border_width']) ? $atts['border_width'] : '0';
         $border_style = !empty($atts['border_style']) ? $atts['border_style'] : 'solid';
@@ -273,8 +271,9 @@ function info_box_output($atts, $content = null) {
         $title_size = !empty($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
         
-
         $event_title = str_replace('``','"', $event_title);
+        $event_time = str_replace('``','"', $event_time);
+        $event_desc = str_replace('<script>','', $event_desc);
 
         $uncode_options = get_option('uncode');
 
@@ -286,7 +285,6 @@ function info_box_output($atts, $content = null) {
         $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info.js');
         wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
         wp_localize_script('info_box-js', 'inner' , $atts);
-
         
         foreach($speakers as $speaker){
             foreach($speaker as $id => $key){
@@ -304,11 +302,9 @@ function info_box_output($atts, $content = null) {
 
         if (!$simple_mode){
         
-        $speaker_html = '<div class="speakers">';
         $modal_html = '<div class="modal-lecturers">';
-
-        if (count($speakers_images) <= 0){
-            $speaker_html = '<div class="speakers">';
+        if (empty($speakers_images[0])){
+            $speaker_html = '<div class="speakers"></div>';
         } else {
             $speaker_html = '<div class="speakers-img">';
             $haed_images = array_filter($speakers_images);
@@ -338,14 +334,14 @@ function info_box_output($atts, $content = null) {
                                     case 0:
                                         $margin_top_index = "margin-top : 20px";
                                         $max_width_index = "50%";
-                                        $top_index = "-10px";
-                                        $left_index = "15px";
+                                        $top_index = "-30px";
+                                        $left_index = "10px";
                                         break;
                         
                                     case 1:
                                         $max_width_index = "50%";
-                                        $top_index = "10px";
-                                        $left_index = "-15px";
+                                        $top_index = "-10px";
+                                        $left_index = "-10px";
                                         break;
                                 }
                                 break;
@@ -465,34 +461,27 @@ function info_box_output($atts, $content = null) {
                     }
                 }
             }
+            $speaker_html .= '</div>';
         }
-        $speaker_html .= '</div>';
-
-        foreach($speakers_bios as $id => $bio){
-            if(!empty($bio)){
-                $modal_desc = true;
-                $modal_lecturer_display = '';
-                if(!empty($speakers_images[$id])){
-                    $image_src = wp_get_attachment_image_src($speakers_images[$id], 'full');
-                    $modal_img_size_add = '';
-                } else {
-                    $image_src = '';
-                    $modal_img_size_add = ' height: 100px; visibility:hidden;';
-                }
-
-                $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'>';
-                $modal_html .= '<div class="modal-image"><img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size . $modal_img_size_add.'"><h3 style="'.$lect_color.'">'.$speakers_names[$id].'</h3>';
-            } else {
-                $modal_html .= '<div class="modal-image">';
-            }
-            if($speakers_bios[$id]){
-                $modal_html .= '<p>'.$speakers_bios[$id].'</p></div></div>';
-            } else {
-                $modal_html .= '</div></div>';
-            }
-        }
-
         if($photo_box){
+            foreach($speakers_bios as $id => $bio){
+                if(!empty($bio)){
+                    $modal_desc = true;
+                    $modal_lecturer_display = '';
+                    $modal_html .= '<div class="lecturer" '.$modal_lecturer_display.'><div class="modal-image">';
+
+                    if(!empty($speakers_images[$id])){
+                        $image_src = wp_get_attachment_image_src($speakers_images[$id], 'full');
+                        $modal_html .= '<img class="alignleft" src="'.$image_src[0].'" style="'.$modal_img_size.'">';
+                    }
+
+                    $modal_html .= '<h3 style="'.$lect_color.'">'.$speakers_names[$id].'</h3>';
+                    $modal_html .= '<p style="text-align: unset; margin-left:18px;">'.$bio.'</p>';
+                    $modal_html .= '</div></div>';
+                }
+            }
+
+
             $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="min-height:280px; '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="head-container">
                     ' . $speaker_html;
@@ -517,16 +506,16 @@ function info_box_output($atts, $content = null) {
         if($title_top != ''){
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>
                     <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_title . '</h3>
-                    <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$display_speakers.'</h5> ';
+                    <h5 class="lecturer-name" style="'.$lect_color.'">'.$display_speakers.'</h5> ';
         } else {
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>
-            <h5 class="lecturer-name" style="color:'.$lect_color.';">'.$display_speakers.'</h5> 
+            <h5 class="lecturer-name" style="'.$lect_color.'">'.$display_speakers.'</h5> 
             <h3 class="inside-title" style="'.$title_size.'color:'.$title_color.';">' . $event_title . '</h3>';
         }
 
-        if($event_desc != ''){      
+        if($event_desc != ''){
             $html .='<div class="inside-text" style="max-height: 120px;"><p>' . $event_desc . '</p></div>
-                        <p class="open-desc"><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
+                        <p class="open-desc" ><i class="text-accent-color fa fa-chevron-down fa-1x fa-fw"></i>';
                         if ($locale == 'pl_PL') {
                             $html .= 'Czytaj więcej';
                         } else {
@@ -545,7 +534,7 @@ function info_box_output($atts, $content = null) {
         </div>';
     } else {
 
-            $simple_speakers = implode(', ', $speakers_names);
+        $simple_speakers = implode(', ', $speakers_names);
         
         $html .= '<div id="lecture-'.$lecture_id.'" class="simple-lecture">
                     <h5 class="simple-lecture-hour">'.$event_time.'</h5>

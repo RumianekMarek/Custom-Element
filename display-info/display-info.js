@@ -1,4 +1,17 @@
 jQuery(function ($) {
+    // $('.open-desc').each(function (index, element) {
+    //     let totalHeight = 0;
+    //     $(element).prev().children().each(function () {
+    //         console.log($(this).height());
+    //         console.log($(this));
+    //         totalHeight += $(this).height();
+    //     });
+    //     console.log(totalHeight);
+    //     if (totalHeight > 120) {
+    //         $(element).show();
+    //     }
+    // });
+
     $(".open-desc").click(function (event) {
         let targetElement = '';
         if ($(event.target.parentElement).hasClass('text-container')) {
@@ -10,7 +23,7 @@ jQuery(function ($) {
         }
 
         if (targetElement.css('max-height') === '120px') {
-            targetElement.css('max-height', '1000px');
+            targetElement.css('max-height', '3000px');
         } else {
             targetElement.css('max-height', '120px');
 

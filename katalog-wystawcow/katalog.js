@@ -1,17 +1,18 @@
-if (document.getElementById('full')){
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
+  var exhibitors = exhibitorsAll.reduce((acc, curr) => {
+    const name = curr[1].Nazwa_wystawcy;
+    const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
 
-    var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
-    var exhibitors = exhibitorsAll.reduce((acc, curr) => {
-        const name = curr[1].Nazwa_wystawcy;
-        const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
+    if (!existingEntry) {
+        acc.push(curr);
+    }
 
-        if (!existingEntry) {
-            acc.push(curr);
-        }
+    return acc;
+  }, []);
 
-        return acc;
-    }, []);
+  if (document.getElementById('full')){
+    
     if(katalog_data.data){
 
       /* SEARCH ELEMENT */
@@ -20,13 +21,14 @@ if (document.getElementById('full')){
       inputSearch.addEventListener("input", () => {
         for (let i = 0; i < allExhibitorsArray.length; i++) {
           const exhibitorsNames = allExhibitorsArray[i].getElementsByTagName('h2')[0].innerText.toLocaleLowerCase();
-          let isVisible = exhibitorsNames.includes(inputSearch.value.toLocaleLowerCase());
+          const exhibitorsPlace = allExhibitorsArray[i].getElementsByTagName('p')[0].innerText.toLocaleLowerCase();
+          let isVisible = exhibitorsNames.includes(inputSearch.value.toLocaleLowerCase()) || exhibitorsPlace.includes(inputSearch.value.toLocaleLowerCase()) ;
           allExhibitorsArray[i].classList.toggle("hide-post", !isVisible);
           allExhibitorsArray[i].classList.toggle("show-post", isVisible);
         }
       });
-      
-      var localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");	
+
+      var localLangKat = document.getElementById(katalog_data.format).getAttribute("custom-lang");
 
       /* MODAL ELEMENT */
       const modal = document.createElement('div');
@@ -36,7 +38,7 @@ if (document.getElementById('full')){
       for (let i = 0; i < allExhibitorsArray.length; i++) {
         allExhibitorsArray[i].addEventListener('click', () => {
           const url = exhibitors[i][1].URL_logo_wystawcy;
-					url.replace('/', '$2F');
+          url.replace('/', '$2F');
 
           var www = exhibitors[i][1].www;
 
@@ -128,5 +130,5 @@ if (document.getElementById('full')){
         });
       };
     };
-  });
-}
+  }
+});
