@@ -12,7 +12,7 @@
 <?php
 echo '<div id="badge-generator">[gravityform id="'.$badge_form_id.'" title="false" description="false" ajax="false"]</div>';
 if ($_GET['parametr'] === 'masowy') {
-    if (isset($_POST["submit"])){
+    if (isset($_POST["submit"]) && !empty($_POST['input_6']) && isset($_POST['input_3'])){
         echo '<script>
                 jQuery(function ($) {
                     const gfMessage = $(".gform_confirmation_message a");
@@ -26,6 +26,7 @@ if ($_GET['parametr'] === 'masowy') {
             </script>';
         $multi_badge = array();
         $multi_badge['form_id'] = $badge_form_id;
+
         foreach ($_POST as $key => $value) {
 
             if (strpos(strtolower($key), 'input') !== false) {

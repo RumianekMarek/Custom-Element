@@ -328,7 +328,7 @@
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
                             <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '/en"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
-                            <div class="custom-footer-nav-logo-bottom">
+                            <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '/en">
                                     ';
                                         if (file_exists('doc/logo-en.png') && $logo_color_invert !== 'true') { 

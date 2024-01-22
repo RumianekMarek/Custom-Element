@@ -1,3 +1,12 @@
+<?php 
+if ($left_center_right_title == ''){
+    $left_center_right_title = 'left';
+}
+if ($min_width_logo == ''){
+    $min_width_logo = '140px';
+}
+?>
+
 <style>
 
     .custom-logos-gallery-wrapper {
@@ -6,15 +15,19 @@
         flex-wrap: wrap;
         gap: 10px;
     }
-    .custom-logos-gallery-wrapper .custom-logo-item,
-    .custom-logos-gallery-wrapper .custom-logo-item div,
-    .custom-logos-gallery-wrapper .slides div {
+    .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item,
+    .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item div,
+    .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .slides div {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         min-height: 120px;
-        min-width: 140px;
+        min-width: <?php echo $min_width_logo ?>;
         margin: 5px;
+    }
+    .custom_element_<?php echo $rnd_id ?> .custom-logos-title {
+        display: flex;
+        justify-content:<?php echo $left_center_right_title ?>;
     }
     .custom-logos-title h4 {
         margin: 0;
@@ -33,13 +46,13 @@
     }
 
     /* FOR HEADER */
-    #page-header .custom-logos-title{
-        width: inherit !important;
-        text-align: center;
-        text-align: -webkit-center;
+    #page-header .custom-logos-gallery-wrapper{
+        padding-bottom: 36px; 
+    }
+    #page-header .custom_element_<?php echo $rnd_id ?> .custom-logos-title {
+        justify-content: center;
     }
     #page-header .custom-logos-title h4 {
-        margin-top: 0;
         color: white;
     }
 
@@ -58,7 +71,7 @@
         $element_unique_id = 'customLogotypes-' . $unique_id;
 
         $pattern = '/``id``:``(.*?)``,``url``:``(.*?)``/';
-        // Search for matches and save the results to an array of $matches
+        // Wyszukaj dopasowania i zapisz wyniki w tablicy $ dopasowań
         preg_match_all($pattern, $logo_url, $matches);
 
         $ids = $matches[1];
@@ -81,7 +94,7 @@
                             box-shadow: 9px 9px 0px -6px '. $color .' !important;
                         }
                     </style>';
-            }
+            } 
     
             $output = '<div id="'.$element_unique_id.'" class="custom-container-logos-gallery">
                         <div class="custom-logos-title main-heading-text">
@@ -96,8 +109,9 @@
                         }
                         $output .= '">';
                                 
-                            $slider_images_url = array();
+                            $images_url = array();
                             $urls_custom = array();
+                            $urls_old = array();
     
                             foreach ($files as $index => $file) {
                                 $short_path = '';
@@ -109,11 +123,19 @@
                                 }
                                 $file_name = pathinfo($file, PATHINFO_FILENAME);
                                 $file_base_name = pathinfo($file, PATHINFO_BASENAME);
-                                $full_path = $server_url . $short_path;  
-    
-                                $slider_images_url[] = $full_path;
-                            }
 
+                                // Szukanie indeksu dopasowania „id” w tablicy $ids
+                                $idIndex = array_search(strtolower($file_base_name), array_map('strtolower', $ids));
+                                if ($idIndex !== false) {
+                                    $urls_old[] = $url_values[$idIndex];
+                                } else {
+                                    $urls_old[] = '';
+                                }
+                                $full_path = $server_url . $short_path;  
+                                $images_url[] = $full_path;
+                            }
+                            
+                            //<--------------->
                             $logotypes_files_urldecode = urldecode($logotypes_files);
                             $logotypes_files_json = json_decode($logotypes_files_urldecode, true);
 
@@ -122,34 +144,80 @@
 
                             foreach ($logotypes_files_json as $logotype) {
                                 $logotype_filename_array[] = $logotype["logotype_filename"];
-                                $logotype_link_array[] = $logotype["logotype_link"];
+                                $logotype_link_array[] = $logotype["logotype_link"];  
                             }
 
                             $logotypes_files_json_encode = json_encode($logotypes_files_json);
+                            //<--------------->
 
-                            if ($mobile == 1 && count($slider_images_url) > 0) {
+                            $updated_images_url = array();
+
+                            foreach ($images_url as $image) {
+                                // Pobranie aktualnej wartości z $urls_old
+                                $old_site = current($urls_old);
+                                // Przesunięcie wskaźnika do następnej wartości w $urls_old
+                                array_shift($urls_old);
+
+                                $new_site = "";
+                                foreach ($logotypes_files_json as $logotype) {
+                                    if (strpos($image, $logotype["logotype_filename"]) !== false) {
+                                        $new_site = $logotype["logotype_link"];
+                                        break;
+                                    }
+                                }
+
+                                $site = (!empty($new_site)) ? $new_site : $old_site;
+                                if (!empty($site) && !preg_match("~^(?:f|ht)tps?://~i", $site)) {
+                                    $site = "https://" . $site;
+                                }      
+
+                                $updated_images_url[] = array(
+                                    "img" => $image,
+                                    "site" => $site
+                                );
+                            }
+
+                            if ($mobile == 1 && count($updated_images_url) > 0) {
                                 if ($grid_mobile == true) {
-                                    foreach ($slider_images_url as $full_path) {
-                                        $output .= '<div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div>';
+                                    foreach ($updated_images_url as $url) {
+                                        if (!empty($image)) {
+                                            if (!empty($url["site"])) {
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                            } else if (empty($url["site"])) {
+                                                $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                            }
+                                        }   
                                     }
                                 } else {
-                                    if (count($slider_images_url) <= 2) {
-                                        foreach ($slider_images_url as $full_path) {
-                                            $output .= '<div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div>';
+                                    if (count($updated_images_url) <= 2) {
+                                        foreach ($updated_images_url as $url) {
+                                            if (!empty($image)) {
+                                                if (!empty($url["site"])) {
+                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                } else if (empty($url["site"])) {
+                                                    $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                }
+                                            }   
                                         }
                                     } else {
                                         include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
-                                        $output .= custom_media_slider($slider_images_url);
+                                        $output .= custom_media_slider($updated_images_url);
                                     }
                                 }
-                            } else if (($mobile != 1 && count($slider_images_url) > 0)) {
+                            } else if (($mobile != 1 && count($updated_images_url) > 0)) {
                                 
                                 if ($slider_desktop == true) {
                                     include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
-                                    $output .= custom_media_slider($slider_images_url);
+                                    $output .= custom_media_slider($updated_images_url);
                                 } else {
-                                    foreach ($slider_images_url as $full_path) {
-                                        $output .= '<div class="custom-logo-item" style="background-image: url(' . $full_path . ');"></div>';
+                                    foreach ($updated_images_url as $url) {
+                                        if (!empty($image)) {
+                                            if (!empty($url["site"])) {
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                            } else if (empty($url["site"])) {
+                                                $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                            }
+                                        }   
                                     }
                                 }
                             }
@@ -165,88 +233,11 @@
 <?php if (isset($element_unique_id)) { ?>
     
 <script>
-
-    {
-        const logotypesFiles = <?php echo $logotypes_files_json_encode ?>;
-
-        function processGalleryChildren(galleryChildren, containerClass) {
-            for (let i = 0; i < galleryChildren.length; i++) {
-                const backgroundImage = galleryChildren[i].style.backgroundImage;
-                // Sprawdzamy, czy backgroundImage pasuje do wzoru
-                const matchResult = backgroundImage.match(/"([^"]+)"/);
-
-                if (matchResult) {
-                    const filename = matchResult[1];
-                    // Używamy metody split, aby uzyskać tablicę fragmentów
-                    const filenameParts = filename.split("/");
-                    // Pobieramy ostatni fragment, który powinien być nazwą pliku
-                    const actualFilename = filenameParts[filenameParts.length - 1];
-                    // Inicjujemy zmienną na znaleziony logotyp
-                    let matchingLogotype = null;
-
-                    for (let j = 0; j < logotypesFiles.length; j++) {
-                        if (logotypesFiles[j].logotype_filename === actualFilename) {
-                            matchingLogotype = logotypesFiles[j];
-                            break;
-                        }
-                    }
-
-                    if (matchingLogotype) {
-                        // Tworzymy nowy element 'a'
-                        const linkElement = document.createElement('a');
-                        if (document.querySelector('.slides')) {
-                            // Dodajemy klasę 'slide' i 'image-container' do nowego elementu 'a'
-                            linkElement.classList.add('slide');
-                            linkElement.classList.add('image-container');
-                        } else {
-                            // Dodajemy klasę 'custom-logo-item' do nowego elementu 'a'
-                            linkElement.classList.add('custom-logo-item');
-                        }
-                        // Dodajemy target = "_blank"
-                        linkElement.target = "_blank";
-                        // Ustawiamy atrybut 'href' na wartość logotype_link
-                        linkElement.href = matchingLogotype.logotype_link;
-                        // Tworzymy nowy element 'div' (custom-logo-item)
-                        const divElement = document.createElement('div');
-                        // Ustawiamy atrybut 'style' z tła jako backgroundImage
-                        divElement.style.backgroundImage = backgroundImage;
-                        linkElement.appendChild(divElement);
-                        if (document.querySelector('.slides')) {
-                            // Usuwamy klasę 'slide' i 'image-container' z istniejącego elementu dziecka '.slides'
-                            galleryChildren[i].classList.remove('slide');
-                            galleryChildren[i].classList.remove('image-container');
-                        } else {
-                            // Usuwamy klasę 'custom-logo-item' z istniejącego elementu dziecka
-                            galleryChildren[i].classList.remove('custom-logo-item');
-                        }
-                        // Zastępujemy obecny element dziecka nowym elementem 'a'
-                        galleryChildren[i].replaceWith(linkElement);
-                    }
-                }
-            }
-        }
-
-        // SLIDER
-        if (document.querySelector('.slides')) {
-            const slideChildren = document.querySelector('.slides').children;
-            if (logotypesFiles && Array.isArray(logotypesFiles)) {
-                processGalleryChildren(slideChildren, 'slides');
-            }
-        }
-
-        // JUSTIFY
-        if (document.querySelector('.custom-logos-gallery-wrapper')) {
-            const galleryChildren = document.querySelector('.custom-logos-gallery-wrapper').children;
-            if (logotypesFiles && Array.isArray(logotypesFiles)) {
-                processGalleryChildren(galleryChildren, 'custom-logos-gallery-wrapper');
-            }
-        }
-        
-        // Hide container if slider length = 0 (wydarzenia-ogolne.php)
-        if(<?php echo count($files) ?>  > 0) {
-            if(document.querySelector('.media-logos')){
-                document.querySelector('.media-logos').classList.toggle("custom-display-none")
-            }
+ 
+    // Hide container if slider length = 0 (wydarzenia-ogolne.php)
+    if(<?php echo count($files) ?>  > 0) {
+        if(document.querySelector('.media-logos')){
+            document.querySelector('.media-logos').style.display = "none";
         }
     }
 

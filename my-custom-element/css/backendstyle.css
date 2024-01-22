@@ -21,7 +21,8 @@
     height: 150px;
 }
 
-.vc_edit-form-tab:has(.countdowns_countdown_start) .wpb_el_type_param_group {
+.wpb_el_type_param_group[data-vc-shortcode-param-name="countdowns"],
+.wpb_el_type_param_group[data-vc-shortcode-param-name="sticky_buttons"] {
     width: 100% !important;
 }
 
@@ -34,6 +35,29 @@
 .pliki_tab {
     display: none;
 }
+
+/* PROFILE VISITORS <-------------------------------------------------------------------------< */
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_title"],
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_title_class"] {
+    width: 50% !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="content"] {
+    width: 100% !important;
+}
+.wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
+    width: 50% !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"] .edit_form_line,
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_border"] .edit_form_line,
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_border_color"] .edit_form_line {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_image"] .edit_form_line {
+    display: contents !important;
+}
+/* END PROFILE VISITORS  <-------------------------------------------------------------------------< */
 
 /* .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2'] {
     visibility: hidden;

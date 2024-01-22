@@ -5,18 +5,22 @@
 ?>
 
 <style>
+#page-header {
+    z-index: 999 !important;
+}
 .wpb_column:has(.custom-container-sticky-buttons) {
     padding-top: 0 !important;
 }
 .custom-sticky-buttons-full-size, .custom-sticky-buttons-cropped {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 18px;
     width: 100%;
     gap: 20px;
 }
-<?php if ($sticky_buttons_dropdown !== "true") { ?>
+<?php if ($sticky_buttons_dropdown === "true") { ?>
 .custom-sticky-buttons-cropped:before {
     content: "";
     background-color: rgba(255, 255, 255, 0.1);
@@ -33,6 +37,7 @@
     z-index: 3;
 }
 .custom-sticky-buttons-cropped-container {
+    flex-direction: column;
     width: 100%;
     top: 0;
     z-index: 2;
@@ -54,7 +59,7 @@
     z-index: 2;
 }
 .custom-sticky-button-item:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
 }
 .custom-sticky-button-item img {
     border-radius: 8px;
@@ -78,6 +83,15 @@
     z-index: 2;
     transition: transform 0.5s !important;
 }
+<?php if ($sticky_buttons_full_size === "true") { ?>
+    .custom-sticky-button-item-active {
+        z-index: 999;
+    }
+    .custom-sticky-buttons-full-size {
+        z-index: 1000;
+    }
+
+<?php } ?>
 @media (max-width: 600px) {
     .custom-sticky-buttons-full-size {
         display: flex;
@@ -109,10 +123,12 @@ $sticky_buttons_json = json_decode($sticky_buttons_urldecode, true);
 
 $buttons_urls = array();
 $full_size_buttons_urls = array();
+$buttons_id = array();
+$buttons_links = array();
 
 echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
-    echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color: ' . $sticky_buttons_full_size_background . ' ;">';
-
+    echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color:'. $sticky_buttons_full_size_background .'!important;">';
+    
     if (is_array($sticky_buttons_json)) {
         foreach ($sticky_buttons_json as $sticky_button) {
 
@@ -136,19 +152,15 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         echo 'Invalid JSON data.';
     }
 
-    $buttons_urls_json = json_encode($buttons_urls);
-    $full_size_buttons_urls_json = json_encode($full_size_buttons_urls);
-
     echo '</div>';
     echo '
     <div class="custom-sticky-buttons-cropped-container">
-        <div class="custom-sticky-head-container style-accent-bg" style="display: none; background-color: ' . $sticky_buttons_cropped_background . ' ;">
+        <div class="custom-sticky-head-container style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
             <h4 class="custom-sticky-head-text" style="color:'. $color .' !important;">Wybierz kongres &nbsp;</h4>
             <i class="fa fa-chevron-down fa-1x fa-fw" style="color:'. $color .' !important;"></i>
         </div>
-        <div class="custom-sticky-buttons-cropped style-accent-bg" style="display: none; background-color: ' . $sticky_buttons_cropped_background . ' ;">
+        <div class="custom-sticky-buttons-cropped style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
         ';
-
         if (is_array($sticky_buttons_json)) {
             foreach ($sticky_buttons_json as $sticky_button) {
 
@@ -157,6 +169,9 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 $button_id = $sticky_button["sticky_buttons_id"];
                 $image_url = wp_get_attachment_url($attachment_img_id);
                 $buttons_urls[] = $image_url;
+                $buttons_id[] = $button_id;
+                $buttons_links[] = $link;
+
 
                 if (!empty($image_url) && !empty($link)) {
                     echo '<div class="custom-sticky-button-item">';
@@ -172,19 +187,27 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             echo 'Invalid JSON data.';
         }
 
-        $buttons_urls_json = json_encode($buttons_urls);
-        $full_size_buttons_urls_json = json_encode($full_size_buttons_urls);
+        if ($mobile == 1) {
+            echo '<style>.custom-sticky-buttons-cropped {gap: 10px;}</style>';
+            if (count($buttons_urls) > 3) {
+                $sticky_buttons_dropdown = "true";
+            }
+        }
 
             echo'</div>
         </div>
     </div>';
+
+    $buttons_id_json = json_encode($buttons_id);
+    $buttons_links_json = json_encode($buttons_id);
 ?>
 
 
 <script>
 
     window.onload = function() {
-        const btnLinks = "<?php echo $link ?>";
+        const btnLinks = '<?php echo $buttons_links_json ?>';
+        const btnsId = '<?php echo $buttons_id_json ?>';
         const stickyButtonsDropdown = "<?php echo $sticky_buttons_dropdown ?>";
         const stickyButtonsFullSize = "<?php echo $sticky_buttons_full_size ?>";
         const containerTiles = document.querySelector('.row-container:has(.custom-container-sticky-buttons)');
@@ -197,7 +220,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         const desktop = <?php echo $mobile ?> === 0;
         const mobile = <?php echo $mobile ?> === 1;
         const stickyHeadContainer = document.querySelector(".custom-sticky-head-container");
-        const nextElement = containerTiles.nextElementSibling;
+        
         let offsetTop;
         
         setTimeout(() => {
@@ -205,19 +228,28 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             if (desktop) {
                 if (containerPageHeader && containerPageHeader.offsetHeight !== undefined) {
                     offsetTop = containerTiles.offsetTop + containerPageHeader.offsetHeight;
-                } else if (!containerPageHeader) {
+                } else if (!containerPageHeader && isStuckMasthead) {
                     offsetTop = containerTiles.offsetTop;
-                } 
+                } else if (!containerPageHeader && !isStuckMasthead) {
+                    offsetTop = containerTiles.offsetTop + containerMasthead.offsetHeight;
+                }
             } else if (mobile) {
+                if (containerPageHeader) {
+                    containerPageHeader.style.position = 'relative';
+                    containerPageHeader.style.zIndex = '1001';
+                }
                 if (containerPageHeader && containerPageHeader.offsetHeight !== undefined) {
-                    offsetTop = containerTiles.offsetTop - containerPageHeader.offsetHeight - containerMasthead.offsetHeight;
+                    offsetTop = containerTiles.offsetTop;
+                    if (adminBar) {
+                        offsetTop = containerTiles.offsetTop + adminBar.offsetHeight;
+                    }
                 } else if (!containerPageHeader) {
                     if (isStuckMasthead && adminBar) {
-                        offsetTop = containerTiles.offsetTop  - containerMasthead.offsetHeight - adminBar.offsetHeight;
+                        offsetTop = containerTiles.offsetTop  + containerMasthead.offsetHeight + adminBar.offsetHeight;
                     } else if (!isStuckMasthead && adminBar) {
-                        offsetTop = containerTiles.offsetTop + containerMasthead.offsetHeight - adminBar.offsetHeight;
+                        offsetTop = containerTiles.offsetTop + containerMasthead.offsetHeight + adminBar.offsetHeight;
                     } else if (isStuckMasthead && !adminBar) {
-                        offsetTop = containerTiles.offsetTop  - containerMasthead.offsetHeight;
+                        offsetTop = containerTiles.offsetTop  + containerMasthead.offsetHeight;
                     } else if (!isStuckMasthead) {
                         offsetTop = containerTiles.offsetTop;
                     }
@@ -240,48 +272,81 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         };
 
         if (stickyButtonsDropdown !== 'true') {
-            showElement(stickyHeadContainer);
+            hideElement(stickyHeadContainer);
             if (stickyButtonsFullSize === 'true') { // dropdown on full size on
                 setElementPosition(tilesCroppedContainer, 'absolute');
-                hideElement(tilesCropped);
-                showElement(tilesFullSize);
-            } else { // dropdown on full size off
-                hideElement(tilesCropped);
-            }
-        } else {
-            if (stickyButtonsFullSize === 'true') { // dropdown off full size on
-                setElementPosition(tilesCroppedContainer, 'absolute');
-                hideElement(stickyHeadContainer);
                 showElement(tilesCropped);
                 showElement(tilesFullSize);
-            } else { // dropdown off full size off
-                hideElement(tilesCroppedContainer);
+            } else { // dropdown on full size off
+                showElement(tilesCropped);
+                hideElement(tilesFullSize);
+            }
+        } else if (stickyButtonsDropdown === 'true') {
+            showElement(stickyHeadContainer);
+            if (stickyButtonsFullSize === 'true') { // dropdown off full size on
+                setElementPosition(tilesCroppedContainer, 'absolute');
+                showElement(stickyHeadContainer);
+                hideElement(tilesCropped);
                 showElement(tilesFullSize);
+            } else { // dropdown off full size off
+                showElement(tilesCroppedContainer);
+                hideElement(tilesFullSize);
+            }
+        }
+
+        if (tilesFullSize && tilesFullSize.childNodes.length === 0) {
+            tilesFullSize.style.display = 'none';
+        }
+
+        if (btnsId && typeof btnsId === 'string') {
+            try {
+                const btnsIdArray = JSON.parse(btnsId);
+                if (Array.isArray(btnsIdArray)) {
+                    btnsIdArray.forEach(function(btnId) {
+                        const trimmedBtnId = btnId.trim();
+                        const vcRow = document.getElementById(trimmedBtnId);
+                        if (vcRow) {
+                            vcRow.classList.add('hide-section');
+                        }
+                    });
+                } else {
+                    console.error('Nie udało się przekształcić btnsId w tablicę.');
+                }
+            } catch (error) {
+                console.error('Błąd podczas parsowania JSON w btnsId:', error);
             }
         }
 
         window.addEventListener('scroll', function() {
             const scrollTop = window.scrollY;
+            let nextElement = containerTiles.nextElementSibling;
+            // Sprawdzamy następny element który nie ma stylu display:none; 
+            while (nextElement && window.getComputedStyle(nextElement).display === 'none') {
+                nextElement = nextElement.nextElementSibling;
+            }
             
             if (scrollTop >= offsetTop) {
                 let isStuckMasthead = document.querySelector('#masthead').classList.contains("is_stuck");
                 tilesCroppedContainer.classList.add('custom-sticky-button-item-active');
 
-                if (stickyButtonsDropdown !== "true" && stickyButtonsFullSize !== "true") {
+                
+                if (stickyButtonsDropdown === "true" && stickyButtonsFullSize !== "true") {
                     nextElement.style.paddingTop = stickyHeadContainer.offsetHeight + 'px';
-                    tilesCroppedContainer.style.position = 'absolute';
+                } else if (stickyButtonsDropdown !== "true" && stickyButtonsFullSize !== "true") {
+                    nextElement.style.paddingTop = tilesCropped.offsetHeight + 'px';   
                 }
 
-                if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && adminBar && (desktop || mobile)) {
+                if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && adminBar && desktop) {
                     tilesCroppedContainer.style.top = containerMasthead.offsetHeight + adminBar.offsetHeight + 'px';
+                } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && adminBar && mobile) {
+                    tilesCroppedContainer.style.top = containerMasthead.offsetHeight + 'px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && adminBar && (desktop || mobile)) {
                     tilesCroppedContainer.style.top = adminBar.offsetHeight + 'px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && !adminBar && (desktop || mobile)) {
                     tilesCroppedContainer.style.top = containerMasthead.offsetHeight + 'px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && !adminBar && (desktop || mobile)) {
                     tilesCroppedContainer.style.top = '0px';
-                }  
-
+                } 
             } else {
                 tilesCroppedContainer.classList.remove('custom-sticky-button-item-active');
                 nextElement.style.paddingTop = '0';
@@ -294,32 +359,57 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             }
         });
 
-        if (btnLinks !== "true") {
-            document.querySelectorAll('.custom-image-button').forEach(function(button) {
+        if (btnsId !== "") {
+            document.querySelectorAll('.custom-image-button').forEach(function(button, index) {
+
+                button.style.transition = '.3s ease';
+
+                var hideSections = document.querySelectorAll('.page-wrapper .vc_row.row-container.hide-section');
+                if ("<?php echo $sticky_hide_sections ?>") {
+                    // Ukrywamy wszystkie sekcje oprócz pierwszej
+                    if ("<?php echo $sticky_hide_sections ?>" === "true") {
+                        for (var i = 1; i < hideSections.length; i++) {
+                            hideSections[i].style.display = 'none';
+                        }
+                        if (index === 0 && button) {
+                            button.style.transform = 'scale(1.1)';
+                        }
+                    }
+                }
                 button.addEventListener('click', function() {
                     var targetId = button.id.replace('-btn', '');
-                    
-                    // Ukryj wszystkie elementy .vc_row.row-container
-                    var hideSections = document.querySelectorAll('.page-wrapper .vc_row.row-container.hide-section');
+
+                    // Ukrywamy wszystkie elementy .vc_row.row-container
                     hideSections.forEach(function(section) {
                         section.style.display = 'none';
                     });
-
-                    // Pokaż elementy
+                    
+                    // Wyświetlamy elementy
                     var targetElement = document.getElementById(targetId);
                     if (targetElement) {
                         targetElement.style.display = 'block';
                     }
+                    
+                    if (button) {
+                        button.style.transform = 'scale(1.1)';
+                    }
+                    document.querySelectorAll('.custom-image-button').forEach(function(otherButton) {
+                        if (otherButton !== button) {
+                            otherButton.style.transform = 'scale(1)';
+                        }
+                    });
                 });
+                // button.style.transform = 'scale(1)';
+                
             });
         }
-        
+
         document.querySelectorAll(".custom-image-button").forEach(function(button) {
             let customScrollTop;
             if (containerPageHeader) {
-                customScrollTop = containerPageHeader.offsetHeight + containerMasthead.offsetHeight + containerTiles.offsetHeight + "px";
+                customScrollTop = containerPageHeader.offsetHeight + "px";
             } else {
-                customScrollTop = containerMasthead.offsetHeight + containerTiles.offsetHeight + "px";
+                customScrollTop = containerMasthead.offsetHeight + "px";
             }
             const scrollTopValue = parseInt(customScrollTop);
             button.addEventListener("click", function() {
@@ -327,7 +417,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             });
         });
         
-        if (stickyButtonsDropdown !== "true") {
+        if (stickyButtonsDropdown === "true") {
 
             jQuery(document).ready(function($) {
                 var $congressMenuSlide = $(".custom-sticky-buttons-cropped-container");
