@@ -11,10 +11,6 @@
     border: 5px solid;
 }
 
-.chevron-slide:has(.rotated) {
-    max-height: 2000px;
-}
-
 .chevron-slide .head-container {
     text-align: center;
     align-self: center;
@@ -35,11 +31,11 @@
     margin-top: 18px;
 }
 
-.chevron-slide .text-container p,
+.chevron-slide .text-container :is(p, li),
 .modal-desc p {
     margin-top: 9px;
     font-size: 14px;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 .text-container .lectur-time {
@@ -213,6 +209,7 @@
 
     .text-container {
         margin-left: 0 !important;
+        width: 100% !important;
     }
 
     .lecture-btn {

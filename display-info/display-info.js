@@ -23,7 +23,7 @@ jQuery(function ($) {
         }
 
         if (targetElement.css('max-height') === '120px') {
-            targetElement.css('max-height', '3000px');
+            targetElement.css('max-height', 'unset');
         } else {
             targetElement.css('max-height', '120px');
 

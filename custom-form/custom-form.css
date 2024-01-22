@@ -1,0 +1,48 @@
+.custom-form {
+    display: flex;
+    align-items: flex-start;
+    gap: 36px;
+}
+
+.custom-form :is(h4, p, label) {
+    color: white;
+}
+
+.custom-form .heading-text {
+    display: inline-block;
+    box-shadow: 9px 9px 0px -6px white;
+    padding: 0 12px 10px 0;
+}
+
+form,
+.zgoda {
+    margin-top: 36px;
+}
+
+.zgoda {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
+.zgoda label {
+    font-size: 12px;
+    line-height: 15px !important;
+    margin: 0 !important;
+}
+
+input:not([type='checkbox']) {
+    width: 100%;
+    margin-top: 16px;
+    box-shadow: 9px 9px 0px -5px black;
+}
+
+.form-side,
+.logos-side {
+    width: 50%;
+    box-shadow: 9px 9px 0px -5px black;
+}
+
+.logos-side {
+    border: 2px solid black;
+}

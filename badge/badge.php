@@ -33,8 +33,19 @@ function register_custom_badge_element() {
   ));
 }
 
+function custom_badge_scripts(){
+  $js_file = plugins_url('badge.js', __FILE__);
+  $js_version = filemtime(plugin_dir_path(__FILE__) . 'badge.js');
+  wp_enqueue_script('custom_badge-js', $js_file, array('jquery'), $js_version, true);
+
+  $css_file = plugins_url('badge.css', __FILE__);
+  $css_version = filemtime(plugin_dir_path(__FILE__) . 'badge.css');
+  wp_enqueue_style('custom_badge-css', $css_file, array(), $css_version);
+}
+
 function custom_badge_element_output($atts){
-    
+  add_action('wp_enqueue_scripts', 'custom_badge_scripts');
+
     // Domyślne wartości dla parametrów
     $atts = shortcode_atts(array(
       'user' => '',
@@ -715,18 +726,7 @@ function unCodeText ($text){
   return $text;
 }
 
-function custom_badge_scripts(){
-  $js_file = plugins_url('badge.js', __FILE__);
-  $js_version = filemtime(plugin_dir_path(__FILE__) . 'badge.js');
-  wp_enqueue_script('custom_badge-js', $js_file, array('jquery'), $js_version, true);
-
-  $css_file = plugins_url('badge.css', __FILE__);
-  $css_version = filemtime(plugin_dir_path(__FILE__) . 'badge.css');
-  wp_enqueue_style('custom_badge-css', $css_file, array(), $css_version);
-}
-
 add_action('vc_before_init', 'register_custom_badge_element');
 add_shortcode('custom_badge', 'custom_badge_element_output');
 
-add_action('wp_enqueue_scripts', 'custom_badge_scripts');
 ?>

@@ -122,7 +122,12 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
 
-  if (isset($atts['identification'])) { $identification = $atts['identification']; }
+  if (!empty($atts['identification'])) {
+    $identification = $atts['identification']; 
+  } else {
+    $identification = do_shortcode('[trade_fair_catalog]');
+  }
+  
   if (isset($atts['details'])) { $details = $atts['details']; }
   if (isset($atts['stand'])) { $stand = $atts['stand']; }
   if (isset($atts['format'])) { $format = $atts['format']; }
@@ -157,6 +162,8 @@ function katalog_wystawcow_output($atts, $content = null) {
 
   if ($export_link === 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token=') {
     $canUrl = 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token='.$token.'&id_targow='.$id_targow;
+    
+    
     if (current_user_can('administrator')  && !is_admin()) {
       ?><script>console.log("www4")</script><?php
     }
@@ -284,13 +291,6 @@ function katalog_wystawcow_output($atts, $content = null) {
   }, []);
     echo '<script>console.log("'.count($exhibitors).'")</script>';
 
-  if (current_user_can('administrator')  && !is_admin()) {
-    ?><script>
-      var katalog_data = <?php echo json_encode($script_data); ?>;
-      console.log(katalog_data.data["<?php echo $id_targow ?>"]["Wystawcy"])
-    </script><?php
-  }
-
   $trade_fair_name = do_shortcode('[trade_fair_name]');
   $trade_fair_name_eng = do_shortcode('[trade_fair_name_eng]');
 
@@ -358,9 +358,17 @@ function katalog_wystawcow_output($atts, $content = null) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
           $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
           $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
+          
+          if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
+            $urlWebsite = "https://" . $urlWebsite;
+          }
+          
           $singleLogo = '';
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-            $slider_images_url[] = $url;
+            $slider_images_url[] = array(
+              'img'=> $url,
+              'site'=> $urlWebsite,
+            );
           } elseif (!empty($url)) {
             if(!empty($urlWebsite)){
               $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
@@ -400,14 +408,27 @@ function katalog_wystawcow_output($atts, $content = null) {
       while ($displayedCount < 10 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
+            $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
+            if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
+              $urlWebsite = "https://" . $urlWebsite;
+            }
+
             $singleLogo = '';
 
             if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-              $slider_images_url[] = $url;
+              $slider_images_url[] = array(
+                'img'=> $url,
+                'site'=> $urlWebsite,
+              );
             } elseif (!empty($url)) {
-              $singleLogo = '<div style="background-image: url(' . $url . ');"></div>';
-              $output .= $singleLogo;
-            }
+              if(!empty($urlWebsite)){
+                $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
+                $output .= $singleLogo;
+              } elseif(empty($urlWebsite)){
+                $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+                $output .= $singleLogo;
+              }
+            } 
 
             $displayedCount++;
         }
@@ -431,28 +452,34 @@ function katalog_wystawcow_output($atts, $content = null) {
               continue;
           }
           $url = str_replace('$2F', '/', $exhibitor['URL_logo_wystawcy']);
+          $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
+          if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
+            $urlWebsite = "https://" . $urlWebsite;
+          }
           $singleLogo = '';
 
           if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
-
-            if($url){
-              $slider_images_url[] = $url;
-              $displayedCount++;
-            }
+            $slider_images_url[] = array(
+              'img'=> $url,
+              'site'=> $urlWebsite,
+            );
           } elseif (!empty($url)) {
-              $singleLogo .= '<div class="recent-7" style="background-image: url(' . $url . ');"></div>';
+            if(!empty($urlWebsite)){
+              $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
               $output .= $singleLogo;
-
-              $displayedCount++;
+            } elseif(empty($urlWebsite)){
+              $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+              $output .= $singleLogo;
+            }
           }
 
+          $displayedCount++;
           $count++;
-
+          
           if ($displayedCount >= 7 || $count >= count($exhibitors)) {
               break;
           }
       }
-
       if (count($slider_images_url) > 0){
         include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
@@ -473,6 +500,14 @@ function katalog_wystawcow_output($atts, $content = null) {
   wp_enqueue_style('katalog_wystawcow-css', $css_file, array(), $css_version);
   wp_enqueue_script('katalog_wystawcow-js', $js_file, array(), $js_version);
   wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data );
+
+  if (current_user_can('administrator')  && !is_admin()) {
+    echo '<script>console.log("'.$canUrl.'")</script>';
+    ?><script>
+      var katalog_data = <?php echo json_encode($script_data); ?>;
+      console.log(katalog_data.data["<?php echo $id_targow ?>"]["Wystawcy"])
+    </script><?php
+  }
 
   return $output;
 }

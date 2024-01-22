@@ -2,17 +2,26 @@ document.addEventListener("DOMContentLoaded", function () {
   var exhibitorsAll = Object.entries(katalog_data.data[katalog_data.id_targow]["Wystawcy"]);
   var exhibitors = exhibitorsAll.reduce((acc, curr) => {
     const name = curr[1].Nazwa_wystawcy;
-    const existingEntry = acc.find(item => item[1].Nazwa_wystawcy === name);
+    const existingEntryIndex = acc.findIndex(item => item[1].Nazwa_wystawcy === name);
 
-    if (!existingEntry) {
+    if (existingEntryIndex !== -1) {
+        const existingDate = acc[existingEntryIndex][1].Data_sprzedazy;
+        const currentDate = curr[1].Data_sprzedazy;
+
+        // Porównaj daty i zachowaj wpis z nowszą datą
+        if (new Date(currentDate) > new Date(existingDate)) {
+            acc[existingEntryIndex] = curr;
+        }
+    } else {
+        // Brak istniejącego wpisu o tej nazwie, dodaj do akumulatora
         acc.push(curr);
     }
 
     return acc;
-  }, []);
+}, []);
 
   if (document.getElementById('full')){
-    
+
     if(katalog_data.data){
 
       /* SEARCH ELEMENT */
@@ -42,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           var www = exhibitors[i][1].www;
 
-          if (www !== false && www !== "") {
+          if (www !== false && www !== "" && www !== null) {
             if (www.indexOf('https://www.') !== -1) {
               www = 'https://' + www.replace(/^https:\/\/www\./i, '');
             } else if (www.indexOf('http://www.') !== -1) {
