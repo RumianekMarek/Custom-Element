@@ -1,5 +1,12 @@
-<?php
-function custom_media_slider ($media_url, $slide_speed = 3000){
+    <?php
+    function custom_media_slider ($media_url_array, $slide_speed = 3000){
+        if(is_array($media_url_array[0])){
+                foreach($media_url_array as $url){
+                        $media_url[] = $url['img'];
+                }
+        } else {
+                $media_url = $media_url_array;
+        }
         /*Random "id" if there is more then one element on page*/  
         $id_rnd = rand(10000, 99999);
 
@@ -16,16 +23,23 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                         <div class ="slides">';
                                 for ($i = $min_image; $i < ($max_image); $i++) {
                                         if($i<0){
-                                                $imageStyles = "background-image:url('".$media_url[(count($media_url) + $i)]."');";
-                                        }
-                                        if($i>=0 && $i<(count($media_url))){
-                                                $imageStyles = "background-image:url('".$media_url[$i]."');";
-                                        }
-                                        if($i>=(count($media_url))){
-                                                $imageStyles = "background-image:url(".$media_url[($i - count($media_url))].");";
+                                            $imgNumber = count($media_url) + $i;
+                                            $imageStyles = "background-image:url('".$media_url[$imgNumber]."');";
+                                        } elseif($i>=0 && $i<(count($media_url))){
+                                            $imgNumber = $i;
+                                            $imageStyles = "background-image:url('".$media_url[$imgNumber]."');";
+                                        } elseif($i>=(count($media_url))){
+                                            $imgNumber = ($i - count($media_url));
+                                            $imageStyles = "background-image:url(".$media_url[$imgNumber].");";
                                         }
                                         
-                                        $output .= '<div class="image-container" style="'.$imageStyles.'"></div>';
+                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site'])){
+                                            $imageUrl = $media_url_array[$imgNumber]['site'];
+                                            $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles.'"></div></a>';
+                                        } else {
+                                            $output .= '<div class="image-container" style="'.$imageStyles.'"></div>';
+                                        }
+                                        
                                 }
         $output .='</div>
                 </div>
@@ -33,9 +47,9 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                         jQuery(function ($) {                                    
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
-                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides .image-container");
+                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides .image-container div");
 
-                                const slidesWidth = slides.clientWidth;
+                                
                                 let isMouseOver = false;
                                 let isDragging = false;
                                 
@@ -48,7 +62,7 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                                 } else {
                                         imagesMulti = 7;
                                 }
-                                
+                                const slidesWidth = slides.clientWidth;
                                 
                                 if(imagesMulti >=  '.count($media_url).'){
                                         $("#custom_element_slider-'.$id_rnd.' .slides").each(function(){
@@ -56,7 +70,7 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                                                 if ($(this).children().length > '.count($media_url).'){
                                                         $(this).children().slice('.count($media_url).').remove();
                                                 };
-   
+
                                         });
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
                                         images.forEach((image) => {
@@ -124,6 +138,9 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                                         slider.addEventListener("mousemove", (e) => {
                                                 if (!isDown) return;
                                                 e.preventDefault();
+                                                $(e.target).parent().on("click", function(event) {
+                                                    event.preventDefault();
+                                                });
                                                 const x = e.pageX - slider.offsetLeft;
                                                 const walk = (x - startX);
                                                 const transformWalk = slidesTransform - walk;
@@ -183,16 +200,16 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
                 </script>
                 ';
         return $output;
-}
-?>
+    }
+    ?>
 
-<style>
-.custom_element_catalog_slider {
+    <style>
+    .custom_element_catalog_slider {
         width: 100%;
         overflow: hidden;
         margin: 0 !important;
-}
-.slides {
+    }
+    .slides {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -200,22 +217,24 @@ function custom_media_slider ($media_url, $slide_speed = 3000){
         min-height : 0 !important;
         min-width : 0 !important;
         pointer-events: auto;
-}
-.slides .image-container {
+    }
+    .slides .image-container {
         padding:0;
         flex: 1;
         object-fit: contain !important;
-        margin: 0 5px !important;
-}
-@keyframes slideAnimation {
+    }
+    .slides .image-container div{
+        margin: 5px !important;
+    }
+    @keyframes slideAnimation {
         from {
         transform: translateX(100%);
         }
         to {
         transform: translateX(0);
         }
-}
-.slides .slide{
+    }
+    .slides .slide{
         animation: slideAnimation 0.5s ease-in-out;
-}
-</style>
+    }
+    </style>

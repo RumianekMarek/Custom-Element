@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.6.1
+Version: 2.7
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -72,5 +72,4 @@ if (is_admin()) {
   //opisy do Mediów
   include_once plugin_dir_path(__FILE__) . '/FTP/opisy-mediow.php';
 }
-
 ?>

@@ -292,4 +292,3 @@ function media_opinions_output($atts, $content = null) {
 add_action('vc_before_init', 'media_opinions');
 add_shortcode('media_opinions', 'media_opinions_output');
 ?>
-
