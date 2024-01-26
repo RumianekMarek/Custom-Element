@@ -6,6 +6,10 @@ if ($color != '#000000') {
 }
 ?>
 <style>
+.row-parent:has(.custom_element_<?php echo $rnd_id ?> #organizator) {
+    max-width: 100%;
+    padding: 0 !important;
+}
 .custom-organizator-video {
     height:500px;
     position: relative;

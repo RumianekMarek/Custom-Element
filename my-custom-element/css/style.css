@@ -298,3 +298,6 @@ strong {
     text-transform: uppercase !important;
 
 }
+.btn {
+    transition: .3s ease !important;
+}

@@ -4,6 +4,9 @@ if ($color != '#ffffff'){
 }
 if ($btn_color != ''){
     $btn_color = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color;
+    if ($btn_color_hover) {
+        $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color_hover;
+    }
 }
 ?>
 <style>
@@ -11,6 +14,7 @@ if ($btn_color != ''){
         color: <?php echo $color ?>
     }
     <?php echo $btn_color ?>
+    <?php echo $btn_color_hover ?>
     .custom-container-voucher{
         display:flex;
         flex-wrap: wrap;

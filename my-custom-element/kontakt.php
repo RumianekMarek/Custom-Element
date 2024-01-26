@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ($color === '#ffffff'){
     $invert = '.custom_element_'.$rnd_id.' #kontakty img{
       filter: invert(100%);

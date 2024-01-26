@@ -2,16 +2,16 @@
     if ($color != '#000000'){
         $color = '#ffffff !important';
     }
-    if ($btn_color != ''){
-        $btn_color = '#main-timer ' . $btn_color;
-    }
 ?>
 
     <style>
+        .row-parent:has(.custom_element_<?php echo $rnd_id ?> #main-timer) {
+            max-width: 100%;
+            padding: 0 !important;
+        }
         #main-timer p {
             color: <?php echo $color ?>;
         }
-        <?php echo $btn_color ?>
         .is_stucked:has(.custom-container-main-timer) .row-parent {
             margin-top: 25px !important;
         }

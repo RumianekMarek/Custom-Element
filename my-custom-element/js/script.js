@@ -6,21 +6,9 @@ const trade_name = inner_data.trade_name;
 const trade_desc = inner_data.trade_desc;
 const trade_name_en = inner_data.trade_name_en;
 const trade_desc_en = inner_data.trade_desc_en;
-if (document.querySelector('.cat')) var localLang = document.querySelector('.cat').getAttribute('custom-lang');
+
 
 if (document.querySelector('.custom_element')) {
-//  var localLang = document.querySelector('.custom_element').getAttribute('custom-lang');
-//   var lang;
-
-//   if (localLang === 'pl_PL') {
-//     lang = document.querySelectorAll('.pl_PL');
-//   } else {
-//     lang = document.querySelectorAll('.en_US');
-//   }
-
-//   for (var i = 0; i < lang.length; i++) {
-//     lang[i].style.display = 'block';
-//   }
 
 
 // FAQ
@@ -34,15 +22,15 @@ if (document.querySelector('.custom-container-faq')) {
 }
 
 // AKCENT BACKGROUND DO CUSTOM-ELEMENTU
-document.querySelectorAll('.row-container').forEach(function(rowContainer) {
-    if (rowContainer.querySelector('#customGallery') || 
-        rowContainer.querySelector('.custom-container-organizator') ||
-        rowContainer.querySelector('#faq') || 
-        rowContainer.querySelector('#main-timer') || 
-        rowContainer.querySelector('#calendar-add')) {
-        rowContainer.classList.add('style-accent-bg');
-    }
-  });
+// document.querySelectorAll('.row-container').forEach(function(rowContainer) {
+//     if (rowContainer.querySelector('#customGallery') || 
+//         rowContainer.querySelector('.custom-container-organizator') ||
+//         rowContainer.querySelector('#faq') || 
+//         rowContainer.querySelector('#main-timer') || 
+//         rowContainer.querySelector('#calendar-add')){
+//         rowContainer.classList.add('style-accent-bg');
+//     }
+// });
 
 //  FULLSCREEN ROW CONTAINER
 document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg) {
@@ -51,6 +39,7 @@ document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg
       rowContainerBg.querySelector('.custom-container-calendar-main') ||
       rowContainerBg.querySelector('.custom-wydarzenia-header') ||
       rowContainerBg.querySelector('.custom-container-sticky-buttons') ||
+      rowContainerBg.querySelector('.custom-container-faq') ||
       rowContainerBg.querySelector('.custom-footer')) {
         if (rowContainerBg.classList.contains("limit-width")) rowContainerBg.classList.remove("limit-width");
           rowContainerBg.classList.add("full-width");
@@ -58,14 +47,14 @@ document.querySelectorAll('.row-container .row').forEach(function(rowContainerBg
 });
 
 // AKCENT BACKGROUND FULLSCREEN DO CUSTOM-ELEMENTU
-jQuery(function ($) {
-  $('.row-container:has(.custom-container-organizator)').addClass('style-accent-bg');
-  $('.row-container:has(#customGallery)').addClass('style-accent-bg');
-});
-jQuery(function ($) {
-  $('.full-width:has(.custom_element)').addClass('no-top-padding no-bottom-padding no-h-padding');
-  $('.limit-width:has(#main-timer)').addClass('no-top-padding no-bottom-padding no-h-padding');
-});
+// jQuery(function ($) {
+//   $('.row-container:has(.custom-container-organizator)').addClass('style-accent-bg');
+//   $('.row-container:has(#customGallery)').addClass('style-accent-bg');
+// });
+// jQuery(function ($) {
+//   $('.full-width:has(.custom_element)').addClass('no-top-padding no-bottom-padding no-h-padding');
+//   $('.limit-width:has(#main-timer)').addClass('no-top-padding no-bottom-padding no-h-padding');
+// });
 
   // SOCIAL MEDIA
   if(document.querySelector('.custom-facebook')){

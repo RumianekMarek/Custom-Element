@@ -20,9 +20,19 @@
     if ($posts_ratio == "") {
         $posts_ratio = "1/1";
     }
+
+    if ($btn_color != ''){
+        $btn_color = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color_hover;
+        }
+    }
 ?>
 
 <style>
+    <?php echo $btn_color ?>
+    <?php echo $btn_color_hover ?>
+
     .custom-posts-title h4 {
         margin: 0 0 36px;
     }

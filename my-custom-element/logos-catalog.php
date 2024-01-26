@@ -78,7 +78,7 @@ if ($min_width_logo == ''){
         $url_values = $matches[2];
 
         if ($logoscatalog == "partnerzy obiektu") {
-            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/my-custom-element/media/partnerzy-obiektu/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/media/partnerzy-obiektu/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
         } else {
             $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE); 
         } 

@@ -1,7 +1,17 @@
 <?php
+if ($btn_color != ''){
+    $btn_color = '.custom_element_'.$rnd_id.' .custom-main-timer-btn '.$btn_color;
+    if ($btn_color_hover) {
+        $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-main-timer-btn '.$btn_color_hover;
+    }
+}
 date_default_timezone_set('Europe/Warsaw');
 $current_date = date("Y-m-d H:i:s");
 ?>
+<style>
+    <?php echo $btn_color ?>
+    <?php echo $btn_color_hover ?>
+</style>
 
 <div id='main-timer' class='custom-container-main-timer style-accent-bg' style='color:white !important;' data-show-register-bar="<?php echo $show_register_bar; ?>">
     <div class='custom-main-timer-before'>
@@ -25,15 +35,15 @@ $current_date = date("Y-m-d H:i:s");
             <?php
                 if(strtotime($trade_start) - strtotime($current_date) >= 604800){
                     if($locale == 'pl_PL'){
-                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/zostan-wystawca/'>Zostań wystawcą</a>";
+                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat' href='/zostan-wystawca/'>Zostań wystawcą</a>";
                     } else {
-                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/en/become-an-exhibitor'>Book a stand</a></span>";
+                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat' href='/en/become-an-exhibitor'>Book a stand</a></span>";
                     }
                 } else {
                     if($locale == 'pl_PL'){
-                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/rejestracja/'>Zarejestruj się<span style='display: block; font-weight: 300;'>Odbierz darmowy bilet</span></a>";
+                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat' href='/rejestracja/'>Zarejestruj się<span style='display: block; font-weight: 300;'>Odbierz darmowy bilet</span></a>";
                     } else {
-                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat btn-custom-black' href='/en/registration/'>REGISTER<span style='display: block; font-weight: 300;'>GET A FREE TICKET</span></a></span>";
+                        echo "<a id='customBtn' class='custom-link btn border-width-0 btn-flat' href='/en/registration/'>REGISTER<span style='display: block; font-weight: 300;'>GET A FREE TICKET</span></a></span>";
                     }
                 }
             ?>

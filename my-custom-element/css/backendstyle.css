@@ -26,6 +26,10 @@
     width: 100% !important;
 }
 
+textarea[name="sticky_buttons_sticky_buttons_color_text"] {
+    max-height: 70px !important;
+}
+
 .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .on-off-switch {
     position: relative;
     left: 50%;
@@ -36,20 +40,45 @@
     display: none;
 }
 
-/* PROFILE VISITORS <-------------------------------------------------------------------------< */
-.vc_shortcode-param[data-vc-shortcode-param-name="profile_title"],
-.vc_shortcode-param[data-vc-shortcode-param-name="profile_title_class"] {
-    width: 50% !important;
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="color"],
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color"],
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color_text"] {
+    display: flex;
+    flex-direction: column;
+    width: 33% !important;
 }
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="color"] .edit_form_line,
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color"] .edit_form_line,
+.vc_ui-panel-window[data-vc-shortcode="katalog_wystawcow"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color_text"] .edit_form_line {
+    width: 100% !important;
+    padding-right: 18px;
+}
+
+/* MAIN <-------------------------------------------------------------------------< */
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="element"],
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="file"],
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="color"],
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color"],
+.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color_text"] {
+    width: 20% !important;
+}
+
+/* PROFILE <-------------------------------------------------------------------------< */
 .vc_shortcode-param[data-vc-shortcode-param-name="content"] {
     width: 100% !important;
 }
 .wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
-    width: 50% !important;
+    width: 40% !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"],
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_border"],
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_box_shadow"] {
+    width: 20% !important;
 }
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"] .edit_form_line,
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_border"] .edit_form_line,
-.vc_shortcode-param[data-vc-shortcode-param-name="profile_border_color"] .edit_form_line {
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_border_color"] .edit_form_line,
+.vc_shortcode-param[data-vc-shortcode-param-name="profile_title_checkbox"] .edit_form_line {
     display: flex;
     flex-direction: column;
     text-align: start;
@@ -57,7 +86,7 @@
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_image"] .edit_form_line {
     display: contents !important;
 }
-/* END PROFILE VISITORS  <-------------------------------------------------------------------------< */
+/* END PROFILE  <-------------------------------------------------------------------------< */
 
 /* .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_edit-form-tab-control[data-tab-index='2'] {
     visibility: hidden;

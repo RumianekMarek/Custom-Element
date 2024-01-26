@@ -23,14 +23,24 @@
 
     if ($btn_color != ''){
         $btn_color = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color_hover;
+        }
     }
     
 ?>
 <style>
     <?php echo $btn_color ?>
+    <?php echo $btn_color_hover ?>
     
+    .row-parent:has(.custom_element_<?php echo $rnd_id ?> #customGallery) {
+        max-width: 100%;
+        padding: 0 !important;
+    }
     .custom-gallery-wrapper {
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 36px;
     }
     .custom-gallery-section {
         width: 100%;

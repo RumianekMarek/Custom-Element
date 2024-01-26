@@ -2,11 +2,24 @@
     if ($color != '#000000'){
         $color = '#ffffff';
     }
+    if ($sticky_buttons_width == '') {
+        $sticky_buttons_width = '170';
+    }
+    if ($sticky_buttons_font_size_full_size == '') {
+        $sticky_buttons_font_size_full_size = '16';
+    }
+    if ($sticky_buttons_font_size == '') {
+        $sticky_buttons_font_size = '12';
+    }
 ?>
 
 <style>
+.custom_element_<?php echo $rnd_id ?> {
+    opacity: 0;
+}
 #page-header {
-    z-index: 999 !important;
+    position: relative;
+    z-index: 5;
 }
 .wpb_column:has(.custom-container-sticky-buttons) {
     padding-top: 0 !important;
@@ -34,13 +47,13 @@
 <?php } ?>
 .custom-sticky-buttons-full-size {
     background-color: white;
-    z-index: 3;
+    z-index: 5;
 }
 .custom-sticky-buttons-cropped-container {
     flex-direction: column;
     width: 100%;
     top: 0;
-    z-index: 2;
+    z-index: 4;
 }
 .custom-sticky-head-container {
     padding: 10px;
@@ -54,18 +67,32 @@
     margin: 0;
 }
 .custom-sticky-button-item {
+    width: <?php echo $sticky_buttons_width ?>px;
     text-align: center;
     transition: 0.3s ease;
-    z-index: 2;
 }
 .custom-sticky-button-item:hover {
     transform: scale(1.03);
 }
-.custom-sticky-button-item img {
+.custom-sticky-button-item img,
+.custom-sticky-button-item div {
     border-radius: 8px;
-    max-width: 170px;
+    width: 100%;
     object-fit: cover;
     cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: <?php echo $color ?>;
+    font-weight: 600;
+}
+.custom-sticky-buttons-full-size .custom-sticky-button-item div {
+    font-size: <?php echo $sticky_buttons_font_size_full_size ?>px;
+}
+.custom-sticky-buttons-cropped .custom-sticky-button-item div {
+    font-size: <?php echo $sticky_buttons_font_size ?>px;
 }
 .custom-button-cropped {
     aspect-ratio: 21/9;
@@ -80,18 +107,8 @@
     width: 100% !important;
     position: fixed !important;
     top: 0;
-    z-index: 2;
     transition: transform 0.5s !important;
 }
-<?php if ($sticky_buttons_full_size === "true") { ?>
-    .custom-sticky-button-item-active {
-        z-index: 999;
-    }
-    .custom-sticky-buttons-full-size {
-        z-index: 1000;
-    }
-
-<?php } ?>
 @media (max-width: 600px) {
     .custom-sticky-buttons-full-size {
         display: flex;
@@ -111,6 +128,11 @@
       transform: unset;
     }
 }
+    <?php if ($sticky_buttons_full_size === 'true') { ?>
+        .custom-sticky-buttons-cropped-container {
+            position: absolute;
+        }
+    <?php } ?>
 
 </style>
 
@@ -127,72 +149,102 @@ $buttons_id = array();
 $buttons_links = array();
 
 echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
-    echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color:'. $sticky_buttons_full_size_background .'!important;">';
-    
-    if (is_array($sticky_buttons_json)) {
-        foreach ($sticky_buttons_json as $sticky_button) {
-
-            $attachment_full_size_img_id = $sticky_button["sticky_buttons_full_size_images"];
-            $link = $sticky_button["sticky_buttons_link"];
-            $button_id = $sticky_button["sticky_buttons_id"];
-            $image_full_size_url = wp_get_attachment_url($attachment_full_size_img_id);
-            $full_size_buttons_urls[] = $image_full_size_url;
-
-            if (!empty($image_full_size_url) && !empty($link)) {
-                echo '<div class="custom-sticky-button-item">';
-                echo '<a href="'. $link .'"><img style="aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size" src="' . esc_url($image_full_size_url) . '" alt="sticky-button-'. $attachment_full_size_img_id .'"></a>';
-                echo '</div>';
-            } else if (!empty($image_full_size_url)) {
-                echo '<div class="custom-sticky-button-item">';
-                echo '<img style="aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size" src="' . esc_url($image_full_size_url) . '" alt="sticky-button-'. $attachment_full_size_img_id .'">';
-                echo '</div>';
-            }
-        }
-    } else {
-        echo 'Invalid JSON data.';
-    }
-
-    echo '</div>';
-    echo '
-    <div class="custom-sticky-buttons-cropped-container">
-        <div class="custom-sticky-head-container style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
-            <h4 class="custom-sticky-head-text" style="color:'. $color .' !important;">Wybierz kongres &nbsp;</h4>
-            <i class="fa fa-chevron-down fa-1x fa-fw" style="color:'. $color .' !important;"></i>
-        </div>
-        <div class="custom-sticky-buttons-cropped style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
-        ';
+    if ($sticky_buttons_full_size === "true") {
+        echo '<div class="custom-sticky-buttons-full-size" style="background-color:'. $sticky_buttons_full_size_background .'!important;">';
+        
         if (is_array($sticky_buttons_json)) {
             foreach ($sticky_buttons_json as $sticky_button) {
 
-                $attachment_img_id = $sticky_button["sticky_buttons_images"];
+                $attachment_full_size_img_id = $sticky_button["sticky_buttons_full_size_images"];
                 $link = $sticky_button["sticky_buttons_link"];
                 $button_id = $sticky_button["sticky_buttons_id"];
-                $image_url = wp_get_attachment_url($attachment_img_id);
-                $buttons_urls[] = $image_url;
-                $buttons_id[] = $button_id;
-                $buttons_links[] = $link;
+                $button_color = $sticky_button["sticky_buttons_color_bg"];
+                $button_text = $sticky_button["sticky_buttons_color_text"];
+                $image_full_size_url = wp_get_attachment_url($attachment_full_size_img_id);
+                $full_size_buttons_urls[] = $image_full_size_url;
 
-
-                if (!empty($image_url) && !empty($link)) {
-                    echo '<div class="custom-sticky-button-item">';
-                    echo '<a href="'. $link .'"><img style="aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped" src="' . esc_url($image_url) . '" alt="sticky-button-'. $attachment_img_id .'"></a>';
-                    echo '</div>';
-                } else if (!empty($image_url)) {
-                    echo '<div class="custom-sticky-button-item">';
-                    echo ' <img style="aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped" src="' . esc_url($image_url) . '" alt="sticky-button-'. $attachment_img_id .'">';
-                    echo '</div>';
+                if (!empty($image_full_size_url)) {
+                    if (!empty($link)) {
+                        echo '<div class="custom-sticky-button-item">';
+                            echo '<a href="'. $link .'"><img style="aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size" src="' . esc_url($image_full_size_url) . '" alt="sticky-button-'. $attachment_full_size_img_id .'"></a>';
+                        echo '</div>';
+                    } else {
+                        echo '<div class="custom-sticky-button-item">';
+                            echo '<img style="aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size" src="' . esc_url($image_full_size_url) . '" alt="sticky-button-'. $attachment_full_size_img_id .'">';
+                        echo '</div>';
+                    }
+                } else {
+                    if (!empty($link)) {
+                        echo '<div class="custom-sticky-button-item">';
+                            echo '<a href="'. $link .'"><div style="background-color:'. $button_color .'; aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size">'. $button_text .'</div></a>';
+                        echo '</div>';
+                    } else {
+                        echo '<div class="custom-sticky-button-item">';
+                            echo '<div style="background-color:'. $button_color .'; aspect-ratio:'. $sticky_buttons_aspect_ratio_full_size .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-full-size">'. $button_text .'</div>';
+                        echo '</div>';
+                    }
                 }
             }
         } else {
             echo 'Invalid JSON data.';
         }
 
-        if ($mobile == 1) {
-            echo '<style>.custom-sticky-buttons-cropped {gap: 10px;}</style>';
-            if (count($buttons_urls) > 3) {
-                $sticky_buttons_dropdown = "true";
+        echo '</div>';
+    }
+    echo '
+    <div class="custom-sticky-buttons-cropped-container">
+        <div class="custom-sticky-head-container style-accent-bg" style="background-color:'. $sticky_buttons_cropped_background .'!important">
+            <h4 class="custom-sticky-head-text" style="color:'. $color .' !important;">Wybierz kongres &nbsp;</h4>
+            <i class="fa fa-chevron-down fa-1x fa-fw" style="color:'. $color .' !important;"></i>
+        </div>
+        <div class="custom-sticky-buttons-cropped style-accent-bg" style="background-color:'. $sticky_buttons_cropped_background .'!important">';
+
+            if (is_array($sticky_buttons_json)) {
+                foreach ($sticky_buttons_json as $sticky_button) {
+
+                    $attachment_img_id = $sticky_button["sticky_buttons_images"];
+                    $link = $sticky_button["sticky_buttons_link"];
+                    $button_id = $sticky_button["sticky_buttons_id"];
+                    $button_color = $sticky_button["sticky_buttons_color_bg"];
+                    $button_text = $sticky_button["sticky_buttons_color_text"];
+                    $image_url = wp_get_attachment_url($attachment_img_id);
+                    $buttons_urls[] = $image_url;
+                    $buttons_id[] = $button_id;
+                    $buttons_links[] = $link;
+
+
+                    if (!empty($image_url)) {
+                        if (!empty($link)) {
+                            echo '<div class="custom-sticky-button-item">';
+                                echo '<a href="'. $link .'"><img style="aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped" src="' . esc_url($image_url) . '" alt="sticky-button-'. $attachment_img_id .'"></a>';
+                            echo '</div>';
+                        } else {
+                            echo '<div class="custom-sticky-button-item">';
+                                echo ' <img style="aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped" src="' . esc_url($image_url) . '" alt="sticky-button-'. $attachment_img_id .'">';
+                            echo '</div>';
+                        }
+                    } else {
+                        if (!empty($link)) {
+                            echo '<div class="custom-sticky-button-item">';
+                                echo '<a href="'. $link .'"><div style="background-color:'. $button_color .'; aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped">'. $button_text .'</div></a>';
+                            echo '</div>';
+                        } else {
+                            echo '<div class="custom-sticky-button-item">';
+                                echo '<div style="background-color:'. $button_color .'; aspect-ratio:'. $sticky_buttons_aspect_ratio .';" id="' . $button_id . '-btn" class="custom-image-button custom-button-cropped">'. $button_text .'</div>';
+                            echo '</div>';
+                        }   
+                    }
+                }
+            } else {
+                echo 'Invalid JSON data.';
             }
-        }
+
+            if ($mobile == 1) {
+                echo '<style>.custom-sticky-buttons-cropped {gap: 10px;}</style>';
+                if (count($buttons_urls) > 3) {
+                    $sticky_buttons_dropdown = "true";
+                }
+            }    
 
             echo'</div>
         </div>
@@ -222,9 +274,16 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         const stickyHeadContainer = document.querySelector(".custom-sticky-head-container");
         
         let offsetTop;
-        
+
+        const beforeDiv = document.createElement('div');
+        beforeDiv.classList.add('before');
+        beforeDiv.style.height = tilesCroppedContainer.offsetHeight + 'px';
+
         setTimeout(() => {
             let isStuckMasthead = document.querySelector('#masthead').classList.contains("is_stuck");
+            let customElement = document.querySelector('.custom_element_<?php echo $rnd_id ?>');
+            customElement.style.opacity = 1;
+            customElement.style.transition = 'opacity 0.5s ease';
             if (desktop) {
                 if (containerPageHeader && containerPageHeader.offsetHeight !== undefined) {
                     offsetTop = containerTiles.offsetTop + containerPageHeader.offsetHeight;
@@ -234,14 +293,11 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                     offsetTop = containerTiles.offsetTop + containerMasthead.offsetHeight;
                 }
             } else if (mobile) {
-                if (containerPageHeader) {
-                    containerPageHeader.style.position = 'relative';
-                    containerPageHeader.style.zIndex = '1001';
-                }
                 if (containerPageHeader && containerPageHeader.offsetHeight !== undefined) {
-                    offsetTop = containerTiles.offsetTop;
                     if (adminBar) {
                         offsetTop = containerTiles.offsetTop + adminBar.offsetHeight;
+                    } else {
+                        offsetTop = containerTiles.offsetTop;
                     }
                 } else if (!containerPageHeader) {
                     if (isStuckMasthead && adminBar) {
@@ -254,12 +310,8 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                         offsetTop = containerTiles.offsetTop;
                     }
                 }
-            }
+            }        
         }, 500);
-
-        const beforeDiv = document.createElement('div');
-        beforeDiv.classList.add('before');
-        beforeDiv.style.height = tilesCroppedContainer.offsetHeight + 'px';
 
         const hideElement = (element) => {
             element.style.display = 'none';
@@ -279,7 +331,6 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 showElement(tilesFullSize);
             } else { // dropdown on full size off
                 showElement(tilesCropped);
-                hideElement(tilesFullSize);
             }
         } else if (stickyButtonsDropdown === 'true') {
             showElement(stickyHeadContainer);
@@ -290,12 +341,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 showElement(tilesFullSize);
             } else { // dropdown off full size off
                 showElement(tilesCroppedContainer);
-                hideElement(tilesFullSize);
             }
-        }
-
-        if (tilesFullSize && tilesFullSize.childNodes.length === 0) {
-            tilesFullSize.style.display = 'none';
         }
 
         if (btnsId && typeof btnsId === 'string') {
@@ -318,13 +364,13 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         }
 
         window.addEventListener('scroll', function() {
+            
             const scrollTop = window.scrollY;
             let nextElement = containerTiles.nextElementSibling;
             // Sprawdzamy następny element który nie ma stylu display:none; 
             while (nextElement && window.getComputedStyle(nextElement).display === 'none') {
                 nextElement = nextElement.nextElementSibling;
             }
-            
             if (scrollTop >= offsetTop) {
                 let isStuckMasthead = document.querySelector('#masthead').classList.contains("is_stuck");
                 tilesCroppedContainer.classList.add('custom-sticky-button-item-active');
@@ -340,13 +386,16 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                     tilesCroppedContainer.style.top = containerMasthead.offsetHeight + adminBar.offsetHeight + 'px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && adminBar && mobile) {
                     tilesCroppedContainer.style.top = containerMasthead.offsetHeight + 'px';
-                } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && adminBar && (desktop || mobile)) {
+                } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && adminBar && desktop) {
                     tilesCroppedContainer.style.top = adminBar.offsetHeight + 'px';
+                } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && adminBar && mobile) {
+                    tilesCroppedContainer.style.top = '0px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && isStuckMasthead && !adminBar && (desktop || mobile)) {
                     tilesCroppedContainer.style.top = containerMasthead.offsetHeight + 'px';
                 } else if (tilesCroppedContainer.classList.contains("custom-sticky-button-item-active") && !isStuckMasthead && !adminBar && (desktop || mobile)) {
                     tilesCroppedContainer.style.top = '0px';
                 } 
+                
             } else {
                 tilesCroppedContainer.classList.remove('custom-sticky-button-item-active');
                 nextElement.style.paddingTop = '0';
@@ -399,23 +448,22 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                         }
                     });
                 });
-                // button.style.transform = 'scale(1)';
                 
             });
         }
 
-        document.querySelectorAll(".custom-image-button").forEach(function(button) {
-            let customScrollTop;
-            if (containerPageHeader) {
-                customScrollTop = containerPageHeader.offsetHeight + "px";
-            } else {
-                customScrollTop = containerMasthead.offsetHeight + "px";
-            }
-            const scrollTopValue = parseInt(customScrollTop);
-            button.addEventListener("click", function() {
-                window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
-            });
-        });
+        // document.querySelectorAll(".custom-image-button").forEach(function(button) {
+        //     let customScrollTop;
+        //     if (containerPageHeader) {
+        //         customScrollTop = containerPageHeader.offsetHeight + "px";
+        //     } else {
+        //         customScrollTop = containerMasthead.offsetHeight + "px";
+        //     }
+        //     const scrollTopValue = parseInt(customScrollTop);
+        //     button.addEventListener("click", function() {
+        //         window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
+        //     });
+        // });
         
         if (stickyButtonsDropdown === "true") {
 

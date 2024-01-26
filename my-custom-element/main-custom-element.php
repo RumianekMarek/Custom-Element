@@ -5,16 +5,29 @@ function my_custom_wpbakery_element() {
 
   // GET UNCODE COLORS LIST
   $uncode_options = get_option('uncode');
+  $accent_uncode_color = $uncode_options["_uncode_accent_color"];
+
+  global $uncode_colors;
   $uncode_colors = array();
-  $uncode_colors['Wybierz'] = '';
-  if (isset($uncode_options['_uncode_custom_colors_list']) && is_array($uncode_options['_uncode_custom_colors_list'])) {
-      $custom_colors_list = $uncode_options['_uncode_custom_colors_list'];
-      
+  $accent_color_value = '';
+
+  if (isset($uncode_options["_uncode_custom_colors_list"]) && is_array($uncode_options["_uncode_custom_colors_list"])) {
+      $custom_colors_list = $uncode_options["_uncode_custom_colors_list"];
+
       foreach ($custom_colors_list as $color) {
           $title = $color['title'];
-          $color_value = $color['_uncode_custom_color'];
+          $color_value = $color["_uncode_custom_color"];
+          $color_id = $color["_uncode_custom_color_unique_id"];
 
-          $uncode_colors[$title] = $color_value;
+          if ($accent_uncode_color == $color_id) {
+              $accent_color_value = $color_value;
+          } else {
+              $uncode_colors[$title] = $color_value;
+          }
+      }
+
+      if (!empty($accent_color_value)) {
+          $uncode_colors = array_merge(array('Accent' => $accent_color_value), $uncode_colors);
       }
   }
 
@@ -103,10 +116,9 @@ function my_custom_wpbakery_element() {
           'heading' => __('Select text color', 'my-custom-plugin'),
           'param_name' => 'color',
           'description' => __('Select text color for the element.', 'my-custom-plugin'),
-          'value' => array(
-            'Default' => '',
-            'White' => '#ffffff',
-            'Black' => '#000000'
+          'value' => array_merge(
+            array('Default' => ''),
+            $uncode_colors
           ),
           'save_always' => true
         ),
@@ -116,10 +128,21 @@ function my_custom_wpbakery_element() {
           'heading' => __('Select button color', 'my-custom-plugin'),
           'param_name' => 'btn_color',
           'description' => __('Select button color for the element.', 'my-custom-plugin'),
-          'value' => array(
-            'Default' => '',
-            'White' => '#ffffff',
-            'Black' => '#000000'
+          'value' => array_merge(
+            array('Default' => ''),
+            $uncode_colors
+          ),
+          'save_always' => true
+        ),
+        array(
+          'type' => 'dropdown',
+          'group' => 'Main Settings',
+          'heading' => __('Select button color text', 'my-custom-plugin'),
+          'param_name' => 'btn_color_text',
+          'description' => __('Select button color text for the element.', 'my-custom-plugin'),
+          'value' => array_merge(
+            array('Default' => ''),
+            $uncode_colors
           ),
           'save_always' => true
         ),
@@ -548,13 +571,17 @@ function my_custom_wpbakery_element() {
             'value' => array('posts.php')
           ),
         ),
-         
-        array(// PROFILE VISITOR <-------------------------------------------------------------------------<
-          'type' => 'textfield',
+        array(// PROFILE <-------------------------------------------------------------------------<
+          'type' => 'checkbox',
           'group' => 'Main Settings',
           'heading' => __('Title', 'my-custom-plugin'),
-          'param_name' => 'profile_title',
+          'param_name' => 'profile_title_checkbox',
           'save_always' => true,
+          'value' => array(
+            __('PROFIL ODWIEDZAJĄCEGO', 'my-custom-plugin') => 'profile_title_visitors',
+            __('PROFIL WYSTAWCY', 'my-custom-plugin') => 'profile_title_exhibitors',
+            __('ZAKRES BRANŻOWY', 'my-custom-plugin') => 'profile_title_scope',
+          ),
           'dependency' => array(
             'element' => 'element',
             'value' => array('profile.php')
@@ -563,8 +590,8 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'textfield',
           'group' => 'Main Settings',
-          'heading' => __('Title class', 'my-custom-plugin'),
-          'param_name' => 'profile_title_class',
+          'heading' => __('Title custom', 'my-custom-plugin'),
+          'param_name' => 'profile_title',
           'save_always' => true,
           'dependency' => array(
             'element' => 'element',
@@ -585,7 +612,6 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'param_group',
           'group' => 'Main Settings',
-          'heading' => __('Images', 'my-custom-plugin'),
           'param_name' => 'profile_images',
           'dependency' => array(
             'element' => 'element',
@@ -607,6 +633,17 @@ function my_custom_wpbakery_element() {
               'admin_label' => true,
               'value' => $name_images
             ),
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Box shadow images', 'my-custom-plugin'),
+          'param_name' => 'profile_box_shadow',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('profile.php')
           ),
         ),
         array(
@@ -646,7 +683,10 @@ function my_custom_wpbakery_element() {
           'heading' => __('Background color', 'my-custom-plugin'),
           'param_name' => 'profile_background',
           'save_always' => true,
-          'value' => $uncode_colors,
+          'value' => array_merge(
+            array('Wybierz' => ''),
+            $uncode_colors
+          ),
           'dependency' => array(
             'element' => 'element',
             'value' => array('profile.php')
@@ -656,7 +696,7 @@ function my_custom_wpbakery_element() {
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => __('Tickets button link', 'my-custom-plugin'),
-          'description' => __('Default /bilety/', 'my-custom-plugin'),
+          'description' => __('Default (/bilety/ - PL), (/tickets/ - EN)', 'my-custom-plugin'),
           'param_name' => 'profile_tickets_button_link',
           'save_always' => true,
           'dependency' => array(
@@ -668,7 +708,7 @@ function my_custom_wpbakery_element() {
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => __('Register button link', 'my-custom-plugin'),
-          'description' => __('Default /rejestracja/', 'my-custom-plugin'),
+          'description' => __('Default (/rejestracja/ - PL), (/registration/ - EN)', 'my-custom-plugin'),
           'param_name' => 'profile_register_button_link',
           'save_always' => true,
           'dependency' => array(
@@ -680,8 +720,41 @@ function my_custom_wpbakery_element() {
           'type' => 'textfield',
           'group' => 'Main Settings',
           'heading' => __('Exhibitors button link', 'my-custom-plugin'),
-          'description' => __('Default /zostan-wystawca/', 'my-custom-plugin'),
+          'description' => __('Default (/zostan-wystawca/ - PL), (/become-an-exhibitor/ - EN)', 'my-custom-plugin'),
           'param_name' => 'profile_exhibitors_button_link',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('profile.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Aspect ratio (Default 3/2)', 'my-custom-plugin'),
+          'param_name' => 'profile_img_aspect_ratio',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('profile.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Max width (Default 80%)', 'my-custom-plugin'),
+          'param_name' => 'profile_img_max_width',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('profile.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Padding (Default 18px 36px)', 'my-custom-plugin'),
+          'param_name' => 'profile_padding_element',
           'save_always' => true,
           'dependency' => array(
             'element' => 'element',
@@ -693,17 +766,6 @@ function my_custom_wpbakery_element() {
           'group' => 'Main Settings',
           'heading' => __('Reverse blocks', 'my-custom-plugin'),
           'param_name' => 'profile_reverse_block',
-          'save_always' => true,
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('profile.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Box shadow', 'my-custom-plugin'),
-          'param_name' => 'profile_box_shadow',
           'save_always' => true,
           'dependency' => array(
             'element' => 'element',
@@ -820,29 +882,85 @@ function my_custom_wpbakery_element() {
               'value' => array('badge-local.php', 'callcenter.php')
           ),
         ),
-        array( // CONTACT INFO <-------------------------------------------------------------------------<
-          'type' => 'dropdown',
-          'group' => 'Main Settings',
-          'heading' => esc_html__('Number of contacts', 'my-custom-plugin'),
-          'param_name' => 'contact_number',
-          'description' => __('Select number of contacts', 'my-custom-plugin'),
-          'value' => array(
-              '1' => '1',
-              '2' => '2',
-              '3' => '3',
-              '4' => '4',
-              '5' => '5',
-              '6' => '6'
-          ),
+        // // CONTACT INFO <-------------------------------------------------------------------------<
+        array(
+          'type' => 'textfield',
+          'heading' => __('Header', 'my-custom-plugin'),
+          'group' => 'Contact Info',
+          'param_name' => 'contact_header',
           'save_always' => true,
           'dependency' => array(
-              'element' => 'element',
-              'value' => array('kontakt-info.php')
+            'element' => 'element',
+            'value' => array('kontakt-info.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'heading' => __('Remove content', 'my-custom-plugin'),
+          'group' => 'Contact Info',
+          'param_name' => 'contact_content',
+          'save_always' => true,
+          'value' => array(
+            'Zostań wystawcą' => 'wystawca',
+            'Odwiedzający' => 'odwiedzajacy',
+            'Współpraca z mediami' => 'media',
+            'Obsługa wystawcy' => 'ob_wystawcy',
+            'Obsługa techniczna' => 'technicy',
+          ),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('kontakt-info.php')
+          ),
+        ),
+        array(
+          'type' => 'param_group',
+          'group' => 'Contact Info',
+          'param_name' => 'contact_items',
+          'save_always' => true,
+          'params' => array(
+            array(
+              'type' => 'attach_image',
+              'param_name' => 'img',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Image URL', 'my-custom-plugin'),
+              'param_name' => 'url',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Name', 'my-custom-plugin'),
+              'param_name' => 'name',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+                'type' => 'textfield',
+                'heading' => __('Phone', 'my-custom-plugin'),
+                'param_name' => 'phone',
+                'save_always' => true,
+                'admin_label' => true
+            ),
+            array(
+              'type' => 'textfield',
+              'heading' => __('Email', 'my-custom-plugin'),
+              'param_name' => 'email',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+          ),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('kontakt-info.php')
           ),
         ),
         array(
           'type' => 'textarea',
-          'group' => 'Contacts',
+          'group' => 'Contact Info',
           'heading' => esc_html__('All contacts', 'my-custom-plugin'),
           'param_name' => 'contact_object',
           'description' => __('All contacts', 'my-custom-plugin'),
@@ -852,6 +970,7 @@ function my_custom_wpbakery_element() {
               'value' => array('kontakt-info.php')
           ),
         ),
+        // REPLACE STRING<-------------------------------------------------------------------------<
         array(
           'type' => 'param_group',
           'group' => 'Replace Strings',
@@ -1013,7 +1132,7 @@ function my_custom_wpbakery_element() {
         array( // STICKY BUTTONS <-------------------------------------------------------------------------<
           'type' => 'colorpicker',
           'group' => 'Main Settings',
-          'heading' => __('Background kolor', 'my-custom-plugin'),
+          'heading' => __('Background kolor (default akcent)', 'my-custom-plugin'),
           'param_name' => 'sticky_buttons_cropped_background',
           'save_always' => true,
           'dependency' => array(
@@ -1035,7 +1154,7 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'colorpicker',
           'group' => 'Main Settings',
-          'heading' => __('Background full size kolor', 'my-custom-plugin'),
+          'heading' => __('Background full size kolor (default white)', 'my-custom-plugin'),
           'param_name' => 'sticky_buttons_full_size_background',
           'save_always' => true,
           'dependency' => array(
@@ -1055,9 +1174,54 @@ function my_custom_wpbakery_element() {
           ),
         ),
         array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Font size buttons (default 12px)', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_font_size',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Font size full size buttons (default 16px)', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_font_size_full_size',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'textfield',
+          'group' => 'Main Settings',
+          'heading' => __('Width buttons (default 170px)', 'my-custom-plugin'),
+          'param_name' => 'sticky_buttons_width',
+          'save_always' => true,
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Show dropdown IMG buttons', 'my-custom-plugin'),
+          'heading' => __('Hide all sections except the first one', 'my-custom-plugin'),
+          'param_name' => 'sticky_hide_sections',
+          'save_always' => true,
+          'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          'dependency' => array(
+            'element' => 'element',
+            'value' => array('sticky-buttons.php')
+          ),
+        ),
+        array(
+          'type' => 'checkbox',
+          'group' => 'Main Settings',
+          'heading' => __('Show dropdown buttons', 'my-custom-plugin'),
           'param_name' => 'sticky_buttons_dropdown',
           'save_always' => true,
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -1069,21 +1233,9 @@ function my_custom_wpbakery_element() {
         array(
           'type' => 'checkbox',
           'group' => 'Main Settings',
-          'heading' => __('Show full size IMG buttons', 'my-custom-plugin'),
+          'heading' => __('Show full size buttons', 'my-custom-plugin'),
           'param_name' => 'sticky_buttons_full_size',
           'description' => __('Turn on full size images', 'my-custom-plugin'),
-          'save_always' => true,
-          'value' => array(__('True', 'my-custom-plugin') => 'true',),
-          'dependency' => array(
-            'element' => 'element',
-            'value' => array('sticky-buttons.php')
-          ),
-        ),
-        array(
-          'type' => 'checkbox',
-          'group' => 'Main Settings',
-          'heading' => __('Hide all sections except the first one', 'my-custom-plugin'),
-          'param_name' => 'sticky_hide_sections',
           'save_always' => true,
           'value' => array(__('True', 'my-custom-plugin') => 'true',),
           'dependency' => array(
@@ -1115,6 +1267,21 @@ function my_custom_wpbakery_element() {
               'admin_label' => true
             ),
             array(
+              'type' => 'colorpicker',
+              'heading' => __('Background color button', 'my-custom-plugin'),
+              'description' => __('Jeżeli jest dodatkowo dodany obrazek to ma większy priorytet', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_color_bg',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
+              'type' => 'textarea',
+              'heading' => __('Button text', 'my-custom-plugin'),
+              'param_name' => 'sticky_buttons_color_text',
+              'save_always' => true,
+              'admin_label' => true
+            ),
+            array(
               'type' => 'textfield',
               'heading' => __('Button link', 'my-custom-plugin'),
               'param_name' => 'sticky_buttons_link',
@@ -1124,7 +1291,7 @@ function my_custom_wpbakery_element() {
             array(
               'type' => 'textfield',
               'heading' => __('Button id (PRZECZYTAJ!)', 'my-custom-plugin'),
-              'description' => __('Wpisując tutaj ID musisz dodać taki sam ID w elemencie który chcesz ukryć."', 'my-custom-plugin'),
+              'description' => __('Wpisując tutaj ID musisz dodać taki sam ID w elemencie który chcesz ukryć.', 'my-custom-plugin'),
               'param_name' => 'sticky_buttons_id',
               'save_always' => true,
               'admin_label' => true
@@ -1170,58 +1337,104 @@ function my_custom_element_output($atts, $content = null) {
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
+    
+    global $uncode_colors;
 
     if ($atts['btn_color'] === '') {
       $btn_color = '.btn {
-        color: #FFFFFF !important;
-        background-color: #000000 !important;
-        border-color: #000000 !important;
-        box-shadow: 9px 9px 0px -5px #FFFFFF !important;
+          color: #ffffff !important;
+          background-color: #000000 !important;
+          border-color: #000000 !important;
+          box-shadow: 9px 9px 0px -5px #ffffff !important;
       }';
-    } elseif ($atts['btn_color'] === '#FFFFFF'){
+      $btn_color_hover = '.btn:hover {
+          color: #000000 !important;
+          background-color: #ffffff !important;
+          border-color: #000000 !important;
+      }';
+    } else if (($atts['btn_color'] === '#000000') || 
+    ($atts['btn_color'] === '#101213') || 
+    ($atts['btn_color'] === '#141618') ||
+    ($atts['btn_color'] === '#1b1d1f') ||
+    ($atts['btn_color'] === '#303133')) {
       $btn_color = '.btn {
+          color: #ffffff !important;
+          background-color: '. $atts['btn_color'] .' !important;
+          border-color: '. $atts['btn_color'] .' !important;
+          box-shadow: 9px 9px 0px -5px #ffffff !important;
+      }';
+      $btn_color_hover = '.btn:hover {
+          color: #000000 !important;
+          background-color: #ffffff !important;
+          border-color: '. $atts['btn_color'] .' !important;
+          box-shadow: 9px 9px 0px -5px #ffffff !important;
+      }';
+    } else if (($atts['btn_color'] === '#ffffff') || 
+    ($atts['btn_color'] === '#f7f7f7') || 
+    ($atts['btn_color'] === '#eaeaea') ||
+    ($atts['btn_color'] === '#dddddd') ||
+    ($atts['btn_color'] === '#777777')) {
+      $btn_color = '.btn {
+          color: #000000 !important;
+          background-color: '. $atts['btn_color'] .' !important;
+          border-color: #000000 !important;
+          box-shadow: 9px 9px 0px -5px '. $atts['btn_color_text'] .' !important;
+      }';
+      $btn_color_hover = '.btn:hover {
+          color: #ffffff !important;
+          background-color: #000000 !important;
+          border-color: #ffffff !important;
+          box-shadow: 9px 9px 0px -5px #000000 !important;
+      }';
+    } else {
+      $btn_color = '.btn {
+          color: '. $atts['btn_color_text'] .' !important;
+          background-color: '. $atts['btn_color'] .' !important;
+          border-color: '. $atts['btn_color'] .' !important;
+          box-shadow: 9px 9px 0px -5px #000000 !important;
+      }';
+      $btn_color_hover = '.btn:hover {
         color: #000000 !important;
-        background-color: #FFFFFF !important;
-        border-color: #FFFFFF !important;
-        box-shadow: 9px 9px 0px -5px #000000 !important;
-      }';
-    } elseif ($atts['btn_color'] === '#000000'){
-      $btn_color = '.btn {
-        color: #FFFFFF !important;
-        background-color: #000000 !important;
-        border-color: #000000 !important;
-        box-shadow: 9px 9px 0px -5px #FFFFFF !important;
+        background-color: #ffffff !important;
+        border-color: '. $atts['btn_color'] .' !important;
       }';
     }
     
     if (isset($atts['element'])) { $element = $atts['element']; }
+    if (isset($atts['file'])) { $file = $atts['file']; }
+
+    // FOR VISITORS
+    if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
+    if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
+
+    // FOR VISITORS
+    if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
+    if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
+
+    // FOR EXHIBITORS
     if (isset($atts['exhibitor1'])) { $exhibitor1 = $atts['exhibitor1']; }
     if (isset($atts['exhibitor2'])) { $exhibitor2 = $atts['exhibitor2']; }
     if (isset($atts['exhibitor3'])) { $exhibitor3 = $atts['exhibitor3']; }
     if (isset($atts['exhibitor4'])) { $exhibitor4 = $atts['exhibitor4']; }
     if (isset($atts['exhibitor5'])) { $exhibitor5 = $atts['exhibitor5']; }
     if (isset($atts['exhibitor6'])) { $exhibitor6 = $atts['exhibitor6']; }
-    if (isset($atts['file'])) { $file = $atts['file']; }
-
-    if (isset($atts['logoscatalog'])) { 
-      global $logoscatalog; 
-      $logoscatalog = $atts['logoscatalog'];
-    }
-
-    if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
+    
+    // LOGOTYPE GALLERY
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
     if (isset($atts['titlecatalog'])) { $titlecatalog = $atts['titlecatalog']; }
     if (isset($atts['logotypes_files'])) { $logotypes_files = $atts['logotypes_files']; }
     if (isset($atts['left_center_right_title'])) { $left_center_right_title = $atts['left_center_right_title']; }
-    if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
-    if (isset($atts['logo_white_promote'])) { $logo_white_promote = $atts['logo_white_promote']; }
-    if (isset($atts['min_width_logo'])) { $min_width_logo = $atts['min_width_logo']; }
-    if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
-    if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
     if (isset($atts['slider_full_width_on'])) { $slider_full_width_on = $atts['slider_full_width_on']; }
     if (isset($atts['slider_desktop'])) { $slider_desktop = $atts['slider_desktop']; }
     if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
     if (isset($atts['slider_logo_white'])) { $slider_logo_white = $atts['slider_logo_white']; }
+    if (isset($atts['logoscatalog'])) { global $logoscatalog; $logoscatalog = $atts['logoscatalog']; }
+
+    if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
+    
+    if (isset($atts['show_banners'])) { $show_banners = $atts['show_banners']; }
+    if (isset($atts['logo_white_promote'])) { $logo_white_promote = $atts['logo_white_promote']; }
+    if (isset($atts['min_width_logo'])) { $min_width_logo = $atts['min_width_logo']; }
     if (isset($atts['tickets_available'])) { $tickets_available = $atts['tickets_available']; }
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
     if (isset($atts['logo_color'])) { $logo_color = $atts['logo_color']; }
@@ -1235,6 +1448,9 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['badge_form_id'])) { $badge_form_id = $atts['badge_form_id']; }
     if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; }
     if (isset($atts['contact_object'])) { $contact_object = $atts['contact_object']; }
+    if (isset($atts['contact_header'])) { $contact_header = $atts['contact_header']; }
+    if (isset($atts['contact_content'])) { $contact_content = $atts['contact_content']; }
+    if (isset($atts['contact_items'])) { $contact_items = vc_param_group_parse_atts($atts['contact_items']); }
 
     // POSTS
     if (isset($atts['posts_cat'])) { $posts_cat = $atts['posts_cat']; }
@@ -1243,8 +1459,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['posts_link'])) { $posts_link = $atts['posts_link']; }
 
     // PROFILES
+    if (isset($atts['profile_title_checkbox'])) { $profile_title_checkbox = $atts['profile_title_checkbox']; }
     if (isset($atts['profile_title'])) { $profile_title = $atts['profile_title']; }
-    if (isset($atts['profile_title_class'])) { $profile_title_class = $atts['profile_title_class']; }
     if (isset($atts['profile_images'])) { $profile_images = $atts['profile_images']; }
     if (isset($atts['profile_buttons'])) { $profile_buttons = $atts['profile_buttons']; }
     if (isset($atts['profile_border'])) { $profile_border = $atts['profile_border']; }
@@ -1254,6 +1470,9 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['profile_register_button_link'])) { $profile_register_button_link = $atts['profile_register_button_link']; }
     if (isset($atts['profile_exhibitors_button_link'])) { $profile_exhibitors_button_link = $atts['profile_exhibitors_button_link']; }
     if (isset($atts['profile_box_shadow'])) { $profile_box_shadow = $atts['profile_box_shadow']; }
+    if (isset($atts['profile_img_aspect_ratio'])) { $profile_img_aspect_ratio = $atts['profile_img_aspect_ratio']; }
+    if (isset($atts['profile_img_max_width'])) { $profile_img_max_width = $atts['profile_img_max_width']; }
+    if (isset($atts['profile_padding_element'])) { $profile_padding_element = $atts['profile_padding_element']; }
 
     if (isset($atts['content'])) { $content = $atts['content']; }
 
@@ -1266,6 +1485,9 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_aspect_ratio'])) { $sticky_buttons_aspect_ratio = $atts['sticky_buttons_aspect_ratio']; }
     if (isset($atts['sticky_buttons_aspect_ratio_full_size'])) { $sticky_buttons_aspect_ratio_full_size = $atts['sticky_buttons_aspect_ratio_full_size']; }
     if (isset($atts['sticky_hide_sections'])) { $sticky_hide_sections = $atts['sticky_hide_sections']; }
+    if (isset($atts['sticky_buttons_font_size'])) { $sticky_buttons_font_size = $atts['sticky_buttons_font_size']; }
+    if (isset($atts['sticky_buttons_font_size_full_size'])) { $sticky_buttons_font_size_full_size = $atts['sticky_buttons_font_size_full_size']; }
+    if (isset($atts['sticky_buttons_width'])) { $sticky_buttons_width = $atts['sticky_buttons_width']; }
 
     if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 

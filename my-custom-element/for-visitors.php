@@ -4,6 +4,9 @@ if ($color != '#ffffff'){
 }
 if ($btn_color != ''){
     $btn_color = '.custom_element_'.$rnd_id.' #forVisitors ' . $btn_color;
+    if ($btn_color_hover) {
+        $btn_color_hover = '.custom_element_'.$rnd_id.' #forVisitors '.$btn_color_hover;
+    }
 }
 
 ?> 
@@ -13,6 +16,7 @@ if ($btn_color != ''){
 }
 
 <?php echo $btn_color ?>
+<?php echo $btn_color_hover ?>
 
 .custom-content-visitors-item{
     width: 100%;
