@@ -59,6 +59,10 @@ function media_opinions_output($atts, $content = null) {
     $slider_local = get_locale();
     $opinion_slides = urldecode($opinion_slides);
     $opinion_slides = json_decode($opinion_slides, true);
+
+    $opinion_placement = (count($opinion_slides) < 3 || count($opinion_slides) % 2 === 0 ) ? 'justify-content: space-evenly;' : 'justify-content: flex-end' ;
+    $opinion_placement_mobile = (count($opinion_slides) < 3 || count($opinion_slides) % 2 === 0 ) ? 'justify-content: space-between !important;' : 'justify-content: space-evenly;' ;
+
     $html_opinions .=
     '<style>
         #opinion-slider-'.$opinions_id_random.' .opinions-slider-container{
@@ -73,33 +77,32 @@ function media_opinions_output($atts, $content = null) {
             filter: brightness(0) invert(1);
         }
         #opinion-slider-'.$opinions_id_random.' .arrow-left{
-            left: -2vw;
+            left: -3vw;
         }
         #opinion-slider-'.$opinions_id_random.' .arrow-right{
-            right: -2vw;
+            right: -3vw;
         }
         #opinion-slider-'.$opinions_id_random.' h2{
             color: #ffffff;
             text-align: center;
             margin: 0 18px 18px;
         }
-        .slide-container{
+        #opinion-slider-'.$opinions_id_random.' .slide-container{
             display: flex;
-            justify-content: space-evenly;
-            transform: translateX(-279px);
+            '.$opinion_placement.'
             padding-bottom: 10px;
         }
-        .slide-container h4{
+        #opinion-slider-'.$opinions_id_random.' .slide-container h4{
             margin: 9px;
         }
-        .slide-container p{
+        #opinion-slider-'.$opinions_id_random.' .slide-container p{
             line-height: 1.4 !important;
             margin: 9px;
             color: #000000;
             font-weight: 600;
 
         }
-        .single-slide{
+        #opinion-slider-'.$opinions_id_random.' .single-slide{
             box-shadow: 9px 9px 0px -5px black;
             background: #ffffff;
             margin: 0 29px;
@@ -111,10 +114,10 @@ function media_opinions_output($atts, $content = null) {
             justify-content: space-between;
             height: auto;
         }
-        .single-slide img{
+        #opinion-slider-'.$opinions_id_random.' .single-slide img{
             height: 100px;
         }
-        .single-slide :has(.opinions-hidden){
+        #opinion-slider-'.$opinions_id_random.' .single-slide :has(.opinions-hidden){
             height: 300px;
         }
         @keyframes slideAnimation {
@@ -134,16 +137,16 @@ function media_opinions_output($atts, $content = null) {
                 height: 100%;
             }
         }
-        .slidesY{
+        #opinion-slider-'.$opinions_id_random.' .slidesY{
             animation: slideAnimationY 0.5s ease-in-out;
         }
-        .slides{
+        #opinion-slider-'.$opinions_id_random.' .slides{
             animation: slideAnimation 0.5s ease-in-out;
         }
-        .slides-revers{
+        #opinion-slider-'.$opinions_id_random.' .slides-revers{
             animation: slideAnimation 0.5s reverse ease-in-out;
         }
-        .opinions-hidden{
+        #opinion-slider-'.$opinions_id_random.' .opinions-hidden{
             overflow: hidden;
             height: 105px;
         }
@@ -162,28 +165,25 @@ function media_opinions_output($atts, $content = null) {
             height: 40px;
             float: right;
         }
-        @media (min-width:1000px) and (max-width: 1200px){
-            .slide-container{
-                transform: translateX(-23vw);
-            }
-            .single-slide{
+        @media (min-width:900px) and (max-width: 1200px){
+            #opinion-slider-'.$opinions_id_random.' .single-slide{
                 padding: 9px 36px;
                 margin: 0 1vw;
                 min-width: 44vw;
             }
         }
-        @media (max-width: 1000px){
+        @media (max-width: 900px){
             #opinion-slider-'.$opinions_id_random.' .opinions-slider-container{
                 width:80vw;
                 margin: auto;
             }
-            .slide-container{
+            #opinion-slider-'.$opinions_id_random.' .slide-container{
                 display: flex;
-                justify-content: center;
-                transform: unset;
+                '.$opinion_placement_mobile.'
             }
-            .single-slide{
+            #opinion-slider-'.$opinions_id_random.' .single-slide{
                 min-width: 70vw;
+                margin: 0 5vw;
             }
         }
         @media (max-width: 600px){
@@ -195,7 +195,12 @@ function media_opinions_output($atts, $content = null) {
 
         $html_opinions .= '<div id="opinion-slider-'.$opinions_id_random.'" class="opinions-slider">';
         $html_opinions .=  '<p class="organizator-box-shadow-left">&nbsp;</p>';
-        $html_opinions .= '<img class="arrow-left" src="'.plugin_dir_url(__DIR__).'/media/arrow-left.webp">';
+
+        if (count($opinion_slides) > 1){
+            if (count($opinion_slides) > 2 || preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])){
+                $html_opinions .= '<img class="arrow-left" src="'.plugin_dir_url(__DIR__).'/media/arrow-left.webp">';
+            }
+        }
             $html_opinions .= '<div class="opinions-slider-container">';
                 $html_opinions .= '<h2 class="opinions-header">';
                     if ($opinions_header === ""){
@@ -229,7 +234,13 @@ function media_opinions_output($atts, $content = null) {
                     }
                 $html_opinions .= '</div>';
             $html_opinions .= '</div>';
-            $html_opinions .= '<img class="arrow-right" src="'.plugin_dir_url(__DIR__).'/media/arrow-right.webp">';
+
+            if (count($opinion_slides) > 1){
+                if (count($opinion_slides) > 2 || preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])){
+                    $html_opinions .= '<img class="arrow-right" src="'.plugin_dir_url(__DIR__).'/media/arrow-right.webp">';
+                }
+            }
+
             $html_opinions .= '<p class="organizator-box-shadow-right">&nbsp;</p>';
         $html_opinions .= '</div>';
             
@@ -271,17 +282,25 @@ function media_opinions_output($atts, $content = null) {
 
             $(document).ready(function() {
                 $("#opinion-slider-'.$opinions_id_random.' .arrow-left").on("click", function() {
-                    nextSlide_'.$opinions_id_random.'();
-                });
-                $("#opinion-slider-'.$opinions_id_random.' .arrow-right").on("click", function() {
                     previousSlide_'.$opinions_id_random.'();
                 });
+                $("#opinion-slider-'.$opinions_id_random.' .arrow-right").on("click", function() {
+                    nextSlide_'.$opinions_id_random.'();
+                });
             });
-            setInterval(function() {
-                if(!isMouseOver_'.$opinions_id_random.') { 
-                    nextSlide_'.$opinions_id_random.'()
+            ';
+            if (count($opinion_slides) > 1){
+                if (count($opinion_slides) > 2 || preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])){
+                $html_opinions .= '
+                    setInterval(function() {
+                        if(!isMouseOver_'.$opinions_id_random.') { 
+                            nextSlide_'.$opinions_id_random.'()
+                        }
+                    }, 5000);';
                 }
-            }, 5000);  
+            } 
+            
+        $html_opinions .= '
         });
         
     </script>'; 

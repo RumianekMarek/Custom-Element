@@ -47,7 +47,7 @@
                         jQuery(function ($) {                                    
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
-                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides .image-container div");
+                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides div");
 
                                 
                                 let isMouseOver = false;
