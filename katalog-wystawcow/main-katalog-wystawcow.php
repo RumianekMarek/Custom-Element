@@ -171,7 +171,6 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
 
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
-  var_dump($atts);
   if (!empty($atts['identification'])) {
     $identification = $atts['identification']; 
   } else {
