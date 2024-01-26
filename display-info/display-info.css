@@ -80,7 +80,7 @@
     background-color: #fff;
     position: relative;
     margin: auto;
-    max-height: 600px;
+    max-height: 800px;
     overflow: hidden;
     padding: 10px;
     border: 1px solid #888;
@@ -127,7 +127,6 @@
 }
 
 .lecturer p {
-    font-size: 12px;
     line-height: 1.2;
     margin-top: 9px;
 }

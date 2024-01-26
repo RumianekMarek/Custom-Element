@@ -1,30 +1,47 @@
 <?php
 // Rejestracja elementu Katalog wystawców
 function my_custom_wpbakery_element_katalog_wystawcow() {
+
+    // GET UNCODE COLORS LIST
+    $uncode_options = get_option('uncode');
+    $accent_uncode_color = $uncode_options["_uncode_accent_color"];
+
+    global $uncode_colors;
+    $uncode_colors = array();
+    $accent_color_value = '';
+
+    if (isset($uncode_options["_uncode_custom_colors_list"]) && is_array($uncode_options["_uncode_custom_colors_list"])) {
+        $custom_colors_list = $uncode_options["_uncode_custom_colors_list"];
+
+        foreach ($custom_colors_list as $color) {
+            $title = $color['title'];
+            $color_value = $color["_uncode_custom_color"];
+            $color_id = $color["_uncode_custom_color_unique_id"];
+
+            if ($accent_uncode_color == $color_id) {
+                $accent_color_value = $color_value;
+            } else {
+                $uncode_colors[$title] = $color_value;
+            }
+        }
+
+        if (!empty($accent_color_value)) {
+            $uncode_colors = array_merge(array('Accent' => $accent_color_value), $uncode_colors);
+        }
+    }
+
     vc_map( array(
         'name' => __( 'Katalog wystawców', 'my-custom-plugin' ),
         'base' => 'katalog_wystawcow',
         'category' => __( 'My Elements', 'my-custom-plugin' ),
         'params' => array(
           array(
-              'type' => 'textfield',
-              'heading' => __( 'Enter ID', 'my-custom-plugin' ),
-              'param_name' => 'identification',
-              'description' => __( 'Enter trade fair ID number.', 'my-custom-plugin' ),
-              'save_always' => true,
-              'admin_label' => true
-            ),
-          array(
-            'type' => 'dropdown',
-            'heading' => __('Select a color', 'my-custom-plugin'),
-            'param_name' => 'color',
-            'description' => __('Select a color for the element.', 'my-custom-plugin'),
-            'value' => array(
-              'Default' => '',
-              'White' => '#ffffff',
-              'Black' => '#000000'
-            ),
-            'save_always' => true
+            'type' => 'textfield',
+            'heading' => __( 'Enter ID', 'my-custom-plugin' ),
+            'param_name' => 'identification',
+            'description' => __( 'Enter trade fair ID number.', 'my-custom-plugin' ),
+            'save_always' => true,
+            'admin_label' => true
           ),
           array(
             'type' => 'textfield',
@@ -114,6 +131,39 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
               'value' => array('top10', 'top21', 'full'),
             ),
           ),
+          array(
+            'type' => 'dropdown',
+            'heading' => __('Select a color', 'my-custom-plugin'),
+            'param_name' => 'color',
+            'description' => __('Select a color for the element.', 'my-custom-plugin'),
+            'value' => array_merge(
+              array('Default' => ''),
+              $uncode_colors
+            ),
+            'save_always' => true
+          ),
+          array(
+            'type' => 'dropdown',
+            'heading' => __('Select button color', 'my-custom-plugin'),
+            'param_name' => 'btn_color',
+            'description' => __('Select button color for the element.', 'my-custom-plugin'),
+            'value' => array_merge(
+              array('Default' => ''),
+              $uncode_colors
+            ),
+            'save_always' => true
+          ),
+          array(
+            'type' => 'dropdown',
+            'heading' => __('Select button color text', 'my-custom-plugin'),
+            'param_name' => 'btn_color_text',
+            'description' => __('Select button color text for the element.', 'my-custom-plugin'),
+            'value' => array_merge(
+              array('Default' => ''),
+              $uncode_colors
+            ),
+            'save_always' => true
+          ),
         ),
         'description' => __( 'Enter description.', 'my-text-domain' )
     ));
@@ -121,13 +171,17 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
 
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
-
+  var_dump($atts);
   if (!empty($atts['identification'])) {
     $identification = $atts['identification']; 
   } else {
     $identification = do_shortcode('[trade_fair_catalog]');
   }
   
+  $color = !empty($atts['color']) ? $atts['color'] : '#000000';
+  $btn_color_text = !empty($atts['btn_color_text']) ? $atts['btn_color_text'] : '#ffffff';
+  $btn_color = !empty($atts['btn_color']) ? $atts['btn_color'] : '#000000';
+
   if (isset($atts['details'])) { $details = $atts['details']; }
   if (isset($atts['stand'])) { $stand = $atts['stand']; }
   if (isset($atts['format'])) { $format = $atts['format']; }
@@ -140,6 +194,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if ($atts['file_changer'] != '') { $file_changer = $atts['file_changer']; $file_changer = str_replace('&lt;','<',$file_changer); $file_changer = str_replace('&gt;','>',$file_changer); $file_changer = explode(';' , $file_changer); }
 
   $locale = get_locale();
+  $slider_images_url = array();
 
   // If 'format' is not 'Top10', force 'ticket' to be false
   if ($format !== 'top10') {
@@ -149,10 +204,25 @@ function katalog_wystawcow_output($atts, $content = null) {
   if ($color === '' || $color === '#ffffff'){
     $text_color = 'color:white !important';
     $text_shadow = 'text-shadow: 2px 2px black';
-  } else {
+  } else if ($color === '#000000') {
     $text_color = 'color:black !important';
     $text_shadow = 'text-shadow: 2px 2px white';
+  } else {
+    $text_color = 'color:'. $atts['color'] .' !important';
   }
+
+    $btn_color = 
+        '#top21 .btn {
+            color: '.$btn_color_text.' !important;
+            background-color: '.$btn_color.' !important;
+            border-color: '.$btn_color.' !important;
+            box-shadow: 4px 4px 0 -1px '.$btn_color_text.' !important;
+        }
+        #top21 .btn:hover {
+            color: '.$btn_color.' !important;
+            background-color: '.$btn_color_text.' !important;
+            border-color: '.$btn_color.' !important;
+        }';
 
   $id_targow = $identification;
   $today = new DateTime();
@@ -353,7 +423,13 @@ function katalog_wystawcow_output($atts, $content = null) {
     $displayedCount = 0;
 
     if ($format === 'top21') {
-      $slider_images_url = array();
+      $output .='
+        <style>
+          '.$btn_color.'
+        </style>
+      ';
+
+
       while ($displayedCount < 21 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
           $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
@@ -388,6 +464,17 @@ function katalog_wystawcow_output($atts, $content = null) {
         $output .= custom_media_slider($slider_images_url);
       }
 
+      if ($btn_color != ''){
+        $btn_color = '#top21 .btn-container '.$btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '#top21 .btn-container '.$btn_color_hover;
+        }
+        echo '<style>';
+                echo $btn_color;
+                echo $btn_color_hover;
+        echo '</style>';
+      }
+
       $output .= '</div>';
       if ($locale == 'pl_PL') {
           $output .= '
@@ -415,7 +502,7 @@ function katalog_wystawcow_output($atts, $content = null) {
 
             $singleLogo = '';
 
-            if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
+            if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){        
               $slider_images_url[] = array(
                 'img'=> $url,
                 'site'=> $urlWebsite,
@@ -429,7 +516,6 @@ function katalog_wystawcow_output($atts, $content = null) {
                 $output .= $singleLogo;
               }
             } 
-
             $displayedCount++;
         }
         $count++;
@@ -441,7 +527,6 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       $output .= '</div>';
     } else if ($format === 'recently7') {
-      $slider_images_url = array();
       usort($exhibitors, function($a, $b) {
         return strtotime($b['Data_sprzedazy']) - strtotime($a['Data_sprzedazy']);
       });

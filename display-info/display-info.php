@@ -228,6 +228,7 @@ function info_box_output($atts, $content = null) {
 
         $speakers = urldecode($atts['speakers']);
         $speakers = json_decode($speakers);
+
         /* Old data transformation to new */
         $event_title = !empty($event_title) ? $event_title : $atts['event_name'];
         
@@ -254,9 +255,13 @@ function info_box_output($atts, $content = null) {
             $speakers_bios = array();
         }
 
+        if(!empty($content)){            
+            $event_desc = wpb_js_remove_wpautop($content, true);
+        } else {
+            $event_desc = $atts['event_desc'];
+        }
 
         /* End of old data */
-        $event_desc = !empty($content) ? nl2br($content) : $atts['event_desc'];
         $border_radius = ($atts['border_radius']) ? 'border-radius: '.$atts['border_radius'].';': '';
         $border_width = !empty($atts['border_width']) ? $atts['border_width'] : '0';
         $border_style = !empty($atts['border_style']) ? $atts['border_style'] : 'solid';
@@ -526,7 +531,7 @@ function info_box_output($atts, $content = null) {
         $html .='</div>
                 <div id="info-modal" class="info-modal" style="display:none;">
                     <div class="info-modal-content">
-                        '.$modal_html.'
+                    '.$modal_html.'
                     </div>
                     <i class="fa fa-times-circle-o fa-2x fa-fw info-close"></i>
                 </div>
