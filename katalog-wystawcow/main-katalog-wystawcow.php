@@ -6,8 +6,8 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
     $uncode_options = get_option('uncode');
     $accent_uncode_color = $uncode_options["_uncode_accent_color"];
 
-    global $uncode_colors;
-    $uncode_colors = array();
+    global $custom_element_colors;
+    $custom_element_colors = array();
     $accent_color_value = '';
 
     if (isset($uncode_options["_uncode_custom_colors_list"]) && is_array($uncode_options["_uncode_custom_colors_list"])) {
@@ -21,12 +21,12 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             if ($accent_uncode_color == $color_id) {
                 $accent_color_value = $color_value;
             } else {
-                $uncode_colors[$title] = $color_value;
+                $custom_element_colors[$title] = $color_value;
             }
         }
 
         if (!empty($accent_color_value)) {
-            $uncode_colors = array_merge(array('Accent' => $accent_color_value), $uncode_colors);
+            $custom_element_colors = array_merge(array('Accent' => $accent_color_value), $custom_element_colors);
         }
     }
 
@@ -138,7 +138,7 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'description' => __('Select a color for the element.', 'my-custom-plugin'),
             'value' => array_merge(
               array('Default' => ''),
-              $uncode_colors
+              $custom_element_colors
             ),
             'save_always' => true
           ),
@@ -149,7 +149,7 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'description' => __('Select button color for the element.', 'my-custom-plugin'),
             'value' => array_merge(
               array('Default' => ''),
-              $uncode_colors
+              $custom_element_colors
             ),
             'save_always' => true
           ),
@@ -160,7 +160,7 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'description' => __('Select button color text for the element.', 'my-custom-plugin'),
             'value' => array_merge(
               array('Default' => ''),
-              $uncode_colors
+              $custom_element_colors
             ),
             'save_always' => true
           ),
@@ -171,16 +171,13 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
 
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
+
   if (!empty($atts['identification'])) {
     $identification = $atts['identification']; 
   } else {
     $identification = do_shortcode('[trade_fair_catalog]');
   }
   
-  $color = !empty($atts['color']) ? $atts['color'] : '#000000';
-  $btn_color_text = !empty($atts['btn_color_text']) ? $atts['btn_color_text'] : '#ffffff';
-  $btn_color = !empty($atts['btn_color']) ? $atts['btn_color'] : '#000000';
-
   if (isset($atts['details'])) { $details = $atts['details']; }
   if (isset($atts['stand'])) { $stand = $atts['stand']; }
   if (isset($atts['format'])) { $format = $atts['format']; }
@@ -210,18 +207,67 @@ function katalog_wystawcow_output($atts, $content = null) {
     $text_color = 'color:'. $atts['color'] .' !important';
   }
 
-    $btn_color = 
-        '#top21 .btn {
-            color: '.$btn_color_text.' !important;
-            background-color: '.$btn_color.' !important;
-            border-color: '.$btn_color.' !important;
-            box-shadow: 4px 4px 0 -1px '.$btn_color_text.' !important;
-        }
-        #top21 .btn:hover {
-            color: '.$btn_color.' !important;
-            background-color: '.$btn_color_text.' !important;
-            border-color: '.$btn_color.' !important;
-        }';
+  global $custom_element_colors;
+
+  if ($atts['btn_color'] === '') {
+    $btn_color = '.btn {
+        color: #ffffff !important;
+        background-color: #000000 !important;
+        border-color: #000000 !important;
+        box-shadow: 9px 9px 0px -5px #ffffff !important;
+    }';
+    $btn_color_hover = '.btn:hover {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #000000 !important;
+    }';
+  } else if (($atts['btn_color'] === '#000000') || 
+  ($atts['btn_color'] === '#101213') || 
+  ($atts['btn_color'] === '#141618') ||
+  ($atts['btn_color'] === '#1b1d1f') ||
+  ($atts['btn_color'] === '#303133')) {
+    $btn_color = '.btn {
+        color: #ffffff !important;
+        background-color: '. $atts['btn_color'] .' !important;
+        border-color: '. $atts['btn_color'] .' !important;
+        box-shadow: 9px 9px 0px -5px #ffffff !important;
+    }';
+    $btn_color_hover = '.btn:hover {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: '. $atts['btn_color'] .' !important;
+        box-shadow: 9px 9px 0px -5px #ffffff !important;
+    }';
+  } else if (($atts['btn_color'] === '#ffffff') || 
+  ($atts['btn_color'] === '#f7f7f7') || 
+  ($atts['btn_color'] === '#eaeaea') ||
+  ($atts['btn_color'] === '#dddddd') ||
+  ($atts['btn_color'] === '#777777')) {
+    $btn_color = '.btn {
+        color: #000000 !important;
+        background-color: '. $atts['btn_color'] .' !important;
+        border-color: #000000 !important;
+        box-shadow: 9px 9px 0px -5px '. $atts['btn_color_text'] .' !important;
+    }';
+    $btn_color_hover = '.btn:hover {
+        color: #ffffff !important;
+        background-color: #000000 !important;
+        border-color: #ffffff !important;
+        box-shadow: 9px 9px 0px -5px #000000 !important;
+    }';
+  } else {
+    $btn_color = '.btn {
+        color: '. $atts['btn_color_text'] .' !important;
+        background-color: '. $atts['btn_color'] .' !important;
+        border-color: '. $atts['btn_color'] .' !important;
+        box-shadow: 9px 9px 0px -5px #000000 !important;
+    }';
+    $btn_color_hover = '.btn:hover {
+      color: #000000 !important;
+      background-color: #ffffff !important;
+      border-color: '. $atts['btn_color'] .' !important;
+    }';
+  }
 
   $id_targow = $identification;
   $today = new DateTime();
@@ -422,11 +468,7 @@ function katalog_wystawcow_output($atts, $content = null) {
     $displayedCount = 0;
 
     if ($format === 'top21') {
-      $output .='
-        <style>
-          '.$btn_color.'
-        </style>
-      ';
+
 
 
       while ($displayedCount < 21 && $count < count($exhibitors)) {
