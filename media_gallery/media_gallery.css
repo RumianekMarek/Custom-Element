@@ -1,5 +1,5 @@
 /* MODAL */
-.custom-media-gallery-modal{
+.custom-media-gallery-modal {
     display: none;
     position: fixed;
     z-index: 100;
@@ -13,6 +13,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .custom-media-gallery-modal-content {
     display: flex;
     background-color: #fff;
@@ -21,18 +22,21 @@
     max-height: 70%;
     position: relative;
 }
-.custom-media-gallery-modal-content .modal-image-gallery-picture{
+
+.custom-media-gallery-modal-content .modal-image-gallery-picture {
     object-fit: scale-down;
 }
-.custom-media-gallery-modal-content .modal-last-image{
+
+.custom-media-gallery-modal-content .modal-last-image {
     position: absolute;
     left: -50px;
     top: 50%;
     transform: translateY(-50%);
 }
-.custom-media-gallery-modal-content .modal-next-image{
+
+.custom-media-gallery-modal-content .modal-next-image {
     position: absolute;
     right: -50px;
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
 }
