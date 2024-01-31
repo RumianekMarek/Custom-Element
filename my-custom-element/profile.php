@@ -138,10 +138,6 @@ if ($profile_padding_element == '') {
         </style>';
     }
 
-    if ($profile_box_shadow == "true") {
-        $t_entry_visual = "t-entry-visual";
-    }
-
     $unique_id = rand(10000, 99999);
     $element_unique_id = 'profil-' . $unique_id;
 
@@ -182,11 +178,11 @@ if ($profile_padding_element == '') {
                                 $profile_image_url_media = wp_get_attachment_url($profile_image_media);
                                 $profile_image_doc = $profile_image["catalog_doc"];
                                 if (!empty($profile_image_url_media) && empty($profile_image_doc)) {
-                                    echo '<img class="custom-profile-image '. $t_entry_visual .'" src="'. $profile_image_url_media .'" alt="'. $profile_title .'">';
+                                    echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_url_media .'" alt="'. $profile_title .'">';
                                 } else if (empty($profile_image_url_media) && !empty($profile_image_doc)) {
-                                    echo '<img class="custom-profile-image '. $t_entry_visual .'" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
+                                    echo '<img class="custom-profile-image t-entry-visual" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
                                 } else if (!empty($profile_image_url_media) && !empty($profile_image_doc)) {
-                                    echo '<img class="custom-profile-image '. $t_entry_visual .'" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
+                                    echo '<img class="custom-profile-image t-entry-visual" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
                                 }
                             }
                         echo'</div>

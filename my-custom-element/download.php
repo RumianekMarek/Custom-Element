@@ -30,7 +30,7 @@ if ($color != '#000000'){
 </style>
 <div id="download" class="custom-download-container style-accent-bg shadow-black single-block-padding">
   <div class="single-media-wrapper wpb_column t-m-display-none half-block-padding" style="flex:1;">
-    <img src="/wp-content/plugins/custom-element/my-custom-element/media/download-icon.png" alt="ikonka pobierania"/>
+    <img src="/wp-content/plugins/custom-element/media/download-icon.png" alt="ikonka pobierania"/>
   </div>
   
   <div style="flex:5">

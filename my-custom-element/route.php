@@ -120,11 +120,11 @@ if ($color === '#ffffff') {
 
     <div class="custom-route-map-block custom-half-width">
 
-        <img class="custom-full-width" src="/wp-content/plugins/custom-element/my-custom-element/media/mapka-wawa.png">
+        <img class="custom-full-width" src="/wp-content/plugins/custom-element/media/mapka-wawa.png">
 
         <div class="custom-route-area-wrapper custom-align-left">
             <div class="custom-route-image-bg-block">
-                <div style="background-image: url('/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg');" class="custom-route-image-bg shadow-black">
+                <div style="background-image: url('/wp-content/plugins/custom-element/media/ptak.jpg');" class="custom-route-image-bg shadow-black">
                     <h3 class="color-white">
                         <?php if($locale == 'pl_PL'){ echo '
                             Największy obiekt targowy w Polsce oraz Europie Środkowo-Wschodniej
@@ -138,7 +138,7 @@ if ($color === '#ffffff') {
 
                 <div class="custom-route-area-item custom-flex">
                     <div class="custom-route-area-item-img">
-                        <img src="/wp-content/plugins/custom-element/my-custom-element/media/entry.png">
+                        <img src="/wp-content/plugins/custom-element/media/entry.png">
                     </div>
                     <div class="custom-route-area-item-text custom-flex">
                         <h5>
@@ -153,7 +153,7 @@ if ($color === '#ffffff') {
 
                 <div class="custom-route-area-item custom-flex">
                     <div class="custom-route-area-item-img">
-                        <img src="/wp-content/plugins/custom-element/my-custom-element/media/leave.png">
+                        <img src="/wp-content/plugins/custom-element/media/leave.png">
                     </div>
                     <div class="custom-route-area-item-text custom-flex">
                         <h5>
@@ -174,7 +174,7 @@ if ($color === '#ffffff') {
         <!-- custom-transport-item -->
         <div class="custom-route-transport-item custom-flex">
             <div class="custom-route-transport-item-img">
-                <img class="custom-full-width" src="/wp-content/plugins/custom-element/my-custom-element/media/samolot.png">
+                <img class="custom-full-width" src="/wp-content/plugins/custom-element/media/samolot.png">
             </div>
             <div class="custom-route-transport-item-text">
                 <?php if($locale == 'pl_PL'){ echo '
@@ -190,7 +190,7 @@ if ($color === '#ffffff') {
         <!-- custom-transport-item -->
         <div class="custom-route-transport-item custom-flex">
             <div class="custom-route-transport-item-img">
-                <img class="custom-full-width" src="/wp-content/plugins/custom-element/my-custom-element/media/train.png">
+                <img class="custom-full-width" src="/wp-content/plugins/custom-element/media/train.png">
             </div>
             <div class="custom-route-transport-item-text">
                 <?php if($locale == 'pl_PL'){ echo '   
@@ -206,7 +206,7 @@ if ($color === '#ffffff') {
         <!-- custom-transport-item -->
         <div class="custom-route-transport-item custom-flex">
             <div class="custom-route-transport-item-img">
-                <img class="custom-full-width" src="/wp-content/plugins/custom-element/my-custom-element/media/bus.png">
+                <img class="custom-full-width" src="/wp-content/plugins/custom-element/media/bus.png">
             </div>
             <div class="custom-route-transport-item-text">
                 <?php if($locale == 'pl_PL'){ echo '
@@ -222,7 +222,7 @@ if ($color === '#ffffff') {
         <!-- custom-transport-item -->
         <div class="custom-route-transport-item custom-flex">
             <div class="custom-route-transport-item-img">
-                <img class="custom-full-width" src="/wp-content/plugins/custom-element/my-custom-element/media/sedan.png">
+                <img class="custom-full-width" src="/wp-content/plugins/custom-element/media/sedan.png">
             </div>
             <div class="custom-route-transport-item-text">
                 <?php if($locale == 'pl_PL'){ echo '

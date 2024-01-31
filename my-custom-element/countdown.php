@@ -12,9 +12,6 @@
         #main-timer p {
             color: <?php echo $color ?>;
         }
-        .is_stucked:has(.custom-container-main-timer) .row-parent {
-            margin-top: 25px !important;
-        }
         .custom-main-timer-before,
         .custom-main-timer-after {
             display: flex;

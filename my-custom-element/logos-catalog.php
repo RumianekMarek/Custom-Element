@@ -228,6 +228,32 @@ if ($min_width_logo == ''){
             echo $output;
         }
     }
+
+    // $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
+    // $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
+    // foreach ($header_custom_logotypes_json as $logotypes_item) {
+    //     $header_logotypes_url = $logotypes_item["logoscatalog"];
+    //     $header_logotypes_title = $logotypes_item["titlecatalog"];
+    //     $header_logotypes_position_title = $logotypes_item["left_center_right_title"];
+    //     $header_logotypes_min_width = $logotypes_item["min_width_logo"];
+    //     $header_logotypes_slider_full_width = $logotypes_item["slider_full_width_on"];
+    //     $header_logotypes_slider_desktop = $logotypes_item["slider_desktop"];
+    //     $header_logotypes_grid_mobile = $logotypes_item["grid_mobile"];
+    //     $header_logotypes_logo_white = $logotypes_item["slider_logo_white"];
+
+    //     $header_logotypes_files = $logotypes_item["logotypes_files"];
+    //     $header_logotypes_files_urldecode = urldecode($header_custom_logotypes);
+    //     $header_logotypes_files_json = json_decode($header_logotypes_files_urldecode, true);
+    //     foreach ($header_logotypes_files_json as $logotypes_files) {
+    //         $header_logotype_filename = $logotypes_item["logotype_filename"];
+    //         $header_logotype_link = $logotypes_item["logotype_link"];
+    //     }
+    //     var_dump($header_logotypes_files);
+        
+        
+    // }
+    // var_dump($header_custom_logotypes_json);
+
 ?>
 
 <?php if (isset($element_unique_id)) { ?>

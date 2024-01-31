@@ -66,7 +66,7 @@ if ($color != '#000000') {
 }
 </style>
 
-<div id="organizator" class="custom-container-organizator text-centered">
+<div id="organizator" class="custom-container-organizator style-accent-bg text-centered">
 <?php 
     if (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])) {
 ?>
@@ -75,7 +75,7 @@ if ($color != '#000000') {
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; muted" 
     data-src="https://www.youtube.com/embed/dZJblpIVrcQ?autoplay=1&mute=1&loop=1&playlist=dZJblpIVrcQ&controls=0&showinfo=0"></iframe>
 </div>
-<div class="custom-organizator-text style-accent-bg">
+<div class="custom-organizator-text">
     <div class='custom-inner-organizator text-left'>
     <p class="organizator-box-shadow-left">&nbsp;</p>
     <h5 class="custom-organizator-header">
@@ -104,7 +104,7 @@ if ($color != '#000000') {
 <?php 
     } else {
     echo '<div class="custom-inner-organizator-mobile">
-        <img src="/wp-content/plugins/custom-element/my-custom-element/media/ptak.jpg"/>
+        <img src="/wp-content/plugins/custom-element/media/ptak.jpg"/>
         <div class="custom-inner-mobile-text text-left">
             <p class="organizator-box-shadow-left">&nbsp;</p>
             <h5 class="custom-organizator-header">';

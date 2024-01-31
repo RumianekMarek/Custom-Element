@@ -70,7 +70,7 @@ if ($horizontal == "true") {
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy">
+            <img src="/wp-content/plugins/custom-element/media/WystawcyZ.jpg" alt="grafika wystawcy">
         </div>
       </div>
       <div class="uncode_text_column">
@@ -86,7 +86,7 @@ if ($horizontal == "true") {
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy">
+            <img src="/wp-content/plugins/custom-element/media/Odwiedzajacy.jpg" alt="grafika odwiedzajacy">
         </div>
       </div>
       <div class="uncode_text_column">
@@ -102,7 +102,7 @@ if ($horizontal == "true") {
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Media.jpg"  alt="grafika media">
+            <img src="/wp-content/plugins/custom-element/media/Media.jpg"  alt="grafika media">
         </div>
       </div>
       <div class="uncode_text_column">
@@ -118,7 +118,7 @@ if ($horizontal == "true") {
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/WystawcyO.jpg" alt="grafika obsluga">
+            <img src="/wp-content/plugins/custom-element/media/WystawcyO.jpg" alt="grafika obsluga">
         </div>
       </div>
       <div class="uncode_text_column">
@@ -134,7 +134,7 @@ if ($horizontal == "true") {
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
-            <img src="/wp-content/plugins/custom-element/my-custom-element/media/Technicy.jpg" alt="grafika technicy">
+            <img src="/wp-content/plugins/custom-element/media/Technicy.jpg" alt="grafika technicy">
         </div>
       </div>
       <div class="uncode_text_column" style="overflow-wrap: anywhere;">

@@ -5,7 +5,7 @@
     
     echo '<div id="calendar-google" class="custom-container-calendar-add text-centered">';
         echo '<a class="google" alt="link do kalendarza google" href="' . $linker . '" target="_blank">';
-            echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/googlecalendar.png" alt="ikonka google calendar"/>';
+            echo '<img src="/wp-content/plugins/custom-element/media/googlecalendar.png" alt="ikonka google calendar"/>';
             if ($locale == 'pl_PL'){
             echo '<p class="font-weight-700">Kalendarz<br>Google</p>';
             } else {

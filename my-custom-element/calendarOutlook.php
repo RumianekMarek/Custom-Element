@@ -5,7 +5,7 @@
   
     echo '<div id="calendar-outlook" class="custom-container-calendar-add text-centered">';
         echo '<a class="outlook" alt="link do kalendarza outlook" href="' . $linker . '" target="_blank">';
-            echo '<img src="/wp-content/plugins/custom-element/my-custom-element/media/outlook.png" alt="ikonka Microsoft Outlook"/>';
+            echo '<img src="/wp-content/plugins/custom-element/media/outlook.png" alt="ikonka Microsoft Outlook"/>';
             if ($locale == 'pl_PL'){
             echo '<p class="font-weight-700">Kalendarz<br>Outlook</p>';
             } else {

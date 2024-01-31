@@ -327,7 +327,7 @@
 
                     <div class="custom-footer-nav-left-column">
                         <div class="custom-footer-nav-logo-column">
-                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '/en"><img src="/wp-content/plugins/custom-element/my-custom-element/media/logo_pwe_ufi.png"></a></div>
+                            <div class="custom-footer-nav-logo-top"><a href="' . $base_url . '/en"><img src="/wp-content/plugins/custom-element/media/logo_pwe_ufi.webp"></a></div>
                             <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '/en">
                                     ';

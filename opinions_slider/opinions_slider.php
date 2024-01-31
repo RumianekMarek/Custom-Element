@@ -114,8 +114,15 @@ function media_opinions_output($atts, $content = null) {
             justify-content: space-between;
             height: auto;
         }
-        #opinion-slider-'.$opinions_id_random.' .single-slide img{
-            height: 100px;
+        #opinion-slider-'.$opinions_id_random.' .container-img{
+            text-align: center;
+            height: 200px;
+            width: 200px;
+        }
+        #opinion-slider-'.$opinions_id_random.' .container-img img{
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
         }
         #opinion-slider-'.$opinions_id_random.' .single-slide :has(.opinions-hidden){
             height: 300px;
@@ -140,7 +147,7 @@ function media_opinions_output($atts, $content = null) {
         #opinion-slider-'.$opinions_id_random.' .slidesY{
             animation: slideAnimationY 0.5s ease-in-out;
         }
-        #opinion-slider-'.$opinions_id_random.' .slides{
+        #opinion-slider-'.$opinions_id_random.' .op-slides{
             animation: slideAnimation 0.5s ease-in-out;
         }
         #opinion-slider-'.$opinions_id_random.' .slides-revers{
@@ -227,7 +234,7 @@ function media_opinions_output($atts, $content = null) {
                             $target = $i;
                         }
                         $html_opinions .= '<div class="single-slide">
-                            <img class="container-img" src="'.wp_get_attachment_url($opinion_slides[$target]['opinions_image']).'">
+                            <div class="container-img"><img class="op-img" src="'.wp_get_attachment_url($opinion_slides[$target]['opinions_image']).'"></div>
                             <p class="opinions-quote opinions-hidden">'.$opinion_slides[$target]['opinions_quote'].'</p>
                             <h4 class="opinions-signature">'.$opinion_slides[$target]['opinions_sign'].'</h4>
                         </div>';
@@ -250,13 +257,13 @@ function media_opinions_output($atts, $content = null) {
             $(".vc_row:has(div.single-slide)").addClass("style-accent-bg");
 
             function nextSlide_'.$opinions_id_random.'() {     
-                $("#opinion-slider-'.$opinions_id_random.' .single-slide").addClass("slides");
+                $("#opinion-slider-'.$opinions_id_random.' .single-slide").addClass("op-slides");
 
                 $("#opinion-slider-'.$opinions_id_random.' .single-slide:first-child").appendTo(quotesSlides);
                 $("#opinion-slider-'.$opinions_id_random.' .single-slide:first-child").removeClass("first-slide");
             
                 setTimeout(function() {        
-                    $("#opinion-slider-'.$opinions_id_random.' .single-slide").removeClass("slides");
+                    $("#opinion-slider-'.$opinions_id_random.' .single-slide").removeClass("op-slides");
                 }, 500);
             }
         

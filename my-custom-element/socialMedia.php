@@ -64,7 +64,7 @@ if ($btn_color != ''){
     </h4>
 
     <div class='custom-block-socialMedia'>
-        <img class='absolute-facebook-Img' src='/wp-content/plugins/custom-element/my-custom-element/media/facebookIcon.png' alt='facebookIcon'/>
+        <img class='absolute-facebook-Img' src='/wp-content/plugins/custom-element/media/facebookIcon.png' alt='facebookIcon'/>
         <ul class='list-style-none' style='padding-left:0 !important;'>
             <?php if($locale == 'pl_PL'){ echo '
                 <li> wiedzę </li>
