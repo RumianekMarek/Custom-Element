@@ -71,20 +71,18 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_content"] {
     width: 100% !important;
 }
-.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"] {
-    width: 75% !important;
-}
+
 .vc_shortcode-param[data-vc-shortcode-param-name="videos_video_title"],
-.vc_shortcode-param[data-vc-shortcode-param-name="videos_video_iframe"],
-.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"] {
+.vc_shortcode-param[data-vc-shortcode-param-name="videos_video_iframe"] {
     width: 50% !important;
 }
 .wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
     width: 40% !important;
 }
-.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"] {
-    width: 25% !important;
-}
+/* .vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"] {
+    width: 30% !important;
+} */
 .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="element"],
 .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="file"],
 .vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="color"],
@@ -101,7 +99,6 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_items"] .vc_param_group-wrapper {
     display: flex !important;
 }
-
 
 /* PROFILE <-------------------------------------------------------------------------< */
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"] .edit_form_line,
@@ -125,6 +122,18 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_object"] :is(.wpb_element_label, .edit_form_line) {
     display: none;
 }
+
+/* INPUT RANGE*/
+.vc_shortcode-param[data-vc-shortcode-param-name="header_overlay_range"] .wpb_vc_param_value {
+    padding: 0 !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="header_overlay_range"] input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 3px;
+    background: #ddd;
+} 
 
 .contact-container {
     width: 100%;

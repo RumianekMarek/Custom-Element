@@ -452,18 +452,18 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             });
         }
 
-        // document.querySelectorAll(".custom-image-button").forEach(function(button) {
-        //     let customScrollTop;
-        //     if (containerPageHeader) {
-        //         customScrollTop = containerPageHeader.offsetHeight + "px";
-        //     } else {
-        //         customScrollTop = containerMasthead.offsetHeight + "px";
-        //     }
-        //     const scrollTopValue = parseInt(customScrollTop);
-        //     button.addEventListener("click", function() {
-        //         window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
-        //     });
-        // });
+        document.querySelectorAll(".custom-image-button").forEach(function(button) {
+            let customScrollTop;
+            if (containerPageHeader) {
+                customScrollTop = containerPageHeader.offsetHeight + "px";
+            } else {
+                customScrollTop = containerMasthead.offsetHeight + "px";
+            }
+            const scrollTopValue = parseInt(customScrollTop);
+            button.addEventListener("click", function() {
+                window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
+            });
+        });
         
         if (stickyButtonsDropdown === "true") {
 

@@ -41,140 +41,27 @@ function my_custom_wpbakery_element() {
       $name_images[$file_name] = $file_name;
   }
 
-  // LOGOTYPES ARRAY
-  function custom_logotypes() {
-    return array(
-      array(
-        'type' => 'textfield',
-        'group' => 'Main Settings',
-        'heading' => esc_html__('Logos catalog', 'my-custom-plugin'),
-        'param_name' => 'logoscatalog',
-        'description' => __('Put catalog name in /doc/ where are logotypes.', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php', 'gallery-slider.php', 'wydarzenia-ogolne.php')
-        ),
-      ),
-      array(
-        'type' => 'textfield',
-        'group' => 'Main Settings',
-        'heading' => esc_html__('Title', 'my-custom-plugin'),
-        'param_name' => 'titlecatalog',
-        'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-            'element' => 'element',
-            'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'textfield',
-        'heading' => __('Text-align title', 'my-custom-plugin'),
-        'group' => 'Main Settings',
-        'param_name' => 'left_center_right_title',
-        'description' => __('Default left, for header dafault center', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'textfield',
-        'heading' => __('Min width logotypes', 'my-custom-plugin'),
-        'group' => 'Main Settings',
-        'param_name' => 'min_width_logo',
-        'description' => __('Default min width for grid 140px', 'my-custom-plugin'),
-        'save_always' => true,
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'checkbox',
-        'group' => 'Main Settings',
-        'heading' => __('Turn on full width', 'my-custom-plugin'),
-        'param_name' => 'slider_full_width_on',
-        'description' => __('Turn on full width', 'my-custom-plugin'),
-        'admin_label' => true,
-        'save_always' => true,
-        'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'checkbox',
-        'group' => 'Main Settings',
-        'heading' => __('Slider desktop', 'my-custom-plugin'),
-        'param_name' => 'slider_desktop',
-        'description' => __('Check if you want to display in slider on desktop.', 'my-custom-plugin'),
-        'admin_label' => true,
-        'save_always' => true,
-        'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'checkbox',
-        'group' => 'Main Settings',
-        'heading' => __('Grid mobile', 'my-custom-plugin'),
-        'param_name' => 'grid_mobile',
-        'description' => __('Check if you want to display in grid on mobile.', 'my-custom-plugin'),
-        'admin_label' => true,
-        'save_always' => true,
-        'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'checkbox',
-        'group' => 'Main Settings',
-        'heading' => __('Logotypes white', 'my-custom-plugin'),
-        'param_name' => 'slider_logo_white',
-        'description' => __('Check if you want to change the logotypes color to white. ', 'my-custom-plugin'),
-        'admin_label' => true,
-        'save_always' => true,
-        'value' => array(__('True', 'my-custom-plugin') => 'true',),
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-      ),
-      array(
-        'type' => 'param_group',
-        'group' => 'Main Settings',
-        'heading' => __('Logotypes files', 'my-custom-plugin'),
-        'param_name' => 'logotypes_files',
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php')
-        ),
-        'params' => array(
-          array(
-            'type' => 'textfield',
-            'heading' => __('Filename', 'my-custom-plugin'),
-            'param_name' => 'logotype_filename',
-            'save_always' => true,
-            'admin_label' => true
-          ),
-          array(
-            'type' => 'textfield',
-            'heading' => __('Link', 'my-custom-plugin'),
-            'param_name' => 'logotype_link',
-            'save_always' => true,
-            'admin_label' => true
-          ),
-        ),
-      ),
-    );
+  // SHORTCODE INPUT RANGE ELEMENT
+  if ( function_exists( 'vc_add_shortcode_param' ) ) {
+    vc_add_shortcode_param( 'input_range', 'input_range_field_html' );
+  }
+
+  // INPUT RANGE ELEMENT
+  function input_range_field_html( $settings, $value ) {
+    $id = uniqid('range_');
+    return '<div>'
+          . '<input type="range" '
+          . 'id="' . esc_attr( $id ) . '" '
+          . 'name="' . esc_attr( $settings['param_name'] ) . '" '
+          . 'class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $settings['type'] ) . '_field" '
+          . 'value="' . esc_attr( $value ) . '" '
+          . 'min="' . esc_attr( $settings['min'] ) . '" '
+          . 'max="' . esc_attr( $settings['max'] ) . '" '
+          . 'step="' . esc_attr( $settings['step'] ) . '" '
+          . 'oninput="document.getElementById(\'value_' . esc_attr( $id ) . '\').innerHTML = this.value" '
+          . '/>'
+          . '<span id="value_' . esc_attr( $id ) . '">' . esc_attr( $value ) . '</span>'
+          . '</div>';
   }
 
   // Define the element name and path to the element file
@@ -309,7 +196,8 @@ function my_custom_wpbakery_element() {
           'value' => array('for-visitors.php')
         ),
       ),
-      array( // FOR EXHIBITORS <-------------------------------------------------------------------------<
+      // FOR EXHIBITORS <-------------------------------------------------------------------------<
+      array( 
         'type' => esc_html__('textarea_raw_html'),
         'group' => 'Main Settings',
         'heading' => __('Text for Exhibitors 1', 'my-custom-plugin'),
@@ -387,7 +275,8 @@ function my_custom_wpbakery_element() {
           'value' => array('for-exhibitors.php')
         ),
       ),
-      array( // GALLERY <-------------------------------------------------------------------------<
+      // GALLERY <-------------------------------------------------------------------------<
+      array( 
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => esc_html__('Title for Main Page Gallery', 'my-custom-plugin'),
@@ -484,8 +373,138 @@ function my_custom_wpbakery_element() {
         ),
       ),
       // LOGOTYPES <-------------------------------------------------------------------------<
-      ...custom_logotypes(),
-      array( // PROMOTE YOURSELF <-------------------------------------------------------------------------<
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => esc_html__('Logos catalog', 'my-custom-plugin'),
+        'param_name' => 'logoscatalog',
+        'description' => __('Put catalog name in /doc/ where are logotypes.', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php', 'gallery-slider.php', 'wydarzenia-ogolne.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => esc_html__('Title', 'my-custom-plugin'),
+        'param_name' => 'titlecatalog',
+        'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+            'element' => 'element',
+            'value' => array('logos-catalog.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Aditional options',
+        'heading' => __('Text-align title', 'my-custom-plugin'),
+        'param_name' => 'left_center_right_title',
+        'description' => __('Default left, for header dafault center', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Aditional options',
+        'heading' => __('Min width logotypes', 'my-custom-plugin'),
+        'param_name' => 'min_width_logo',
+        'description' => __('Default min width for grid 140px', 'my-custom-plugin'),
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Turn on full width', 'my-custom-plugin'),
+        'param_name' => 'slider_full_width_on',
+        'description' => __('Turn on full width', 'my-custom-plugin'),
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Slider desktop', 'my-custom-plugin'),
+        'param_name' => 'slider_desktop',
+        'description' => __('Check if you want to display in slider on desktop.', 'my-custom-plugin'),
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Grid mobile', 'my-custom-plugin'),
+        'param_name' => 'grid_mobile',
+        'description' => __('Check if you want to display in grid on mobile.', 'my-custom-plugin'),
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Logotypes white', 'my-custom-plugin'),
+        'param_name' => 'slider_logo_white',
+        'description' => __('Check if you want to change the logotypes color to white. ', 'my-custom-plugin'),
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'param_group',
+        'group' => 'Main Settings',
+        'heading' => __('Add link', 'my-custom-plugin'),
+        'param_name' => 'logotypes_files',
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+        'params' => array(
+          array(
+            'type' => 'textfield',
+            'heading' => __('Filename(ex. file.png)', 'my-custom-plugin'),
+            'param_name' => 'logotype_filename',
+            'save_always' => true,
+            'admin_label' => true
+          ),
+          array(
+            'type' => 'textfield',
+            'heading' => __('Link', 'my-custom-plugin'),
+            'param_name' => 'logotype_link',
+            'save_always' => true,
+            'admin_label' => true
+          ),
+        ),
+      ),
+      // PROMOTE YOURSELF <-------------------------------------------------------------------------<
+      array( 
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Hide baners to download', 'my-custom-plugin'),
@@ -559,7 +578,8 @@ function my_custom_wpbakery_element() {
           'value' => array('posts.php')
         ),
       ),
-      array(// PROFILE <-------------------------------------------------------------------------<
+      // PROFILE <-------------------------------------------------------------------------<
+      array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Title', 'my-custom-plugin'),
@@ -804,6 +824,32 @@ function my_custom_wpbakery_element() {
         ),
       ),
       array(
+        'type' => 'colorpicker',
+        'group' => 'Main Settings',
+        'heading' => __('Overlay color', 'my-custom-plugin'),
+        'param_name' => 'header_overlay_color',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'input_range',
+        'group' => 'Main Settings',
+        'heading' => __('Overlay opacity', 'my-custom-plugin'),
+        'param_name' => 'header_overlay_range',
+        'value' => '0',
+        'min' => '0',
+        'max' => '1',
+        'step' => '0.01',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'heading' => __('Additional buttons', 'my-custom-plugin'),
@@ -838,36 +884,23 @@ function my_custom_wpbakery_element() {
           'element' => 'element',
           'value' => array('header-custom.php')
         ),
-        'params' => custom_logotypes()
+        'params' => array(
+          array(
+            'type' => 'textfield',
+            'heading' => esc_html__('Logotypes catalog', 'my-custom-plugin'),
+            'param_name' => 'logoscatalog',
+            'description' => __('Put catalog name in /doc/ where are logotypes.', 'my-custom-plugin'),
+            'save_always' => true,
+          ),
+          array(
+            'type' => 'textfield',
+            'heading' => esc_html__('Logotypes Title', 'my-custom-plugin'),
+            'param_name' => 'titlecatalog',
+            'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
+            'save_always' => true,
+          ),
+        ),
       ),
-      // array(
-      //   'type' => 'checkbox',
-      //   'group' => 'Main Settings',
-      //   'heading' => __('Logo color', 'my-custom-plugin'),
-      //   'param_name' => 'logo_color',
-      //   'description' => __('Check Yes to display logo color.', 'my-custom-plugin'),
-      //   'admin_label' => true,
-      //   'save_always' => true,
-      //   'value' => array(__('True', 'my-custom-plugin') => 'true',),
-      //   'dependency' => array(
-      //     'element' => 'element',
-      //     'value' => array('header-custom.php')
-      //   ),
-      // ),
-      // array(
-      //   'type' => 'checkbox',
-      //   'group' => 'Main Settings',
-      //   'heading' => __('Fair partner', 'my-custom-plugin'),
-      //   'param_name' => 'fair_partner',
-      //   'description' => __('Check Yes to display fair partner.', 'my-custom-plugin'),
-      //   'admin_label' => true,
-      //   'save_always' => true,
-      //   'value' => array(__('True', 'my-custom-plugin') => 'true',),
-      //   'dependency' => array(
-      //     'element' => 'element',
-      //     'value' => array('header-custom.php')
-      //   ),
-      // ),
       array( // FOOTER <-------------------------------------------------------------------------<
         'type' => 'checkbox',
         'group' => 'Main Settings',
@@ -1365,6 +1398,17 @@ function my_custom_wpbakery_element() {
       ),
       // VIDEOS <-------------------------------------------------------------------------<
       array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Custom title element', 'my-custom-plugin'),
+        'param_name' => 'video_custom_title',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('videos.php')
+        ),
+      ),
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'heading' => __('Youtube iframes', 'my-custom-plugin'),
@@ -1489,6 +1533,10 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
     if (isset($atts['visitor2'])) { $visitor2 = $atts['visitor2']; }
 
+    // VIDEO
+    if (isset($atts['video_custom_title'])) { $video_custom_title = $atts['video_custom_title']; }
+    if (isset($atts['videos'])) { $videos = $atts['videos']; }
+
     // FOR EXHIBITORS
     if (isset($atts['exhibitor1'])) { $exhibitor1 = $atts['exhibitor1']; }
     if (isset($atts['exhibitor2'])) { $exhibitor2 = $atts['exhibitor2']; }
@@ -1504,6 +1552,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['header_conferences_button_link'])) { $header_conferences_button_link = $atts['header_conferences_button_link']; }
     if (isset($atts['header_custom_buttons'])) { $header_custom_buttons = $atts['header_custom_buttons']; }
     if (isset($atts['header_custom_logotypes'])) { $header_custom_logotypes = $atts['header_custom_logotypes']; }
+    if (isset($atts['header_overlay_color'])) { $header_overlay_color = $atts['header_overlay_color']; }
+    if (isset($atts['header_overlay_range'])) { $header_overlay_range = $atts['header_overlay_range']; }
     
     // LOGOTYPE GALLERY
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
@@ -1573,10 +1623,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_font_size'])) { $sticky_buttons_font_size = $atts['sticky_buttons_font_size']; }
     if (isset($atts['sticky_buttons_font_size_full_size'])) { $sticky_buttons_font_size_full_size = $atts['sticky_buttons_font_size_full_size']; }
     if (isset($atts['sticky_buttons_width'])) { $sticky_buttons_width = $atts['sticky_buttons_width']; }
-
-    // VIDEOS
-    if (isset($atts['videos'])) { $videos = $atts['videos']; }
-
+   
     if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 
     if (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']) && isset($atts['gallery_mobile'])) {

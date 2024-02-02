@@ -1,15 +1,19 @@
 <style>
     .custom-widget-info-header {
         position: absolute;
-        left: 10px;
-        bottom: 85px;
+        left: 36px;
+        top: 500px;
         z-index: 12;
         color: white;
         padding: 8px;
         background-color: rgba(0, 0, 0, 0.6);
         border: 5px solid rgba(255, 255, 255, 0.63);
     }
-
+    .custom-header-left-time {
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+    }
     @media (max-width:1250px) {
         .custom-widget-info-header {
             position: static;

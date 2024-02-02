@@ -331,9 +331,9 @@
                             <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '/en">
                                     ';
-                                        if (file_exists('doc/logo-en.png') && $logo_color_invert !== 'true') { 
+                                        if ((file_exists('doc/logo-en.png') || file_exists('doc/logo-en.png')) && $logo_color_invert !== 'true') { 
                                             echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]">';
-                                        } elseif (file_exists('doc/logo-en.png') && $logo_color_invert == 'true') {
+                                        } elseif ((file_exists('doc/logo-en.png') || file_exists('doc/logo-en.png')) && $logo_color_invert == 'true') {
                                             echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]"></span>';
                                         } else {
                                             if($logo_color_invert == 'true'){

@@ -1,9 +1,11 @@
 <?php
+if ($video_custom_title == "") {
     if($locale == 'pl_PL') {
-        $videos_title = "Zobacz jak było na poprzednich edycjach";
+        $video_custom_title = "Zobacz jak było na poprzednich edycjach";
     } else {
-        $videos_title = "Check previous editions";
-    }  
+        $video_custom_title = "Check previous editions";
+    } 
+} 
 ?>
 
 <style>
@@ -17,16 +19,17 @@
     }
     .custom-videos {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
         gap: 36px;
     }
     .custom-video-item {
-        width: 50%;
+        width: 47%;
     }
     .custom-video-item p {
         font-size: 18px;
     }
-    @media (max-width:959px) {
+    @media (max-width:960px) {
         .custom-videos {
             flex-direction: column;
         }
@@ -38,7 +41,7 @@
 
 <div id='customVideos' class='custom-container-videos'>
     <div class="custom-videos-title main-heading-text">
-        <h4 class="custom-uppercase"><span><?php echo $videos_title ?></span></h4>
+        <h4 class="custom-uppercase"><span><?php echo $video_custom_title ?></span></h4>
     </div>  
     <div class="custom-videos">
     <?php

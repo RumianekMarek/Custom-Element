@@ -60,9 +60,6 @@ function media_opinions_output($atts, $content = null) {
     $opinion_slides = urldecode($opinion_slides);
     $opinion_slides = json_decode($opinion_slides, true);
 
-    $opinion_placement = (count($opinion_slides) < 3 || count($opinion_slides) % 2 === 0 ) ? 'justify-content: space-evenly;' : 'justify-content: flex-end' ;
-    $opinion_placement_mobile = (count($opinion_slides) < 3 || count($opinion_slides) % 2 === 0 ) ? 'justify-content: space-between !important;' : 'justify-content: space-evenly;' ;
-
     $html_opinions .=
     '<style>
         #opinion-slider-'.$opinions_id_random.' .opinions-slider-container{
@@ -89,7 +86,7 @@ function media_opinions_output($atts, $content = null) {
         }
         #opinion-slider-'.$opinions_id_random.' .slide-container{
             display: flex;
-            '.$opinion_placement.'
+            justify-content: flex-end;
             padding-bottom: 10px;
         }
         #opinion-slider-'.$opinions_id_random.' .slide-container h4{
@@ -183,10 +180,6 @@ function media_opinions_output($atts, $content = null) {
             #opinion-slider-'.$opinions_id_random.' .opinions-slider-container{
                 width:80vw;
                 margin: auto;
-            }
-            #opinion-slider-'.$opinions_id_random.' .slide-container{
-                display: flex;
-                '.$opinion_placement_mobile.'
             }
             #opinion-slider-'.$opinions_id_random.' .single-slide{
                 min-width: 70vw;

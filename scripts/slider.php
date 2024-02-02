@@ -18,7 +18,7 @@
                 $max_image = count($media_url) * 2; 
                 $min_image = -count($media_url);
         }
-        /*Creating DOM */          
+        /*Creating DOM */   
         $output = '<div id="custom_element_slider-'.$id_rnd.'" class="custom_element_catalog_slider">
                         <div class ="slides">';
                                 for ($i = $min_image; $i < ($max_image); $i++) {
@@ -44,7 +44,7 @@
         $output .='</div>
                 </div>
                 <script>
-                        jQuery(function ($) {                                    
+                        jQuery(function ($) {                         
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
                                 const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides div");
@@ -54,15 +54,17 @@
                                 let isDragging = false;
                                 
                                 let imagesMulti = "";
+                                const slidesWidth = slides.clientWidth;
                                 
-                                if (window.matchMedia("(max-width: 600px)").matches) {
+                                if (slidesWidth < 400) {
                                         imagesMulti = 2;
-                                } else if (window.matchMedia("(max-width: 959px)").matches) {
+                                } else if (slidesWidth < 600) {
+                                        imagesMulti = 3;
+                                } else if (slidesWidth < 959) {
                                         imagesMulti = 5;
                                 } else {
                                         imagesMulti = 7;
                                 }
-                                const slidesWidth = slides.clientWidth;
                                 
                                 if(imagesMulti >=  '.count($media_url).'){
                                         $("#custom_element_slider-'.$id_rnd.' .slides").each(function(){

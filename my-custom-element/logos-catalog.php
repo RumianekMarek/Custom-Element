@@ -1,19 +1,24 @@
 <?php 
+include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
 if ($left_center_right_title == ''){
     $left_center_right_title = 'left';
 }
 if ($min_width_logo == ''){
     $min_width_logo = '140px';
 }
+
 ?>
 
 <style>
-
+    .custom-container-logos-gallery {
+        z-index: 1;
+    }
     .custom-logos-gallery-wrapper {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 10px;
+        padding-top: 18px;
     }
     .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item,
     .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item div,
@@ -60,7 +65,19 @@ if ($min_width_logo == ''){
 
 
 <?php
-    if ($logoscatalog != ''){
+    if ($logoscatalog != '' || !empty($header_custom_logotypes)){
+
+        $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
+        $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
+        foreach ($header_custom_logotypes_json as $logotypes_item) {
+            if (isset($logotypes)) {
+                $header_logotypes_url = $logotypes["logoscatalog"];
+                $header_logotypes_title = $logotypes["titlecatalog"];
+            } else {
+                $header_logotypes_url = $logotypes_item["logoscatalog"];
+                $header_logotypes_title = $logotypes_item["titlecatalog"];
+            } 
+        }
     
         $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
         $domain = $_SERVER['HTTP_HOST'];
@@ -76,6 +93,11 @@ if ($min_width_logo == ''){
 
         $ids = $matches[1];
         $url_values = $matches[2];
+
+        if(!empty($header_custom_logotypes)) {
+            $logoscatalog = $header_logotypes_url;
+            $titlecatalog = $header_logotypes_title;
+        }
 
         if ($logoscatalog == "partnerzy obiektu") {
             $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/media/partnerzy-obiektu/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
@@ -100,7 +122,7 @@ if ($min_width_logo == ''){
                         <div class="custom-logos-title main-heading-text">
                             <h4 class="custom-uppercase"><span>'. $titlecatalog .'</span></h4>
                         </div>
-                        <div class="custom-logos-gallery-wrapper single-top-padding';
+                        <div class="custom-logos-gallery-wrapper';
                         if ($slider_logo_white == "true") {
                             $output .= ' custom-white-logos';
                         }
@@ -176,14 +198,13 @@ if ($min_width_logo == ''){
                                     "site" => $site
                                 );
                             }
-
                             if ($mobile == 1 && count($updated_images_url) > 0) {
                                 if ($grid_mobile == true) {
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
                                                 $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
-                                            } else if (empty($url["site"])) {
+                                            } else  {
                                                 $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                             }
                                         }   
@@ -194,27 +215,24 @@ if ($min_width_logo == ''){
                                             if (!empty($image)) {
                                                 if (!empty($url["site"])) {
                                                     $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
-                                                } else if (empty($url["site"])) {
+                                                } else {
                                                     $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                                 }
                                             }   
                                         }
                                     } else {
-                                        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
                                         $output .= custom_media_slider($updated_images_url);
                                     }
                                 }
                             } else if (($mobile != 1 && count($updated_images_url) > 0)) {
-                                
                                 if ($slider_desktop == true) {
-                                    include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
                                     $output .= custom_media_slider($updated_images_url);
                                 } else {
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
                                                 $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
-                                            } else if (empty($url["site"])) {
+                                            } else {
                                                 $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                             }
                                         }   
@@ -229,34 +247,10 @@ if ($min_width_logo == ''){
         }
     }
 
-    // $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
-    // $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
-    // foreach ($header_custom_logotypes_json as $logotypes_item) {
-    //     $header_logotypes_url = $logotypes_item["logoscatalog"];
-    //     $header_logotypes_title = $logotypes_item["titlecatalog"];
-    //     $header_logotypes_position_title = $logotypes_item["left_center_right_title"];
-    //     $header_logotypes_min_width = $logotypes_item["min_width_logo"];
-    //     $header_logotypes_slider_full_width = $logotypes_item["slider_full_width_on"];
-    //     $header_logotypes_slider_desktop = $logotypes_item["slider_desktop"];
-    //     $header_logotypes_grid_mobile = $logotypes_item["grid_mobile"];
-    //     $header_logotypes_logo_white = $logotypes_item["slider_logo_white"];
-
-    //     $header_logotypes_files = $logotypes_item["logotypes_files"];
-    //     $header_logotypes_files_urldecode = urldecode($header_custom_logotypes);
-    //     $header_logotypes_files_json = json_decode($header_logotypes_files_urldecode, true);
-    //     foreach ($header_logotypes_files_json as $logotypes_files) {
-    //         $header_logotype_filename = $logotypes_item["logotype_filename"];
-    //         $header_logotype_link = $logotypes_item["logotype_link"];
-    //     }
-    //     var_dump($header_logotypes_files);
-        
-        
-    // }
-    // var_dump($header_custom_logotypes_json);
-
 ?>
 
-<?php if (isset($element_unique_id)) { ?>
+<?php if (isset($element_unique_id)) {?>
+    
     
 <script>
  
