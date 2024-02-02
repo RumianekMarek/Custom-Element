@@ -45,9 +45,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           ),
           array(
             'type' => 'textfield',
-            'heading' => __( 'Enter Archive Year', 'my-custom-plugin' ),
+            'heading' => __( 'Enter Archive Year <br>or Title in "..." ', 'my-custom-plugin' ),
             'param_name' => 'catalog_year',
-            'description' => __( 'Enter year for display in catalog title.', 'my-custom-plugin' ),
+            'description' => __( 'Enter year for display in catalog title or us "" to change full title.', 'my-custom-plugin' ),
             'save_always' => true,
             'admin_label' => true
           ),
@@ -171,6 +171,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
 
 // Zdefiniuj funkcję wyjścia dla elementu Katalog wystawców
 function katalog_wystawcow_output($atts, $content = null) {
+  include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
+
+  $locale = get_locale();
 
   if (!empty($atts['identification'])) {
     $identification = $atts['identification']; 
@@ -184,12 +187,26 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['ticket'])) { $ticket = $atts['ticket']; }
   if (isset($atts['color'])) { $color = $atts['color']; }
   if (isset($atts['export_link'])) { $export_link = $atts['export_link']; }
-  if (isset($atts['catalog_year'])) { $catalog_year = $atts['catalog_year']; }
+  
   if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
   if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
   if ($atts['file_changer'] != '') { $file_changer = $atts['file_changer']; $file_changer = str_replace('&lt;','<',$file_changer); $file_changer = str_replace('&gt;','>',$file_changer); $file_changer = explode(';' , $file_changer); }
 
-  $locale = get_locale();
+  if (isset($atts['catalog_year'])) { $catalog_title = str_replace('``', '"', $atts['catalog_year']); }
+  if(isset($catalog_title) && $catalog_title[0] == '"' && $catalog_title[strlen($catalog_title) - 1] == '"'){
+      $catalog_title = trim($catalog_title, '"');
+  } elseif($format == 'full') {
+    if($locale == 'pl_PL') {$catalog_title = 'Katalog wystawców '.$catalog_title;}
+    else {$catalog_title = 'Exhibitor Catalog '.$catalog_title;}
+  } elseif($format == 'top21') {
+    if($locale == 'pl_PL') {$catalog_title = 'WYSTAWCY 2024';}
+    else {$catalog_title = 'EXHIBITORS 2024';}
+  } elseif($format == 'top7') {
+    if($locale == 'pl_PL') {$catalog_title = 'NOWI WYSTAWCY NA TARGACH '.$catalog_title;}
+    else {$catalog_title = 'NEW EXHIBITORS AT THE FAIR '.$catalog_title;}
+  }
+
+
   $slider_images_url = array();
 
   // If 'format' is not 'Top10', force 'ticket' to be false
@@ -411,7 +428,6 @@ function katalog_wystawcow_output($atts, $content = null) {
 
   // KATALOG
   if($format === 'full'){
-
     $bg_link = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg';
 
     $output = '
@@ -420,13 +436,13 @@ function katalog_wystawcow_output($atts, $content = null) {
         <div class="exhibitor__header" style="background-image: url(&quot;'. $bg_link .'&quot;);">';
           if($locale == 'pl_PL') {
             $output .= '<div>
-                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Katalog wystawców '.$catalog_year.'</h1>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'.$catalog_title.'</h1>
                     <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $trade_fair_name . '</h2>
                   </div>
                   <input id="search" placeholder="Szukaj"/>';
           } else {
             $output .= '<div>
-                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">Exhibitors Catalog '.$catalog_year.'</h1>
+                    <h1 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'.$catalog_title.'</h1>
                     <h2 style="text-align: center; '. $text_color. ';' . $text_shadow . '">'. $trade_fair_name_eng . '</h2>
                   </div>
                   <input id="search" placeholder="Search"/>';
@@ -461,16 +477,17 @@ function katalog_wystawcow_output($atts, $content = null) {
         $output .= $divContainerExhibitors;
         $output .= '</div></div>';
   } else {
-    $output = '<div custom-lang="' . $locale . '" id="'. $format .'">';
+    $output = '<div custom-lang="' . $locale . '" id="'. $format .'" class="custom-catalog main-heading-text">';
+
+    if (isset($catalog_title) && !empty($catalog_title)){
+        $output .= '<h2 class="catalog-custom-title" style="width: fit-content;">'.$catalog_title.'</h2>';
+    }
     $output .= '<div class="img-container-'. $format .'">';
 
     $count = 0;
     $displayedCount = 0;
 
     if ($format === 'top21') {
-
-
-
       while ($displayedCount < 21 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
           $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
@@ -501,7 +518,6 @@ function katalog_wystawcow_output($atts, $content = null) {
       }
 
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
 
@@ -562,7 +578,6 @@ function katalog_wystawcow_output($atts, $content = null) {
         $count++;
       }
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
 
@@ -607,7 +622,6 @@ function katalog_wystawcow_output($atts, $content = null) {
           }
       }
       if (count($slider_images_url) > 0){
-        include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
         $output .= custom_media_slider($slider_images_url);
       }
       $output .= '</div>';

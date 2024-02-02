@@ -8,8 +8,17 @@ function register_custom_gf_download() {
 }
 
 function custom_gf_download_output() {
+    $all_forms = '';
+
     if (class_exists('GFAPI')) {
-        $all_forms = GFAPI::get_forms();
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            if ($token == "all"){
+                $all_forms = GFAPI::get_forms($active = null, $trash = null);
+            } 
+        } else {
+            $all_forms = GFAPI::get_forms();
+        }
     }
 
     $form_output = '<form id="custom-form" action="" method="post" style="width:600px">';
