@@ -201,7 +201,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   } elseif($format == 'top21') {
     if($locale == 'pl_PL') {$catalog_title = 'WYSTAWCY 2024';}
     else {$catalog_title = 'EXHIBITORS 2024';}
-  } elseif($format == 'top7') {
+  } elseif($format == 'recently7') {
     if($locale == 'pl_PL') {$catalog_title = 'NOWI WYSTAWCY NA TARGACH '.$catalog_title;}
     else {$catalog_title = 'NEW EXHIBITORS AT THE FAIR '.$catalog_title;}
   }

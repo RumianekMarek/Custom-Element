@@ -26,6 +26,7 @@
     text-shadow: 3px 3px 6px rgba(66, 68, 90, 1);
     color: black;
 }
+
 .exhibitor__header h2 {
     text-shadow: 3px 3px 6px rgba(66, 68, 90, 1);
     color: white;
@@ -130,9 +131,11 @@
     height: auto;
     min-width: 600px;
 }
+
 .modal__elements-block {
     display: flex;
 }
+
 .modal:focus-visible {
     outline: none;
 }
@@ -155,10 +158,12 @@
     flex: 2;
     margin: 15px 20px;
 }
+
 .modal__elements-text div {
     display: flex;
     justify-content: center;
 }
+
 .modal__elements-text a {
     display: block;
 }
@@ -172,10 +177,12 @@
     color: black !important;
 
 }
+
 .modal_elements-button {
     display: flex;
     justify-content: center;
 }
+
 .modal_elements-button button {
     padding: 8px 0px;
     width: 120px;
@@ -185,7 +192,7 @@
     box-shadow: 3px 3px 0px -1px black;
     cursor: pointer;
     font-size: 16px;
-    
+
 }
 
 
@@ -193,12 +200,13 @@
     .modal__elements {
         min-width: 90%;
     }
+
     .modal__elements-block {
         flex-direction: column;
         justify-content: center;
         text-align: center;
         align-items: center;
-        
+
     }
 
     .modal__elements-img {
@@ -268,6 +276,7 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+
 .img-container div,
 .img-container-top21 div,
 .img-container-recently7 div {
@@ -278,14 +287,17 @@
     min-width: 140px;
     margin: 5px;
 }
-#top21 a{
-    transform-origin:center !important;
+
+#top21 a {
+    transform-origin: center !important;
 }
+
 .img-container-top10 {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
 .img-container-top10 div {
     background-size: contain;
     background-repeat: no-repeat;
@@ -294,6 +306,7 @@
     min-width: 170px;
     margin: 15px 10px;
 }
+
 .img-container-top10 .tickets {
     min-height: 90px !important;
     min-width: 180px !important;
@@ -302,9 +315,12 @@
 }
 
 @media screen and (max-width:1200px) {
-    .img-container-recently7:has(.recent-7){
+    .img-container-recently7:has(.recent-7) {
         max-width: 768px;
         margin: 0 auto;
     }
 }
 
+.catalog-custom-title {
+    margin-bottom: 18px;
+}
