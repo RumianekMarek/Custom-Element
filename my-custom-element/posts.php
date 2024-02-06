@@ -153,13 +153,9 @@
             wp_reset_query();
         ?>
     </div>
-    <div class="custom-btn-container">
+    <div class="custom-btn-container" style="padding-top: 18px;">
         <span>
-            <?php if($locale == 'pl_PL'){ echo '
-                <a style="padding-top: 36px;" class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/'. $posts_link .'/"  target="_blank">Zobacz wszystkie</a>
-            ';} else { echo '
-                <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/'. $posts_link .'/"  target="_blank">See all</a>
-            ';} ?>
+             <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="<?php echo $posts_link; ?>"><?php echo $posts_text; ?></a>
         </span>
     </div>
 
