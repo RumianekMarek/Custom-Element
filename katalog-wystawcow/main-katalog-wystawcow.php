@@ -191,7 +191,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['slider_desctop'])) { $slider_desctop = $atts['slider_desctop']; }
   if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
   if ($atts['file_changer'] != '') { $file_changer = $atts['file_changer']; $file_changer = str_replace('&lt;','<',$file_changer); $file_changer = str_replace('&gt;','>',$file_changer); $file_changer = explode(';' , $file_changer); }
-
+  
   if (isset($atts['catalog_year'])) { $catalog_title = str_replace('``', '"', $atts['catalog_year']); }
   if(isset($catalog_title) && $catalog_title[0] == '"' && $catalog_title[strlen($catalog_title) - 1] == '"'){
       $catalog_title = trim($catalog_title, '"');
@@ -199,13 +199,12 @@ function katalog_wystawcow_output($atts, $content = null) {
     if($locale == 'pl_PL') {$catalog_title = 'Katalog wystawców '.$catalog_title;}
     else {$catalog_title = 'Exhibitor Catalog '.$catalog_title;}
   } elseif($format == 'top21') {
-    if($locale == 'pl_PL') {$catalog_title = 'WYSTAWCY 2024';}
-    else {$catalog_title = 'EXHIBITORS 2024';}
+    if($locale == 'pl_PL') {$catalog_title = 'WYSTAWCY '.do_shortcode('[trade_fair_catalog_year]');}
+    else {$catalog_title = 'EXHIBITORS '.do_shortcode('[trade_fair_catalog_year]');}
   } elseif($format == 'recently7') {
     if($locale == 'pl_PL') {$catalog_title = 'NOWI WYSTAWCY NA TARGACH '.$catalog_title;}
     else {$catalog_title = 'NEW EXHIBITORS AT THE FAIR '.$catalog_title;}
   }
-
 
   $slider_images_url = array();
 

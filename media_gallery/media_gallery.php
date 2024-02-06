@@ -158,6 +158,7 @@ function media_gallery_output($atts, $content = null){
         'custom_image_gride' => '',
         'custom_image_stratch' => '',
         'custom_image_clicked' => '',
+        'custom_image_links' => '',
     ), $atts ) );
 
     $custom_gallery_images = array();
@@ -219,9 +220,19 @@ function media_gallery_output($atts, $content = null){
                         <div class="custom-gallery-container" style="'.$custom_image_gride.' margin: 18px;">';
     $image_src_array = [];
 
-    foreach($custom_gallery_images as $image){
+    var_dump($custom_image_links);
+    foreach($custom_gallery_images as $key => $image){
+        var_dump($key);
         $html_gallery .=     '<div class="custom_gallery_image_container" style="position:relative; overflow:hidden; '.$custom_image_lr_padding.' '.$custom_image_row_margin.' '.$custom_image_ratio.'">';
+
+        if($custom_image_clicked === 'Link') {
+            $html_gallery .= '<a href="">';
+        } 
         $html_gallery .=    '<img class="custom-image-gallery-picture" src="'.$image['url'].'" alt="'.$image['alt'].'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">';
+
+        if($custom_image_clicked === 'Link') {
+            $html_gallery .= '</a>';
+        } 
         $html_gallery .='</div>';
     }
     $html_gallery .=    '</div>';

@@ -272,7 +272,7 @@ function info_box_output($atts, $content = null) {
         $shadow = !empty($atts['shadow']) ? 'box-shadow: 4px 4px 7px 2px;' : '';
         $photo_box = !empty($atts['photo_box']) ? $atts['photo_box'] : '';
         $modal_img_size = !empty($atts['modal_img_size']) ? 'width: '.$atts['modal_img_size'].';' : 'width: 120px;';
-        $bio_text = !empty($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : '';
+        $bio_text = !empty($atts['bio_text']) ? 'color: '.$atts['bio_text'].'!important;' : 'color: white !important;';
         $title_size = !empty($atts['title_size']) ? ' font-size: '.$atts['title_size'].'!important; ' : '';
         
         
@@ -494,10 +494,10 @@ function info_box_output($atts, $content = null) {
             if ($modal_desc){
                 if (count($speakers_images) < 3){
                     $html .=
-                            '<button class="lecturers-bio btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
+                            '<button class="lecturers-bio btn btn-sm lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
                 } else {
                     $html .=
-                            '<button class="lecturers-bio lecturers-triple btn btn-sm btn-default lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
+                            '<button class="lecturers-bio lecturers-triple btn btn-sm lecture-btn" style="background-color:'.$bio_color.' !important; '.$bio_text.'">BIO</button>';
                 }
             }
             $html .= '</div>';
@@ -506,7 +506,12 @@ function info_box_output($atts, $content = null) {
             $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="'.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="text-container" style="width: 90%;">';
         }
-        $display_speakers = implode(', ', $speakers_names);
+        
+        $speak_display = array_filter($speakers_names, function($value) {
+            return $value !== "";
+        });
+
+        $display_speakers = implode(', ', $speak_display);
 
         if($title_top != ''){
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>
