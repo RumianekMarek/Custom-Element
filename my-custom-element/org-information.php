@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ($color != '#000000'){
     $color = '#ffffff !important';
     $shadow = '#000000';
@@ -9,7 +9,7 @@ if ($color != '#000000'){
 
 <style>
 .custom_element_<?php echo $rnd_id ?> .orgInfo-header-text{
-    color: <?php echo $color ?>; 
+    color: <?php echo $color ?>;
     text-shadow: 2px 2px <?php echo $shadow ?>;
 }
 .full-width:has(#wydarzenia){
@@ -21,7 +21,7 @@ if ($color != '#000000'){
 .custom-container-org-info a {
     font-weight: 600;
     color: blue;
-}   
+}
 .custom-org-info-header {
     background-position: center;
     background-repeat: no-repeat;
@@ -48,7 +48,7 @@ if ($color != '#000000'){
 #dane-kontaktowe, #wazne-informacje, #procedury-stoisk, #rozladunek, #dokumenty,
 #dane-kontaktowe_en, #wazne-informacje_en, #procedury-stoisk_en, #rozladunek_en, #dokumenty_en {
     scroll-margin: 90px;
-} 
+}
 .custom-container-org-info a{
     text-decoration: underline;
 }
@@ -57,7 +57,7 @@ if ($color != '#000000'){
 <div id="orgInfo"class="custom-container-org-info">
 <div class="custom-org-info-header custom-kv-bg" style="background-image: url('<?php echo file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg'; ?>');">
         <h1 class="orgInfo-header-text">
-            <span>               
+            <span>
                 <?php if($locale == 'pl_PL'){ echo '
                 Informacje organizacyjne dla Wystawców
                 ';} else { echo '
@@ -96,7 +96,7 @@ if ($color != '#000000'){
                 <ul>
                     <li>Dla Wystawców – 8:00 – 18:00</li>
                     <li>Dla Odwiedzających – 10:00 – 17:00</li>
-                </ul> 
+                </ul>
             </div>
             <h4 id="customHiddenParagraphPl" class="custom-hidden-paragraph custom-display-none">Wszystkie szczegóły pojawią się wkrótce</h4>
         </div>
@@ -155,11 +155,11 @@ if ($color != '#000000'){
             <p>
             Organizator nie ponosi jakiejkolwiek odpowiedzialności za zniszczenie lub zaginięcie mienia Wystawcy nieusuniętego w terminie z terenu Targów przez Wystawcę.
             <br>
-            Na terenie PWE obowiązuje całkowity zakaz używania otwartego ognia, maszyn typu szlifierka czy spawarka, jak również narzędzi pylących bez odkurzacza wyciągającego. 
+            Na terenie PWE obowiązuje całkowity zakaz używania otwartego ognia, maszyn typu szlifierka czy spawarka, jak również narzędzi pylących bez odkurzacza wyciągającego.
             </p>
             <p><strong>Miejscem odbioru powierzchni</strong> wraz z zamówionymi przyłączami jest Punkt Technicznej Obsługi Wystawców zlokalizowane na terenie PWE.</p>
             <p>Odbiór powierzchni wraz z podłączeniami mediów pod zabudowę stoiska odbywa się w dniu rozpoczęcia montażu na podstawie <a href="https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf" target="_blank" rel="noopener"><strong>Protokołu odbioru powierzchni wystawowej</strong></a></p>
-            <p>Osoba odbierająca powierzchnię jeśli nie jest to Wystawca (np. wykonawca zabudowy) powinien posiadać podpisane przez Wystawcę oryginał upoważnienia podpisanego i opieczętowanego przez Wystawcę. Po przyjeździe na montaż i targi, prosimy o zgłoszenie się do Biura Wystawców (hala B, wejście B9) w celu odebrania identyfikatorów i odbioru stoiska. Na czas montażu wydajemy naklejki „MONTAŻ” a na czas targów identyfikator „WYSTAWCA”. IDENTYFIKATORY SĄ WYDAWANE TYLKO W BIURZE WYSTAWCÓW. Każda z osób przygotowujących i obsługujących stoisko ma obowiązek noszenia identyfikatora (w widocznym miejscu) przez cały czas trwania montażu i targów.
+            <p>Osoba odbierająca powierzchnię jeśli nie jest to Wystawca (np. wykonawca zabudowy) powinien posiadać podpisane przez Wystawcę oryginał upoważnienia podpisanego i opieczętowanego przez Wystawcę. Po przyjeździe na montaż i targi, prosimy o zgłoszenie się do Biura Wystawców w celu odebrania identyfikatorów i odbioru stoiska. Na czas montażu wydajemy naklejki „MONTAŻ” a na czas targów identyfikator „WYSTAWCA”. IDENTYFIKATORY SĄ WYDAWANE TYLKO W BIURZE WYSTAWCÓW. Każda z osób przygotowujących i obsługujących stoisko ma obowiązek noszenia identyfikatora (w widocznym miejscu) przez cały czas trwania montażu i targów.
             Identyfikatory „WYSTAWCA” będą wydawane najwcześniej w przeddzień otwarcia targów.
             W celu sprawnego wydawania identyfikatorów, zalecamy wypełnienie danych w generatorze.</p>
             <p>Identyfikatory techniczne ważne są tylko w trakcie montażu i demontażu i nie upoważniają do wstępu na Targi w trakcie trwania imprezy.</p>
@@ -236,7 +236,7 @@ if ($color != '#000000'){
 
         <div id='dane-kontaktowe_en' class='custom-org-info-content-item'>
             <h2>1. Contact information, installation and dismantling deadlines, and trade fair opening hours. </h2>
-            
+
             <div class='custom-org-info-block-dates custom-display-none'>
                 <h5>Exhibitors’ support: <a href='mailto:konsultanttechniczny@warsawexpo.eu'>konsultanttechniczny@warsawexpo.eu</a></h5>
                 <h5>Stand assembly:</h5>
@@ -312,11 +312,11 @@ if ($color != '#000000'){
             <p>
             The organizer is not liable for any damage or loss of property of the Exhibitor not removed from the Trade Fair premises by the Exhibitor within the specified timeframe. 
             <br>
-            In the PWE area, there is a complete prohibition on using open fire, machinery such as a grinder or welder, as well as dusty tools without a vacuum extractor.  
+            In the PWE area, there is a complete prohibition on using open fire, machinery such as a grinder or welder, as well as dusty tools without a vacuum extractor. 
             </p>
             <p>The place of surface pickup along with the ordered connections is the Exhibitors' Technical Service Point located on the premises of the PWE . </p>
             <p>The acceptance of the surface together with the connections of utilities for the construction of the stand takes place on the day of the assembly commencement based on  <a href='https://warsawexpo.eu/docs/Protokol-odbioru-powierzchni-wystawowej.pdf' target='_blank' rel='noopener'><strong>the Protocol of Acceptance of the exhibition space.</strong></a></p>
-            <p>Person picking up the area, if not an Exhibitor (e.g., stand contractor), should have the Exhibitor's original authorization signed and sealed by the Exhibitor. Upon arrival for setup and the exhibition, please report to the Exhibitor Office (Hall B, Entrance B9) to collect identifiers and receive the stand. During setup, we issue 'SETUP' stickers, and during the exhibition, an 'EXHIBITOR' identifier. IDENTIFIERS ARE ISSUED ONLY AT THE EXHIBITOR OFFICE. Each person preparing and managing the stand is required to wear the identifier (in a visible location) throughout the setup and exhibition period.
+            <p>Person picking up the area, if not an Exhibitor (e.g., stand contractor), should have the Exhibitor's original authorization signed and sealed by the Exhibitor. Upon arrival for setup and the exhibition, please report to the Exhibitor Office to collect identifiers and receive the stand. During setup, we issue 'SETUP' stickers, and during the exhibition, an 'EXHIBITOR' identifier. IDENTIFIERS ARE ISSUED ONLY AT THE EXHIBITOR OFFICE. Each person preparing and managing the stand is required to wear the identifier (in a visible location) throughout the setup and exhibition period.
             The 'EXHIBITOR' identifiers will be issued no earlier than the day before the opening of the exhibition. To facilitate the efficient issuance of identifiers, we recommend filling in the information in the generator.
             </p>
             <p>The technical identifiers are only valid during assembly and disassembly and do not authorize access to the fairgrounds during the event.</p>
