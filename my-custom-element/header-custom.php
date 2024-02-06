@@ -9,7 +9,9 @@
 <style>
     <?php echo $btn_color ?>
     <?php echo $btn_color_hover ?>
-
+    .custom-header-container {
+        min-height: calc(100vh - 90px);
+    }
     .custom-header-container:before {
         content: "";
         position: absolute;
@@ -22,11 +24,11 @@
         z-index: 0;
     }
     .header-wrapper-column {
-        min-height: calc(100vh - 90px);
         justify-content: space-evenly;
         align-items: center;
         display: flex;
         flex-direction: column; 
+        padding-top: 36px;
     }
     .custom-header-background {
         background-size: cover;
@@ -34,9 +36,8 @@
         background-position: center;
     }
     .custom-header-logo {
-        width: 450px;
-        height: 250px;
-        background-size: contain;
+        max-width: 400px !important;
+        height: auto;
         z-index: 1;
     }
     .header-button a {
@@ -59,6 +60,9 @@
     .custom-btn-container {
         padding: 0;
     }
+    .custom-header .btn {
+        transform: scale(1) !important;
+    }
     .custom-header-text {
         max-width: 650px;
         padding: 18px 0;
@@ -76,15 +80,13 @@
     }
     .custom-header-logotypes {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         max-width: 1200px;
         margin: 0 auto;
         padding: 18px;
         gap: 18px;
     }
-    /* .custom-header-logotypes .custom-container-logos-gallery {
-        max-width: 50%;
-    } */
 
     @media (min-width: 300px) and (max-width: 1200px) {
         .custom-header-text h1 {
@@ -96,13 +98,13 @@
     }
     @media (max-width:768px) {
         .custom-header-logo {
-            width: 80%;
+            max-width: 300px !important;
         }
         .custom-header-logotypes .custom-container-logos-gallery {
             max-width: 100%;
         }
         .custom-header-logotypes {
-            flex-direction: column;
+            /* flex-direction: column; */
         }
     }   
 </style>
@@ -113,13 +115,24 @@
     $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
     $base_url .= "://".$_SERVER['HTTP_HOST'];
 
+    $trade_fair_name = $locale == 'pl_PL' ? '[trade_fair_name]' : '[trade_fair_name_eng]';
     $trade_fair_desc = $locale == 'pl_PL' ? '[trade_fair_desc]' : '[trade_fair_desc_eng]';
     $trade_fair_date = $locale == 'pl_PL' ? '[trade_fair_date]' : '[trade_fair_date_eng]';
 
+
+
     if($logo_color != 'true') {
-        $logo_url = $locale == 'pl_PL' || !file_exists('doc/logo-en.png') ? '/doc/logo.png' : '/doc/logo-en.png';
+        if ($locale == 'pl_PL') {
+            $logo_url = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png');
+        } else {
+            $logo_url = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png');
+        }
     } else {
-        $logo_url = $locale == 'pl_PL' ? '/doc/logo-color.png' : (file_exists('doc/logo-color-en.png') ? '/doc/logo-color-en.png' : '/doc/logo-en.png');
+        if ($locale == 'pl_PL') {
+            $logo_url = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? '/doc/logo-color.webp' : '/doc/logo-color.png');
+        } else {
+            $logo_url = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp') ? '/doc/logo-color-en.webp' : '/doc/logo-color-en.png');
+        }
     }
 
     $file_path_header_background = glob('doc/background.*');
@@ -135,7 +148,7 @@
     
         <div class="header-wrapper-column">
             <?php
-            echo '<div style="background-image: url('. $logo_url .')" class="custom-header-logo custom-header-background"></div>';
+            echo '<img class="custom-header-logo" src="'. $logo_url .'" alt="logo-'. $trade_fair_name .'">';
 
             echo '<div class="custom-header-text">
                 <h1 style="text-align: center; color:white !important; text-shadow: 2px 2px black;">'. $trade_fair_desc .'</h1>

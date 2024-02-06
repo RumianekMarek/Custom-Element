@@ -19,6 +19,12 @@ if ($profile_img_aspect_ratio == '') {
 if ($profile_padding_element == '') {
     $profile_padding_element = '18px 36px';
 }
+
+// if(!empty($content)){            
+//     $profile_desc = wpb_js_remove_wpautop($content, true);
+// } else {
+//     $profile_desc = $atts['event_desc'];
+// }
 ?>
 
 <style>
@@ -167,7 +173,7 @@ if ($profile_padding_element == '') {
                         if ($custom_profile_title) {
                             echo'<div '. $custom_profile_class_title .'><h4 class="custom-uppercase" style="color:'. $color .'";>'. $custom_profile_title .'</h4></div>';
                         }
-                        echo'<div style="color:'. $color .'";>'. $content .'</div>
+                        echo'<div style="color:'. $color .'";>'. $custom_content .'</div>
                     </div>
                     <div class="custom-profile-images-block custom-profile-block">
                         <div class="custom-profile-images-wrapper image-shadow">';

@@ -1,8 +1,8 @@
-    <?php
-    function custom_media_slider ($media_url_array, $slide_speed = 3000){
+<?php
+    function custom_posts_slider ($media_url_array, $slide_speed = 3000){
         if(is_array($media_url_array[0])){
                 foreach($media_url_array as $url){
-                        $media_url[] = $url['img'];
+                        $media_url[] = $url['img'];       
                 }
         } else {
                 $media_url = $media_url_array;
@@ -33,12 +33,22 @@
                                             $imageStyles = "background-image:url(".$media_url[$imgNumber].");";
                                         }
                                         
-                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site'])){
-                                            $imageUrl = $media_url_array[$imgNumber]['site'];
-                                            $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles.'"></div></a>';
+
+                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['link']) && !empty($media_url_array[$imgNumber]['title'])){
+                                            $imageUrl = $media_url_array[$imgNumber]['link'];
+                                            $imageTitle = $media_url_array[$imgNumber]['title'];
+                                            $output .= '<a class="custom-post" href="'.$imageUrl.'" target="_blank">
+                                                            <div class="custom-post-thumbnail image-shadow">
+                                                                <div class="t-entry-visual">
+                                                                    <div class="image-container" style="'.$imageStyles.'"></div>
+                                                                </div>
+                                                            </div> 
+                                                            <h5 class="custom-post-title">'.$imageTitle.'</h5>
+                                                        </a>';  
                                         } else {
                                             $output .= '<div class="image-container" style="'.$imageStyles.'"></div>';
                                         }
+                                        
                                 }
         $output .='</div>
                 </div>
@@ -56,13 +66,13 @@
                                 const slidesWidth = slides.clientWidth;
                                 
                                 if (slidesWidth < 400) {
-                                        imagesMulti = 2;
-                                } else if (slidesWidth < 600) {
                                         imagesMulti = 3;
+                                } else if (slidesWidth < 600) {
+                                        imagesMulti = 4;
                                 } else if (slidesWidth < 959) {
                                         imagesMulti = 5;
                                 } else {
-                                        imagesMulti = 7;
+                                        imagesMulti = 6;
                                 }
                                 
                                 if(imagesMulti >=  '.count($media_url).'){
@@ -87,7 +97,7 @@
                                         slides.style.transform = `translateX(-${slidesTransform}px)`;
 
                                         function nextSlide() {
-                                                slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .image-container").forEach(function(image){
+                                                slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .custom-post").forEach(function(image){
                                                         image.classList.add("slide");
                                                 })
                                                 slides.firstChild.classList.add("first-slide");
@@ -98,7 +108,7 @@
                                                 firstSlide.classList.remove("first-slide");
 
                                                 setTimeout(function() {
-                                                        slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .image-container").forEach(function(image){
+                                                        slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .custom-post").forEach(function(image){
                                                                 image.classList.remove("slide");
                                                         })
                                                 }, '.($slide_speed / 2).');
@@ -207,7 +217,7 @@
     <style>
     .custom_element_catalog_slider {
         width: 100%;
-        overflow: hidden;
+        overflow: visible;
         margin: 0 !important;
     }
     .slides {
@@ -219,13 +229,13 @@
         min-width : 0 !important;
         pointer-events: auto;
     }
-    .slides .image-container {
+    .slides .custom-post {
         padding:0;
         flex: 1;
         object-fit: contain !important;
     }
-    .slides .image-container div{
-        margin: 5px !important;
+    .slides .custom-post div{
+        /* margin: 5px !important; */
     }
     @keyframes slideAnimation {
         from {

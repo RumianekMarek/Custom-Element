@@ -7,6 +7,15 @@ if ($min_width_logo == ''){
     $min_width_logo = '140px';
 }
 
+if ($header_custom_logotypes_columns === "1") {
+    $header_custom_logotypes_columns_width = "100%";
+} else if ($header_custom_logotypes_columns === "1/2") {
+    $header_custom_logotypes_columns_width = "47%";
+} else if ($header_custom_logotypes_columns === "1/3") {
+    $header_custom_logotypes_columns_width = "30%";
+} else {
+    $header_custom_logotypes_columns_width = "auto";
+}
 ?>
 
 <style>
@@ -27,7 +36,7 @@ if ($min_width_logo == ''){
         background-repeat: no-repeat;
         background-position: center;
         min-height: 120px;
-        min-width: <?php echo $min_width_logo ?>;
+        min-width: <?php echo $min_width_logo ?> !important;
         margin: 5px;
     }
     .custom_element_<?php echo $rnd_id ?> .custom-logos-title {
@@ -48,6 +57,9 @@ if ($min_width_logo == ''){
     }
     .custom-white-logos div[style*="background-image"]:hover {
         filter: none;
+    }
+    .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
+        width: <?php echo $header_custom_logotypes_columns_width ?> !important;
     }
 
     /* FOR HEADER */
@@ -197,6 +209,7 @@ if ($min_width_logo == ''){
                                     "img" => $image,
                                     "site" => $site
                                 );
+                                // var_dump($updated_images_url);
                             }
                             if ($mobile == 1 && count($updated_images_url) > 0) {
                                 if ($grid_mobile == true) {

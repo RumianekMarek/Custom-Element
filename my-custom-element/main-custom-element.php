@@ -170,7 +170,8 @@ function my_custom_wpbakery_element() {
         ),
         'save_always' => true
       ),
-      array( // FOR VISITORS <-------------------------------------------------------------------------<
+      // FOR VISITORS <-------------------------------------------------------------------------<
+      array(
         'type' => 'textarea_raw_html',
         'group' => 'Main Settings',
         'heading' => __('Text for Visitors 1', 'my-custom-plugin'),
@@ -477,6 +478,22 @@ function my_custom_wpbakery_element() {
           'value' => array('logos-catalog.php', 'header-custom.php')
         ),
       ),
+      array( 
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Columns logotypes', 'my-custom-plugin'),
+        'param_name' => 'header_custom_logotypes_columns',
+        'save_always' => true,
+        'value' => array(
+          __('1', 'my-custom-plugin') => '1',
+          __('1/2', 'my-custom-plugin') => '1/2',
+          __('1/3', 'my-custom-plugin') => '1/3'
+        ),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('logos-catalog.php', 'header-custom.php')
+        ),
+      ),
       array(
         'type' => 'param_group',
         'group' => 'Main Settings',
@@ -532,7 +549,8 @@ function my_custom_wpbakery_element() {
           'value' => array('promote-yourself.php')
         ),
       ),
-      array( // POSTS <-------------------------------------------------------------------------<
+      // POSTS <-------------------------------------------------------------------------<
+      array(
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => __('Category', 'my-custom-plugin'),
@@ -543,17 +561,17 @@ function my_custom_wpbakery_element() {
           'value' => array('posts.php')
         ),
       ),
-      // array(
-      //   'type' => 'textfield',
-      //   'group' => 'Main Settings',
-      //   'heading' => __('Posts count', 'my-custom-plugin'),
-      //   'param_name' => 'posts_count',
-      //   'save_always' => true,
-      //   'dependency' => array(
-      //     'element' => 'element',
-      //     'value' => array('posts.php')
-      //   ),
-      // ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Posts count', 'my-custom-plugin'),
+        'param_name' => 'posts_count',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('posts.php')
+        ),
+      ),
       array(
         'type' => 'textfield',
         'group' => 'Main Settings',
@@ -769,7 +787,8 @@ function my_custom_wpbakery_element() {
           'value' => array('profile.php')
         ),
       ),
-      array( // HEADER <-------------------------------------------------------------------------<
+      // HEADER <-------------------------------------------------------------------------<
+      array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Button on', 'my-custom-plugin'),
@@ -901,7 +920,8 @@ function my_custom_wpbakery_element() {
           ),
         ),
       ),
-      array( // FOOTER <-------------------------------------------------------------------------<
+      // FOOTER <-------------------------------------------------------------------------<
+      array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Change the logo color to white?', 'my-custom-plugin'),
@@ -915,7 +935,8 @@ function my_custom_wpbakery_element() {
           'value' => array('footer.php')
         ),
       ),
-      array( // CONTACT <-------------------------------------------------------------------------<
+      // CONTACT <-------------------------------------------------------------------------<
+      array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Horizontal', 'my-custom-plugin'),
@@ -929,7 +950,8 @@ function my_custom_wpbakery_element() {
           'value' => array('kontakt.php')
         ),
       ),
-      array( // GENERATOR WYSTAWCÓW <-------------------------------------------------------------------------<
+      // GENERATOR WYSTAWCÓW <-------------------------------------------------------------------------<
+      array(
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => esc_html__('Worker form id', 'my-custom-plugin'),
@@ -953,7 +975,8 @@ function my_custom_wpbakery_element() {
             'value' => array('generator-wystawcow.php')
         ),
       ),
-      array( // BADGE <-------------------------------------------------------------------------<
+      // BADGE <-------------------------------------------------------------------------<
+      array(
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => esc_html__('Badge form id', 'my-custom-plugin'),
@@ -1075,7 +1098,8 @@ function my_custom_wpbakery_element() {
           ),
         ),
       ),
-      array( // ESTYMACJE <-------------------------------------------------------------------------<
+      // ESTYMACJE <-------------------------------------------------------------------------<
+      array(
         'type' => 'textarea',
         'group' => 'Main Settings',
         'heading' => esc_html__('Title', 'my-custom-plugin'),
@@ -1146,7 +1170,8 @@ function my_custom_wpbakery_element() {
             'value' => array('estymacje.php')
         ),
       ),
-      array( // COUNTDOWN <-------------------------------------------------------------------------<
+      // COUNTDOWN <-------------------------------------------------------------------------<
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'heading' => __('Add countdown', 'my-custom-plugin'),
@@ -1212,7 +1237,8 @@ function my_custom_wpbakery_element() {
           ),
         ),
       ),
-      array( // STICKY BUTTONS <-------------------------------------------------------------------------<
+      // STICKY BUTTONS <-------------------------------------------------------------------------<
+      array(
         'type' => 'colorpicker',
         'group' => 'Main Settings',
         'heading' => __('Background kolor (default akcent)', 'my-custom-plugin'),
@@ -1456,6 +1482,12 @@ function my_custom_element_output($atts, $content = null) {
     $trade_start = do_shortcode('[trade_fair_datetotimer]');
     $trade_end = do_shortcode('[trade_fair_enddata]');
 
+    if(!empty($content)){            
+      $custom_content = wpb_js_remove_wpautop($content, true);
+    } else {
+      $custom_content = $atts['custom_content'];
+    }
+
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
@@ -1565,6 +1597,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
     if (isset($atts['slider_logo_white'])) { $slider_logo_white = $atts['slider_logo_white']; }
     if (isset($atts['logoscatalog'])) { global $logoscatalog; $logoscatalog = $atts['logoscatalog']; }
+    if (isset($atts['header_custom_logotypes_columns'])) { $header_custom_logotypes_columns = $atts['header_custom_logotypes_columns']; }
 
     if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
     

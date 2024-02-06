@@ -2,7 +2,7 @@
     .custom-widget-info-header {
         position: absolute;
         left: 36px;
-        top: 500px;
+        top:430px;
         z-index: 12;
         color: white;
         padding: 8px;
@@ -17,7 +17,7 @@
     @media (max-width:1250px) {
         .custom-widget-info-header {
             position: static;
-            margin: 25px 0;
+            margin: 0 0 25px;
         }
     }
 </style>

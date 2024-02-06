@@ -3,7 +3,7 @@
         $color = '#ffffff';
     }
     if ($sticky_buttons_width == '') {
-        $sticky_buttons_width = '170';
+        $sticky_buttons_width = '170px';
     }
     if ($sticky_buttons_font_size_full_size == '') {
         $sticky_buttons_font_size_full_size = '16';
@@ -19,7 +19,7 @@
 }
 #page-header {
     position: relative;
-    z-index: 5;
+    z-index: 11;
 }
 .wpb_column:has(.custom-container-sticky-buttons) {
     padding-top: 0 !important;
@@ -42,18 +42,18 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 7;
 }
 <?php } ?>
 .custom-sticky-buttons-full-size {
     background-color: white;
-    z-index: 5;
+    z-index: 11;
 }
 .custom-sticky-buttons-cropped-container {
     flex-direction: column;
     width: 100%;
     top: 0;
-    z-index: 4;
+    z-index: 10;
 }
 .custom-sticky-head-container {
     padding: 10px;
@@ -67,9 +67,10 @@
     margin: 0;
 }
 .custom-sticky-button-item {
-    width: <?php echo $sticky_buttons_width ?>px;
+    width: <?php echo $sticky_buttons_width ?> !important;
     text-align: center;
     transition: 0.3s ease;
+    z-index: 8;
 }
 .custom-sticky-button-item:hover {
     transform: scale(1.03);
@@ -116,9 +117,9 @@
         justify-content: center;
         margin: 0 auto;
         gap: 10px;
-     }
+    }
     .custom-sticky-button-item {
-       width: 31%;
+       width: 31% !important;
        padding: 0;
     }
     .custom-sticky-button-item img {
@@ -150,7 +151,7 @@ $buttons_links = array();
 
 echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
     if ($sticky_buttons_full_size === "true") {
-        echo '<div class="custom-sticky-buttons-full-size" style="background-color:'. $sticky_buttons_full_size_background .'!important;">';
+        echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color:'. $sticky_buttons_full_size_background .'!important;">';
         
         if (is_array($sticky_buttons_json)) {
             foreach ($sticky_buttons_json as $sticky_button) {
@@ -193,11 +194,11 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
     }
     echo '
     <div class="custom-sticky-buttons-cropped-container">
-        <div class="custom-sticky-head-container style-accent-bg" style="background-color:'. $sticky_buttons_cropped_background .'!important">
+        <div class="custom-sticky-head-container style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
             <h4 class="custom-sticky-head-text" style="color:'. $color .' !important;">Wybierz kongres &nbsp;</h4>
             <i class="fa fa-chevron-down fa-1x fa-fw" style="color:'. $color .' !important;"></i>
         </div>
-        <div class="custom-sticky-buttons-cropped style-accent-bg" style="background-color:'. $sticky_buttons_cropped_background .'!important">';
+        <div class="custom-sticky-buttons-cropped style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">';
 
             if (is_array($sticky_buttons_json)) {
                 foreach ($sticky_buttons_json as $sticky_button) {
@@ -275,9 +276,9 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         
         let offsetTop;
 
-        const beforeDiv = document.createElement('div');
-        beforeDiv.classList.add('before');
-        beforeDiv.style.height = tilesCroppedContainer.offsetHeight + 'px';
+        // const beforeDiv = document.createElement('div');
+        // beforeDiv.classList.add('before');
+        // beforeDiv.style.height = tilesCroppedContainer.offsetHeight + 'px';
 
         setTimeout(() => {
             let isStuckMasthead = document.querySelector('#masthead').classList.contains("is_stuck");
@@ -295,9 +296,9 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             } else if (mobile) {
                 if (containerPageHeader && containerPageHeader.offsetHeight !== undefined) {
                     if (adminBar) {
-                        offsetTop = containerTiles.offsetTop + adminBar.offsetHeight;
+                        offsetTop = containerTiles.offsetTop + adminBar.offsetHeight + containerPageHeader.offsetHeight;
                     } else {
-                        offsetTop = containerTiles.offsetTop;
+                        offsetTop = containerTiles.offsetTop + containerPageHeader.offsetHeight;
                     }
                 } else if (!containerPageHeader) {
                     if (isStuckMasthead && adminBar) {
@@ -310,8 +311,10 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                         offsetTop = containerTiles.offsetTop;
                     }
                 }
-            }        
+            }    
         }, 500);
+
+        
 
         const hideElement = (element) => {
             element.style.display = 'none';
@@ -341,6 +344,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 showElement(tilesFullSize);
             } else { // dropdown off full size off
                 showElement(tilesCroppedContainer);
+                
             }
         }
 
@@ -364,8 +368,10 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         }
 
         window.addEventListener('scroll', function() {
-            
             const scrollTop = window.scrollY;
+              
+            console.log(scrollTop + ">=" + offsetTop);
+
             let nextElement = containerTiles.nextElementSibling;
             // Sprawdzamy następny element który nie ma stylu display:none; 
             while (nextElement && window.getComputedStyle(nextElement).display === 'none') {
@@ -525,6 +531,48 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
             
         }
     }
+
+
+    // jQuery(document).ready(function($) {
+
+    //     $(document).ready(function(){
+
+    //         var stickyElement = $(".sticky"),
+    //             stickyClass = "sticky-pin",
+    //             stickyPos = stickyElement.offset().top, //Distance from the top of the window.
+    //             stickyHeight;
+
+    //         //Create a negative margin to prevent content 'jumps':
+    //         stickyElement.after('<div class="jumps-prevent"></div>');
+    //         function jumpsPrevent() {
+    //         stickyHeight = stickyElement.innerHeight();
+    //         stickyElement.css({"margin-bottom":"-" + stickyHeight + "px"});
+    //         stickyElement.next().css({"padding-top": + stickyHeight + "px"}); 
+    //         };
+    //         jumpsPrevent(); //Run.
+
+    //         //Function trigger:
+    //         $(window).resize(function(){
+    //         jumpsPrevent();
+    //         });
+
+    //         //Sticker function:
+    //         function stickerFn() {
+    //         var winTop = $(this).scrollTop();
+    //         //Check element position:
+    //         winTop >= stickyPos ?
+    //             stickyElement.addClass(stickyClass):
+    //             stickyElement.removeClass(stickyClass) //Boolean class switcher.
+    //         };
+    //         stickerFn(); //Run.
+
+    //         //Function trigger:
+    //         $(window).scroll(function(){
+    //         stickerFn();
+    //         });
+
+    //     });
+    // })
 
 </script>
 
