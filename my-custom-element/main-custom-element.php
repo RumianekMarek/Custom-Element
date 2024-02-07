@@ -1622,6 +1622,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['contact_items'])) { $contact_items = vc_param_group_parse_atts($atts['contact_items']); }
 
     // POSTS
+    if (isset($atts['posts_cat'])) { $posts_cat = $atts['posts_cat']; }
     if (isset($atts['posts_category'])) { $posts_category = $atts['posts_category']; }
     if (isset($atts['posts_count'])) { $posts_count = $atts['posts_count']; }
     if (isset($atts['posts_ratio'])) { $posts_ratio = $atts['posts_ratio']; }
