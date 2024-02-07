@@ -331,17 +331,31 @@
                             <div class="custom-footer-nav-logo-bottom text-centered">
                                 <a href="' . $base_url . '/en">
                                     ';
-                                        if ((file_exists('doc/logo-en.png') || file_exists('doc/logo-en.png')) && $logo_color_invert !== 'true') { 
-                                            echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]">';
-                                        } elseif ((file_exists('doc/logo-en.png') || file_exists('doc/logo-en.png')) && $logo_color_invert == 'true') {
-                                            echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? '/doc/logo-en.webp' : '/doc/logo-en.png') . '" alt="logo-[trade_fair_name]"></span>';
-                                        } else {
-                                            if($logo_color_invert == 'true'){
-                                                echo '<span class="logo-invert-white"><img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]"></span>';
+                                        if ($logo_color_invert != 'true') {
+                                            $logo_class = "logo-trade-fair";
+                                            if ($locale == 'pl_PL') {
+                                                $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? "/doc/logo-color.webp" : "/doc/logo-color.png";
                                             } else {
-                                                echo '<img src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? '/doc/logo.webp' : '/doc/logo.png') . '" alt="logo-[trade_fair_name]">'; 
-                                            }   
-                                        } 
+                                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp') || file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.png')) {
+                                                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color-en.webp') ? "/doc/logo-color-en.webp" : "/doc/logo-color-en.png";
+                                                } else {
+                                                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-color.webp') ? "/doc/logo-color.webp" : "/doc/logo-color.png";
+                                                }
+                                                
+                                            }
+                                        } else {
+                                            $logo_class = "logo-invert-white";
+                                            if ($locale == 'pl_PL') {
+                                                $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? "/doc/logo.webp" : "/doc/logo.png";
+                                            } else {
+                                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') || file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.png')) {
+                                                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo-en.webp') ? "/doc/logo-en.webp" : "/doc/logo-en.png";
+                                                } else {
+                                                    $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/logo.webp') ? "/doc/logo.webp" : "/doc/logo.png";
+                                                }    
+                                            }
+                                        }
+                                        echo '<span class="'. $logo_class .'"><img src="'. $logo_url .'" alt="logo-[trade_fair_name]"></span>';
                                     echo '
                                 </a>
                             </div>

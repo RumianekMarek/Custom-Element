@@ -24,6 +24,15 @@
     <?php echo $btn_color ?>
     <?php echo $btn_color_hover ?>
 
+    .row-parent:has(.custom_element_<?php echo $rnd_id ?> .custom-container-posts) {
+        max-width: 100%;
+        /* padding: 0 !important; */
+    }
+    .custom_element_<?php echo $rnd_id ?> .custom-posts-wrapper {
+        max-width: 1200px; 
+        margin: 0 auto; 
+    }
+
     .custom-posts-title h4 {
         margin: 0 0 36px;
     }
@@ -34,129 +43,120 @@
         padding-bottom: 18px;
     }
     .custom-post {
-        max-width: 340px;
-        margin: 0 auto;
+        min-width: 250px;
+        max-width: 250px;
     }
-    .custom-post-thumbnail img {
+    .custom-post-title {
+        margin: 0;
+        padding: 10px 0 0 10px;
+    }
+    .custom-post-thumbnail .image-container {
         width: 100%;
-        aspect-ratio: <?php echo $posts_ratio ?>;
-        object-fit: cover;
-    }
-
-    /* .custom-posts .slides {
-        align-items: flex-start !important;
-        gap: 18px;
-    }
-    .slides .custom-post-thumbnail div {
-        width: 100%;
-        max-width: 300px;
-        aspect-ratio: 1/1;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-    } */
+        aspect-ratio: <?php echo $posts_ratio ?>;
+        max-width: 250px;
+    }
+    .custom-posts .slides {
+        align-items: flex-start !important;
+        gap: 18px;
+    }
     @media (max-width: 600px) {
-        .custom-posts {
-            flex-wrap: wrap;
-        }
-        .custom-post {
-            max-width: 200px;
-        }
         .custom-post-title {
             font-size: 14px !important;
-        }
-    }
-    @media (max-width: 400px) {
-        .custom-post {
-            max-width: 150px;
         }
     }
 </style>
 
 <?php
-// $output = '';
-// $output .= '<div id="customPosts" class="custom-container-posts">
-//                 <div class="custom-posts-title main-heading-text">
-//                     <h4 class="custom-uppercase"><span>' . $posts_title . '</span></h4>
-//                 </div>  
-//                 <div class="custom-posts">';
+
+if ($posts_count > 1) {
+    if ($posts_count % 2 == 0) {
+        echo'<style>
+                .custom-posts .slides {
+                    margin: 0 !important;
+                }
+            </style>';
+    } else {
+        echo'<style>
+                @media (max-width: 600px) {
+                    .custom-posts .slides {
+                        margin-left: 156px !important;
+                    }
+                }
+            </style>';
+    }
+}
+
+$output .= '<div id="customPosts" class="custom-container-posts">
+                
+    <div class="custom-posts-wrapper">
+
+        <div class="custom-posts-title main-heading-text">
+            <h4 class="custom-uppercase"><span>' . $posts_title . '</span></h4>
+        </div>  
+        <div class="custom-posts">';
+
+        $trade_end_date = DateTime::createFromFormat('Y/m/d H:i', $trade_end);
+        $now = new DateTime();
+
+        $category_name = !empty($posts_category) ? $posts_category : $posts_cat;
+
+        if ($now < $trade_end_date && !empty($category_name)) {
+            $args = array(
+                'posts_per_page' => min($posts_count, 4),
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'category_name' => $category_name,
+            );
         
-                    // query_posts(array(
-                    //     'posts_per_page' => $posts_count,
-                    //     'orderby' => 'date',
-                    //     'order' => 'DESC',
-                    //     'category_name' => $posts_cat,
-                    // ));
-                    
-                    // $post_image_urls = array();
-                    // while (have_posts()) : the_post();
-                    //     $link = get_permalink();
-                    //     $image = has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'full') : '';
-                    //     $title = get_the_title();
-
-                    //     $post_image_urls[] = array(
-                    //         "img" => $image,
-                    //         "link" => $link,
-                    //         "title" => $title
-                    //     );
-
-                    // endwhile;
-                    // wp_reset_query();
-
-                    // include_once plugin_dir_path(__FILE__) . '/../scripts/posts-slider.php';
-                    // $output .= custom_posts_slider($post_image_urls);
+            $query = new WP_Query($args);
         
-// $output .= '</div>
-//     <div class="custom-btn-container" style="padding-top: 18px;">
-//         <span>
-//             <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $posts_link .'"  target="_blank">'. $posts_text .'</a>
-//         </span>
-//     </div>
-// </div>';
+            $post_image_urls = array();
+            if ($query->have_posts()) {
+                while ($query->have_posts()) : $query->the_post();
+                    $link = get_permalink();
+                    $image = has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'full') : '';
+                    $title = get_the_title();
+        
+                    $post_image_urls[] = array(
+                        "img" => $image,
+                        "link" => $link,
+                        "title" => $title
+                    );
+                endwhile;
+            }
+        
+            wp_reset_postdata();
+        
+            include_once plugin_dir_path(__FILE__) . '/../scripts/posts-slider.php';
+            $output .= custom_posts_slider($post_image_urls);
+        }
 
-// echo $output;
+        $output .= '</div>
+        <div class="custom-btn-container" style="padding-top: 18px;">
+            <span>
+                <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $posts_link .'"  target="_blank">'. $posts_text .'</a>
+            </span>
+        </div>
+
+    </div>
+                
+</div>';
+
+echo $output;
 
 ?>
 
-<div id='customPosts' class='custom-container-posts'>
-    <div class="custom-posts-title main-heading-text">
-        <h4 class="custom-uppercase"><span><?php echo $posts_title ?></span></h4>
-    </div>  
-    <div class="custom-posts">
-        <?php
-            // Pobranie najnowszego wpisu
-            query_posts(array(
-                'posts_per_page' => $posts_count,
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'category_name' => $posts_cat,
-            ));
-            // Wyświetlenie wpisów
-            while (have_posts()) : the_post();
-            ?>
-                <a href="<?php the_permalink(); ?>">
-                    <div class="custom-post">
-                        <div class="custom-post-thumbnail image-shadow">
-                            <div class="t-entry-visual">
-                                <?php
-                                    if (has_post_thumbnail()) {
-                                        the_post_thumbnail('full');
-                                    }
-                                ?>
-                            </div>
-                        </div>
-                        <h5 class="custom-post-title"><?php the_title(); ?></h5>
-                    </div>
-                </a>    
-            <?php
-            endwhile;
-            wp_reset_query();
-        ?>
-    </div>
-    <div class="custom-btn-container" style="padding-top: 18px;">
-        <span>
-             <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="<?php echo $posts_link; ?>"><?php echo $posts_text; ?></a>
-        </span>
-    </div>
+<script>
 
-</div>
+document.addEventListener("DOMContentLoaded", function() {
+  const customPostsElement = document.querySelector('.custom-posts .slides');
+  const customPostsRow = document.querySelector('.row-container:has(.custom-posts)');
+  if (customPostsElement && customPostsElement.innerHTML.trim() === '') {
+    customPostsRow.classList.add('desktop-hidden', 'tablet-hidden', 'mobile-hidden');
+  }
+});
+
+</script>

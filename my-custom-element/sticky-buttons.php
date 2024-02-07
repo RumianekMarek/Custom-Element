@@ -370,7 +370,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         window.addEventListener('scroll', function() {
             const scrollTop = window.scrollY;
               
-            console.log(scrollTop + ">=" + offsetTop);
+            // console.log(scrollTop + ">=" + offsetTop);
 
             let nextElement = containerTiles.nextElementSibling;
             // Sprawdzamy następny element który nie ma stylu display:none; 

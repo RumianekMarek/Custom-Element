@@ -359,7 +359,6 @@ if ($color != '#000000'){
             <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href='mailto:marcin@transmeble.com.pl'>marcin@transmeble.com.pl</a></p>
             <p><strong>The official Trade Fair Freight Forwarder performs, on an exclusive basis, loading and unloading services on the premises of the PWE (Polish Exhibition and Congress Center) using mechanical devices such as forklifts and cranes.</strong> In connection with this, a prohibition on the introduction of mechanical devices for unloading, such as cranes and mechanical forklifts, onto the premises by Exhibitors and third parties is in force at the PWE (Exhibition Grounds), without the consent of the Organizer or the Official Fair Freight Forwarder.</p>
             <h5>The Freight Forwarder provides services through:</h5>
-            <h5>The Freight Forwarder provides services through:</h5>
             <ul>
                 <li>organization of exhibition transport, comprehensive customs services,</li>
                 <li>unloading and loading of trade goods in accordance with the sender's instructions,</li>

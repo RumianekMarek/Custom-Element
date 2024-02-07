@@ -130,7 +130,7 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
 
     <script>
     {
-        if (["nowa data", "wiosna", "lato", "jesień", "zima"].some(season => ("<?php echo $trade_date ?>").toLowerCase().includes(season.toLowerCase()))) {
+        if (["nowa data", "wiosna", "lato", "jesień", "zima", "new date", "spring", "summer", "autumn", "winter"].some(season => ("<?php echo $trade_date ?>").toLowerCase().includes(season.toLowerCase()))) {
             document.querySelector('#main-timer').style.display = 'none';
         }
         function startEndCountdown(targetDate) {

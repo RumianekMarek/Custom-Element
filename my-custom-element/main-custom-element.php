@@ -554,7 +554,7 @@ function my_custom_wpbakery_element() {
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => __('Category', 'my-custom-plugin'),
-        'param_name' => 'posts_cat',
+        'param_name' => 'posts_category',
         'save_always' => true,
         'dependency' => array(
           'element' => 'element',
@@ -1622,7 +1622,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['contact_items'])) { $contact_items = vc_param_group_parse_atts($atts['contact_items']); }
 
     // POSTS
-    if (isset($atts['posts_cat'])) { $posts_cat = $atts['posts_cat']; }
+    if (isset($atts['posts_category'])) { $posts_category = $atts['posts_category']; }
     if (isset($atts['posts_count'])) { $posts_count = $atts['posts_count']; }
     if (isset($atts['posts_ratio'])) { $posts_ratio = $atts['posts_ratio']; }
     if (isset($atts['posts_link'])) { $posts_link = $atts['posts_link']; }

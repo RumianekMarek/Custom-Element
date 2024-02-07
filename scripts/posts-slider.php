@@ -45,8 +45,6 @@
                                                             </div> 
                                                             <h5 class="custom-post-title">'.$imageTitle.'</h5>
                                                         </a>';  
-                                        } else {
-                                            $output .= '<div class="image-container" style="'.$imageStyles.'"></div>';
                                         }
                                         
                                 }
@@ -56,6 +54,7 @@
                         jQuery(function ($) {                         
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
+                                const rowSlides = document.querySelector(".row-container:has(#custom_element_slider-'.$id_rnd.' .slides)"); // <--------------------------------------------------<
                                 const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides div");
 
                                 
@@ -63,16 +62,18 @@
                                 let isDragging = false;
                                 
                                 let imagesMulti = "";
-                                const slidesWidth = slides.clientWidth;
-                                
-                                if (slidesWidth < 400) {
+                                const slidesWidth = rowSlides.clientWidth; // <--------------------------------------------------<
+
+                                if (slidesWidth < 536) {
+                                        imagesMulti = 1;
+                                } else if (slidesWidth < 700) {
+                                        imagesMulti = 2;
+                                } else if (slidesWidth < 1100) {
                                         imagesMulti = 3;
-                                } else if (slidesWidth < 600) {
+                                } else if (slidesWidth < 1400) {
                                         imagesMulti = 4;
-                                } else if (slidesWidth < 959) {
-                                        imagesMulti = 5;
                                 } else {
-                                        imagesMulti = 6;
+                                        imagesMulti = 4;
                                 }
                                 
                                 if(imagesMulti >=  '.count($media_url).'){
@@ -81,20 +82,19 @@
                                                 if ($(this).children().length > '.count($media_url).'){
                                                         $(this).children().slice('.count($media_url).').remove();
                                                 };
-
                                         });
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
-                                        images.forEach((image) => {
-                                                image.style.maxWidth = imageWidth + "px";
-                                        });
+                                        // images.forEach((image) => {
+                                        //         image.style.width = "250px"; // <--------------------------------------------------<
+                                        // });
                                 } else {
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
-                                        images.forEach((image) => {
-                                                image.style.minWidth = imageWidth + "px";
-                                        });
+                                        // images.forEach((image) => {
+                                        //         image.style.maxWidth = "250px"; // <--------------------------------------------------<
+                                        // });
                                         const slidesTransform =  (imageWidth + 10) * '.(-$min_image).';
 
-                                        slides.style.transform = `translateX(-${slidesTransform}px)`;
+                                        slides.style.transform = `translateX(-${slidesTransform}px)`; 
 
                                         function nextSlide() {
                                                 slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .custom-post").forEach(function(image){
@@ -215,27 +215,22 @@
     ?>
 
     <style>
-    .custom_element_catalog_slider {
+    .custom-posts .custom_element_catalog_slider {
         width: 100%;
-        overflow: visible;
+        overflow: visible !important;
         margin: 0 !important;
     }
-    .slides {
+    .custom-posts .slides {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin: 0 !important;
+        justify-content: start;
         min-height : 0 !important;
         min-width : 0 !important;
         pointer-events: auto;
     }
-    .slides .custom-post {
+    .custom-posts .slide {
         padding:0;
         flex: 1;
-        object-fit: contain !important;
-    }
-    .slides .custom-post div{
-        /* margin: 5px !important; */
     }
     @keyframes slideAnimation {
         from {
@@ -245,7 +240,7 @@
         transform: translateX(0);
         }
     }
-    .slides .slide{
+    .custom-posts .slides .slide{
         animation: slideAnimation 0.5s ease-in-out;
     }
     </style>
