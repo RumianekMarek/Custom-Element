@@ -80,6 +80,8 @@ function gf_finder($gf_id, $form_title){
                 foreach ($entry as $id => $key) {
                     if (is_int($id) || $id === "source_url" || $id ==="date_created") {
                         $key = str_replace(',',' ',$key);
+                        $key = str_replace(["\r\n", "\r", "\n"], ' ', $key);
+                        
                         $entry_line[$id] = $key;
                     }
                 }
