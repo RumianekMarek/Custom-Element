@@ -512,6 +512,7 @@ function info_box_output($atts, $content = null) {
         });
 
         $display_speakers = implode(', ', $speak_display);
+        $display_speakers = str_replace(';,','<br>',$display_speakers);
 
         if($title_top != ''){
             $html .= '<h4 class="lectur-time">' . $event_time . '</h4>

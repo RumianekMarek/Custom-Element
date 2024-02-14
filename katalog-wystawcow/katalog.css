@@ -322,5 +322,12 @@
 }
 
 .catalog-custom-title {
+    margin-top: 0px !important;
     margin-bottom: 18px;
+}
+#top10 .catalog-custom-title {
+    margin: 5px auto !important;
+}
+#recently7, #top10, #top21 {
+    margin-top: 0px !important;
 }
