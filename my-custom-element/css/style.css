@@ -150,7 +150,7 @@ strong {
     color: inherit !important;
 }
 
-.logo-invert-white img {
+.logo-invert-white img, .custom-logo-white {
     filter: brightness(0) invert(1);
 }
 

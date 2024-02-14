@@ -1,11 +1,25 @@
 <?php
-if ($video_custom_title == "") {
-    if($locale == 'pl_PL') {
-        $video_custom_title = "Zobacz jak było na poprzednich edycjach";
-    } else {
-        $video_custom_title = "Check previous editions";
+
+$videos_urldecode = urldecode($videos);
+$videos_json = json_decode($videos_urldecode, true);
+
+if (!empty($videos_json)) {
+    if ($video_custom_title == "") {
+        if($locale == 'pl_PL') {
+            $video_custom_title = "Zobacz jak było na poprzednich edycjach";
+        } else {
+            $video_custom_title = "Check previous editions";
+        } 
     } 
-} 
+} else {
+    if($locale == 'pl_PL') {
+        $video_custom_title = "ZOBACZ JAK WYGLĄDAJĄ NASZE POZOSTAŁE TARGI";
+    } else {
+        $video_custom_title = "SEE WHAT OUR OTHER TRADE FAIRS LOOK LIKE";
+    }
+}
+
+
 ?>
 
 <style>
@@ -19,7 +33,7 @@ if ($video_custom_title == "") {
     }
     .custom-videos {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-wrap: wrap;
         gap: 36px;
     }
@@ -45,10 +59,9 @@ if ($video_custom_title == "") {
     </div>  
     <div class="custom-videos">
     <?php
-        $videos_urldecode = urldecode($videos);
-        $videos_json = json_decode($videos_urldecode, true);
+        
 
-        if (is_array($videos_json)) {
+        if (!empty($videos_json)) {
             foreach ($videos_json as $video) {
                 $video_title = $video["video_title"];
                 $video_iframe = $video["video_iframe"];
@@ -58,6 +71,16 @@ if ($video_custom_title == "") {
                     echo '<p>'. $video_title .'</p>';
                 echo'</div>';
             }
+        } else {
+            echo'<div class="custom-video-item">
+                    <iframe class="iframe-shadow" width="560" height="315" data-src="https://www.youtube.com/embed/TgHh38jvkAY?si=pc01x3a22VkL-qoh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <p>Ptak Warsaw Expo | 2023</p>
+                </div>';
+            $video_title_2 = ($locale == 'pl_PL') ? "Stolica Targów i Eventów w Polsce - Ptak Warsaw Expo" : "The Capital of Fairs and Events in Poland - Ptak Warsaw Expo";
+            echo'<div class="custom-video-item">
+                    <iframe class="iframe-shadow" width="560" height="315" data-src="https://www.youtube.com/embed/-RmRpZN1mHA?si=2QHfOrz0TUkNIJwP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <p>'. $video_title_2 .'</p>
+                </div>';
         }
     ?>
     </div>
@@ -68,4 +91,30 @@ if ($video_custom_title == "") {
     if (iframes) {
         iframes.forEach((iframe) => iframe.classList.add('iframe-shadow'));
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    // Pobranie iframe i ustawienie src z data-src
+                    var iframe = entry.target;
+                    if (iframe.getAttribute('data-src')) {
+                        iframe.src = iframe.getAttribute('data-src');
+                        iframe.removeAttribute('data-src'); // Usunięcie data-src
+                    }
+
+                    // Przestajemy obserwować ten element
+                    observer.unobserve(iframe);
+                }
+            });
+        }, {
+            rootMargin: '100px 0px', // Zwiększenie obszaru obserwowanego
+            threshold: 0.1
+        });
+
+        // Rozpoczęcie obserwacji elementów iframe
+        document.querySelectorAll('.custom-video-item iframe[data-src]').forEach(function(iframe) {
+            observer.observe(iframe);
+        });
+    });
 </script>

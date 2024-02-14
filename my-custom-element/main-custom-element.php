@@ -49,7 +49,7 @@ function my_custom_wpbakery_element() {
   // INPUT RANGE ELEMENT
   function input_range_field_html( $settings, $value ) {
     $id = uniqid('range_');
-    return '<div>'
+    return '<div class="custom-input-range">'
           . '<input type="range" '
           . 'id="' . esc_attr( $id ) . '" '
           . 'name="' . esc_attr( $settings['param_name'] ) . '" '
@@ -119,7 +119,7 @@ function my_custom_wpbakery_element() {
           'Visitors Benefits' => 'visitors-benefits.php',
           'Voucher' => 'voucher.php',
           'Wydarzenia - ogólne informacje' => 'wydarzenia-ogolne.php',
-          'Wypromój się na targach' => 'promote-yourself.php',
+          'Wypromuj się na targach' => 'promote-yourself.php',
           'Zabudowa' => 'zabudowa.php',
         ),
         'save_always' => true,
@@ -140,9 +140,10 @@ function my_custom_wpbakery_element() {
         'heading' => __('Select text color', 'my-custom-plugin'),
         'param_name' => 'color',
         'description' => __('Select text color for the element.', 'my-custom-plugin'),
-        'value' => array_merge(
-          array('Default' => ''),
-          $custom_element_colors
+        'value' => array(
+          'Default' => '',
+          'White' => '#ffffff',
+          'Black' => '#000000'
         ),
         'save_always' => true
       ),
@@ -478,22 +479,22 @@ function my_custom_wpbakery_element() {
           'value' => array('logos-catalog.php', 'header-custom.php')
         ),
       ),
-      array( 
-        'type' => 'checkbox',
-        'group' => 'Aditional options',
-        'heading' => __('Columns logotypes', 'my-custom-plugin'),
-        'param_name' => 'header_custom_logotypes_columns',
-        'save_always' => true,
-        'value' => array(
-          __('1', 'my-custom-plugin') => '1',
-          __('1/2', 'my-custom-plugin') => '1/2',
-          __('1/3', 'my-custom-plugin') => '1/3'
-        ),
-        'dependency' => array(
-          'element' => 'element',
-          'value' => array('logos-catalog.php', 'header-custom.php')
-        ),
-      ),
+      // array( 
+      //   'type' => 'checkbox',
+      //   'group' => 'Aditional options',
+      //   'heading' => __('Columns logotypes', 'my-custom-plugin'),
+      //   'param_name' => 'header_custom_logotypes_columns',
+      //   'save_always' => true,
+      //   'value' => array(
+      //     __('1', 'my-custom-plugin') => '1',
+      //     __('1/2', 'my-custom-plugin') => '1/2',
+      //     __('1/3', 'my-custom-plugin') => '1/3'
+      //   ),
+      //   'dependency' => array(
+      //     'element' => 'element',
+      //     'value' => array('logos-catalog.php', 'header-custom.php')
+      //   ),
+      // ),
       array(
         'type' => 'param_group',
         'group' => 'Main Settings',
@@ -517,6 +518,13 @@ function my_custom_wpbakery_element() {
             'param_name' => 'logotype_link',
             'save_always' => true,
             'admin_label' => true
+          ),
+          array(
+            'type' => 'checkbox',
+            'heading' => __('Logo white', 'my-custom-plugin'),
+            'param_name' => 'logotype_white',
+            'save_always' => true,
+            'admin_label' => true,
           ),
         ),
       ),
@@ -591,6 +599,18 @@ function my_custom_wpbakery_element() {
         'param_name' => 'posts_link',
         'description' => __('Default aktualnosci-news', 'my-custom-plugin'),
         'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('posts.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Hide posts button', 'my-custom-plugin'),
+        'param_name' => 'posts_btn',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
         'dependency' => array(
           'element' => 'element',
           'value' => array('posts.php')
@@ -869,6 +889,34 @@ function my_custom_wpbakery_element() {
         ),
       ),
       array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Logo color', 'my-custom-plugin'),
+        'param_name' => 'header_logo_color',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'input_range',
+        'group' => 'Main Settings',
+        'heading' => __('Max width logo (px)', 'my-custom-plugin'),
+        'description' => __('Default 400px', 'my-custom-plugin'),
+        'param_name' => 'header_logo_width',
+        'value' => '400',
+        'min' => '100',
+        'max' => '600',
+        'step' => '1',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'heading' => __('Additional buttons', 'my-custom-plugin'),
@@ -906,16 +954,26 @@ function my_custom_wpbakery_element() {
         'params' => array(
           array(
             'type' => 'textfield',
-            'heading' => esc_html__('Logotypes catalog', 'my-custom-plugin'),
+            'heading' => __('Logotypes catalog', 'my-custom-plugin'),
             'param_name' => 'logoscatalog',
             'description' => __('Put catalog name in /doc/ where are logotypes.', 'my-custom-plugin'),
             'save_always' => true,
           ),
           array(
             'type' => 'textfield',
-            'heading' => esc_html__('Logotypes Title', 'my-custom-plugin'),
+            'heading' => __('Logotypes Title', 'my-custom-plugin'),
             'param_name' => 'titlecatalog',
             'description' => __('Set title to diplay over the gallery', 'my-custom-plugin'),
+            'save_always' => true,
+          ),
+          array(
+            'type' => 'input_range',
+            'heading' => __('Gallery width (%)', 'my-custom-plugin'),
+            'param_name' => 'logotypes_width',
+            'value' => '100',
+            'min' => '0',
+            'max' => '100',
+            'step' => '1',
             'save_always' => true,
           ),
         ),
@@ -1316,6 +1374,17 @@ function my_custom_wpbakery_element() {
         ),
       ),
       array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Width full width buttons (default 170px)', 'my-custom-plugin'),
+        'param_name' => 'sticky_full_width_buttons_width',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('sticky-buttons.php')
+        ),
+      ),
+      array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
         'heading' => __('Hide all sections except the first one', 'my-custom-plugin'),
@@ -1586,6 +1655,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['header_custom_logotypes'])) { $header_custom_logotypes = $atts['header_custom_logotypes']; }
     if (isset($atts['header_overlay_color'])) { $header_overlay_color = $atts['header_overlay_color']; }
     if (isset($atts['header_overlay_range'])) { $header_overlay_range = $atts['header_overlay_range']; }
+    if (isset($atts['header_logo_width'])) { $header_logo_width = $atts['header_logo_width']; }
+    if (isset($atts['header_logo_color'])) { $header_logo_color = $atts['header_logo_color']; }
     
     // LOGOTYPE GALLERY
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
@@ -1597,7 +1668,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
     if (isset($atts['slider_logo_white'])) { $slider_logo_white = $atts['slider_logo_white']; }
     if (isset($atts['logoscatalog'])) { global $logoscatalog; $logoscatalog = $atts['logoscatalog']; }
-    if (isset($atts['header_custom_logotypes_columns'])) { $header_custom_logotypes_columns = $atts['header_custom_logotypes_columns']; }
+    // if (isset($atts['header_custom_logotypes_columns'])) { $header_custom_logotypes_columns = $atts['header_custom_logotypes_columns']; }
 
     if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
     
@@ -1627,6 +1698,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['posts_count'])) { $posts_count = $atts['posts_count']; }
     if (isset($atts['posts_ratio'])) { $posts_ratio = $atts['posts_ratio']; }
     if (isset($atts['posts_link'])) { $posts_link = $atts['posts_link']; }
+    if (isset($atts['posts_btn'])) { $posts_btn = $atts['posts_btn']; }
 
     // PROFILES
     if (isset($atts['profile_title_checkbox'])) { $profile_title_checkbox = $atts['profile_title_checkbox']; }
@@ -1657,6 +1729,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_font_size'])) { $sticky_buttons_font_size = $atts['sticky_buttons_font_size']; }
     if (isset($atts['sticky_buttons_font_size_full_size'])) { $sticky_buttons_font_size_full_size = $atts['sticky_buttons_font_size_full_size']; }
     if (isset($atts['sticky_buttons_width'])) { $sticky_buttons_width = $atts['sticky_buttons_width']; }
+    if (isset($atts['sticky_full_width_buttons_width'])) { $sticky_full_width_buttons_width = $atts['sticky_full_width_buttons_width']; }
    
     if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 

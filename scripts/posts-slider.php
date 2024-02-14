@@ -230,7 +230,7 @@
     }
     .custom-posts .slide {
         padding:0;
-        flex: 1;
+        /* flex: 1; */
     }
     @keyframes slideAnimation {
         from {

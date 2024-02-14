@@ -59,7 +59,7 @@ if ($color != '#000000'){
         <?php if($locale == 'pl_PL'){ echo '
             <div class="pytanie-odpowiedz pytanie-odpowiedz-1">
                 <div class="pytanie half-block-padding">Gdzie odbywają się targi?</div>
-                <div class="odpowiedz half-block-padding">Targi odbywają się w <a style="text-decoration:underline;" href="//warsawexpo.eu">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn</div>
+                <div class="odpowiedz half-block-padding">Targi odbywają się w <a style="text-decoration:underline;" href="//warsawexpo.eu" target="_blank">Ptak Warsaw Expo</a>, Al. Katowicka 62, 05-830 Nadarzyn</div>
             </div>
             <div class="pytanie-odpowiedz pytanie-odpowiedz-2">
                 <div class="pytanie half-block-padding">W jakich godzinach odbywają się targi?</div>

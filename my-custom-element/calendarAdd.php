@@ -148,15 +148,32 @@ if ($color != '#000000'){
                     echo '<h3>Select your mail icon to add the event to your calendar.</h3>';
                 } ?>
             </div>
-        </div>
+        </div> 
         <div class='custom-inner-calendar-icons text-centered style-accent-bg'>
-            <div class='custom-container-main-icons custom-container-calendar-icons custom-display-none'>
-                <?php include plugin_dir_path(__FILE__) . 'calendarGoogle.php'; ?> 
-                <?php include plugin_dir_path(__FILE__) . 'calendarApple.php'; ?>
-                <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.php'; ?>
-                <?php include plugin_dir_path(__FILE__) . 'calendarOffice365.php'; ?>
-                <!-- <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.php'; ?> -->
-            </div>
+            <?php
+            // Definiowanie tablicy z nazwami sezonów
+            $seasons = ["nowa data", "wiosna", "lato", "jesień", "zima", "new date", "spring", "summer", "autumn", "winter"];
+            $trade_date_lower = strtolower($trade_date); // Zamiana $trade_date na małe litery
+            $season_found = false;
+
+            // Przeszukiwanie tablicy w poszukiwaniu pasującego sezonu
+            foreach ($seasons as $season) {
+                if (strpos($trade_date_lower, strtolower($season)) !== false) {
+                    $season_found = true;
+                    break;
+                }
+            }
+            // Jeśli nie znaleziono sezonu, wyświetl divy
+            if (!$season_found) {
+            ?>
+                <div class='custom-container-main-icons custom-container-calendar-icons custom-display-none'>
+                    <?php include plugin_dir_path(__FILE__) . 'calendarGoogle.php'; ?> 
+                    <?php include plugin_dir_path(__FILE__) . 'calendarApple.php'; ?>
+                    <?php include plugin_dir_path(__FILE__) . 'calendarOutlook.php'; ?>
+                    <?php include plugin_dir_path(__FILE__) . 'calendarOffice365.php'; ?>
+                    <!-- <?php include plugin_dir_path(__FILE__) . 'calendarYahoo.php'; ?> -->
+                </div>        
+            <?php } ?>
             <div class="custom-container-calendar-icons-empty double-bottom-padding double-top-padding custom-display-none">
             <?php if($locale == 'pl_PL'){
                 echo '<h2 style="margin:0;" class="custom-uppercase text-centered">Nowa data wkrótce</h2>';

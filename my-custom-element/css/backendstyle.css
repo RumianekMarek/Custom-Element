@@ -73,7 +73,9 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 }
 
 .vc_shortcode-param[data-vc-shortcode-param-name="videos_video_title"],
-.vc_shortcode-param[data-vc-shortcode-param-name="videos_video_iframe"] {
+.vc_shortcode-param[data-vc-shortcode-param-name="videos_video_iframe"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"] {
     width: 50% !important;
 }
 .wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
@@ -123,16 +125,14 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
     display: none;
 }
 
-/* INPUT RANGE*/
-.vc_shortcode-param[data-vc-shortcode-param-name="header_overlay_range"] .wpb_vc_param_value {
-    padding: 0 !important;
-}
-.vc_shortcode-param[data-vc-shortcode-param-name="header_overlay_range"] input[type="range"] {
+/* INPUT RANGE (custom element)*/
+.vc_shortcode-param .custom-input-range input {
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
     border-radius: 3px;
     background: #ddd;
+    padding: 0 !important;
 } 
 
 .contact-container {

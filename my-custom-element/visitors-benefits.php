@@ -59,7 +59,7 @@ if ($color != '#ffffff'){
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/media/lamp_b-150x150.png" alt="lamp">
+                    <img src="/wp-content/plugins/custom-element/media/lamp-b-150x150.webp" alt="lamp">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">
@@ -75,7 +75,7 @@ if ($color != '#ffffff'){
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/media/hands_b-150x150.png" alt="handshake">
+                    <img src="/wp-content/plugins/custom-element/media/hands-b-150x150.webp" alt="handshake">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">
@@ -91,7 +91,7 @@ if ($color != '#ffffff'){
             <!-- benefit-item -->
             <div class="custom-visitors-benefits-item">
                 <div class="custom-visitors-benefits-item-img icon-accent">
-                    <img src="/wp-content/plugins/custom-element/media/head_b-150x150.png" alt="head">
+                    <img src="/wp-content/plugins/custom-element/media/head-b-150x150.webp" alt="head">
                 </div>
                 <div class="custom-visitors-benefits-item-heading">
                     <h4 class="custom-line-height">

@@ -219,9 +219,9 @@
         min-width : 0 !important;
         pointer-events: auto;
     }
-    .slides .image-container {
+    .slides div {
         padding:0;
-        flex: 1;
+        /* flex: 1; */
         object-fit: contain !important;
     }
     .slides .image-container div{

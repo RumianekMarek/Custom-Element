@@ -7,15 +7,15 @@ if ($min_width_logo == ''){
     $min_width_logo = '140px';
 }
 
-if ($header_custom_logotypes_columns === "1") {
-    $header_custom_logotypes_columns_width = "100%";
-} else if ($header_custom_logotypes_columns === "1/2") {
-    $header_custom_logotypes_columns_width = "47%";
-} else if ($header_custom_logotypes_columns === "1/3") {
-    $header_custom_logotypes_columns_width = "30%";
-} else {
-    $header_custom_logotypes_columns_width = "auto";
-}
+// if ($header_custom_logotypes_columns === "1") {
+//     $header_custom_logotypes_columns_width = "100%";
+// } else if ($header_custom_logotypes_columns === "1/2") {
+//     $header_custom_logotypes_columns_width = "47%";
+// } else if ($header_custom_logotypes_columns === "1/3") {
+//     $header_custom_logotypes_columns_width = "30%";
+// } else {
+//     $header_custom_logotypes_columns_width = "auto";
+// }
 ?>
 
 <style>
@@ -58,9 +58,9 @@ if ($header_custom_logotypes_columns === "1") {
     .custom-white-logos div[style*="background-image"]:hover {
         filter: none;
     }
-    .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
+    /* .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
         width: <?php echo $header_custom_logotypes_columns_width ?> !important;
-    }
+    } */
 
     /* FOR HEADER */
     #page-header .custom-logos-gallery-wrapper{
@@ -72,7 +72,22 @@ if ($header_custom_logotypes_columns === "1") {
     #page-header .custom-logos-title h4 {
         color: white;
     }
+    .custom_element_<?php echo $rnd_id ?> .custom-header .custom-logos-title {
+        justify-content: center;
+    }
+    .custom_element_<?php echo $rnd_id ?> .custom-header .custom-logos-title h4 {
+        color: white;
+    }
 
+    @media (max-width:600px) {
+        .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
+            width: 100% !important;
+            }
+        .custom_element_<?php echo $rnd_id ?> .custom_element_catalog_slider {
+            overflow: visible !important;
+        }
+    }
+    
 </style>
 
 
@@ -85,10 +100,12 @@ if ($header_custom_logotypes_columns === "1") {
             if (isset($logotypes)) {
                 $header_logotypes_url = $logotypes["logoscatalog"];
                 $header_logotypes_title = $logotypes["titlecatalog"];
+                $header_logotypes_width = $logotypes["logotypes_width"];
             } else {
                 $header_logotypes_url = $logotypes_item["logoscatalog"];
                 $header_logotypes_title = $logotypes_item["titlecatalog"];
-            } 
+                $header_logotypes_width = $logotypes_item["logotypes_width"];
+            }   
         }
     
         $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
@@ -179,8 +196,9 @@ if ($header_custom_logotypes_columns === "1") {
                             foreach ($logotypes_files_json as $logotype) {
                                 $logotype_filename_array[] = $logotype["logotype_filename"];
                                 $logotype_link_array[] = $logotype["logotype_link"];  
+                                // $logotype_class_array[] = $logotype["logotype_white"]; 
                             }
-
+                            
                             $logotypes_files_json_encode = json_encode($logotypes_files_json);
                             //<--------------->
 
@@ -193,21 +211,30 @@ if ($header_custom_logotypes_columns === "1") {
                                 array_shift($urls_old);
 
                                 $new_site = "";
+                                // $class = "";
                                 foreach ($logotypes_files_json as $logotype) {
+                                    
                                     if (strpos($image, $logotype["logotype_filename"]) !== false) {
                                         $new_site = $logotype["logotype_link"];
+                                        $logotype_class = $logotype["logotype_white"];
                                         break;
-                                    }
+                                    }  
                                 }
-
+// var_dump($logotypes_files_json);
                                 $site = (!empty($new_site)) ? $new_site : $old_site;
+                                // $class = (!empty($logotype_class)) ? 'custom-logo-white' : '';
                                 if (!empty($site) && !preg_match("~^(?:f|ht)tps?://~i", $site)) {
                                     $site = "https://" . $site;
-                                }      
+                                }     
+                                // echo '<br/>';
+                                // var_dump($site); 
+                                // echo '<br/>';
+                                // var_dump($class);
 
                                 $updated_images_url[] = array(
-                                    "img" => $image,
-                                    "site" => $site
+                                    "img"   => $image,
+                                    "site"  => $site,
+                                    "class" => $class
                                 );
                                 // var_dump($updated_images_url);
                             }
@@ -216,9 +243,9 @@ if ($header_custom_logotypes_columns === "1") {
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
                                             } else  {
-                                                $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                             }
                                         }   
                                     }
@@ -227,9 +254,9 @@ if ($header_custom_logotypes_columns === "1") {
                                         foreach ($updated_images_url as $url) {
                                             if (!empty($image)) {
                                                 if (!empty($url["site"])) {
-                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
                                                 } else {
-                                                    $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                    $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                                 }
                                             }   
                                         }
@@ -244,9 +271,9 @@ if ($header_custom_logotypes_columns === "1") {
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
                                             } else {
-                                                $output .= '<div class="custom-logo-item" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
                                             }
                                         }   
                                     }
@@ -259,16 +286,23 @@ if ($header_custom_logotypes_columns === "1") {
             echo $output;
         }
     }
-
 ?>
 
-<?php if (isset($element_unique_id)) {?>
-    
+<?php if (isset($element_unique_id) && $logoscatalog != "") {?>
     
 <script>
- 
+    {
+        // Change width galleries in header
+        const headerLogotypes = document.querySelector('#<?php echo $element_unique_id ?>');
+        const headerLogotypesWidth = '<?php echo $header_logotypes_width ?>%';
+        if (headerLogotypesWidth !== '%' || headerLogotypesWidth !== '') {
+            console.log(headerLogotypesWidth);
+            headerLogotypes.style.width = headerLogotypesWidth;
+        }
+    }
+
     // Hide container if slider length = 0 (wydarzenia-ogolne.php)
-    if(<?php echo count($files) ?>  > 0) {
+    if(<?php echo count($files) ?> < 1) {
         if(document.querySelector('.media-logos')){
             document.querySelector('.media-logos').style.display = "none";
         }

@@ -2,8 +2,8 @@
     .custom-widget-info-header {
         position: absolute;
         left: 36px;
-        top:430px;
-        z-index: 12;
+        top: 40%;
+        z-index: 3;
         color: white;
         padding: 8px;
         background-color: rgba(0, 0, 0, 0.6);
