@@ -57,9 +57,9 @@ if ($btn_color != ''){
         <div class="custom-btn-container">
             <span>
                 <?php if($locale == 'pl_PL'){ echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/kontakt/"  target="_blank">Zapytaj o voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/kontakt/">Zapytaj o voucher</a>
                 ';} else { echo '
-                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/contact/"  target="_blank">Ask for a voucher</a>
+                    <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="/en/contact/">Ask for a voucher</a>
                 ';} ?>
             </span>
         </div>

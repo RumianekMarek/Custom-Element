@@ -46,6 +46,7 @@
         z-index: 0;
     }
     .header-wrapper-column {
+        max-width: 750px;
         justify-content: space-evenly;
         align-items: center;
         display: flex;
@@ -59,6 +60,7 @@
     }
     .custom-header-logo {
         max-width: <?php echo $header_logo_width ?>px !important;
+        width: 100%;
         padding: 0 18px;
         height: auto;
         z-index: 1;
@@ -76,7 +78,6 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 750px;
         gap: 20px;
         padding: 18px 0;
     }
@@ -90,15 +91,16 @@
         height: 100%;
         transform: scale(1) !important;
         font-size: 15px;
+        padding: 6px 18px !important;
     }
     .custom-header-text {
-        max-width: 750px;
         padding: 18px 0;
         z-index: 1;
     }
     .custom-header-text :is(h1, h2) {
         color: <?php echo $color ?> !important;
         text-shadow: 2px 2px <?php echo $text_shadow ?> !important;
+        text-transform: uppercase;
         text-align: center;
         width: auto;
     }
@@ -117,8 +119,9 @@
         flex-wrap: wrap;
         justify-content: center;
         max-width: 1200px;
+        width: 100%;
         margin: 0 auto;
-        padding: 18px;
+        padding: 18px 18px 36px;
         gap: 18px;
     }
     @media (max-width:1200px) {
@@ -134,9 +137,9 @@
             font-size: calc(28px + (36 - 28) * ( (100vw - 300px) / (1200 - 300) ));
         }
     }
-    @media (max-width:768px) {
+    @media (max-width:960px) {
         .custom-header-logotypes .custom-container-logos-gallery {
-            max-width: 100%;
+            width: 100% !important;
         }
         .custom-header .custom-btn-container {
             width: 260px;
@@ -145,6 +148,9 @@
         .custom-header .btn {
             font-size: 13px;
         }
+        /* .custom-header .custom_element_catalog_slider {
+            overflow: visible !important;
+        } */
     }   
 </style>
 
@@ -186,6 +192,72 @@
         $file_url = $base_url . '/' . $file_path_header_background;
     }
 
+    if ($header_simple_mode == 'true') {
+        echo '
+            <style>
+                .header-wrapper-column {
+                    padding: 36px;
+                }
+                .custom-header-wrapper {
+                    min-height: auto !important;
+                }
+                .custom-header-text {
+                    display: flex;
+                    flex-direction: column-reverse;
+                }
+                .custom-header-text h2 {
+                    font-size: calc(28px + (40 - 28) * ( (100vw - 300px) / (1200 - 300) ));
+                }
+                @media (min-width:960px) {
+                    .custom-header-background {
+                        background-position: top;
+                    }
+                    .custom-header-wrapper {
+                        min-height: 350px !important;
+                        height: 350px;
+                    }
+                    .header-wrapper-column {
+                        max-width: 1200px;
+                        flex-direction: row;
+                    }
+                }
+                @media (min-width:960px) {
+                    .header-wrapper-column {
+                        gap: 100px;
+                    }
+                }
+            </style>
+        ';
+    }
+
+    if (in_array('top', explode(',', $header_bg_position))) {
+        echo '
+            <style>
+                .custom-header-background {
+                    background-position: top !important;
+                }
+            </style>
+        ';
+    }
+    if (in_array('center', explode(',', $header_bg_position))) {
+        echo '
+            <style>
+                .custom-header-background {
+                    background-position: center !important;
+                }
+            </style>
+        ';
+    }
+    if (in_array('bottom', explode(',', $header_bg_position))) {
+        echo '
+            <style>
+                .custom-header-background {
+                    background-position: bottom !important;
+                }
+            </style>
+        ';
+    }
+
 ?>
 <div id="customHeader" class="custom-header">
 
@@ -201,8 +273,11 @@
                 </div>';  
                 ?>
 
-                <div class="custom-header-buttons">
-                    <?php        
+                <?php 
+                if ($header_simple_mode != 'true') {
+
+                    echo '<div class="custom-header-buttons">';
+                         
                         if ($locale == 'pl_PL') {
                             $header_tickets_button_link = empty($header_tickets_button_link) ? "/bilety/" : $header_tickets_button_link;
                             $header_register_button_link = empty($header_register_button_link) ? "/rejestracja/" : $header_register_button_link;
@@ -210,11 +285,11 @@
                         } else {
                             $header_tickets_button_link = empty($header_tickets_button_link) ? "/en/tickets/" : $header_tickets_button_link;
                             $header_register_button_link = empty($header_register_button_link) ? "/en/registration/" : $header_register_button_link;
-                            $header_conferences_button_link = empty($header_conferences_button_link) ? "/en/events/" : $header_conferences_button_link;
+                            $header_conferences_button_link = empty($header_conferences_button_link) ? "/en/conferences/" : $header_conferences_button_link;
                         }
 
                         if (in_array('register', explode(',', $button_on))) {
-                            echo'<div class="custom-btn-container header-button .custom-header-flex">';
+                            echo'<div id="customBtnRegistration" class="custom-btn-container header-button .custom-header-flex">';
                                 if ($locale == 'pl_PL'){ 
                                     echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_register_button_link .'" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
                                 } else { 
@@ -223,7 +298,7 @@
                             echo'</div>';
                         }
                         if (in_array('ticket', explode(',', $button_on))) {
-                            echo'<div class="custom-btn-container header-button .custom-header-flex">';
+                            echo'<div id="customBtnTickets" class="custom-btn-container header-button .custom-header-flex">';
                                 if ($locale == 'pl_PL'){ 
                                     echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_tickets_button_link .'" alt="link do biletów">Kup bilet</a>';
                                 } else { 
@@ -232,11 +307,14 @@
                             echo'</div>';
                         }
                         if (in_array('conference', explode(',', $button_on))) {
-                            echo'<div class="custom-btn-container header-button .custom-header-flex">';
+                            if (empty($header_conferences_title)) {
+                                $header_conferences_title = ($locale == 'pl_PL') ? 'KONFERENCJE' : 'CONFERENCES';
+                            }
+                            echo'<div id="customBtnConferences" class="custom-btn-container header-button .custom-header-flex">';
                                 if ($locale == 'pl_PL'){ 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="konferencje">KONFERENCJE</a>';
+                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="konferencje">'. urldecode(base64_decode($header_conferences_title)) .'</a>';
                                 } else { 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="conferences">CONFERENCES</a>';
+                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="conferences">'. urldecode(base64_decode($header_conferences_title)) .'</a>';
                                 } 
                             echo'</div>';
                         }
@@ -254,8 +332,10 @@
                                 } 
                             }
                         }
-                    ?>
-                </div>
+                    
+                    echo '</div>';
+                }
+                ?>
 
             </div>
 
@@ -263,25 +343,31 @@
             <?php
                 $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
                 $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
-                echo'<div class="custom-header-logotypes">';
-                if (is_array($header_custom_logotypes_json)) {
-                    foreach ($header_custom_logotypes_json as $logotypes) {
-                        $logotypes_width = $logotypes["logotypes_width"];
-                        if(!empty($logotypes["logoscatalog"])) {
-                            include 'logos-catalog.php';
-                        }
+                if ($header_simple_mode != 'true') {
+                    if (is_array($header_custom_logotypes_json) && !empty($header_custom_logotypes_json)) {
+                        echo'<div class="custom-header-logotypes">';
+                            foreach ($header_custom_logotypes_json as $logotypes) {
+                                $logotypes_width = $logotypes["logotypes_width"];
+                                $logotypes_media = $logotypes["logotypes_media"];
+                                if(!empty($logotypes["logoscatalog"]) || !empty($logotypes_media)) {
+                                    include 'logos-catalog.php';
+                                }
+                            }
+                        echo'</div>';
                     }
                 }
-                echo'</div>';
-            ?>  
+                
+            ?>
             
-
-            <div class="custom-header-left-time">
-                <?php
-                    $widgetHeaderPath = 'widget-header.php';
-                    include $widgetHeaderPath;
-                ?>
-            </div>
+            <?php
+                if ($header_simple_mode != 'true') {
+                    echo'<div class="custom-header-left-time">';
+                        $widgetHeaderPath = 'widget-header.php';
+                        include $widgetHeaderPath;
+                    echo'</div>';
+                }
+            ?>
+            
         </div>
     </div>
     

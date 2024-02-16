@@ -3,9 +3,9 @@ include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
 if ($left_center_right_title == ''){
     $left_center_right_title = 'left';
 }
-if ($min_width_logo == ''){
-    $min_width_logo = '140px';
-}
+// if ($min_width_logo == ''){
+//     $min_width_logo = '140px';
+// }
 
 // if ($header_custom_logotypes_columns === "1") {
 //     $header_custom_logotypes_columns_width = "100%";
@@ -35,8 +35,12 @@ if ($min_width_logo == ''){
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        min-height: 120px;
-        min-width: <?php echo $min_width_logo ?> !important;
+        <?php if ($min_width_logo != '') { ?>
+            min-width: <?php echo $min_width_logo ?> !important;
+        <?php } else { ?>
+            min-width: 140px;
+        <?php } ?>
+        aspect-ratio: 3/2;
         margin: 5px;
     }
     .custom_element_<?php echo $rnd_id ?> .custom-logos-title {
@@ -46,11 +50,9 @@ if ($min_width_logo == ''){
     .custom-logos-title h4 {
         margin: 0;
     }
-
     .custom-full-width .custom_element_catalog_slider {
         overflow: visible !important;
     }
-
     .custom-white-logos div[style*="background-image"] {
         filter: brightness(0) invert(1);
         transition: all .3s ease;
@@ -58,10 +60,6 @@ if ($min_width_logo == ''){
     .custom-white-logos div[style*="background-image"]:hover {
         filter: none;
     }
-    /* .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
-        width: <?php echo $header_custom_logotypes_columns_width ?> !important;
-    } */
-
     /* FOR HEADER */
     #page-header .custom-logos-gallery-wrapper{
         padding-bottom: 36px; 
@@ -78,36 +76,37 @@ if ($min_width_logo == ''){
     .custom_element_<?php echo $rnd_id ?> .custom-header .custom-logos-title h4 {
         color: white;
     }
-
-    @media (max-width:600px) {
-        .custom_element_<?php echo $rnd_id ?> .custom-container-logos-gallery {
-            width: 100% !important;
-            }
-        .custom_element_<?php echo $rnd_id ?> .custom_element_catalog_slider {
-            overflow: visible !important;
-        }
-    }
     
 </style>
 
-
 <?php
     if ($logoscatalog != '' || !empty($header_custom_logotypes)){
-
+        
         $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
         $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
+        $header_logotypes_media_urls = [];
         foreach ($header_custom_logotypes_json as $logotypes_item) {
             if (isset($logotypes)) {
                 $header_logotypes_url = $logotypes["logoscatalog"];
                 $header_logotypes_title = $logotypes["titlecatalog"];
                 $header_logotypes_width = $logotypes["logotypes_width"];
+                $header_logotypes_media = $logotypes["logotypes_media"];
             } else {
                 $header_logotypes_url = $logotypes_item["logoscatalog"];
                 $header_logotypes_title = $logotypes_item["titlecatalog"];
                 $header_logotypes_width = $logotypes_item["logotypes_width"];
+                $header_logotypes_media = $logotypes_item["logotypes_media"];
             }   
+            $header_logotypes_media_ids = explode(',', $header_logotypes_media);  
         }
-    
+
+        foreach ($header_logotypes_media_ids as $id) {
+            $url = wp_get_attachment_url($id); 
+            if ($url) {
+                $header_logotypes_media_urls[] = $url;
+            }
+        }
+
         $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
         $domain = $_SERVER['HTTP_HOST'];
         $server_url = ($is_https ? 'https://' : 'http://') . $domain;
@@ -130,8 +129,10 @@ if ($min_width_logo == ''){
 
         if ($logoscatalog == "partnerzy obiektu") {
             $files = glob($_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/custom-element/media/partnerzy-obiektu/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+        } else if ($logoscatalog == "" && $header_logotypes_media_urls !== "") {
+            $files = $header_logotypes_media_urls;
         } else {
-            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE); 
+            $files = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/' . $logoscatalog . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);  
         } 
 
         if (count($files) > 0) {
@@ -146,6 +147,13 @@ if ($min_width_logo == ''){
                         }
                     </style>';
             } 
+
+            if ($header_logotypes_width . '%' !== '%') {
+                echo'<style>
+                    #'.$element_unique_id .' {
+                        width: '.$header_logotypes_width.'%;
+                </style>'; 
+            }
     
             $output = '<div id="'.$element_unique_id.'" class="custom-container-logos-gallery">
                         <div class="custom-logos-title main-heading-text">
@@ -182,7 +190,13 @@ if ($min_width_logo == ''){
                                 } else {
                                     $urls_old[] = '';
                                 }
-                                $full_path = $server_url . $short_path;  
+
+                                if ($header_logotypes_media_urls !== '') {
+                                    $full_path = $short_path;
+                                } else {
+                                    $full_path = $server_url . $short_path;
+                                }
+                  
                                 $images_url[] = $full_path;
                             }
                             
@@ -220,7 +234,7 @@ if ($min_width_logo == ''){
                                         break;
                                     }  
                                 }
-// var_dump($logotypes_files_json);
+                                // var_dump($logotypes_files_json);
                                 $site = (!empty($new_site)) ? $new_site : $old_site;
                                 // $class = (!empty($logotype_class)) ? 'custom-logo-white' : '';
                                 if (!empty($site) && !preg_match("~^(?:f|ht)tps?://~i", $site)) {
@@ -291,15 +305,6 @@ if ($min_width_logo == ''){
 <?php if (isset($element_unique_id) && $logoscatalog != "") {?>
     
 <script>
-    {
-        // Change width galleries in header
-        const headerLogotypes = document.querySelector('#<?php echo $element_unique_id ?>');
-        const headerLogotypesWidth = '<?php echo $header_logotypes_width ?>%';
-        if (headerLogotypesWidth !== '%' || headerLogotypesWidth !== '') {
-            console.log(headerLogotypesWidth);
-            headerLogotypes.style.width = headerLogotypesWidth;
-        }
-    }
 
     // Hide container if slider length = 0 (wydarzenia-ogolne.php)
     if(<?php echo count($files) ?> < 1) {

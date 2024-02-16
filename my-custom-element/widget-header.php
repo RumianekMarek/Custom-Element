@@ -17,7 +17,7 @@
     @media (max-width:1250px) {
         .custom-widget-info-header {
             position: static;
-            margin: 0 0 25px;
+            margin: 0 0 36px;
         }
     }
 </style>

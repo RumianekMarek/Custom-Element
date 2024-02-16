@@ -264,6 +264,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         const tilesFullSize = document.querySelector('.custom-sticky-buttons-full-size');
         const containerMasthead = document.querySelector('#masthead .menu-container');
         const containerPageHeader = document.querySelector('#page-header');
+        const containerCustomHeader = document.querySelector('#customHeader');
         const adminBar = document.querySelector('#wpadminbar');
         const desktop = <?php echo $mobile ?> === 0;
         const mobile = <?php echo $mobile ?> === 1;
@@ -433,8 +434,10 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
 
         document.querySelectorAll(".custom-image-button").forEach(function(button) {
             let customScrollTop;
-            if (containerPageHeader) {
+            if (containerPageHeader) {containerCustomHeader
                 customScrollTop = containerPageHeader.offsetHeight + "px";
+            } else if (containerCustomHeader) {
+                customScrollTop = containerCustomHeader.offsetHeight + "px";
             } else {
                 customScrollTop = containerMasthead.offsetHeight + "px";
             }

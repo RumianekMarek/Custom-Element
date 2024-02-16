@@ -171,6 +171,18 @@ function my_custom_wpbakery_element() {
         ),
         'save_always' => true
       ),
+      array(
+        'type' => 'dropdown',
+        'group' => 'Main Settings',
+        'heading' => __('Select button color shadow', 'my-custom-plugin'),
+        'param_name' => 'btn_color_shadow',
+        'description' => __('Select button color shadow for the element.', 'my-custom-plugin'),
+        'value' => array_merge(
+          array('Default' => ''),
+          $custom_element_colors
+        ),
+        'save_always' => true
+      ),
       // FOR VISITORS <-------------------------------------------------------------------------<
       array(
         'type' => 'textarea_raw_html',
@@ -479,22 +491,6 @@ function my_custom_wpbakery_element() {
           'value' => array('logos-catalog.php', 'header-custom.php')
         ),
       ),
-      // array( 
-      //   'type' => 'checkbox',
-      //   'group' => 'Aditional options',
-      //   'heading' => __('Columns logotypes', 'my-custom-plugin'),
-      //   'param_name' => 'header_custom_logotypes_columns',
-      //   'save_always' => true,
-      //   'value' => array(
-      //     __('1', 'my-custom-plugin') => '1',
-      //     __('1/2', 'my-custom-plugin') => '1/2',
-      //     __('1/3', 'my-custom-plugin') => '1/3'
-      //   ),
-      //   'dependency' => array(
-      //     'element' => 'element',
-      //     'value' => array('logos-catalog.php', 'header-custom.php')
-      //   ),
-      // ),
       array(
         'type' => 'param_group',
         'group' => 'Main Settings',
@@ -627,6 +623,7 @@ function my_custom_wpbakery_element() {
           __('PROFIL ODWIEDZAJĄCEGO', 'my-custom-plugin') => 'profile_title_visitors',
           __('PROFIL WYSTAWCY', 'my-custom-plugin') => 'profile_title_exhibitors',
           __('ZAKRES BRANŻOWY', 'my-custom-plugin') => 'profile_title_scope',
+          __('APLIKACJA', 'my-custom-plugin') => 'profile_application',
         ),
         'dependency' => array(
           'element' => 'element',
@@ -811,7 +808,35 @@ function my_custom_wpbakery_element() {
       array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
-        'heading' => __('Button on', 'my-custom-plugin'),
+        'heading' => __('Simple mode', 'my-custom-plugin'),
+        'param_name' => 'header_simple_mode',
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'dropdown',
+        'group' => 'Main Settings',
+        'heading' => __('Background position', 'my-custom-plugin'),
+        'param_name' => 'header_bg_position',
+        'value' => array(
+          'Top' => 'top',
+          'Center' => 'center',
+          'Bottom' => 'bottom'
+        ),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Turn on buttons', 'my-custom-plugin'),
         'param_name' => 'button_on',
         'description' => __('Select options to display button:', 'my-custom-plugin'),
         'admin_label' => true,
@@ -854,9 +879,22 @@ function my_custom_wpbakery_element() {
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => __('Conferences button link', 'my-custom-plugin'),
-        'description' => __('Default (/wydarzenia/ - PL), (/en/events/ - EN)', 'my-custom-plugin'),
+        'description' => __('Default (/wydarzenia/ - PL), (/en/conferences/ - EN)', 'my-custom-plugin'),
         'param_name' => 'header_conferences_button_link',
         'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
+        'type' => 'textarea_raw_html',
+        'group' => 'Main Settings',
+        'heading' => __('Conferences custom title', 'my-custom-plugin'),
+        'description' => __('Default (Konferencje - PL), (Conferences - EN)', 'my-custom-plugin'),
+        'param_name' => 'header_conferences_title',
+        'save_always' => true,
+        'value' => base64_encode($header_conferences_title),
         'dependency' => array(
           'element' => 'element',
           'value' => array('header-custom.php')
@@ -891,7 +929,7 @@ function my_custom_wpbakery_element() {
       array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
-        'heading' => __('Logo color', 'my-custom-plugin'),
+        'heading' => __('Main logo color', 'my-custom-plugin'),
         'param_name' => 'header_logo_color',
         'save_always' => true,
         'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -952,6 +990,12 @@ function my_custom_wpbakery_element() {
           'value' => array('header-custom.php')
         ),
         'params' => array(
+        array(
+          'type' => 'attach_images',
+          'heading' => __('Logotypes catalog', 'my-custom-plugin'),
+          'param_name' => 'logotypes_media',
+          'save_always' => true,
+        ),
           array(
             'type' => 'textfield',
             'heading' => __('Logotypes catalog', 'my-custom-plugin'),
@@ -1560,66 +1604,71 @@ function my_custom_element_output($atts, $content = null) {
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
+    if (isset($atts['btn_color'])) { $button_color = $atts['btn_color']; }
+    if (isset($atts['btn_color_text'])) { $button_color_text = $atts['btn_color_text']; }
+    if (isset($atts['btn_color_shadow'])) { $button_color_shadow = $atts['btn_color_shadow']; }
     
     global $custom_element_colors;
 
-    if ($atts['btn_color'] === '') {
+    if ($button_color === '') {
+      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
       $btn_color = '.btn {
           color: #ffffff !important;
           background-color: #000000 !important;
           border-color: #000000 !important;
-          box-shadow: 9px 9px 0px -5px #ffffff !important;
+          box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
       }';
       $btn_color_hover = '.btn:hover {
           color: #000000 !important;
           background-color: #ffffff !important;
           border-color: #000000 !important;
       }';
-    } else if (($atts['btn_color'] === '#000000') || 
-    ($atts['btn_color'] === '#101213') || 
-    ($atts['btn_color'] === '#141618') ||
-    ($atts['btn_color'] === '#1b1d1f') ||
-    ($atts['btn_color'] === '#303133')) {
+    } else if (($button_color === '#000000') || 
+    ($button_color === '#101213') || 
+    ($button_color === '#141618') ||
+    ($button_color === '#1b1d1f') ||
+    ($button_color === '#303133')) {
+      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
       $btn_color = '.btn {
           color: #ffffff !important;
-          background-color: '. $atts['btn_color'] .' !important;
-          border-color: '. $atts['btn_color'] .' !important;
-          box-shadow: 9px 9px 0px -5px #ffffff !important;
+          background-color: '. $button_color .' !important;
+          border-color: '. $button_color .' !important;
+          box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
       }';
       $btn_color_hover = '.btn:hover {
           color: #000000 !important;
           background-color: #ffffff !important;
-          border-color: '. $atts['btn_color'] .' !important;
-          box-shadow: 9px 9px 0px -5px #ffffff !important;
+          border-color: '. $button_color .' !important;
       }';
-    } else if (($atts['btn_color'] === '#ffffff') || 
-    ($atts['btn_color'] === '#f7f7f7') || 
-    ($atts['btn_color'] === '#eaeaea') ||
-    ($atts['btn_color'] === '#dddddd') ||
-    ($atts['btn_color'] === '#777777')) {
+    } else if (($button_color === '#ffffff') || 
+    ($button_color === '#f7f7f7') || 
+    ($button_color === '#eaeaea') ||
+    ($button_color === '#dddddd') ||
+    ($button_color === '#777777')) {
+      $button_color_shadow = ($button_color_shadow === '') ? '#000000' : $button_color_shadow;
       $btn_color = '.btn {
           color: #000000 !important;
-          background-color: '. $atts['btn_color'] .' !important;
+          background-color: '. $button_color .' !important;
           border-color: #000000 !important;
-          box-shadow: 9px 9px 0px -5px #000000 !important;
+          box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
       }';
       $btn_color_hover = '.btn:hover {
           color: #ffffff !important;
           background-color: #000000 !important;
           border-color: #ffffff !important;
-          box-shadow: 9px 9px 0px -5px #000000 !important;
       }';
     } else {
+      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
-          color: '. $atts['btn_color_text'] .' !important;
-          background-color: '. $atts['btn_color'] .' !important;
-          border-color: '. $atts['btn_color'] .' !important;
-          box-shadow: 9px 9px 0px -5px #000000 !important;
+          color: '. $button_color_text .' !important;
+          background-color: '. $button_color .' !important;
+          border-color: '. $button_color .' !important;
+          box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
       }';
       $btn_color_hover = '.btn:hover {
         color: #000000 !important;
         background-color: #ffffff !important;
-        border-color: '. $atts['btn_color'] .' !important;
+        border-color: '. $button_color .' !important;
       }';
     }
     
@@ -1648,10 +1697,13 @@ function my_custom_element_output($atts, $content = null) {
 
     // HEADER
     if (isset($atts['button_on'])) { $button_on = $atts['button_on']; }
+    if (isset($atts['header_simple_mode'])) { $header_simple_mode = $atts['header_simple_mode']; }
+    if (isset($atts['header_bg_position'])) { $header_bg_position = $atts['header_bg_position']; }
     if (isset($atts['header_tickets_button_link'])) { $header_tickets_button_link = $atts['header_tickets_button_link']; }
     if (isset($atts['header_register_button_link'])) { $header_register_button_link = $atts['header_register_button_link']; }
     if (isset($atts['header_conferences_button_link'])) { $header_conferences_button_link = $atts['header_conferences_button_link']; }
     if (isset($atts['header_custom_buttons'])) { $header_custom_buttons = $atts['header_custom_buttons']; }
+    if (isset($atts['header_conferences_title'])) { $header_conferences_title = $atts['header_conferences_title']; }
     if (isset($atts['header_custom_logotypes'])) { $header_custom_logotypes = $atts['header_custom_logotypes']; }
     if (isset($atts['header_overlay_color'])) { $header_overlay_color = $atts['header_overlay_color']; }
     if (isset($atts['header_overlay_range'])) { $header_overlay_range = $atts['header_overlay_range']; }

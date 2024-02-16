@@ -100,7 +100,7 @@ if ($color != '#000000'){
         } else { echo '
             <div class="pytanie-odpowiedz pytanie-odpowiedz-1">
                 <div class="pytanie half-block-padding">Where are the fairs held?</div>
-                <div class="odpowiedz half-block-padding">The fair takes place at <a style=" text-decoration:underline;" href="//warsawexpo.eu/en/"> Ptak Warsaw Expo </a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
+                <div class="odpowiedz half-block-padding">The fair takes place at <a style=" text-decoration:underline;" href="//warsawexpo.eu/en/" target="_blank"> Ptak Warsaw Expo </a>, Al. Katowicka 62, 05-830 Nadarzyn, 114D Wolica*</div>
             </div>
             <div class="pytanie-odpowiedz pytanie-odpowiedz-2">
                 <div class="pytanie half-block-padding">What hours are the fairs held?</div>

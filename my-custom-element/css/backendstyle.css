@@ -61,6 +61,7 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 }
 
 /* ALL <-------------------------------------------------------------------------< */
+.wpb_el_type_param_group[shortcode-param-name="header_custom_logotypes"] .vc_column,
 .vc_shortcode-param[data-vc-shortcode-param-name="videos"],
 .vc_shortcode-param[data-vc-shortcode-param-name="logotypes_files"],
 .vc_shortcode-param[data-vc-shortcode-param-name="content"],
@@ -71,35 +72,42 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_content"] {
     width: 100% !important;
 }
-
 .vc_shortcode-param[data-vc-shortcode-param-name="videos_video_title"],
 .vc_shortcode-param[data-vc-shortcode-param-name="videos_video_iframe"],
 .vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"],
-.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"] {
+.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"],
+.vc_shortcode-param[data-vc-shortcode-param-name="button_on"] {
     width: 50% !important;
 }
 .wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
     width: 40% !important;
 }
-/* .vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons"],
-.vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes"] {
-    width: 30% !important;
-} */
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="element"],
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="file"],
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="color"],
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color"],
-.vc_ui-panel-window[data-vc-shortcode="my_custom_element"] .vc_shortcode-param[data-vc-shortcode-param-name="btn_color_text"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_simple_mode"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_bg_position"] {
+    width: 25% !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="element"],
+.vc_shortcode-param[data-vc-shortcode-param-name="file"],
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"],
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_border"],
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_reverse_block"] {
     width: 20% !important;
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="color"],
+.vc_shortcode-param[data-vc-shortcode-param-name="btn_color"],
+.vc_shortcode-param[data-vc-shortcode-param-name="btn_color_text"],
+.vc_shortcode-param[data-vc-shortcode-param-name="btn_color_shadow"] {
+    width: 15% !important;
 }
 .vc_shortcode-param[data-vc-shortcode-param-name="videos"] iframe {
     display: none !important;
 }
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_items"] .vc_param_group-wrapper {
     display: flex !important;
+}
+
+.vc_shortcode-param[data-vc-shortcode-param-name="header_conferences_title"] textarea {
+    height: 60px !important;
 }
 
 /* PROFILE <-------------------------------------------------------------------------< */

@@ -157,6 +157,24 @@ if ($profile_padding_element == '') {
         $profile_id = "zakres-branzowy";
         $custom_profile_title = ($locale == 'pl_PL') ? "Zakres branżowy" : "Industry scope";
         $custom_profile_class_title = "class=main-heading-text";
+    } else if (in_array('profile_application', explode(',', $profile_title_checkbox))) {
+        $profile_id = "aplikacja";
+        $custom_profile_title = $profile_title;
+        $custom_profile_class_title = "class=main-heading-text";
+        if (empty($custom_content)) {
+            $custom_content = '
+                <div class="custom-profile-heading main-heading-text">
+                    <h4>SKORZYSTAJ Z DEDYKOWANEJ APLIKACJI DLA WYSTAWCÓW</h4>
+                </div>
+                <br/>
+                <div class="custom-profile-text">
+                    <p>Podczas targów możesz korzystać z aplikacji Skaner Wystawcy, która z łatwością umożliwia zbudowanie bazy potencjalnych klientów z osób, które odwiedzą Twoje stoisko. Wystarczy zeskanować kod QR, aby uzyskać szczegółowe dane o osobach zainteresowanych Twoją firmą.</p>
+                </div>
+                <br/>
+                <div>
+                    <p style="font-size:17px;"><b>Zapraszamy do kontaktu <a style="color: blue; text-decoration: underline;" href="mailto:anna.szlaga@warsawexpo.eu" target="_blank" rel="noopener">anna.szlaga@warsawexpo.eu</a></b></p>
+                </div>';
+        }        
     } else {
         $custom_profile_title = $profile_title;
         $profile_id = $element_unique_id;

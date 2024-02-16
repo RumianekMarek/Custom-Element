@@ -17,11 +17,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
     $domain = 'https://' . $_SERVER ["HTTP_HOST"] . '/';
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
-    var_dump($data);
+
     if (validateToken($token, $domain)) {
         if (file_exists($new_url)) {
             require_once($new_url);
             if (class_exists('GFAPI')) {
+                $all_forms = GFAPI::get_forms();
+                foreach ($all_forms as $key => $value) {
+                    //var_dump($value);
+                    if ($data['options'][0] == $value['title']){
+                        $form = $value;
+                        break;
+                    }
+                }
+                foreach ($data[$domain] as $value){
+                    foreach ($form['fields'] as $id => $key){
+                        //if(strtolower($key['label']))
+                        var_dump($id);
+                        echo '<br>';
+                        var_dump($key);
+                        echo '<br><br>';
+                    }
+                }
+
                 echo 'WordPress YES';
                 echo'<br><br>';
             } else {
