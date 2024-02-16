@@ -72,6 +72,7 @@
         flex-flow: column;
         align-items: center;
         justify-content: center;
+        text-transform: uppercase;
         z-index: 1;
     }
     .custom-header-buttons {
@@ -289,7 +290,7 @@
                         }
 
                         if (in_array('register', explode(',', $button_on))) {
-                            echo'<div id="customBtnRegistration" class="custom-btn-container header-button .custom-header-flex">';
+                            echo'<div id="customBtnRegistration" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
                                     echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_register_button_link .'" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
                                 } else { 
@@ -298,7 +299,7 @@
                             echo'</div>';
                         }
                         if (in_array('ticket', explode(',', $button_on))) {
-                            echo'<div id="customBtnTickets" class="custom-btn-container header-button .custom-header-flex">';
+                            echo'<div id="customBtnTickets" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
                                     echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_tickets_button_link .'" alt="link do biletów">Kup bilet</a>';
                                 } else { 
@@ -309,12 +310,14 @@
                         if (in_array('conference', explode(',', $button_on))) {
                             if (empty($header_conferences_title)) {
                                 $header_conferences_title = ($locale == 'pl_PL') ? 'KONFERENCJE' : 'CONFERENCES';
+                            } else {
+                                $header_conferences_title = urldecode(base64_decode($header_conferences_title));
                             }
-                            echo'<div id="customBtnConferences" class="custom-btn-container header-button .custom-header-flex">';
+                            echo'<div id="customBtnConferences" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="konferencje">'. urldecode(base64_decode($header_conferences_title)) .'</a>';
+                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="konferencje">'. $header_conferences_title .'</a>';
                                 } else { 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="conferences">'. urldecode(base64_decode($header_conferences_title)) .'</a>';
+                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="conferences">'. $header_conferences_title .'</a>';
                                 } 
                             echo'</div>';
                         }
@@ -326,7 +329,7 @@
                                 $button_url = $button["header_custom_button_link"];
                                 $button_text = $button["header_custom_button_text"];
                                 if(!empty($button_url) && !empty($button_text) ) {
-                                    echo'<div class="custom-btn-container header-button .custom-header-flex">
+                                    echo'<div class="custom-btn-container header-button">
                                         <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $button_url .'" alt="'. $button_url .'">'. $button_text .'</a>
                                     </div>';
                                 } 
