@@ -289,11 +289,12 @@ function katalog_wystawcow_output($atts, $content = null) {
   }
 
   $id_targow = $identification;
+  
   $today = new DateTime();
   $formattedDate = $today->format('Y-m-d');
   $token = md5("#22targiexpo22@@@#".$formattedDate);
   $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
-
+  
   if ($export_link === 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token=') {
     $canUrl = 'https://www4.pwe-expoplanner.com/sklep/importy/api2/wystawcy3.php?token='.$token.'&id_targow='.$id_targow;
     
@@ -304,10 +305,10 @@ function katalog_wystawcow_output($atts, $content = null) {
   } else {
     $canUrl = 'https://export.www2.pwe-expoplanner.com/mapa.php?token='.$token.'&id_targow='.$id_targow;
   }
-
+  
   $json = file_get_contents($canUrl);
   $data = json_decode($json, true);
-
+  
   if ($file_changer != '' && ($format === 'top21' || $format === 'top10' || $format === 'full')) {
     foreach ($file_changer as $change) {
       $change = trim($change);
@@ -394,6 +395,8 @@ function katalog_wystawcow_output($atts, $content = null) {
     }
   }
 
+  
+
   $script_data = array(
       'data' => $data,
       'json' => $json,
@@ -407,11 +410,11 @@ function katalog_wystawcow_output($atts, $content = null) {
       'text_color' => $text_color,
       'text_shadow' => $text_shadow,
   );
-
   // Pobieramy dane wystawcow
   $exhibitorsAll = $script_data['data'][$script_data['id_targow']]["Wystawcy"];
-
+  
   // Przetwarzamy dane wystawcow i usuwamy duplikaty
+  if($exhibitorsAll != ''){
   $exhibitors = array_reduce($exhibitorsAll, function($acc, $curr) {
       $name = $curr['Nazwa_wystawcy'];
       $existingEntry = array_filter($acc, function($item) use ($name) {
@@ -424,7 +427,9 @@ function katalog_wystawcow_output($atts, $content = null) {
       return $acc;
   }, []);
     echo '<script>console.log("'.count($exhibitors).'")</script>';
-
+  } else {
+    $exhibitors = [];
+  }
   $trade_fair_name = do_shortcode('[trade_fair_name]');
   $trade_fair_name_eng = do_shortcode('[trade_fair_name_eng]');
 
@@ -645,7 +650,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   wp_enqueue_script('katalog_wystawcow-js', $js_file, array(), $js_version);
   wp_localize_script( 'katalog_wystawcow-js', 'katalog_data', $script_data );
 
-  if (current_user_can('administrator')  && !is_admin()) {
+  if (current_user_can('administrator')  && !is_admin() && $exhibitorsAll != '') {
     echo '<script>console.log("'.$canUrl.'")</script>';
     ?><script>
       var katalog_data = <?php echo json_encode($script_data); ?>;
