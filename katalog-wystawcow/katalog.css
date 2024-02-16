@@ -296,6 +296,7 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    gap: 6px;
 }
 
 .img-container-top10 div {
@@ -326,7 +327,7 @@
     margin-bottom: 18px;
 }
 #top10 .catalog-custom-title {
-    margin: 5px auto !important;
+    margin: 0 auto 18px !important;
 }
 #recently7, #top10, #top21 {
     margin-top: 0px !important;

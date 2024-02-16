@@ -92,6 +92,7 @@ function gf_finder($gf_id, $form_title){
         } while (count($entries) === $page_size); // Kontynuuj, dopóki pobierane są kolejne partie
     
         $entry_data = str_replace('"', '', $entry_data);
+        $entry_data = str_replace('#', '', $entry_data);
         $file_name = $form_title.' '.date("Y_m_d");
         echo '<script>
             var csvContent = "data:text/csv;charset=utf-8,";

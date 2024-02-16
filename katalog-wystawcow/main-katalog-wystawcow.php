@@ -136,10 +136,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
             'heading' => __('Select a color', 'my-custom-plugin'),
             'param_name' => 'color',
             'description' => __('Select a color for the element.', 'my-custom-plugin'),
-            'value' => array(
-              'Default' => '',
-              'White' => '#ffffff',
-              'Black' => '#000000'
+            'value' => array_merge(
+              array('Default' => ''),
+              $custom_element_colors
             ),
             'save_always' => true
           ),
@@ -481,15 +480,10 @@ function katalog_wystawcow_output($atts, $content = null) {
         $output .= '</div></div>';
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'" class="custom-catalog main-heading-text">';
-      // if ($format === 'top21') {
-      //   if ($locale == 'pl_PL') {
-      //     $catalog_title = "Wystawcy", 
-      //   } 
-      // }
 
-    // if (isset($catalog_title) && !empty($catalog_title)){
+    if (isset($catalog_title) && !empty($catalog_title)){
         $output .= '<h2 class="catalog-custom-title" style="width: fit-content;">'.$catalog_title.'</h2>';
-    // }
+    }
     $output .= '<div class="img-container-'. $format .'">';
 
     $count = 0;
@@ -595,39 +589,42 @@ function katalog_wystawcow_output($atts, $content = null) {
         return strtotime($b['Data_sprzedazy']) - strtotime($a['Data_sprzedazy']);
       });
 
-      $filteredExhibitors = array_filter($exhibitors, function($exhibitor) {
-        return !empty($exhibitor['URL_logo_wystawcy']);
-      });
-
-      foreach ($filteredExhibitors as $exhibitor) {
-        if ($displayedCount >= 7) {
-            break;
+      foreach ($exhibitors as $exhibitor) {
+        
+        // Pomijaj wystawcow, ktorzy nie maja URL logo
+        if (empty($exhibitor['URL_logo_wystawcy'])) {
+          continue;
         }
 
-        $url = str_replace('$2F', '/', $exhibitor['URL_logo_wystawcy']);
-        $urlWebsite = str_replace('$2F', '/', $exhibitor['www']);
-        if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
+          $url = str_replace('$2F', '/', $exhibitor['URL_logo_wystawcy']);
+          $urlWebsite = str_replace('$2F', '/', $exhibitor['www']);
+          if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
             $urlWebsite = "https://" . $urlWebsite;
-        }
-        $singleLogo = '';
+          }
+          $singleLogo = '';
 
-        if (($slider_desktop && !$isMobile) || (!$grid_mobile && $isMobile)) {
-            $slider_images_url[] = [
-                'img' => $url,
-                'site' => $urlWebsite,
-            ];
-        } else if (!empty($url)) {
-            if (!empty($urlWebsite)) {
-                $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
-            } else {
-                $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+          if (($slider_desctop && (!preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']))) || (!$grid_mobile && (preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT'])))){
+            $slider_images_url[] = array(
+              'img'=> $url,
+              'site'=> $urlWebsite,
+            );
+          } elseif (!empty($url)) {
+            if(!empty($urlWebsite)){
+              $singleLogo .= '<a target="_blank" href="'. $urlWebsite .'"><div style="background-image: url(' . $url . ');"></div></a>';
+              $output .= $singleLogo;
+            } elseif(empty($urlWebsite)){
+              $singleLogo .= '<div style="background-image: url(' . $url . ');"></div>';
+              $output .= $singleLogo;
             }
-            $output .= $singleLogo;
-        }
+          }
 
-        $displayedCount++;
+          $displayedCount++;
+          $count++;
+          
+          if ($displayedCount >= 7 || $count >= count($exhibitors)) {
+              break;
+          }
       }
-      
       if (count($slider_images_url) > 0){
         $output .= custom_media_slider($slider_images_url);
       }
