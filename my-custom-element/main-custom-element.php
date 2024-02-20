@@ -488,7 +488,21 @@ function my_custom_wpbakery_element() {
         'value' => array(__('True', 'my-custom-plugin') => 'true',),
         'dependency' => array(
           'element' => 'element',
-          'value' => array('logos-catalog.php', 'header-custom.php')
+          'value' => array('logos-catalog.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Aditional options',
+        'heading' => __('Logotypes color', 'my-custom-plugin'),
+        'param_name' => 'slider_logo_color',
+        'description' => __('Check if you want to change the logotypes white to color. ', 'my-custom-plugin'),
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
         ),
       ),
       array(
@@ -517,8 +531,8 @@ function my_custom_wpbakery_element() {
           ),
           array(
             'type' => 'checkbox',
-            'heading' => __('Logo white', 'my-custom-plugin'),
-            'param_name' => 'logotype_white',
+            'heading' => __('Logo color', 'my-custom-plugin'),
+            'param_name' => 'logotype_color',
             'save_always' => true,
             'admin_label' => true,
           ),
@@ -1618,7 +1632,7 @@ function my_custom_element_output($atts, $content = null) {
           border-color: #000000 !important;
           box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
       }';
-      $btn_color_hover = '.btn:hover {
+      $btn_color_hover = '.btn:hover  {
           color: #000000 !important;
           background-color: #ffffff !important;
           border-color: #000000 !important;
@@ -1719,8 +1733,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['slider_desktop'])) { $slider_desktop = $atts['slider_desktop']; }
     if (isset($atts['grid_mobile'])) { $grid_mobile = $atts['grid_mobile']; }
     if (isset($atts['slider_logo_white'])) { $slider_logo_white = $atts['slider_logo_white']; }
+    if (isset($atts['slider_logo_color'])) { $slider_logo_color = $atts['slider_logo_color']; }
     if (isset($atts['logoscatalog'])) { global $logoscatalog; $logoscatalog = $atts['logoscatalog']; }
-    // if (isset($atts['header_custom_logotypes_columns'])) { $header_custom_logotypes_columns = $atts['header_custom_logotypes_columns']; }
 
     if (isset($atts['countdowns'])) { $countdowns = $atts['countdowns']; }
     

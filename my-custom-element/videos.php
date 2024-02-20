@@ -87,34 +87,36 @@ if (!empty($videos_json)) {
 </div>
 
 <script>
-    const iframes = document.querySelectorAll('.custom-video-item iframe');
-    if (iframes) {
-        iframes.forEach((iframe) => iframe.classList.add('iframe-shadow'));
-    }
+    {
+        const customIframes = document.querySelectorAll('.custom-video-item iframe');
+        if (customIframes) {
+            customIframes.forEach((customIframe) => customIframe.classList.add('iframe-shadow'));
+        }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    // Pobranie iframe i ustawienie src z data-src
-                    var iframe = entry.target;
-                    if (iframe.getAttribute('data-src')) {
-                        iframe.src = iframe.getAttribute('data-src');
-                        iframe.removeAttribute('data-src'); // Usunięcie data-src
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        // Pobranie iframe i ustawienie src z data-src
+                        var customIframe = entry.target;
+                        if (customIframe.getAttribute('data-src')) {
+                            customIframe.src = customIframe.getAttribute('data-src');
+                            customIframe.removeAttribute('data-src'); // Usunięcie data-src
+                        }
+
+                        // Przestajemy obserwować ten element
+                        observer.unobserve(customIframe);
                     }
-
-                    // Przestajemy obserwować ten element
-                    observer.unobserve(iframe);
-                }
+                });
+            }, {
+                rootMargin: '100px 0px', // Zwiększenie obszaru obserwowanego
+                threshold: 0.1
             });
-        }, {
-            rootMargin: '100px 0px', // Zwiększenie obszaru obserwowanego
-            threshold: 0.1
-        });
 
-        // Rozpoczęcie obserwacji elementów iframe
-        document.querySelectorAll('.custom-video-item iframe[data-src]').forEach(function(iframe) {
-            observer.observe(iframe);
+            // Rozpoczęcie obserwacji elementów iframe
+            document.querySelectorAll('.custom-video-item iframe[data-src]').forEach(function(customIframe) {
+                observer.observe(customIframe);
+            });
         });
-    });
+    }
 </script>

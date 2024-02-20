@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 2.8.2
+Version: 2.8.3
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -62,7 +62,7 @@ include_once plugin_dir_path(__FILE__) . '/gf_redirector/gf_redirector.php';
 // Media Gallery
 include_once plugin_dir_path(__FILE__) . '/media_gallery/media_gallery.php';
 
-// Media Gallery
+// Opinion Slider
 include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
 
 if (is_admin()) {

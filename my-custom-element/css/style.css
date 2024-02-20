@@ -153,6 +153,9 @@ strong {
 .logo-invert-white img, .custom-logo-white {
     filter: brightness(0) invert(1);
 }
+.custom-logo-original {
+    filter: inherit !important;
+}
 
 .text-shadow-black {
     text-shadow: 0 0 5px black;

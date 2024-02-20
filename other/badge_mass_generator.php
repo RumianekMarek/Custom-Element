@@ -23,34 +23,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             require_once($new_url);
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
+                
                 foreach ($all_forms as $key => $value) {
-                    //var_dump($value);
                     if ($data['options'][0] == $value['title']){
                         $form = $value;
                         break;
                     }
                 }
-                foreach ($data[$domain] as $value){
-                    foreach ($form['fields'] as $id => $key){
-                        //if(strtolower($key['label']))
-                        var_dump($id);
-                        echo '<br>';
-                        var_dump($key);
-                        echo '<br><br>';
+                foreach ($data[$domain] as $id => $value){
+                    $entry = [];
+                    $entry['form_id'] = $form['id'];
+                    foreach ($form['fields'] as $key){
+                        if(strpos(strtolower($key['label']), 'nazwisko') !== false ){
+                            $entry[$key['id']] = $value[1];
+                        } elseif (strpos(strtolower($key['label']), 'firma') !== false ){
+                            $entry[$key['id']] = $value[0];
+                        }  
+                    }
+
+                    $entry_id = GFAPI::add_entry($entry);
+
+                    for ($i=0; $i<=300;$i++){
+                        if(gform_get_meta($entry_id , 'qr-code_feed_' . $i . '_url') != ''){
+                            $qr_code_url = gform_get_meta($entry_id, 'qr-code_feed_'.$i.'_url');
+                            break;
+                        }
+                    }
+                    $badge_url = 'https://warsawexpo.eu/assets/badge/local/loading.html?category='. $data['options'][1].'&getname='.$value[1].'&firma='.$value[0].'&qrcode='.$qr_code_url;
+
+                    echo '<script>window.open("'.$badge_url.'");</script>';
+                    if($id != 0 && $id % 10 === 0){
+                        sleep(2);
                     }
                 }
-
-                echo 'WordPress YES';
-                echo'<br><br>';
             } else {
-                echo 'WordPress is not present on this site.';
+                echo 'WordPress problems contact web developers code - "WORDPRESS ERROR".';
                 echo'<br><br>';
             }
         }
-        echo 'valide';
-        echo'<br><br>';
     } else {
-        echo 'ivalide';
+        echo 'ivalide token contact web developers code - "INVALID TOKEN '.$domain.' ".';
         echo'<br><br>';
         http_response_code(401);
         exit;
@@ -65,6 +77,5 @@ function generateToken($domain) {
 // Function to validate a token
 function validateToken($token, $domain) {
     $expected_token = generateToken($domain);
-
     return hash_equals($expected_token, $token);
 }

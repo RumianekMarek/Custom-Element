@@ -16,7 +16,9 @@
             $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color_hover;
         }
     } 
+    $header_logo_width = str_replace("px", "", $header_logo_width);
 ?>
+
 <style>
     <?php echo $btn_color ?>
     <?php echo $btn_color_hover ?>
@@ -51,7 +53,7 @@
         align-items: center;
         display: flex;
         flex-direction: column; 
-        padding: 36px 0;
+        padding: 36px 18px;
     }
     .custom-header-background {
         background-size: cover;
@@ -61,7 +63,6 @@
     .custom-header-logo {
         max-width: <?php echo $header_logo_width ?>px !important;
         width: 100%;
-        padding: 0 18px;
         height: auto;
         z-index: 1;
     }
@@ -98,7 +99,8 @@
         padding: 18px 0;
         z-index: 1;
     }
-    .custom-header-text :is(h1, h2) {
+    .custom-header-text :is(h1, h2), 
+    .custom-header .custom-logos-title h4 {
         color: <?php echo $color ?> !important;
         text-shadow: 2px 2px <?php echo $text_shadow ?> !important;
         text-transform: uppercase;
@@ -149,9 +151,6 @@
         .custom-header .btn {
             font-size: 13px;
         }
-        /* .custom-header .custom_element_catalog_slider {
-            overflow: visible !important;
-        } */
     }   
 </style>
 
@@ -231,35 +230,22 @@
         ';
     }
 
-    if (in_array('top', explode(',', $header_bg_position))) {
-        echo '
-            <style>
-                .custom-header-background {
-                    background-position: top !important;
-                }
-            </style>
-        ';
-    }
-    if (in_array('center', explode(',', $header_bg_position))) {
-        echo '
-            <style>
-                .custom-header-background {
-                    background-position: center !important;
-                }
-            </style>
-        ';
-    }
-    if (in_array('bottom', explode(',', $header_bg_position))) {
-        echo '
-            <style>
-                .custom-header-background {
-                    background-position: bottom !important;
-                }
-            </style>
-        ';
+    $positions = ['top', 'center', 'bottom'];
+    foreach ($positions as $position) {
+        if (in_array($position, explode(',', $header_bg_position))) {
+            echo "
+                <style>
+                    .custom-header-background {
+                        background-position: $position !important;
+                    }
+                </style>
+            ";
+            break;
+        }
     }
 
 ?>
+
 <div id="customHeader" class="custom-header">
 
     <div style="background-image: url(<?php echo $file_url ?>);"  class="custom-header-container custom-header-background">
@@ -288,22 +274,24 @@
                             $header_register_button_link = empty($header_register_button_link) ? "/en/registration/" : $header_register_button_link;
                             $header_conferences_button_link = empty($header_conferences_button_link) ? "/en/conferences/" : $header_conferences_button_link;
                         }
+                        
+                        $target_blank = (strpos($header_conferences_button_link, 'http') !== false) ? 'target="blank"' : '';
 
                         if (in_array('register', explode(',', $button_on))) {
                             echo'<div id="customBtnRegistration" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_register_button_link .'" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_register_button_link .'" alt="link do rejestracji">Zarejestruj się<span style="display: block; font-weight: 300;">Odbierz darmowy bilet</span></a>';
                                 } else { 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_register_button_link .'" alt="link to registration">Register<span style="display: block; font-weight: 300;">Get a free ticket</span></a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_register_button_link .'" alt="link to registration">Register<span style="display: block; font-weight: 300;">Get a free ticket</span></a>';
                                 }   
                             echo'</div>';
                         }
                         if (in_array('ticket', explode(',', $button_on))) {
                             echo'<div id="customBtnTickets" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_tickets_button_link .'" alt="link do biletów">Kup bilet</a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_tickets_button_link .'" alt="link do biletów">Kup bilet</a>';
                                 } else { 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_tickets_button_link .'" alt="link to tickets">Buy a ticket</a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_tickets_button_link .'" alt="link to tickets">Buy a ticket</a>';
                                 } 
                             echo'</div>';
                         }
@@ -315,9 +303,9 @@
                             }
                             echo'<div id="customBtnConferences" class="custom-btn-container header-button">';
                                 if ($locale == 'pl_PL'){ 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="konferencje">'. $header_conferences_title .'</a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_conferences_button_link .'" '. $target_blank .' alt="konferencje">'. $header_conferences_title .'</a>';
                                 } else { 
-                                    echo '<a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $header_conferences_button_link .'" alt="conferences">'. $header_conferences_title .'</a>';
+                                    echo '<a class="custom-link btn border-width-0" href="'. $header_conferences_button_link .'" '. $target_blank .' alt="conferences">'. $header_conferences_title .'</a>';
                                 } 
                             echo'</div>';
                         }
@@ -328,9 +316,11 @@
                             foreach ($header_custom_buttons_json as $button) {
                                 $button_url = $button["header_custom_button_link"];
                                 $button_text = $button["header_custom_button_text"];
+
+                                $target_blank_aditional = (strpos($button_url, 'http') !== false) ? 'target="blank"' : '';
                                 if(!empty($button_url) && !empty($button_text) ) {
                                     echo'<div class="custom-btn-container header-button">
-                                        <a class="custom-link btn border-width-0 shadow-black btn-accent btn-flat" href="'. $button_url .'" alt="'. $button_url .'">'. $button_text .'</a>
+                                        <a class="custom-link btn border-width-0" href="'. $button_url .'" '. $target_blank_aditional .' alt="'. $button_url .'">'. $button_text .'</a>
                                     </div>';
                                 } 
                             }

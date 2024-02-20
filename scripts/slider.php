@@ -33,11 +33,14 @@
                                             $imageStyles = "background-image:url(".$media_url[$imgNumber].");";
                                         }
                                         
-                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site'])){
-                                            $imageUrl = $media_url_array[$imgNumber]['site'];
-                                            $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles.'"></div></a>';
+                                        $imageUrl = $media_url_array[$imgNumber]['site'];
+                                        $imageClass = $media_url_array[$imgNumber]['class'];
+                                        if (is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site']) && !empty($media_url_array[$imgNumber]['class'])){
+                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div class="'.$imageClass.'" style="'.$imageStyles.'"></div></a>';
+                                        } else if (is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site'])) {
+                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles.'"></div></a>';
                                         } else {
-                                            $output .= '<div class="image-container" style="'.$imageStyles.'"></div>';
+                                                $output .= '<div class="image-container '.$imageClass.'" style="'.$imageStyles.'"></div>';
                                         }
                                 }
         $output .='</div>

@@ -53,12 +53,17 @@ if ($left_center_right_title == ''){
     .custom-full-width .custom_element_catalog_slider {
         overflow: visible !important;
     }
-    .custom-white-logos div[style*="background-image"] {
+    .custom-white-logos div[style*="background-image"],
+    .custom-header .custom-logos-gallery-wrapper div[style*="background-image"] {
         filter: brightness(0) invert(1);
         transition: all .3s ease;
     }
-    .custom-white-logos div[style*="background-image"]:hover {
+    .custom-white-logos div[style*="background-image"]:hover,
+    .custom-header .custom-logos-gallery-wrapper div[style*="background-image"]:hover {
         filter: none;
+    }
+    .custom-color-logos div[style*="background-image"] {
+        filter: none !important;
     }
     /* FOR HEADER */
     #page-header .custom-logos-gallery-wrapper{
@@ -149,6 +154,13 @@ if ($left_center_right_title == ''){
             } 
 
             if ($header_logotypes_width . '%' !== '%') {
+                if ($header_logotypes_width >= 70 && $header_logotypes_width < 100) {
+                    $header_logotypes_width  -= 3;
+                } else if ($header_logotypes_width >= 50 && $header_logotypes_width < 70) {
+                    $header_logotypes_width  -= 2;
+                } else if ($header_logotypes_width >= 30 && $header_logotypes_width < 50) {
+                    $header_logotypes_width  -= 1;
+                } 
                 echo'<style>
                     #'.$element_unique_id .' {
                         width: '.$header_logotypes_width.'%;
@@ -162,6 +174,9 @@ if ($left_center_right_title == ''){
                         <div class="custom-logos-gallery-wrapper';
                         if ($slider_logo_white == "true") {
                             $output .= ' custom-white-logos';
+                        }
+                        if ($slider_logo_color == "true") {
+                            $output .= ' custom-color-logos';
                         }
                         if (isset($slider_full_width_on) && $slider_full_width_on == "true") {
                             $output .= ' custom-full-width';
@@ -210,7 +225,7 @@ if ($left_center_right_title == ''){
                             foreach ($logotypes_files_json as $logotype) {
                                 $logotype_filename_array[] = $logotype["logotype_filename"];
                                 $logotype_link_array[] = $logotype["logotype_link"];  
-                                // $logotype_class_array[] = $logotype["logotype_white"]; 
+                                $logotype_class_array[] = $logotype["logotype_color"]; 
                             }
                             
                             $logotypes_files_json_encode = json_encode($logotypes_files_json);
@@ -225,32 +240,26 @@ if ($left_center_right_title == ''){
                                 array_shift($urls_old);
 
                                 $new_site = "";
-                                // $class = "";
+                                $class = "";
                                 foreach ($logotypes_files_json as $logotype) {
-                                    
+                                    $logotype_class = $logotype_class_array;
                                     if (strpos($image, $logotype["logotype_filename"]) !== false) {
                                         $new_site = $logotype["logotype_link"];
-                                        $logotype_class = $logotype["logotype_white"];
+                                        $class = ($logotype["logotype_color"] === "true") ? 'custom-logo-original' : '';
                                         break;
                                     }  
                                 }
-                                // var_dump($logotypes_files_json);
+
                                 $site = (!empty($new_site)) ? $new_site : $old_site;
-                                // $class = (!empty($logotype_class)) ? 'custom-logo-white' : '';
                                 if (!empty($site) && !preg_match("~^(?:f|ht)tps?://~i", $site)) {
                                     $site = "https://" . $site;
                                 }     
-                                // echo '<br/>';
-                                // var_dump($site); 
-                                // echo '<br/>';
-                                // var_dump($class);
 
                                 $updated_images_url[] = array(
                                     "img"   => $image,
                                     "site"  => $site,
                                     "class" => $class
                                 );
-                                // var_dump($updated_images_url);
                             }
                             if ($mobile == 1 && count($updated_images_url) > 0) {
                                 if ($grid_mobile == true) {
