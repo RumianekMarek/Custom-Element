@@ -40,6 +40,7 @@ if ($left_center_right_title == ''){
         <?php } else { ?>
             min-width: 140px;
         <?php } ?>
+        height: fit-content;
         aspect-ratio: 3/2;
         margin: 5px;
     }
@@ -226,6 +227,7 @@ if ($left_center_right_title == ''){
                                 $logotype_filename_array[] = $logotype["logotype_filename"];
                                 $logotype_link_array[] = $logotype["logotype_link"];  
                                 $logotype_class_array[] = $logotype["logotype_color"]; 
+                                $logotype_style_array[] = $logotype["logotype_style"];
                             }
                             
                             $logotypes_files_json_encode = json_encode($logotypes_files_json);
@@ -239,13 +241,11 @@ if ($left_center_right_title == ''){
                                 // Przesunięcie wskaźnika do następnej wartości w $urls_old
                                 array_shift($urls_old);
 
-                                $new_site = "";
-                                $class = "";
                                 foreach ($logotypes_files_json as $logotype) {
-                                    $logotype_class = $logotype_class_array;
                                     if (strpos($image, $logotype["logotype_filename"]) !== false) {
                                         $new_site = $logotype["logotype_link"];
                                         $class = ($logotype["logotype_color"] === "true") ? 'custom-logo-original' : '';
+                                        $style = ($logotype["logotype_style"] === "") ? '' : $logotype["logotype_style"];
                                         break;
                                     }  
                                 }
@@ -258,7 +258,8 @@ if ($left_center_right_title == ''){
                                 $updated_images_url[] = array(
                                     "img"   => $image,
                                     "site"  => $site,
-                                    "class" => $class
+                                    "class" => $class,
+                                    "style" => $style
                                 );
                             }
                             if ($mobile == 1 && count($updated_images_url) > 0) {
@@ -266,9 +267,9 @@ if ($left_center_right_title == ''){
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
                                             } else  {
-                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
                                             }
                                         }   
                                     }
@@ -277,9 +278,9 @@ if ($left_center_right_title == ''){
                                         foreach ($updated_images_url as $url) {
                                             if (!empty($image)) {
                                                 if (!empty($url["site"])) {
-                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
                                                 } else {
-                                                    $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                    $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
                                                 }
                                             }   
                                         }
@@ -294,9 +295,9 @@ if ($left_center_right_title == ''){
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
                                             } else {
-                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\');"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
                                             }
                                         }   
                                     }

@@ -536,6 +536,13 @@ function my_custom_wpbakery_element() {
             'save_always' => true,
             'admin_label' => true,
           ),
+          array(
+            'type' => 'textfield',
+            'heading' => __('Custom style', 'my-custom-plugin'),
+            'param_name' => 'logotype_style',
+            'save_always' => true,
+            'admin_label' => true,
+          ),
         ),
       ),
       // PROMOTE YOURSELF <-------------------------------------------------------------------------<
@@ -1626,8 +1633,9 @@ function my_custom_element_output($atts, $content = null) {
 
     if ($button_color === '') {
       $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
+      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
       $btn_color = '.btn {
-          color: #ffffff !important;
+          color: '. $button_color_text .' !important;
           background-color: #000000 !important;
           border-color: #000000 !important;
           box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
@@ -1643,8 +1651,9 @@ function my_custom_element_output($atts, $content = null) {
     ($button_color === '#1b1d1f') ||
     ($button_color === '#303133')) {
       $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
+      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
       $btn_color = '.btn {
-          color: #ffffff !important;
+          color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;
           border-color: '. $button_color .' !important;
           box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
@@ -1660,8 +1669,9 @@ function my_custom_element_output($atts, $content = null) {
     ($button_color === '#dddddd') ||
     ($button_color === '#777777')) {
       $button_color_shadow = ($button_color_shadow === '') ? '#000000' : $button_color_shadow;
+      $button_color_text = ($button_color_text === '') ? '#000000' : $button_color_text;
       $btn_color = '.btn {
-          color: #000000 !important;
+          color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;
           border-color: #000000 !important;
           box-shadow: 9px 9px 0px -5px '. $button_color_shadow .' !important;
@@ -1672,7 +1682,8 @@ function my_custom_element_output($atts, $content = null) {
           border-color: #ffffff !important;
       }';
     } else {
-      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
+      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
+      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;

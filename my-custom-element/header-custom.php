@@ -140,7 +140,7 @@
             font-size: calc(28px + (36 - 28) * ( (100vw - 300px) / (1200 - 300) ));
         }
     }
-    @media (max-width:960px) {
+    @media (max-width:700px) {
         .custom-header-logotypes .custom-container-logos-gallery {
             width: 100% !important;
         }
