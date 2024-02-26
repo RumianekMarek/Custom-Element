@@ -84,9 +84,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           ),
           array(
             'type' => 'checkbox',
-            'heading' => __('Ticket check', 'my-custom-plugin'),
+            'heading' => __('Registration', 'my-custom-plugin'),
             'param_name' => 'ticket',
-            'description' => __('Check if there is a ticket above. ONLY top10.', 'my-custom-plugin'),
+            'description' => __('Default height logotypes 110px. ONLY top10.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
             'dependency' => array(
@@ -213,8 +213,9 @@ function katalog_wystawcow_output($atts, $content = null) {
 
   // If 'format' is not 'Top10', force 'ticket' to be false
   if ($format !== 'top10') {
-      $ticket = 'false';
+      $ticket = 'false';  
   }
+
 
   if ($color === '' || $color === '#ffffff'){
     $text_color = 'color:white !important';
@@ -582,6 +583,13 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       while ($displayedCount < 10 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
+          if ($ticket === 'true') {
+            echo '<style>
+                    .img-container-top10 div {
+                      min-height: 110px !important;
+                    } 
+                  </style>';
+            }
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
             $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
             if (!empty($urlWebsite) && !preg_match("~^(?:f|ht)tps?://~i", $urlWebsite)) {
