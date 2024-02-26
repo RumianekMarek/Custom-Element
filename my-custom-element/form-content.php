@@ -9,7 +9,7 @@ if($locale == 'pl_PL') {
     $pwe_text_form = ($pwe_text_form == "") ? "Wypełnij formularz i odbierz darmowy bilet" : $pwe_text_form;
     $pwe_button_text_form = ($pwe_button_text_form == "") ? "ODBIERZ DARMOWY BILET" : $pwe_button_text_form;
 } else {
-    $pwe_title_form = ($pwe_title_form == "") ? "BOOK A STAND" : $pwe_title_form;
+    $pwe_title_form = ($pwe_title_form == "") ? "FOR VISITORS" : $pwe_title_form;
     $pwe_text_form = ($pwe_text_form == "") ? "Fill out the form and receive your free ticket" : $pwe_text_form;
     $pwe_button_text_form = ($pwe_button_text_form == "") ? "GET A FREE TICKET" : $pwe_button_text_form;
 }
