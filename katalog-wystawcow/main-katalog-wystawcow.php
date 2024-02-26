@@ -433,6 +433,9 @@ function katalog_wystawcow_output($atts, $content = null) {
   $trade_fair_name = do_shortcode('[trade_fair_name]');
   $trade_fair_name_eng = do_shortcode('[trade_fair_name_eng]');
 
+  $form_image_path = $_SERVER['DOCUMENT_ROOT'] . '/doc/form_image';
+  $file_extensions = 'jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP';
+
   // KATALOG
   if($format === 'full'){
     $bg_link = file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/background.webp') ? '/doc/background.webp' : '/doc/background.jpg';
@@ -483,6 +486,26 @@ function katalog_wystawcow_output($atts, $content = null) {
         $divContainerExhibitors .= '</div>';
         $output .= $divContainerExhibitors;
         $output .= '</div></div>';
+  } else if ($format === 'top10' && is_dir($form_image_path) && !empty(glob($form_image_path . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
+      echo '<style>
+              .uncell:has(.pwe-form-image) {
+                padding: 0 !important;
+              }
+              .pwe-form-image {
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+              }
+            </style>';
+
+      $form_image = glob($form_image_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
+      $shortPath = substr($form_image[0], strpos($form_image[0], '/doc/'));
+      $output .= '<div class="pwe-form-image" style="background-image: url('. $shortPath .');"></div>';
   } else {
     $output = '<div custom-lang="' . $locale . '" id="'. $format .'" class="custom-catalog main-heading-text">';
 
@@ -556,6 +579,7 @@ function katalog_wystawcow_output($atts, $content = null) {
             </div>';
       }
     } else if ($format === 'top10') {
+
       while ($displayedCount < 10 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
@@ -587,7 +611,7 @@ function katalog_wystawcow_output($atts, $content = null) {
       if (count($slider_images_url) > 0){
         $output .= custom_media_slider($slider_images_url);
       }
-
+      
       $output .= '</div>';
     } else if ($format === 'recently7') {
       usort($exhibitors, function($a, $b) {

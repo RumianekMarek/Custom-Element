@@ -121,9 +121,13 @@
 .lecturer {
     display: flex;
     gap: 10px;
-    border-bottom: 1px solid black;
+
     margin-bottom: 5px;
     padding-bottom: 5px;
+}
+
+.modal-lecturers .lecturer:not(:last-child) {
+    border-bottom: 1px solid black;
 }
 
 .lecturer p {
