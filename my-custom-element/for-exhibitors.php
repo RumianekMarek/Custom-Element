@@ -1,6 +1,14 @@
 <?php 
 
-    $exhibitorsImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    $firstPath = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/zdjecia_wys_odw';
+    $secondPath = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria';
+
+    if (is_dir($firstPath) && !empty(glob($firstPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE))) {
+        $exhibitorsImages = glob($firstPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    } else {
+        $exhibitorsImages = glob($secondPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    }
+
     include plugin_dir_url( __FILE__ ) . 'custom-element.php';
 
     if ($color != '#ffffff'){
@@ -73,7 +81,7 @@
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $thirdImage = $exhibitorsImages[2];
+                $thirdImage = $exhibitorsImages[0];
                 $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 1"></div></div>';
             ?>
@@ -84,7 +92,7 @@
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $fourthImage = $exhibitorsImages[3];
+                $fourthImage = $exhibitorsImages[1];
                 $shortPath = substr($fourthImage, strpos($fourthImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 2"></div></div>';
             ?>
@@ -135,7 +143,7 @@
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $fifthImage = $exhibitorsImages[4];
+                $fifthImage = $exhibitorsImages[2];
                 $shortPath = substr($fifthImage, strpos($fifthImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 3"></div></div>';
             ?>
@@ -146,7 +154,7 @@
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $sixthImage = $exhibitorsImages[5];
+                $sixthImage = $exhibitorsImages[3];
                 $shortPath = substr($sixthImage, strpos($sixthImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 4"></div></div>';
             ?>
@@ -197,7 +205,7 @@
         </div>
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $seventhImage = $exhibitorsImages[6];
+                $seventhImage = $exhibitorsImages[4];
                 $shortPath = substr($seventhImage, strpos($seventhImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 5"></div></div>';
             ?>
@@ -208,7 +216,7 @@
     <div class="custom-content-exhibitors-item custom-align-left">
         <div class="custom-exhibitors-image-block uncode-single-media-wrapper">              
             <?php
-                $eighthImage = $exhibitorsImages[7];
+                $eighthImage = $exhibitorsImages[5];
                 $shortPath = substr($eighthImage, strpos($eighthImage, '/doc/'));
                 echo '<div class="image-shadow"><div class="t-entry-visual"><img src="' . $shortPath . '" alt="exhibitors image 6"></div></div>';
             ?>

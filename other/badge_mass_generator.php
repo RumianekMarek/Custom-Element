@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $all_forms = GFAPI::get_forms();
                 
                 foreach ($all_forms as $key => $value) {
-                    if ($data['options'][0] == $value['title']){
+                    if (strpos(strtolower($value['title']), strtolower($data['options'][0])) !== false){
                         $form = $value;
                         break;
                     }

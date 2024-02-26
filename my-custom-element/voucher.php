@@ -8,6 +8,7 @@ if ($btn_color != ''){
         $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color_hover;
     }
 }
+
 ?>
 <style>
     .custom_element_<?php echo $rnd_id ?> #voucher :is(h4, p){

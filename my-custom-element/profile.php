@@ -207,6 +207,15 @@ if ($profile_padding_element == '') {
                                     echo '<img class="custom-profile-image t-entry-visual" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
                                 } else if (!empty($profile_image_url_media) && !empty($profile_image_doc)) {
                                     echo '<img class="custom-profile-image t-entry-visual" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
+                                } else {
+                                    $profile_image_opt_path = $_SERVER['DOCUMENT_ROOT'] . '/doc/zdjecia_wys_odw';
+                                    $file_extensions = 'jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP';
+                                    if (is_dir($profile_image_opt_path) && !empty(glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
+                                        $profile_image_opt_full_path = glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
+                                        $random_image_full_rand_path = $profile_image_opt_full_path[array_rand($profile_image_opt_full_path)];
+                                        $profile_image_opt_short_path = substr($random_image_full_rand_path, strpos($random_image_full_rand_path, '/doc/'));
+                                        echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_opt_short_path.'" alt="'. $profile_title .'">';
+                                    }
                                 }
                             }
                         echo'</div>

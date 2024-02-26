@@ -27,7 +27,6 @@
             $btn_color_hover = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color_hover;
         }
     }
-    
 ?>
 <style>
     <?php echo $btn_color ?>

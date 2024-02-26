@@ -114,6 +114,7 @@ function my_custom_wpbakery_element() {
           'Posts' => 'posts.php',
           'Profile' => 'profile.php',
           'Ramka Facebook' => 'socialMedia.php',
+          'Form content' => 'form-content.php',
           'Sticky buttons' => 'sticky-buttons.php',
           'Videos' => 'videos.php',
           'Visitors Benefits' => 'visitors-benefits.php',
@@ -1594,6 +1595,40 @@ function my_custom_wpbakery_element() {
           ),
         ),
       ),
+      // FORM CONTENT <-------------------------------------------------------------------------<
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Custom title form', 'my-custom-plugin'),
+        'param_name' => 'pwe_title_form',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('form-content.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Custom text form', 'my-custom-plugin'),
+        'param_name' => 'pwe_text_form',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('form-content.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Custom button text form', 'my-custom-plugin'),
+        'param_name' => 'pwe_button_text_form',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('form-content.php')
+        ),
+      ),
     ),
     'description' => __( 'Enter description.', 'my-text-domain' )
   ));
@@ -1632,8 +1667,8 @@ function my_custom_element_output($atts, $content = null) {
     global $custom_element_colors;
 
     if ($button_color === '') {
-      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
-      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
+      $button_color_text = ($button_color_text == '') ? '#ffffff' : $button_color_text;
+      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
           background-color: #000000 !important;
@@ -1650,8 +1685,8 @@ function my_custom_element_output($atts, $content = null) {
     ($button_color === '#141618') ||
     ($button_color === '#1b1d1f') ||
     ($button_color === '#303133')) {
-      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
-      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
+      $button_color_text = ($button_color_text == '') ? '#ffffff' : $button_color_text;
+      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;
@@ -1668,8 +1703,8 @@ function my_custom_element_output($atts, $content = null) {
     ($button_color === '#eaeaea') ||
     ($button_color === '#dddddd') ||
     ($button_color === '#777777')) {
-      $button_color_shadow = ($button_color_shadow === '') ? '#000000' : $button_color_shadow;
-      $button_color_text = ($button_color_text === '') ? '#000000' : $button_color_text;
+      $button_color_text = ($button_color_text == '') ? '#000000' : $button_color_text;
+      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;
@@ -1682,8 +1717,8 @@ function my_custom_element_output($atts, $content = null) {
           border-color: #ffffff !important;
       }';
     } else {
-      $button_color_shadow = ($button_color_shadow === '') ? '#ffffff' : $button_color_shadow;
-      $button_color_text = ($button_color_text === '') ? '#ffffff' : $button_color_text;
+      $button_color_text = ($button_color_text == '') ? '#ffffff' : $button_color_text;
+      $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
           background-color: '. $button_color .' !important;
@@ -1807,6 +1842,11 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_font_size_full_size'])) { $sticky_buttons_font_size_full_size = $atts['sticky_buttons_font_size_full_size']; }
     if (isset($atts['sticky_buttons_width'])) { $sticky_buttons_width = $atts['sticky_buttons_width']; }
     if (isset($atts['sticky_full_width_buttons_width'])) { $sticky_full_width_buttons_width = $atts['sticky_full_width_buttons_width']; }
+
+    // FORM CONTENT
+    if (isset($atts['pwe_title_form'])) { $pwe_title_form = $atts['pwe_title_form']; }
+    if (isset($atts['pwe_text_form'])) { $pwe_text_form = $atts['pwe_text_form']; }
+    if (isset($atts['pwe_button_text_form'])) { $pwe_button_text_form = $atts['pwe_button_text_form']; }
    
     if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 

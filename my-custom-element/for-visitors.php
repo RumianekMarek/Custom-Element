@@ -1,13 +1,24 @@
 <?php 
-if ($color != '#ffffff'){
-    $color = '#000000 !important';
-}
-if ($btn_color != ''){
-    $btn_color = '.custom_element_'.$rnd_id.' #forVisitors ' . $btn_color;
-    if ($btn_color_hover) {
-        $btn_color_hover = '.custom_element_'.$rnd_id.' #forVisitors '.$btn_color_hover;
+
+    $firstPath = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/zdjecia_wys_odw';
+    $secondPath = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria';
+
+    if (is_dir($firstPath) && !empty(glob($firstPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE))) {
+        $visitorImages = glob($firstPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
+    } else {
+        $visitorImages = glob($secondPath . '/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
     }
-}
+    include plugin_dir_url( __FILE__ ) . 'custom-element.php';
+
+    if ($color != '#ffffff'){
+        $color = '#000000 !important';
+    }
+    if ($btn_color != ''){
+        $btn_color = '.custom_element_'.$rnd_id.' #forVisitors ' . $btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '.custom_element_'.$rnd_id.' #forVisitors '.$btn_color_hover;
+        }
+    }
 
 ?> 
 <style>
@@ -49,10 +60,7 @@ if ($btn_color != ''){
     }
 }
 </style>
-<?php 
-    $visitorImages = glob($_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', GLOB_BRACE);
-    include plugin_dir_url( __FILE__ ) . 'custom-element.php';
-?>
+
 <div id="forVisitors"class="custom-container-visitors">
 
     <!-- for-visitors-item -->
@@ -76,7 +84,6 @@ if ($btn_color != ''){
                 </p>
             </div>
         </div>
-        
     </div>
 
     <!-- for-visitors-item -->
@@ -111,4 +118,5 @@ if ($btn_color != ''){
             ?>
         </div>
     </div>
+
 </div>
