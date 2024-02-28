@@ -49,7 +49,7 @@ if(isset($_POST['submit_haslo'])){
                 if(is_wp_error($feeds)){
                     echo '<br>Formularz '.$form_id.' nie istnieje, podany w '.$_POST["form_id"].'<br>';
                 } else {
-                    $entries = $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 0 ));
+                    $entries = GFAPI::get_entries($form_id,null,null,array( 'offset' => 0, 'page_size' => 1000 ));
 
                     if(isset($feeds[0]['meta']['hash']) == false){
                         $custom[0] = $feeds[0]['meta']['qrcodeFields'][0]['custom_key'];

@@ -143,9 +143,9 @@ if ($horizontal == "true") {
             echo '<a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a>';
         } else {
             if($locale == 'pl_PL'){ echo '
-            Obsługa techniczna wystawców<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a>
+            Obsługa techniczna wystawców<br><a style="display: flex; flex-wrap: wrap;" href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
             ';} else { echo '
-            Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny@warsawexpo.eu</a>
+            Technical service of exhibitors<br><a style="display: flex; flex-wrap: wrap;" href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
             ';} 
         } ?>
         </p>

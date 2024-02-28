@@ -23,6 +23,12 @@ if($locale == 'pl_PL') {
     margin-top: 0 !important;
     box-shadow: 9px 9px 0px -6px <?php echo $color ?>;
 }
+@media (max-width: 450px) {
+    input[type='submit'] {
+        padding: 12px 20px !important;
+        font-size: 3.3vw !important;
+    }
+}
 </style>
 
 <div id='pweFormContent' class='pwe-form-content'>
@@ -30,7 +36,7 @@ if($locale == 'pl_PL') {
         <h4 class="custom-uppercase"><span><?php echo $pwe_title_form ?></span></h4>
     </div>  
     <div class="pwe-form-text">
-        <p><?php echo $pwe_text_form ?></p>
+        <p><?php echo wpb_js_remove_wpautop($pwe_text_form, true); ?></p>
     </div>
 </div>
 

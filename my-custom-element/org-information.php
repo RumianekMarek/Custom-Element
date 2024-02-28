@@ -77,11 +77,11 @@ if ($color != '#000000'){
                 <a href="#dokumenty"><li>Dokumenty do pobrania.</li></a>
             </ol>
         </div>
-
+        
         <div id="dane-kontaktowe" class="custom-org-info-content-item">
             <h2>1. Dane kontaktowe, terminy montaży, demontaży i godzin otwarcia targów.</h2>
             <div class="custom-org-info-block-dates custom-display-none">
-                <h5>Obsługa Wystawców: <a style="overflow-wrap: anywhere;" href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a></h5>
+                <p style="display: flex; flex-wrap: wrap; gap: 5px;">Obsługa Wystawców: <a style="display: flex; flex-wrap: wrap;" href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a></p>
                 <h5>Montaż stoisk:</h5>
                 <ul>
                     <li>z zabudową indywidualną: [trade_fair_1stbuildday], [trade_fair_2ndbuildday]</li>
@@ -238,7 +238,7 @@ if ($color != '#000000'){
             <h2>1. Contact information, installation and dismantling deadlines, and trade fair opening hours. </h2>
 
             <div class='custom-org-info-block-dates custom-display-none'>
-                <h5>Exhibitors’ support: <a style='overflow-wrap: anywhere;' href='mailto:konsultanttechniczny@warsawexpo.eu'>konsultanttechniczny<span style='display:block;'>@warsawexpo.eu</span></a></h5>
+                <p style='display: flex; flex-wrap: wrap; gap: 5px;'>Exhibitors’ support: <a style='display: flex; flex-wrap: wrap;' href='mailto:konsultanttechniczny@warsawexpo.eu'><span style='display:block;'> konsultanttechniczny</span><span style='display:block;'>@warsawexpo.eu</span></a></p>
                 <h5>Stand assembly:</h5>
                 <ul>
                     <li>individual installation: [trade_fair_1stbuildday], [trade_fair_2ndbuildday].</li>

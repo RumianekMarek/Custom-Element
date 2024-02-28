@@ -41,6 +41,15 @@ function my_custom_wpbakery_element() {
       $name_images[$file_name] = $file_name;
   }
 
+  // FORMULARZE
+  $pwe_forms_array = array();
+  if (method_exists('GFAPI', 'get_forms')) {
+      $pwe_forms = GFAPI::get_forms();
+      foreach ($pwe_forms as $form) {
+        $pwe_forms_array[$form['id']] = $form['title'];
+      }
+  }
+
   // SHORTCODE INPUT RANGE ELEMENT
   if ( function_exists( 'vc_add_shortcode_param' ) ) {
     vc_add_shortcode_param( 'input_range', 'input_range_field_html' );
@@ -95,6 +104,7 @@ function my_custom_wpbakery_element() {
           'Footer' => 'footer.php',
           'For Exhibitors' => 'for-exhibitors.php',
           'For Visitors' => 'for-visitors.php',
+          'Form content' => 'form-content.php',
           'Gallery Slider' => 'gallery-slider.php',
           'Generator wystawcow' => 'generator-wystawcow.php',
           'Grupy zorganizowane' => 'grupy.php',
@@ -114,7 +124,7 @@ function my_custom_wpbakery_element() {
           'Posts' => 'posts.php',
           'Profile' => 'profile.php',
           'Ramka Facebook' => 'socialMedia.php',
-          'Form content' => 'form-content.php',
+          'Registration' => 'registration.php',
           'Sticky buttons' => 'sticky-buttons.php',
           'Videos' => 'videos.php',
           'Visitors Benefits' => 'visitors-benefits.php',
@@ -1604,18 +1614,18 @@ function my_custom_wpbakery_element() {
         'save_always' => true,
         'dependency' => array(
           'element' => 'element',
-          'value' => array('form-content.php')
+          'value' => array('form-content.php', 'registration.php')
         ),
       ),
       array(
-        'type' => 'textfield',
+        'type' => 'textarea',
         'group' => 'Main Settings',
         'heading' => __('Custom text form', 'my-custom-plugin'),
         'param_name' => 'pwe_text_form',
         'save_always' => true,
         'dependency' => array(
           'element' => 'element',
-          'value' => array('form-content.php')
+          'value' => array('form-content.php', 'registration.php')
         ),
       ),
       array(
@@ -1626,7 +1636,34 @@ function my_custom_wpbakery_element() {
         'save_always' => true,
         'dependency' => array(
           'element' => 'element',
-          'value' => array('form-content.php')
+          'value' => array('form-content.php', 'registration.php')
+        ),
+      ),
+      array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Height logotypes', 'my-custom-plugin'),
+        'description' => __('Default 50px', 'my-custom-plugin'),
+        'param_name' => 'pwe_height_logotypes_form',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('registration.php')
+        ),
+      ),
+      array(
+        'type' => 'dropdown',
+        'group' => 'Main Settings',
+        'heading' => __('Form id', 'my-custom-plugin'),
+        'param_name' => 'pwe_registration_form_id',
+        'save_always' => true,
+        'value' => array_merge(
+          array('Wybierz' => ''),
+          $pwe_forms_array
+        ),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('registration.php')
         ),
       ),
     ),
@@ -1847,6 +1884,9 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['pwe_title_form'])) { $pwe_title_form = $atts['pwe_title_form']; }
     if (isset($atts['pwe_text_form'])) { $pwe_text_form = $atts['pwe_text_form']; }
     if (isset($atts['pwe_button_text_form'])) { $pwe_button_text_form = $atts['pwe_button_text_form']; }
+
+    if (isset($atts['pwe_registration_form_id'])) { $pwe_registration_form_id = $atts['pwe_registration_form_id']; }
+    if (isset($atts['pwe_height_logotypes_form'])) { $pwe_height_logotypes_form = $atts['pwe_height_logotypes_form']; }
    
     if (isset($atts['show_register_bar'])) { $show_register_bar = $atts['show_register_bar']; }
 

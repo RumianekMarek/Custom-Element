@@ -20,11 +20,6 @@ if ($profile_padding_element == '') {
     $profile_padding_element = '18px 36px';
 }
 
-// if(!empty($content)){            
-//     $profile_desc = wpb_js_remove_wpautop($content, true);
-// } else {
-//     $profile_desc = $atts['event_desc'];
-// }
 ?>
 
 <style>
@@ -195,12 +190,21 @@ if ($profile_padding_element == '') {
                     </div>
                     <div class="custom-profile-images-block custom-profile-block">
                         <div class="custom-profile-images-wrapper image-shadow">';
+
+                            session_start();
+
                             $profile_images_urldecode = urldecode($profile_images);
                             $profile_images_json = json_decode($profile_images_urldecode, true);
-                            foreach ($profile_images_json as $profile_image) {
+
+                            if (!isset($_SESSION['last_displayed_image_index'])) {
+                                $_SESSION['last_displayed_image_index'] = -1;
+                            }
+
+                            foreach ($profile_images_json as $index => $profile_image) {
                                 $profile_image_media = $profile_image["catalog_media"];
                                 $profile_image_url_media = wp_get_attachment_url($profile_image_media);
                                 $profile_image_doc = $profile_image["catalog_doc"];
+
                                 if (!empty($profile_image_url_media) && empty($profile_image_doc)) {
                                     echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_url_media .'" alt="'. $profile_title .'">';
                                 } else if (empty($profile_image_url_media) && !empty($profile_image_doc)) {
@@ -210,14 +214,18 @@ if ($profile_padding_element == '') {
                                 } else {
                                     $profile_image_opt_path = $_SERVER['DOCUMENT_ROOT'] . '/doc/zdjecia_wys_odw';
                                     $file_extensions = 'jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP';
-                                    if (is_dir($profile_image_opt_path) && !empty(glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
-                                        $profile_image_opt_full_path = glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
-                                        $random_image_full_rand_path = $profile_image_opt_full_path[array_rand($profile_image_opt_full_path)];
-                                        $profile_image_opt_short_path = substr($random_image_full_rand_path, strpos($random_image_full_rand_path, '/doc/'));
-                                        echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_opt_short_path.'" alt="'. $profile_title .'">';
-                                    }
+                                    $all_images = glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
+                                    sort($all_images); 
+
+                                    $next_image_index = ($_SESSION['last_displayed_image_index'] + 1) % count($all_images);
+                                    $next_image_path = $all_images[$next_image_index];
+                                    $_SESSION['last_displayed_image_index'] = $next_image_index;
+                                    
+                                    $profile_image_opt_short_path = substr($next_image_path, strpos($next_image_path, '/doc/'));
+                                    echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_opt_short_path.'" alt="'. $profile_title .'">';
                                 }
                             }
+
                         echo'</div>
                     </div>
                 </div>';

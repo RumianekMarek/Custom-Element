@@ -3,9 +3,9 @@
 $sciezka_do_pliku = 'log.txt';
 $dane_do_zapisu .= "\n" . date('Y-m-d H:i:s') . "\n";
 
-if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET)) {
+if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     // Odbierz dane z formularza
-    $przeslane_dane = $_GET;
+    $przeslane_dane = $_POST;
     $dane_do_zapisu .= json_encode($przeslane_dane, JSON_PRETTY_PRINT) . "\n\n";
 
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
@@ -46,8 +46,10 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
         }
     }
 } else {
-    $dane_do_zapisu .= $_SERVER['HTTP_HEAD'] . '  ';
-    $dane_do_zapisu .= $_SERVER["REQUEST_METHOD"] . '  ';
+    $dane_do_zapisu .= 'error-log <br>';
+    $dane_do_zapisu .= $_SERVER['HTTP_HEAD'] . 'powinno byc -> (rR1*sS3(tT5&uU7)vV2+wW4@yY <br>';
+    $dane_do_zapisu .= $_SERVER["REQUEST_METHOD"] . '  powinno byc -> POST <br>';
+    $dane_do_zapisu .= 'empty POST -> '.empty($_POST);
     if (!empty($_GET)){
         foreach($_GET as $data){
             $dane_do_zapisu .= $data;
