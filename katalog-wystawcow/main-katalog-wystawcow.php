@@ -216,7 +216,6 @@ function katalog_wystawcow_output($atts, $content = null) {
       $ticket = 'false';  
   }
 
-
   if ($color === '' || $color === '#ffffff'){
     $text_color = 'color:white !important';
     $text_shadow = 'text-shadow: 2px 2px black';
@@ -396,8 +395,6 @@ function katalog_wystawcow_output($atts, $content = null) {
     }
   }
 
-  
-
   $script_data = array(
       'data' => $data,
       'json' => $json,
@@ -489,6 +486,9 @@ function katalog_wystawcow_output($atts, $content = null) {
         $output .= '</div></div>';
   } else if ($format === 'top10' && is_dir($form_image_path) && !empty(glob($form_image_path . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
       echo '<style>
+              .uncol:has(.pwe-form-image) {
+                height: 100%;
+              }
               .uncell:has(.pwe-form-image) {
                 padding: 0 !important;
               }
@@ -501,6 +501,8 @@ function katalog_wystawcow_output($atts, $content = null) {
                 left: 0;
                 right: 0;
                 bottom: 0;
+                box-shadow: 9px 9px 0px -5px black;
+                border: 2px solid;
               }
             </style>';
 
