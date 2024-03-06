@@ -35,12 +35,13 @@
                                         
                                         $imageUrl = $media_url_array[$imgNumber]['site'];
                                         $imageClass = $media_url_array[$imgNumber]['class'];
+                                        $imageStyle = $media_url_array[$imgNumber]['style'];
                                         if (is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site']) && !empty($media_url_array[$imgNumber]['class'])){
-                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div class="'.$imageClass.'" style="'.$imageStyles.'"></div></a>';
+                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div class="'.$imageClass.'" style="'.$imageStyles . ' ' . $imageStyle.'"></div></a>';
                                         } else if (is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['site'])) {
-                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles.'"></div></a>';
+                                                $output .= '<a href="'.$imageUrl.'" target="_blank" class="image-container"><div style="'.$imageStyles . ' ' . $imageStyle.'"></div></a>';
                                         } else {
-                                                $output .= '<div class="image-container '.$imageClass.'" style="'.$imageStyles.'"></div>';
+                                                $output .= '<div class="image-container '.$imageClass.'" style="'.$imageStyles . ' ' . $imageStyle.'"></div>';
                                         }
                                 }
         $output .='</div>

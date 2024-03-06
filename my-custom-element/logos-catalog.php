@@ -3,19 +3,6 @@ include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
 if ($left_center_right_title == ''){
     $left_center_right_title = 'left';
 }
-// if ($min_width_logo == ''){
-//     $min_width_logo = '140px';
-// }
-
-// if ($header_custom_logotypes_columns === "1") {
-//     $header_custom_logotypes_columns_width = "100%";
-// } else if ($header_custom_logotypes_columns === "1/2") {
-//     $header_custom_logotypes_columns_width = "47%";
-// } else if ($header_custom_logotypes_columns === "1/3") {
-//     $header_custom_logotypes_columns_width = "30%";
-// } else {
-//     $header_custom_logotypes_columns_width = "auto";
-// }
 ?>
 
 <style>
@@ -97,11 +84,13 @@ if ($left_center_right_title == ''){
                 $header_logotypes_title = $logotypes["titlecatalog"];
                 $header_logotypes_width = $logotypes["logotypes_width"];
                 $header_logotypes_media = $logotypes["logotypes_media"];
+                $header_logotypes_slider_off = $logotypes["logotypes_slider_off"];
             } else {
                 $header_logotypes_url = $logotypes_item["logoscatalog"];
                 $header_logotypes_title = $logotypes_item["titlecatalog"];
                 $header_logotypes_width = $logotypes_item["logotypes_width"];
                 $header_logotypes_media = $logotypes_item["logotypes_media"];
+                $header_logotypes_slider_off = $logotypes_item["logotypes_slider_off"];
             }   
             $header_logotypes_media_ids = explode(',', $header_logotypes_media);  
         }
@@ -236,6 +225,11 @@ if ($left_center_right_title == ''){
                             $updated_images_url = array();
 
                             foreach ($images_url as $image) {
+                                // Resetowanie zmiennych na początku każdej iteracji
+                                $new_site = '';
+                                $class = '';
+                                $style = '';
+    
                                 // Pobranie aktualnej wartości z $urls_old
                                 $old_site = current($urls_old);
                                 // Przesunięcie wskaźnika do następnej wartości w $urls_old
@@ -262,7 +256,9 @@ if ($left_center_right_title == ''){
                                     "style" => $style
                                 );
                             }
+
                             if ($mobile == 1 && count($updated_images_url) > 0) {
+
                                 if ($grid_mobile == true) {
                                     foreach ($updated_images_url as $url) {
                                         if (!empty($image)) {
@@ -285,9 +281,22 @@ if ($left_center_right_title == ''){
                                             }   
                                         }
                                     } else {
-                                        $output .= custom_media_slider($updated_images_url);
+                                        if ($header_logotypes_slider_off !== 'true') {
+                                            $output .= custom_media_slider($updated_images_url);
+                                        } else {
+                                            foreach ($updated_images_url as $url) {
+                                                if (!empty($image)) {
+                                                    if (!empty($url["site"])) {
+                                                        $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
+                                                    } else {
+                                                        $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
+                                                    }
+                                                }   
+                                            }
+                                        }
                                     }
-                                }
+                                }  
+                                
                             } else if (($mobile != 1 && count($updated_images_url) > 0)) {
                                 if ($slider_desktop == true) {
                                     $output .= custom_media_slider($updated_images_url);

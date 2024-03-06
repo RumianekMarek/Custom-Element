@@ -644,6 +644,30 @@ function my_custom_wpbakery_element() {
           'value' => array('posts.php')
         ),
       ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Display all categories (max 5 posts)', 'my-custom-plugin'),
+        'param_name' => 'posts_all_cat',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('posts.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Display all posts (full width)', 'my-custom-plugin'),
+        'param_name' => 'posts_all',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('posts.php')
+        ),
+      ),
       // PROFILE <-------------------------------------------------------------------------<
       array(
         'type' => 'checkbox',
@@ -808,6 +832,7 @@ function my_custom_wpbakery_element() {
         'group' => 'Main Settings',
         'heading' => __('Aspect ratio (Default 3/2)', 'my-custom-plugin'),
         'param_name' => 'profile_img_aspect_ratio',
+        'description' => __('Default (PROFIL ODWIEDZAJĄCEGO i PROFIL WYSTAWCY - 1/1, ZAKRES BRANŻOWY - 3/2)', 'my-custom-plugin'),
         'save_always' => true,
         'dependency' => array(
           'element' => 'element',
@@ -818,6 +843,7 @@ function my_custom_wpbakery_element() {
         'type' => 'textfield',
         'group' => 'Main Settings',
         'heading' => __('Max width (Default 80%)', 'my-custom-plugin'),
+        'description' => __('Default (PROFIL ODWIEDZAJĄCEGO i PROFIL WYSTAWCY - 80%, ZAKRES BRANŻOWY - 100%)', 'my-custom-plugin'),
         'param_name' => 'profile_img_max_width',
         'save_always' => true,
         'dependency' => array(
@@ -1051,6 +1077,13 @@ function my_custom_wpbakery_element() {
             'max' => '100',
             'step' => '1',
             'save_always' => true,
+          ),
+          array(
+            'type' => 'checkbox',
+            'heading' => __('Turn off slider', 'my-custom-plugin'),
+            'param_name' => 'logotypes_slider_off',
+            'save_always' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
           ),
         ),
       ),
@@ -1848,6 +1881,8 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['posts_ratio'])) { $posts_ratio = $atts['posts_ratio']; }
     if (isset($atts['posts_link'])) { $posts_link = $atts['posts_link']; }
     if (isset($atts['posts_btn'])) { $posts_btn = $atts['posts_btn']; }
+    if (isset($atts['posts_all_cat'])) { $posts_all_cat = $atts['posts_all_cat']; }
+    if (isset($atts['posts_all'])) { $posts_all = $atts['posts_all']; }
 
     // PROFILES
     if (isset($atts['profile_title_checkbox'])) { $profile_title_checkbox = $atts['profile_title_checkbox']; }

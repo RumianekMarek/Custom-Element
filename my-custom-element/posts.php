@@ -1,4 +1,5 @@
 <?php
+    $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
 
     if($locale == 'pl_PL') {
         $posts_title = ($posts_title == "") ? "Aktualności" : $posts_title;
@@ -9,7 +10,7 @@
         $posts_link = ($posts_link == "") ? "/en/news/" : $posts_link;
         $posts_text = "See all";
     }
-    $posts_count = ($posts_count == "") ? 1 : $posts_count;
+    $posts_count = ($posts_count == "") ? 5 : $posts_count;
     $posts_ratio = ($posts_ratio == "") ? "1/1" : $posts_ratio;
 
     if ($btn_color != ''){
@@ -68,31 +69,53 @@
             font-size: 14px !important;
         }
     }
+    @media (max-width: 1200px) {
+        .custom_element_<?php echo $rnd_id ?> .custom-posts-wrapper {
+            padding: 36px 18px;  
+        } 
+    }
     @media (min-width: 1200px) {
         .custom-posts .slides {
-            gap: 30px;
+            gap: 40px;
         }
     }
 </style>
 
 <?php
 
-if ($posts_count > 1) {
-    if ($posts_count % 2 == 0) {
-        echo'<style>
+// if ($posts_count > 1 && $mobile == 1) {
+//     if ($posts_count % 2 == 0) {
+//         // echo'<style>
+//         //         .custom-posts .slides {
+//         //             margin: 0 !important;
+//         //         }
+//         //     </style>';
+//     } else {
+//         // echo'<style>
+//         //         @media (max-width: 600px) {
+//         //             .custom-posts .slides {
+//         //                 margin-left: 156px !important;
+//         //             }
+//         //         }
+//         //     </style>';
+//     }
+// }
+
+if ($posts_all && $posts_all === 'true' && $mobile != 1) {
+    echo'<style>
+                .custom-posts-wrapper {
+                    max-width: 100% !important;  
+                    padding: 36px 0 !important; 
+                }
+                .custom-posts-title {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding-left: 36px;
+                }
                 .custom-posts .slides {
-                    margin: 0 !important;
+                    margin-right: 36px !important;
                 }
-            </style>';
-    } else {
-        echo'<style>
-                @media (max-width: 600px) {
-                    .custom-posts .slides {
-                        margin-left: 156px !important;
-                    }
-                }
-            </style>';
-    }
+        </style>';
 }
 
 $output .= '<div id="customPosts" class="custom-container-posts">
@@ -120,26 +143,30 @@ $output .= '<div id="customPosts" class="custom-container-posts">
             // Sprawdzenie, czy istnieje kategoria z prefiksem "news-" i rokiem
             $category_exists = term_exists($news_category_name, 'category');
 
-            if ($category_exists) {
-                // Kategoria "news-{rok}" istnieje, więc nic nie zmieniamy
-            } else if (!$category_exists && term_exists("current", 'category')) {
-                // Kategoria "news-{rok}" nie istnieje, sprawdzamy "current"
-                $news_category_name = "current";
-            } else if (!empty($posts_category) && term_exists($posts_category, 'category')) {
-                // Kategoria "current" nie istnieje, sprawdzamy $posts_category
-                $news_category_name = $posts_category;
-            } else if (!empty($posts_cat) && term_exists($posts_cat, 'category')) {
-                // Ani "current", ani $posts_category nie istnieją, użyj $posts_cat
-                $news_category_name = $posts_cat;
+            if ($posts_all_cat !== 'true') {
+                if ($category_exists) {
+                    // Kategoria "news-{rok}" istnieje, więc nic nie zmieniamy
+                } else if (!$category_exists && term_exists("current", 'category')) {
+                    // Kategoria "news-{rok}" nie istnieje, sprawdzamy "current"
+                    $news_category_name = "current";
+                } else if (!empty($posts_category) && term_exists($posts_category, 'category')) {
+                    // Kategoria "current" nie istnieje, sprawdzamy $posts_category
+                    $news_category_name = $posts_category;
+                } else if (!empty($posts_cat) && term_exists($posts_cat, 'category')) {
+                    // Ani "current", ani $posts_category nie istnieją, użyj $posts_cat
+                    $news_category_name = $posts_cat;
+                } else {
+                    // Żadna z kategorii nie istnieje, pobieramy wszystkie wpisy
+                    $news_category_name = null;
+                }
+            } else {
+                $news_category_name = null;
             }
-            
-            // else {
-            //     // Żadna z kategorii nie istnieje, pobieramy wszystkie wpisy
-            //     // $news_category_name = null;
-            // }
+
+            $max_posts = ($posts_all !== 'true') ? min($posts_count, 5) : -1;
 
             $args = array(
-                'posts_per_page' => min($posts_count, 4),
+                'posts_per_page' => $max_posts,
                 'orderby' => 'date',
                 'order' => 'DESC',
                 'category_name' => $news_category_name,

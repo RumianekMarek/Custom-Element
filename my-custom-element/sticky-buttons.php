@@ -130,6 +130,8 @@
     .sticky-pin {
         position: fixed !important;
         top: 0;
+        right: 0;
+        left: 0;
     }
 
 </style>

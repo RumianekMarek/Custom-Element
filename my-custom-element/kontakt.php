@@ -9,12 +9,12 @@ if ($color === '#ffffff'){
     <?php echo $invert ?>
 
     .raw-custom-container{
-        display:flex; 
+        display:flex;
         align-items: center;
         gap: 18px;
     }
     .custom-container-contact img{
-        max-width:150px !important;
+        max-width:120px !important;
     }
 
     .custom_element_<?php echo $rnd_id ?>  .uncode_text_column :is(p, a),
@@ -34,15 +34,15 @@ if ($color === '#ffffff'){
             text-align: center;
             flex-direction: column;
         }
-        .raw-custom-container p{ 
+        .raw-custom-container p{
             min-width: 160px;
         }
     }
 <?php
 if ($horizontal == "true") {
 ?>
-    .custom-container-contact-items { 
-        display: flex; 
+    .custom-container-contact-items {
+        display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
     }
@@ -82,7 +82,7 @@ if ($horizontal == "true") {
         </p>
       </div>
     </div>
-        
+
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
@@ -98,7 +98,7 @@ if ($horizontal == "true") {
         </p>
       </div>
     </div>
-    
+
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
@@ -114,7 +114,7 @@ if ($horizontal == "true") {
         </p>
       </div>
     </div>
-    
+
     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
@@ -130,27 +130,50 @@ if ($horizontal == "true") {
         </p>
       </div>
     </div>
-    
-    <div class="raw-custom-container half-block-padding">
+
+     <div class="raw-custom-container half-block-padding">
       <div class="image-shadow">
         <div class="t-entry-visual">
             <img src="/wp-content/plugins/custom-element/media/Technicy.jpg" alt="grafika technicy">
         </div>
       </div>
       <div class="uncode_text_column" style="overflow-wrap: anywhere;">
-        <p><?php 
-        if ($horizontal == "true"){ 
+        <p><?php
+        if ($horizontal == "true"){
             echo '<a href="mailto:konsultanttechniczny@warsawexpo.eu">konsultanttechniczny<span style="display:block;">@warsawexpo.eu</span></a>';
         } else {
             if($locale == 'pl_PL'){ echo '
-            Obsługa techniczna wystawców<br><a style="display: flex; flex-wrap: wrap;" href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
+            Obsługa techniczna wystawców<br><a href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
             ';} else { echo '
-            Technical service of exhibitors<br><a style="display: flex; flex-wrap: wrap;" href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
-            ';} 
+            Technical service of exhibitors<br><a href="mailto:konsultanttechniczny@warsawexpo.eu"><span style="display:block;"> konsultanttechniczny</span><span style="display:block;">@warsawexpo.eu</span></a>
+            ';}
+        } ?>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="raw-custom-container half-block-padding">
+      <div class="image-shadow">
+        <div class="t-entry-visual">
+            <img src="/wp-content/plugins/custom-element/media/Marketing.jpg" alt="marketing">
+        </div>
+      </div>
+
+      <div class="uncode_text_column" style="overflow-wrap: anywhere;">
+        <p><?php
+        if ($horizontal == "true"){
+            echo '<a href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy<span style="display:block;">@warsawexpo.eu</span></a>';
+        } else {
+            if($locale == 'pl_PL'){ echo '
+            Obsługa marketingowa <br><a href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy<span style="display:block;">@warsawexpo.eu</span></a>
+            ';} else { echo '
+            Marketing service of exhibitors<br><a href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy<span style="display:block;">@warsawexpo.eu</span></a>
+            ';}
         } ?>
         </p>
       </div>
     </div>
   </div>
-    
+
 </div>

@@ -10,16 +10,19 @@ if ($btn_color != ''){
         $btn_color_hover = '.custom_element_'.$rnd_id.' .custom-btn-container '.$btn_color_hover;
     }
 }
-if ($profile_img_max_width == '') {
-    $profile_img_max_width = '80%';
+if (in_array('profile_title_scope', explode(',', $profile_title_checkbox))) {
+    $profile_img_max_width = ($profile_img_max_width == '') ? '100%' : $profile_img_max_width;
+} else {
+    $profile_img_max_width = ($profile_img_max_width == '') ? '80%' : $profile_img_max_width;
 }
-if ($profile_img_aspect_ratio == '') {
-    $profile_img_aspect_ratio = '3/2';
+if (in_array('profile_title_visitors', explode(',', $profile_title_checkbox)) || in_array('profile_title_exhibitors', explode(',', $profile_title_checkbox))) {
+    $profile_img_aspect_ratio = ($profile_img_aspect_ratio == '') ? '1/1' : $profile_img_aspect_ratio;
+} else {
+    $profile_img_aspect_ratio = ($profile_img_aspect_ratio == '') ? '3/2' : $profile_img_aspect_ratio;
 }
 if ($profile_padding_element == '') {
     $profile_padding_element = '18px 36px';
 }
-
 ?>
 
 <style>
@@ -67,7 +70,7 @@ if ($profile_padding_element == '') {
 }
 .custom_element_<?php echo $rnd_id ?> .custom-profile-image {
     object-fit: cover;
-    max-width: <?php echo $profile_img_max_width ?>;
+    width: <?php echo $profile_img_max_width ?>;
     aspect-ratio: <?php echo $profile_img_aspect_ratio ?>;
 }
 .custom-profile-block {
@@ -113,7 +116,7 @@ if ($profile_padding_element == '') {
 }
 @media (max-width: 600px) {
     .custom_element_<?php echo $rnd_id ?> .custom-profile-image {
-        max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -145,9 +148,11 @@ if ($profile_padding_element == '') {
     if (in_array('profile_title_visitors', explode(',', $profile_title_checkbox))) {
         $profile_id = "profil-odwiedzajacego";
         $custom_profile_title = ($locale == 'pl_PL') ? "Profil odwiedzającego" : "Visitor profile"; 
+        $profile_img_aspect_ratio = ($profile_img_aspect_ratio == '') ? "1/1" : $profile_img_aspect_ratio;
     } else if (in_array('profile_title_exhibitors', explode(',', $profile_title_checkbox))) {
         $profile_id = "profil-wystawcy";
         $custom_profile_title = ($locale == 'pl_PL') ? "Profil wystawcy" : "Exhibitor profile";
+        $profile_img_aspect_ratio = ($profile_img_aspect_ratio == '') ? "1/1" : $profile_img_aspect_ratio;
     } else if (in_array('profile_title_scope', explode(',', $profile_title_checkbox))) {
         $profile_id = "zakres-branzowy";
         $custom_profile_title = ($locale == 'pl_PL') ? "Zakres branżowy" : "Industry scope";
@@ -212,17 +217,23 @@ if ($profile_padding_element == '') {
                                 } else if (!empty($profile_image_url_media) && !empty($profile_image_doc)) {
                                     echo '<img class="custom-profile-image t-entry-visual" src="/doc/galeria/'. $profile_image_doc .'" alt="'. $profile_title .'">';
                                 } else {
-                                    $profile_image_opt_path = $_SERVER['DOCUMENT_ROOT'] . '/doc/zdjecia_wys_odw';
+                                    $profile_optimazed_images = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria/zdjecia_wys_odw';
+                                    $profile_gallery_images = $_SERVER['DOCUMENT_ROOT'] . '/doc/galeria';
                                     $file_extensions = 'jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP';
-                                    $all_images = glob($profile_image_opt_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
+                                    if (is_dir($profile_optimazed_images) && !empty(glob($profile_optimazed_images . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
+                                        $profile_image_gallery_path = $profile_optimazed_images;
+                                    } else {
+                                        $profile_image_gallery_path = $profile_gallery_images;
+                                    }
+                                    $all_images = glob($profile_image_gallery_path . '/*.{'. $file_extensions .'}', GLOB_BRACE);
                                     sort($all_images); 
 
                                     $next_image_index = ($_SESSION['last_displayed_image_index'] + 1) % count($all_images);
                                     $next_image_path = $all_images[$next_image_index];
                                     $_SESSION['last_displayed_image_index'] = $next_image_index;
                                     
-                                    $profile_image_opt_short_path = substr($next_image_path, strpos($next_image_path, '/doc/'));
-                                    echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_opt_short_path.'" alt="'. $profile_title .'">';
+                                    $profile_image_gallery_short_path = substr($next_image_path, strpos($next_image_path, '/doc/'));
+                                    echo '<img class="custom-profile-image t-entry-visual" src="'. $profile_image_gallery_short_path.'" alt="'. $profile_title .'">';
                                 }
                             }
 

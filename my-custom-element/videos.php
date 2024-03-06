@@ -2,22 +2,15 @@
 
 $videos_urldecode = urldecode($videos);
 $videos_json = json_decode($videos_urldecode, true);
-
-if (!empty($videos_json)) {
-    if ($video_custom_title == "") {
-        if($locale == 'pl_PL') {
-            $video_custom_title = "Zobacz jak było na poprzednich edycjach";
-        } else {
-            $video_custom_title = "Check previous editions";
-        } 
-    } 
-} else {
-    if($locale == 'pl_PL') {
-        $video_custom_title = "ZOBACZ JAK WYGLĄDAJĄ NASZE POZOSTAŁE TARGI";
-    } else {
-        $video_custom_title = "SEE WHAT OUR OTHER TRADE FAIRS LOOK LIKE";
-    }
+foreach ($videos_json as $video) {
+    $video_iframe = $video["video_iframe"];
 }
+
+if (!empty($video_iframe)) {
+    if ($video_custom_title == "") {
+        $video_custom_title = ($locale == 'pl_PL') ? "Zobacz jak było na poprzednich edycjach" : "Check previous editions";
+    }
+} else $video_custom_title = ($locale == 'pl_PL') ? "ZOBACZ JAK WYGLĄDAJĄ NASZE POZOSTAŁE TARGI" : "SEE WHAT OUR OTHER TRADE FAIRS LOOK LIKE";     
 
 
 ?>
@@ -59,9 +52,8 @@ if (!empty($videos_json)) {
     </div>  
     <div class="custom-videos">
     <?php
-        
 
-        if (!empty($videos_json)) {
+        if (!empty($video_iframe)) {
             foreach ($videos_json as $video) {
                 $video_title = $video["video_title"];
                 $video_iframe = $video["video_iframe"];

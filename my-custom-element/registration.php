@@ -23,10 +23,6 @@ if (empty($pwe_height_logotypes_form)) {
         border: 2px solid;
         height: 100%;
     }
-    .row-container:has(.img-container-top10) .img-container-top10 div {
-        min-height: <?php echo $pwe_height_logotypes_form ?>;
-        margin: 10px 5px !important;
-    }
     .row-container:has(.img-container-top10) .uncol,
     .row-container:has(.img-container-top10) .uncell,
     .row-container:has(.img-container-top10) .uncont,
@@ -35,6 +31,18 @@ if (empty($pwe_height_logotypes_form)) {
         height: 100%;
     }
 </style>
+
+<?php 
+    $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
+    if ($mobile != 1) {
+        echo '<style>
+                .row-container:has(.img-container-top10) .img-container-top10 div {
+                    min-height: '. $pwe_height_logotypes_form .';
+                    margin: 10px 5px !important;
+                }
+              </style>';
+    }
+?>
 
 <div id='pweRegistration' class='pwe-registration'>
     <div class="pwe-registration-column style-accent-bg shadow-black">
