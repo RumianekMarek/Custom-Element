@@ -163,6 +163,14 @@ function media_gallery_output($atts, $content = null){
 
     $custom_gallery_images = array();
 
+    $old_modal = substr($atts['custom_image_links'], 3);
+    $old_modal = substr($old_modal, 0, -3);
+    $old_modal = str_replace("``", '"', $old_modal);
+    $old_modal = str_replace("\n", '<br>', $old_modal);
+    $old_modal = "[". $old_modal . "]";
+
+    $image_links_array = json_decode($old_modal, true);
+
     if(!empty($atts['custom_gallery_url'])){
         $folder_path = ABSPATH . 'doc/' . $atts['custom_gallery_url'];
 
@@ -220,17 +228,17 @@ function media_gallery_output($atts, $content = null){
                         <div class="custom-gallery-container" style="'.$custom_image_gride.' margin: 18px;">';
     $image_src_array = [];
 
-    var_dump($custom_image_links);
     foreach($custom_gallery_images as $key => $image){
-        var_dump($key);
+        $img_url = $image_links_array[$key]['desc'];
+        var_dump($img_url);
         $html_gallery .=     '<div class="custom_gallery_image_container" style="position:relative; overflow:hidden; '.$custom_image_lr_padding.' '.$custom_image_row_margin.' '.$custom_image_ratio.'">';
 
-        if($custom_image_clicked === 'Link') {
-            $html_gallery .= '<a href="">';
+        if($custom_image_clicked === 'Linked' && $img_url != '') {
+            $html_gallery .= '<a href="' . $img_url . '">';
         } 
         $html_gallery .=    '<img class="custom-image-gallery-picture" src="'.$image['url'].'" alt="'.$image['alt'].'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">';
 
-        if($custom_image_clicked === 'Link') {
+        if($custom_image_clicked === 'Linked' && $img_url != '') {
             $html_gallery .= '</a>';
         } 
         $html_gallery .='</div>';
