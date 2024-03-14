@@ -230,7 +230,6 @@ function media_gallery_output($atts, $content = null){
 
     foreach($custom_gallery_images as $key => $image){
         $img_url = $image_links_array[$key]['desc'];
-        var_dump($img_url);
         $html_gallery .=     '<div class="custom_gallery_image_container" style="position:relative; overflow:hidden; '.$custom_image_lr_padding.' '.$custom_image_row_margin.' '.$custom_image_ratio.'">';
 
         if($custom_image_clicked === 'Linked' && $img_url != '') {

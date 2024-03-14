@@ -1,17 +1,4 @@
 jQuery(function ($) {
-    // $('.open-desc').each(function (index, element) {
-    //     let totalHeight = 0;
-    //     $(element).prev().children().each(function () {
-    //         console.log($(this).height());
-    //         console.log($(this));
-    //         totalHeight += $(this).height();
-    //     });
-    //     console.log(totalHeight);
-    //     if (totalHeight > 120) {
-    //         $(element).show();
-    //     }
-    // });
-
     $(".open-desc").click(function (event) {
         let targetElement = '';
         if ($(event.target.parentElement).hasClass('text-container')) {
@@ -49,6 +36,11 @@ jQuery(function ($) {
             });
         });
     }
+    $('#stickyButtons .custom-sticky-button-item').on('click', function () {
+        const tabId = $('.nav-tabs').find('.active').attr('data-tab-id');
+        const descElem = $('#' + tabId + ' .inside-text');
+        ShowMore(descElem);
+    });
 
     $('.vc_tta-tab').first().each(function () {
         const tabId = $(this).attr('data-tab-id');
@@ -71,8 +63,25 @@ jQuery(function ($) {
                     const child = $(childrens[i]);
                     childrensHeight += child.outerHeight(true);
                 }
+
                 if (childrensHeight < 120) {
                     $(childrens).parent().next().hide(0);
+                }
+            })
+        }, 200);
+    }
+
+    function ShowMore(targetElement) {
+        setTimeout(function () {
+            targetElement.each(function () {
+                const childrens = $(this).children();
+                let childrensHeight = 0;
+                for (let i = 0; i < childrens.length; i++) {
+                    const child = $(childrens[i]);
+                    childrensHeight += child.outerHeight(true);
+                }
+                if (childrensHeight > 120) {
+                    $(childrens).parent().next().show(0);
                 }
             })
         }, 200);
