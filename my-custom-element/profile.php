@@ -172,7 +172,7 @@ if ($profile_padding_element == '') {
                 </div>
                 <br/>
                 <div>
-                    <p style="font-size:17px;"><b>Zapraszamy do kontaktu <a style="color: blue; text-decoration: underline;" href="mailto:anna.szlaga@warsawexpo.eu" target="_blank" rel="noopener">anna.szlaga@warsawexpo.eu</a></b></p>
+                    <p style="font-size:17px;"><b>Zapraszamy do kontaktu <a style="color: blue; text-decoration: underline;" href="mailto:konsultantmarketingowy@warsawexpo.eu" target="_blank" rel="noopener">konsultantmarketingowy@warsawexpo.eu</a></b></p>
                 </div>';
         }        
     } else {

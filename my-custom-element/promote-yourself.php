@@ -6,15 +6,16 @@
     }
     if ($btn_color != ''){
         $btn_color = '.custom_element_'.$rnd_id.' .btn-container '.$btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '.custom_element_'.$rnd_id.' .btn-container '.$btn_color_hover;
+        }
     }
 ?>
 <style>
-.custom-promote-text-block img{
-    float: right;
-    max-width: 45%;
-    margin:18px;
-}
 <?php echo $btn_color ?>
+<?php echo $btn_color_hover ?>
+
+
 .custom-content-promote-item {
     padding:0 5px 25px 5px;
     flex-wrap: wrap;
@@ -46,9 +47,9 @@
     width: 80%;
 }
 .custom-content-promote-item__help div a {
-    font-size: 30px;
+    font-size: 18px;
 }
-.custom_element_<?php echo $rnd_id ?> .custom-content-promote-item__help h2 {
+.custom_element_<?php echo $rnd_id ?> .custom-content-promote-item__help h5 {
     margin-top: 0;
     color: <?php echo $color ?>;
 }
@@ -69,19 +70,15 @@
         font-size:13px !important;
     }
     .custom-content-promote-item__help {
-        padding: 35px 10px !important;
+        padding: 25px 10px !important;
     }
-    .custom-content-promote-item__help h2, .custom-content-promote-item__help div a {
+    .custom-content-promote-item__help h5, .custom-content-promote-item__help div a {
         font-size:13px !important;
     }
 
     .promote-img-contener{
         order: 2;
         text-align: center;
-    }
-    .custom-promote-text-block img{
-        float: unset;
-        max-width: 90%;
     }
     .custom-promote-text-block{
         display: flex;
@@ -91,15 +88,59 @@
 .promote-element-background-element {
     background: lightgrey;
 }
+.custom-promote-left-container{
+    max-width:50%;
+}
+.image-container {
+    position: relative;
+    max-width: 45%;
+}
+
+.download-hover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.download-uslug:hover .download-hover {
+    opacity: 1;
+}
+.download-social:hover .download-hover {
+    opacity: 1;
+}
+.custom-promote-text-block {
+    display:flex;
+}
+@media(max-width:960px){
+    .image-container {
+        max-width:100%;
+    }
+     .custom-promote-left-container{
+        max-width:100%;
+    }
+    .download-hover {
+        opacity: 1;
+        top: 75%;
+        padding: 5px 5px;
+    }
+    .custom-promote-text-block {
+        display:block;
+    }
+}
 </style>
 <div id="promoteYourself" >
     <div class="custom-content-promote-item column-reverse custom-align-left">
-        <div class="custom-promote-text-block">
+        <div class="custom-promote-text-block" style="">
+            <div class="custom-promote-left-container">
             <?php
-                $thirdImage = $promoteImages[2];
-                $shortPath = substr($thirdImage, strpos($thirdImage, '/doc/'));
-                echo '<div class="image-shadow promote-img-contener"><img class="t-entry-visual" src="' . $shortPath . '"></div>';
-
                 if($locale == 'pl_PL'){
                     echo '<h3>Wypromuj się na [trade_fair_name]!</h3>';
                 } else {
@@ -116,6 +157,23 @@
                         <p>Below we explain STEP by STEP how to make your presence at the Fair known to your customers!</p>';
                 }
             ?>
+            </div>
+            <div class="image-container">
+                <div class="image-shadow promote-img-contener"style="display: flex; gap: 20px;">
+                    <div style="margin: 0 18px;" class="image-container download-uslug">
+                        <img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-marketingowych.webp">
+                        <?php if($locale == 'pl_PL'){
+                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
+                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
+                    </div>
+                    <div style="margin: 0 18px;" class="image-container download-social">
+                        <img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-social-media.webp">
+                         <?php if($locale == 'pl_PL'){
+                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
+                            echo ' <div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -186,7 +244,7 @@
             <p>800×800</p>
             <div>
                 <span class="btn-container">
-                    <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="800x800" >Pobierz<i class="fa fa-inbox2"></i></a>
+                    <a href="'.$file_url.'" class="custom-link btn" target="_blank" rel="nofollow" title="800x800" >Pobierz<i class="fa fa-inbox2"></i></a>
                 </span>
             </div>
             ';
@@ -200,7 +258,7 @@
         <p>800×800</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="800x800">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn" target="_blank" rel="nofollow" title="800x800">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -212,7 +270,7 @@
         echo ' <p>1200x200</p>
                 <div>
                     <span class="btn-container">
-                        <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="1200x200">Pobierz<i class="fa fa-inbox2"></i></a>
+                        <a href="'.$file_url.'" class="custom-link btn" target="_blank" rel="nofollow" title="1200x200">Pobierz<i class="fa fa-inbox2"></i></a>
                     </span>
                 </div> ';
     }
@@ -225,7 +283,7 @@
         <p>1200x200</p>
         <div>
             <span class="btn-container">
-                <a href="'.$file_url.'" class="custom-link btn border-width-0 btn-accent btn-square btn" target="_blank" rel="nofollow" title="1200x200">Download <i class="fa fa-inbox2"></i></a>
+                <a href="'.$file_url.'" class="custom-link btn" target="_blank" rel="nofollow" title="1200x200">Download <i class="fa fa-inbox2"></i></a>
             </span>
         </div>';
     }
@@ -271,7 +329,7 @@
             ?>
         <div>
             <span class="btn-container">
-                <a href="<?php echo $logo_url; ?>" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800" >
+                <a href="<?php echo $logo_url; ?>" class="custom-link btn" target="_blank" rel="nofollow" title="800x800" >
                     <?php if($locale == 'pl_PL'){ echo '
                     Pobierz
                     ';} else { echo '
@@ -293,7 +351,7 @@
             <div style="background-image:url('/wp-content/plugins/custom-element/media/logo_pwe_black.webp'); background-repeat: no-repeat; background-size: contain; background-position: center;" class="img-bg"></div>
             <div>
                 <span class="btn-container">
-                    <a href="https://warsawexpo.eu/docs/Logo_PWE.zip" class="custom-link btn border-width-0 btn-accent btn-square " target="_blank" rel="nofollow" title="800x800">
+                    <a href="https://warsawexpo.eu/docs/Logo_PWE.zip" class="custom-link btn" target="_blank" rel="nofollow" title="800x800">
                         <?php if($locale == 'pl_PL'){ echo '
                         Pobierz
                         ';} else { echo '
@@ -304,16 +362,16 @@
             </div>
         </div>
     </div>
-    <div class="custom-shadow-border-black style-accent-bg custom-content-promote-item__help" style="margin:35px auto; padding: 35px 20px;">
-        <h2>
+    <div class="custom-shadow-border-black style-accent-bg custom-content-promote-item__help" style="margin:35px auto; padding: 25px 20px;">
+        <h5>
             <?php if($locale == 'pl_PL'){ echo '
                 Gdybyś potrzebował więcej napisz do nas, a my postaramy się pomóc! Tylko działając razem jesteśmy w stanie osiągnąć sukces.</br>
             ';} else { echo '
                 If you need more, write to us and we will try to help! Only by working together can we be successful.</br>
             ';} ?>
-        </h2>
+        </h5>
         <div style="text-align: center; margin-top:15px; font-weight: 600; text-decoration:underline; text-decoration-color:white;">
-            <a style="color:white !important;" href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy@warsawexpo.eu</a>
+            <a style="color:<?php echo $color ?>;" href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy@warsawexpo.eu</a>
         </div>
     </div>
 </div>

@@ -30,6 +30,8 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
                     $entry[$field['id']] = $przeslane_dane['email'];
                 } elseif(strpos($field['label'], 'telefon') !== false){
                     $entry[$field['id']] = $przeslane_dane['phone'];
+                } elseif(strpos($field['label'], 'nip') !== false){
+                    $entry[$field['id']] = $przeslane_dane['fair'];
                 }
             }
             $entry_id = GFAPI::add_entry($entry);

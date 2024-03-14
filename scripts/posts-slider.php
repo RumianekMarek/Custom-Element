@@ -37,7 +37,7 @@
                                         if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['link']) && !empty($media_url_array[$imgNumber]['title'])){
                                             $imageUrl = $media_url_array[$imgNumber]['link'];
                                             $imageTitle = $media_url_array[$imgNumber]['title'];
-                                            $output .= '<a class="custom-post" href="'.$imageUrl.'" target="_blank">
+                                            $output .= '<a class="custom-post" href="'.$imageUrl.'">
                                                             <div class="custom-post-thumbnail image-shadow">
                                                                 <div class="t-entry-visual">
                                                                     <div class="image-container" style="'.$imageStyles.'"></div>
@@ -54,23 +54,21 @@
                         jQuery(function ($) {                         
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
-                                const rowSlides = document.querySelector(".row-container:has(#custom_element_slider-'.$id_rnd.' .slides)"); // <--------------------------------------------------<
                                 const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides div");
 
-                                
                                 let isMouseOver = false;
                                 let isDragging = false;
                                 
                                 let imagesMulti = "";
-                                const slidesWidth = rowSlides.clientWidth; // <--------------------------------------------------<
+                                const slidesWidth = slider.clientWidth; // <--------------------------------------------------<
 
-                                if (slidesWidth < 536) {
+                                if (slidesWidth < 400) {
                                         imagesMulti = 1;
-                                } else if (slidesWidth < 700) {
+                                } else if (slidesWidth < 600) {
                                         imagesMulti = 2;
-                                } else if (slidesWidth < 1100) {
+                                } else if (slidesWidth < 900) {
                                         imagesMulti = 3;
-                                } else if (slidesWidth < 1400) {
+                                } else if (slidesWidth < 1100) {
                                         imagesMulti = 4;
                                 } else {
                                         imagesMulti = 4;
@@ -84,17 +82,18 @@
                                                 };
                                         });
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
-                                        // images.forEach((image) => {
-                                        //         image.style.width = "250px"; // <--------------------------------------------------<
-                                        // });
+                                        images.forEach((image) => {
+                                                image.style.minWidth = imageWidth + "px"; // <--------------------------------------------------<
+                                        });
                                 } else {
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
-                                        // images.forEach((image) => {
-                                        //         image.style.maxWidth = "250px"; // <--------------------------------------------------<
-                                        // });
-                                        const slidesTransform =  (imageWidth + 10) * '.(-$min_image).';
+                                        images.forEach((image) => {
+                                                image.style.minWidth = imageWidth + "px"; // <--------------------------------------------------<
+                                        });
 
-                                        // slides.style.transform = `translateX(-${slidesTransform}px)`; 
+                                        const slidesTransform = (imageWidth + 18) * '.(-$min_image).';
+
+                                        slides.style.transform = `translateX(-${slidesTransform}px)`; 
 
                                         function nextSlide() {
                                                 slides.querySelectorAll("#custom_element_slider-'.$id_rnd.' .custom-post").forEach(function(image){
@@ -124,6 +123,7 @@
 
                                         let isDown = false;
                                         let startX;
+                                        let startY;
                                         let slideMove = 0;
 
                                         slider.addEventListener("mousedown", (e) => {
@@ -149,13 +149,24 @@
                                         slider.addEventListener("mousemove", (e) => {
                                                 if (!isDown) return;
                                                 e.preventDefault();
+                                                
+                                                let preventDefaultNextTime = true;
+
                                                 $(e.target).parent().on("click", function(event) {
-                                                    event.preventDefault();
+                                                        if (preventDefaultNextTime) {
+                                                                event.preventDefault();
+                                                                preventDefaultNextTime = true;
+
+                                                                setTimeout(() => {
+                                                                        preventDefaultNextTime = false;
+                                                                }, 200);
+                                                        }
                                                 });
+
                                                 const x = e.pageX - slider.offsetLeft;
                                                 const walk = (x - startX);
                                                 const transformWalk = slidesTransform - walk;
-                                                // slides.style.transform = `translateX(-${transformWalk}px)`;
+                                                slides.style.transform = `translateX(-${transformWalk}px)`;
                                                 slideMove = (walk / imageWidth);
                                         });
 
@@ -165,6 +176,7 @@
                                                 isDown = true;
                                                 slider.classList.add("active");
                                                 startX = e.touches[0].pageX - slider.offsetLeft;
+                                                startY = e.touches[0].pageY;
                                         });
 
                                         slider.addEventListener("touchend", () => {
@@ -176,13 +188,22 @@
 
                                         slider.addEventListener("touchmove", (e) => {
                                                 if (!isDown) return;
-                                                e.preventDefault();
+                                            
+                                                if (!e.cancelable) return; // Dodajemy ten warunek, aby uniknąć błędu
+                                            
                                                 const x = e.touches[0].pageX - slider.offsetLeft;
+                                                const y = e.touches[0].pageY;
                                                 const walk = (x - startX);
-                                                const transformWalk = slidesTransform - walk;
-                                                // slides.style.transform = `translateX(-${transformWalk}px)`;
-                                                slideMove = (walk / imageWidth);
+                                                const verticalDiff = Math.abs(y - startY);
+                                            
+                                                if (Math.abs(walk) > verticalDiff) { // Tylko jeśli ruch poziomy jest większy niż pionowy
+                                                    e.preventDefault();
+                                                    const transformWalk = slidesTransform - walk;
+                                                    slides.style.transform = `translateX(-${transformWalk}px)`;
+                                                    slideMove = (walk / imageWidth);
+                                                }
                                         });
+                                            
                                         
                                         const resetSlider = (slideWalk) => {
                                                 const slidesMove = Math.abs(Math.round(slideWalk));
@@ -199,7 +220,7 @@
                                                                 firstSlide.classList.remove("first-slide");
                                                         }
                                                 }
-                                                // slides.style.transform = `translateX(-${slidesTransform}px)`;
+                                                slides.style.transform = `translateX(-${slidesTransform}px)`;
                                         }
                                         setInterval(function() {
                                                 if(!isMouseOver) { 
@@ -223,14 +244,13 @@
     .custom-posts .slides {
         display: flex;
         align-items: flex-start !important;
-        justify-content: end;
+        justify-content: space-between;
         min-height : 0 !important;
         min-width : 0 !important;
         pointer-events: auto;
     }
     .custom-posts .slide {
         padding:0;
-        /* flex: 1; */
     }
     @keyframes slideAnimation {
         from {
@@ -251,7 +271,7 @@
     </style>
 
 <?php
-        if ($posts_all && $posts_all === 'true') {
+        if ($posts_full_width === 'true') {
             echo'<style>
                         .custom-posts-wrapper {
                                 overflow: visible !important;

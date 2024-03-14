@@ -647,7 +647,7 @@ function my_custom_wpbakery_element() {
       array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
-        'heading' => __('Display all categories (max 5 posts)', 'my-custom-plugin'),
+        'heading' => __('Display all categories (<= 5 posts)', 'my-custom-plugin'),
         'param_name' => 'posts_all_cat',
         'save_always' => true,
         'value' => array(__('True', 'my-custom-plugin') => 'true',),
@@ -659,8 +659,21 @@ function my_custom_wpbakery_element() {
       array(
         'type' => 'checkbox',
         'group' => 'Main Settings',
-        'heading' => __('Display all posts (full width)', 'my-custom-plugin'),
+        'heading' => __('Display all posts (> 5 posts)', 'my-custom-plugin'),
+        'description' => __('View all posts in such categories (more than 5 posts)', 'my-custom-plugin'),
         'param_name' => 'posts_all',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('posts.php')
+        ),
+      ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('Full width', 'my-custom-plugin'),
+        'param_name' => 'posts_full_width',
         'save_always' => true,
         'value' => array(__('True', 'my-custom-plugin') => 'true',),
         'dependency' => array(
@@ -1730,9 +1743,9 @@ function my_custom_element_output($atts, $content = null) {
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
-    if (isset($atts['btn_color'])) { $button_color = $atts['btn_color']; }
-    if (isset($atts['btn_color_text'])) { $button_color_text = $atts['btn_color_text']; }
-    if (isset($atts['btn_color_shadow'])) { $button_color_shadow = $atts['btn_color_shadow']; }
+    if ($atts['btn_color'] = '') { $button_color = $atts['btn_color']; }
+    if ($atts['btn_color_text'] = '') { $button_color_text = $atts['btn_color_text']; }
+    if ($atts['btn_color_shadow'] = '') { $button_color_shadow = $atts['btn_color_shadow']; }
     
     global $custom_element_colors;
 
@@ -1788,6 +1801,7 @@ function my_custom_element_output($atts, $content = null) {
       }';
     } else {
       $button_color_text = ($button_color_text == '') ? '#ffffff' : $button_color_text;
+      $button_color = ($button_color == '') ? '#000000' : $button_color;
       $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
@@ -1883,6 +1897,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['posts_btn'])) { $posts_btn = $atts['posts_btn']; }
     if (isset($atts['posts_all_cat'])) { $posts_all_cat = $atts['posts_all_cat']; }
     if (isset($atts['posts_all'])) { $posts_all = $atts['posts_all']; }
+    if (isset($atts['posts_full_width'])) { $posts_full_width = $atts['posts_full_width']; }
 
     // PROFILES
     if (isset($atts['profile_title_checkbox'])) { $profile_title_checkbox = $atts['profile_title_checkbox']; }

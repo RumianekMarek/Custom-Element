@@ -118,6 +118,7 @@
 
                                         let isDown = false;
                                         let startX;
+                                        let startY;
                                         let slideMove = 0;
 
                                         slider.addEventListener("mousedown", (e) => {
@@ -143,8 +144,17 @@
                                         slider.addEventListener("mousemove", (e) => {
                                                 if (!isDown) return;
                                                 e.preventDefault();
+                                                let preventDefaultNextTime = true;
+
                                                 $(e.target).parent().on("click", function(event) {
-                                                    event.preventDefault();
+                                                        if (preventDefaultNextTime) {
+                                                                event.preventDefault();
+                                                                preventDefaultNextTime = true;
+
+                                                                setTimeout(() => {
+                                                                        preventDefaultNextTime = false;
+                                                                }, 200);
+                                                        }
                                                 });
                                                 const x = e.pageX - slider.offsetLeft;
                                                 const walk = (x - startX);
@@ -159,6 +169,7 @@
                                                 isDown = true;
                                                 slider.classList.add("active");
                                                 startX = e.touches[0].pageX - slider.offsetLeft;
+                                                startY = e.touches[0].pageY;
                                         });
 
                                         slider.addEventListener("touchend", () => {
@@ -170,12 +181,18 @@
 
                                         slider.addEventListener("touchmove", (e) => {
                                                 if (!isDown) return;
-                                                e.preventDefault();
+    
                                                 const x = e.touches[0].pageX - slider.offsetLeft;
+                                                const y = e.touches[0].pageY;
                                                 const walk = (x - startX);
-                                                const transformWalk = slidesTransform - walk;
-                                                slides.style.transform = `translateX(-${transformWalk}px)`;
-                                                slideMove = (walk / imageWidth);
+                                                const verticalDiff = Math.abs(y - startY);
+
+                                                if (Math.abs(walk) > verticalDiff) { // Tylko jeśli ruch poziomy jest większy niż pionowy
+                                                        e.preventDefault();
+                                                        const transformWalk = slidesTransform - walk;
+                                                        slides.style.transform = `translateX(-${transformWalk}px)`;
+                                                        slideMove = (walk / imageWidth);
+                                                }
                                         });
                                         
                                         const resetSlider = (slideWalk) => {

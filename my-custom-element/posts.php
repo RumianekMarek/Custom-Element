@@ -43,10 +43,7 @@
         justify-content: center;
         gap: 18px;
         padding-bottom: 18px;
-    }
-    .custom-post {
-        min-width: 250px;
-        max-width: 250px;
+        opacity: 0;
     }
     .custom-post-title {
         margin: 0;
@@ -58,65 +55,44 @@
         background-repeat: no-repeat;
         background-position: center;
         aspect-ratio: <?php echo $posts_ratio ?>;
-        max-width: 250px;
     }
     .custom-posts .slides {
         align-items: flex-start !important;
         gap: 18px;
     }
-    @media (max-width: 600px) {
-        .custom-post-title {
-            font-size: 14px !important;
-        }
-    }
-    @media (max-width: 1200px) {
+    @media (max-width: 1128px) {
         .custom_element_<?php echo $rnd_id ?> .custom-posts-wrapper {
-            padding: 36px 18px;  
-        } 
-    }
-    @media (min-width: 1200px) {
-        .custom-posts .slides {
-            gap: 40px;
+            padding: 36px;  
         }
     }
 </style>
 
 <?php
 
-// if ($posts_count > 1 && $mobile == 1) {
-//     if ($posts_count % 2 == 0) {
-//         // echo'<style>
-//         //         .custom-posts .slides {
-//         //             margin: 0 !important;
-//         //         }
-//         //     </style>';
-//     } else {
-//         // echo'<style>
-//         //         @media (max-width: 600px) {
-//         //             .custom-posts .slides {
-//         //                 margin-left: 156px !important;
-//         //             }
-//         //         }
-//         //     </style>';
-//     }
-// }
-
-if ($posts_all && $posts_all === 'true' && $mobile != 1) {
-    echo'<style>
-                .custom-posts-wrapper {
-                    max-width: 100% !important;  
-                    padding: 36px 0 !important; 
-                }
-                .custom-posts-title {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding-left: 36px;
-                }
-                .custom-posts .slides {
-                    margin-right: 36px !important;
-                }
-        </style>';
-}
+// Display all categories across the full width of the page
+if ($posts_full_width === 'true' && $mobile != 1) {
+    $output .= ' <style>
+                    .custom-posts-wrapper {
+                        max-width: 100% !important;  
+                        padding: 36px 0 !important; 
+                    }
+                    .custom-posts-title {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding-left: 36px;
+                    }
+                    .custom-posts .slides {
+                        margin-right: 36px !important;
+                        gap: 36px !important;
+                    }
+                    .custom-post .t-entry-visual,
+                    .custom-post .image-container,
+                    .custom-post .custom-post-thumbnail {
+                        min-width: 300px !important;
+                        max-width: 300px !important;
+                    }
+                </style>';
+}   
 
 $output .= '<div id="customPosts" class="custom-container-posts">
                 
@@ -222,12 +198,14 @@ echo $output;
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
-  const customPostsElement = document.querySelector('.custom-posts');
-  const customSliderElement = document.querySelector('.custom-posts .slides');
-  const customPostsRow = document.querySelector('.row-container:has(.custom-posts)');
-  if ((customPostsElement && customPostsElement.children.length === 0) || (customSliderElement && customSliderElement.children.length === 0)) {
-    customPostsRow.classList.add('desktop-hidden', 'tablet-hidden', 'mobile-hidden');
-  }
+    let customPostsElement = document.querySelector('.custom_element_<?php echo $rnd_id ?> .custom-posts');
+    const customSliderElement = document.querySelector('.custom-posts .slides');
+    const customPostsRow = document.querySelector('.row-container:has(.custom-posts)');
+    customPostsElement.style.opacity = 1;
+    customPostsElement.style.transition = 'opacity 0.3s ease';
+    if ((customPostsElement && customPostsElement.children.length === 0) || (customSliderElement && customSliderElement.children.length === 0)) {
+        customPostsRow.classList.add('desktop-hidden', 'tablet-hidden', 'mobile-hidden');
+    }
 });
 
 </script>
