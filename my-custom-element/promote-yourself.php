@@ -57,6 +57,9 @@
     width: 66%;
     margin: 0 auto;
 }
+.promote-download-container {
+    background: <?php echo $color_bacground_promote ?> !important;
+}
 @media (max-width:950px){
     .custom-content-promote-item__help {
         width: 100%;
@@ -209,17 +212,16 @@
     <?php
     if ($show_banners != 'true') {
         if($color == '#000000'){
-            echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black promote-element-background-element">';
+            echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black promote-download-container promote-element-background-element">';
         } else {
-            echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black">';
+            echo '<div class="custom-flex custom-content-promote-item promote-download-container custom-shadow-border-black">';
         }
     }  else  {
         if($color == '#000000'){
-            echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black promote-element-background-element custom-hide-promote">';
+            echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black promote-download-container promote-element-background-element custom-hide-promote">';
         } else {
-           echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black custom-hide-promote">';
+           echo '<div class="custom-flex custom-content-promote-item custom-shadow-border-black promote-download-container custom-hide-promote">';
         }
-
     }
     ?>
     <?php
@@ -370,8 +372,8 @@
                 If you need more, write to us and we will try to help! Only by working together can we be successful.</br>
             ';} ?>
         </h5>
-        <div style="text-align: center; margin-top:15px; font-weight: 600; text-decoration:underline; text-decoration-color:white;">
-            <a style="color:<?php echo $color ?>;" href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy@warsawexpo.eu</a>
+        <div style="text-align: center; margin-top:15px; font-weight: 600;">
+            <a style="color: <?php echo $color ?>; text-decoration:underline;" href="mailto:konsultantmarketingowy@warsawexpo.eu">konsultantmarketingowy@warsawexpo.eu</a>
         </div>
     </div>
 </div>

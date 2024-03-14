@@ -585,6 +585,17 @@ function my_custom_wpbakery_element() {
           'value' => array('promote-yourself.php')
         ),
       ),
+      array(
+        'type' => 'colorpicker',
+        'group' => 'Main Settings',
+        'heading' =>  __('Logotyp download background color.', 'my-custom-plugin'),
+        'param_name' => 'color_bacground_promote',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('promote-yourself.php')
+        ),
+      ),
       // POSTS <-------------------------------------------------------------------------<
       array(
         'type' => 'textfield',
@@ -1743,9 +1754,9 @@ function my_custom_element_output($atts, $content = null) {
     // $selected_option = vc_param_group_get_key('params', 'slider_off', $atts);
 
     if (isset($atts['color'])) { $color = $atts['color']; }
-    if ($atts['btn_color'] = '') { $button_color = $atts['btn_color']; }
-    if ($atts['btn_color_text'] = '') { $button_color_text = $atts['btn_color_text']; }
-    if ($atts['btn_color_shadow'] = '') { $button_color_shadow = $atts['btn_color_shadow']; }
+    if ($atts['btn_color'] != '') { $button_color = $atts['btn_color']; }
+    if ($atts['btn_color_text'] != '') { $button_color_text = $atts['btn_color_text']; }
+    if ($atts['btn_color_shadow'] != '') { $button_color_shadow = $atts['btn_color_shadow']; }
     
     global $custom_element_colors;
 
@@ -1801,7 +1812,7 @@ function my_custom_element_output($atts, $content = null) {
       }';
     } else {
       $button_color_text = ($button_color_text == '') ? '#ffffff' : $button_color_text;
-      $button_color = ($button_color == '') ? '#000000' : $button_color;
+      $button_color = ($button_color == '') ? 'black' : $button_color;
       $button_color_shadow = ($button_color_shadow === '') ? $button_color_text : $button_color_shadow;
       $btn_color = '.btn {
           color: '. $button_color_text .' !important;
@@ -1818,6 +1829,7 @@ function my_custom_element_output($atts, $content = null) {
     
     if (isset($atts['element'])) { $element = $atts['element']; }
     if (isset($atts['file'])) { $file = $atts['file']; }
+    if (isset($atts['color_bacground_promote'])) { $color_bacground_promote = $atts['color_bacground_promote']; }
 
     // FOR VISITORS
     if (isset($atts['visitor1'])) { $visitor1 = $atts['visitor1']; }
