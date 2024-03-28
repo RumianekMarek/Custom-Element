@@ -11,6 +11,10 @@
     border: 5px solid;
 }
 
+.chevron-slide:has(.inside-text) {
+    min-height: 280px;
+}
+
 .chevron-slide .head-container {
     text-align: center;
     align-self: center;

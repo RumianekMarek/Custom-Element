@@ -290,32 +290,32 @@ function info_box_output($atts, $content = null) {
         $js_version = filemtime(plugin_dir_url(__FILE__) . 'display-info.js');
         wp_enqueue_script('info_box-js', $js_file, array('jquery'), $js_version, true);
         wp_localize_script('info_box-js', 'inner' , $atts);
-        
-        foreach($speakers as $speaker){
+
+        foreach($speakers as $main_id => $speaker){
             foreach($speaker as $id => $key){
                 if($id == 'speaker_name'){
-                    $speakers_names[] = $key;
+                    $speakers_names[$main_id] = $key;
                 }
                 if($id == 'speaker_image'){
-                    $speakers_images[] = $key;
+                    $speakers_images[$main_id] = $key;
                 }
                 if($id == 'speaker_bio'){
-                    $speakers_bios[] = $key;
+                    $speakers_bios[$main_id] = $key;
                 }
             }
         }
-
         if (!$simple_mode){
-        
+
         $modal_html = '<div class="modal-lecturers">';
-        if (empty($speakers_images[0])){
+        if (count($speakers_images) < 1 ){
             $speaker_html = '<div class="speakers"></div>';
         } else {
             $speaker_html = '<div class="speakers-img">';
             $haed_images = array_filter($speakers_images);
             $haed_images = array_values($haed_images);
-            
-            for ($i = 0; $i < count($haed_images); $i++) {            
+
+            for ($i = 0; $i < count($haed_images); $i++) {    
+                        
                 if (isset($haed_images[$i])) {
                     $image_src = wp_get_attachment_image_src($haed_images[$i], 'full');
 
@@ -487,7 +487,7 @@ function info_box_output($atts, $content = null) {
             }
 
 
-            $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="min-height:280px; '.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
+            $html .= '<div id="lecture-'.$lecture_id.'" class="chevron-slide" style="'.$shadow.' border:'.$border_width.' '.$border_style.' '.$border_color.'; '.$border_radius.'">
                     <div class="head-container">
                     ' . $speaker_html;
         
