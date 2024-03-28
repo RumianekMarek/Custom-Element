@@ -1,7 +1,7 @@
 <?php
 // Ustaw ścieżkę do pliku, do którego chcesz zapisać dane
 $sciezka_do_pliku = 'log.txt';
-$dane_do_zapisu .= "\n" . date('Y-m-d H:i:s') . "\n";
+$dane_do_zapisu = "\n" . date('Y-m-d H:i:s') . "\n";
 
 if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET)) {
     // Odbierz dane z formularza
@@ -35,6 +35,24 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
                 }
             }
             $entry_id = GFAPI::add_entry($entry);
+
+            $qr_feeds = GFAPI::get_feeds( NULL, $form[ 'id' ]);
+            foreach($qr_feeds as $feed){
+                if (gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url')){
+                    $qr_code_id = $feed['id'];
+                }   
+            }
+
+            $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url');
+            $meta_key_image = '<img data-imagetype="External" src="' . gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url') . '" width="200">';
+
+            foreach($face_form["notifications"] as $id => $key){
+                if($key["isActive"]){
+                    $face_form["notifications"][$id]["message"] = str_replace('{qrcode-url-' . $qr_code_id . '}', $meta_key_url . '" width="200', $key["message"]);
+                    $face_form["notifications"][$id]["message"] = str_replace('{qrcode-image-' . $qr_code_id . '}', $meta_key_image, $key["message"]);
+                    break;
+                }
+            }
 
             if ($entry_id && !is_wp_error($entry_id)) {
                 try {

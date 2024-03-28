@@ -54,7 +54,7 @@
                         jQuery(function ($) {                         
                                 const slider = document.querySelector("#custom_element_slider-'.$id_rnd.'");
                                 const slides = document.querySelector("#custom_element_slider-'.$id_rnd.' .slides");
-                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides div");
+                                const images = document.querySelectorAll("#custom_element_slider-'.$id_rnd.' .slides .custom-post");
 
                                 let isMouseOver = false;
                                 let isDragging = false;
@@ -83,12 +83,14 @@
                                         });
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
                                         images.forEach((image) => {
-                                                image.style.minWidth = imageWidth + "px"; // <--------------------------------------------------<
+                                                image.style.minWidth = imageWidth + "px";
+                                                image.style.maxWidth = imageWidth + "px";
                                         });
                                 } else {
                                         const imageWidth = Math.floor((slidesWidth - imagesMulti * 10) / imagesMulti);
                                         images.forEach((image) => {
-                                                image.style.minWidth = imageWidth + "px"; // <--------------------------------------------------<
+                                                image.style.minWidth = imageWidth + "px";
+                                                image.style.maxWidth = imageWidth + "px";
                                         });
 
                                         const slidesTransform = (imageWidth + 18) * '.(-$min_image).';
