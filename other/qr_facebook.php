@@ -50,7 +50,6 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
                 if($key["isActive"]){
                     $face_form["notifications"][$id]["message"] = str_replace('{qrcode-url-' . $qr_code_id . '}', $meta_key_url . '" width="200', $key["message"]);
                     $face_form["notifications"][$id]["message"] = str_replace('{qrcode-image-' . $qr_code_id . '}', $meta_key_image, $key["message"]);
-                    break;
                 }
             }
 
