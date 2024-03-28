@@ -69,7 +69,8 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .vc_shortcode-param[data-vc-shortcode-param-name="header_custom_buttons_header_custom_button_text"],
 .vc_shortcode-param[data-vc-shortcode-param-name="header_custom_logotypes_logotypes_files"],
 .vc_shortcode-param[data-vc-shortcode-param-name="contact_items"],
-.vc_shortcode-param[data-vc-shortcode-param-name="contact_content"] {
+.vc_shortcode-param[data-vc-shortcode-param-name="contact_content"],
+.vc_shortcode-param[data-vc-shortcode-param-name="header_logo_marg_pag"] {
     width: 100% !important;
 }
 .vc_shortcode-param[data-vc-shortcode-param-name="videos_video_title"],

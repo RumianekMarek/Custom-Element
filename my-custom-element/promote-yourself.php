@@ -94,7 +94,7 @@
 .custom-promote-left-container{
     max-width:50%;
 }
-.image-container {
+.custom-container-promote-yourself .image-container {
     position: relative;
     max-width: 45%;
 }
@@ -123,7 +123,7 @@
     display:flex;
 }
 @media(max-width:960px){
-    .image-container {
+    .custom-container-promote-yourself .image-container {
         max-width:100%;
     }
      .custom-promote-left-container{
@@ -139,7 +139,7 @@
     }
 }
 </style>
-<div id="promoteYourself" >
+<div id="promoteYourself" class="custom-container-promote-yourself">
     <div class="custom-content-promote-item column-reverse custom-align-left">
         <div class="custom-promote-text-block" style="">
             <div class="custom-promote-left-container">

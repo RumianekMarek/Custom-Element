@@ -230,16 +230,32 @@
         ';
     }
 
+    if ($header_logo_marg_pag == 'true') {
+        echo '
+            <style>
+                .header-wrapper-column {
+                    padding: 0 18px 36px;
+                }
+                .custom-header-text h1 {
+                    margin: 0;
+                }
+                .custom-header-text {
+                    padding: 0 0 18px;
+                }
+            </style>
+        ';
+    }
+
     $positions = ['top', 'center', 'bottom'];
     foreach ($positions as $position) {
         if (in_array($position, explode(',', $header_bg_position))) {
-            echo "
+            echo '
                 <style>
                     .custom-header-background {
-                        background-position: $position !important;
+                        background-position: '. $position .' !important;
                     }
                 </style>
-            ";
+            ';
             break;
         }
     }

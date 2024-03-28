@@ -1,5 +1,6 @@
 <?php 
 include_once plugin_dir_path(__FILE__) . '/../scripts/slider.php';
+$mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
 if ($left_center_right_title == ''){
     $left_center_right_title = 'left';
 }
@@ -12,9 +13,10 @@ if ($left_center_right_title == ''){
     .custom-logos-gallery-wrapper {
         display: flex;
         justify-content: center;
+        align-items: center;
         flex-wrap: wrap;
         gap: 10px;
-        padding-top: 18px;
+        margin-top: 18px;
     }
     .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item,
     .custom_element_<?php echo $rnd_id ?> .custom-logos-gallery-wrapper .custom-logo-item div,
@@ -22,7 +24,7 @@ if ($left_center_right_title == ''){
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        <?php if ($min_width_logo != '') { ?>
+        <?php if ($min_width_logo != '' && $mobile != 1) { ?>
             min-width: <?php echo $min_width_logo ?> !important;
         <?php } else { ?>
             min-width: 140px;
@@ -74,6 +76,12 @@ if ($left_center_right_title == ''){
 
 <?php
     if ($logoscatalog != '' || !empty($header_custom_logotypes)){
+        $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+        $domain = $_SERVER['HTTP_HOST'];
+        $server_url = ($is_https ? 'https://' : 'http://') . $domain;
+
+        $unique_id = rand(10000, 99999);
+        $element_unique_id = 'customLogotypes-' . $unique_id;
         
         $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);
         $header_custom_logotypes_json = json_decode($header_custom_logotypes_urldecode, true);
@@ -85,12 +93,14 @@ if ($left_center_right_title == ''){
                 $header_logotypes_width = $logotypes["logotypes_width"];
                 $header_logotypes_media = $logotypes["logotypes_media"];
                 $header_logotypes_slider_off = $logotypes["logotypes_slider_off"];
+                $header_logotypes_items_width = $logotypes["logotypes_items_width"];
             } else {
                 $header_logotypes_url = $logotypes_item["logoscatalog"];
                 $header_logotypes_title = $logotypes_item["titlecatalog"];
                 $header_logotypes_width = $logotypes_item["logotypes_width"];
                 $header_logotypes_media = $logotypes_item["logotypes_media"];
                 $header_logotypes_slider_off = $logotypes_item["logotypes_slider_off"];
+                $header_logotypes_items_width = $logotypes_item["logotypes_items_width"];
             }   
             $header_logotypes_media_ids = explode(',', $header_logotypes_media);  
         }
@@ -101,14 +111,6 @@ if ($left_center_right_title == ''){
                 $header_logotypes_media_urls[] = $url;
             }
         }
-
-        $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
-        $domain = $_SERVER['HTTP_HOST'];
-        $server_url = ($is_https ? 'https://' : 'http://') . $domain;
-        $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
-
-        $unique_id = rand(10000, 99999);
-        $element_unique_id = 'customLogotypes-' . $unique_id;
 
         $pattern = '/``id``:``(.*?)``,``url``:``(.*?)``/';
         // Wyszukaj dopasowania i zapisz wyniki w tablicy $ dopasowań
@@ -261,22 +263,32 @@ if ($left_center_right_title == ''){
 
                                 if ($grid_mobile == true) {
                                     foreach ($updated_images_url as $url) {
+                                        if ($header_logotypes_items_width != '' && $mobile != 1) {
+                                            $logotypes_items_width = 'min-width:'. $header_logotypes_items_width .';';
+                                        } else {
+                                            $logotypes_items_width = 'min-width: 140px;';
+                                        }
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div></a>';
                                             } else  {
-                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div>';
                                             }
                                         }   
                                     }
                                 } else {
                                     if (count($updated_images_url) <= 2) {
                                         foreach ($updated_images_url as $url) {
+                                            if ($header_logotypes_items_width != '' && $mobile != 1) {
+                                                $logotypes_items_width = 'min-width:'. $header_logotypes_items_width .';';
+                                            } else {
+                                                $logotypes_items_width = 'min-width: 140px;';
+                                            }
                                             if (!empty($image)) {
                                                 if (!empty($url["site"])) {
-                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
+                                                    $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div></a>';
                                                 } else {
-                                                    $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
+                                                    $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div>';
                                                 }
                                             }   
                                         }
@@ -285,11 +297,16 @@ if ($left_center_right_title == ''){
                                             $output .= custom_media_slider($updated_images_url);
                                         } else {
                                             foreach ($updated_images_url as $url) {
+                                                if ($header_logotypes_items_width != '' && $mobile != 1) {
+                                                    $logotypes_items_width = 'min-width:'. $header_logotypes_items_width .';';
+                                                } else {
+                                                    $logotypes_items_width = 'min-width: 140px;';
+                                                }
                                                 if (!empty($image)) {
                                                     if (!empty($url["site"])) {
-                                                        $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
+                                                        $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div></a>';
                                                     } else {
-                                                        $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
+                                                        $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div>';
                                                     }
                                                 }   
                                             }
@@ -302,11 +319,16 @@ if ($left_center_right_title == ''){
                                     $output .= custom_media_slider($updated_images_url);
                                 } else {
                                     foreach ($updated_images_url as $url) {
+                                        if ($header_logotypes_items_width != '' && $mobile != 1) {
+                                            $logotypes_items_width = 'min-width:'. $header_logotypes_items_width .';';
+                                        } else {
+                                            $logotypes_items_width = 'min-width: 140px;';
+                                        }
                                         if (!empty($image)) {
                                             if (!empty($url["site"])) {
-                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div></a>';
+                                                $output .= '<a target="_blank" href="'. $url["site"] .'"><div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div></a>';
                                             } else {
-                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .'"></div>';
+                                                $output .= '<div class="custom-logo-item '. $url["class"] .'" style="background-image: url(\'' . $url["img"] . '\'); '. $url["style"] .' '. $logotypes_items_width .'"></div>';
                                             }
                                         }   
                                     }

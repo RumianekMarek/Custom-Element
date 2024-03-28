@@ -22,9 +22,9 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 18px;
+        padding: 28px 18px;
         width: 100%;
-        gap: 20px;
+        gap: 24px;
     }
     <?php if ($sticky_buttons_dropdown === "true") { ?>
     .custom-sticky-buttons-cropped:before {
@@ -62,6 +62,10 @@
     .custom-sticky-button-item {
         text-align: center;
         z-index: 8;
+
+        .active{
+            transform: scale(1.2);
+        }
     }
     .custom-sticky-buttons-cropped .custom-sticky-button-item {
         width: <?php echo $sticky_buttons_width ?> !important;
@@ -133,6 +137,10 @@
         right: 0;
         left: 0;
     }
+    .konferencja {
+        display: none;
+        scroll-margin-top: 40px;
+    }
 
 </style>
 <?php
@@ -190,6 +198,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
 
         echo '</div>';
     }
+    
     echo '
     <div class="sticky custom-sticky-buttons-cropped-container">
         <div class="custom-sticky-head-container style-accent-bg" style="display: none; background-color:'. $sticky_buttons_cropped_background .'!important">
@@ -208,6 +217,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                     $button_text = $sticky_button["sticky_buttons_color_text"];
                     $image_url = wp_get_attachment_url($attachment_img_id);
                     $buttons_urls[] = $image_url;
+                    $buttons_colors[] = $button_color;
                     $buttons_id[] = $button_id;
                     $buttons_links[] = $link;
 
@@ -251,6 +261,9 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
 
     $buttons_id_json = json_encode($buttons_id);
     $buttons_links_json = json_encode($buttons_id);
+
+    $buttons_cropped_image = json_encode($buttons_urls);
+    $buttons_cropped_color = json_encode($buttons_colors);
 ?>
 
 
@@ -285,6 +298,13 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         const setElementPosition = (element, position) => {
             element.style.position = position;
         };
+
+        const buttonsCroppedImage = <?php echo $buttons_cropped_image ?>;
+        const buttonsCroppedColor = <?php echo $buttons_cropped_color ?>;
+        const combinedArray = buttonsCroppedImage.concat(buttonsCroppedColor);
+        if (combinedArray.every(value => value === false || value === "")) {
+            hideElement(tilesCroppedContainer);
+        }
 
         if (stickyButtonsDropdown !== 'true') {
             hideElement(stickyHeadContainer);
@@ -403,7 +423,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                             hideSections[i].style.display = 'none';
                         }
                         if (index === 0 && button) {
-                            button.style.transform = 'scale(1.1)';
+                            button.classList.add('active');
                         }
                     }
                 }
@@ -422,11 +442,11 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                     }
                     
                     if (button) {
-                        button.style.transform = 'scale(1.1)';
+                        button.classList.add('active');
                     }
                     document.querySelectorAll('.custom-image-button').forEach(function(otherButton) {
-                        if (otherButton !== button) {
-                            otherButton.style.transform = 'scale(1)';
+                        if (otherButton !== button && otherButton.classList.contains('active')) {
+                            otherButton.classList.remove('active');
                         }
                     });
                 });
@@ -448,6 +468,8 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
             });
         });
+
+        
         
         if (stickyButtonsDropdown === "true") {
 

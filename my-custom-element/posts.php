@@ -58,7 +58,7 @@
     }
     .custom-posts .slides {
         align-items: flex-start !important;
-        gap: 18px;
+        gap: 16px;
     }
     @media (max-width: 1128px) {
         .custom_element_<?php echo $rnd_id ?> .custom-posts-wrapper {
@@ -103,40 +103,39 @@ $output .= '<div id="customPosts" class="custom-container-posts">
         </div>  
         <div class="custom-posts">';
 
-        if (strlen($trade_end) <= 10) { // Zakładając, że format daty to 'Y/m/d'
-            $trade_end .= ' 17:00'; // Dopisanie '00:00' do daty
+        if (strlen($trade_end) <= 10) { // Assuming the date format is 'Y/m/d'
+            $trade_end .= ' 17:00'; // Adding '17:00' to the date
         }
         $trade_end_date = DateTime::createFromFormat('Y/m/d H:i', $trade_end);
         $now = new DateTime();
 
         if ($trade_end_date !== false) {
-            // Pobranie roku z daty zakończenia targów
+            // Getting the year from the end date of the fair
             $trade_end_year = $trade_end_date->format('Y');
 
-            // Tworzenie nazwy kategorii z prefiksem "news-" i rokiem
-            $news_category_name = 'news-' . $trade_end_year;
+            // Create a category name with the "news-" prefix and the year
+            $category_year = 'news-' . $trade_end_year;
 
-            // Sprawdzenie, czy istnieje kategoria z prefiksem "news-" i rokiem
-            $category_exists = term_exists($news_category_name, 'category');
-
-            if ($posts_all_cat !== 'true') {
-                if ($category_exists) {
-                    // Kategoria "news-{rok}" istnieje, więc nic nie zmieniamy
-                } else if (!$category_exists && term_exists("current", 'category')) {
-                    // Kategoria "news-{rok}" nie istnieje, sprawdzamy "current"
-                    $news_category_name = "current";
-                } else if (!empty($posts_category) && term_exists($posts_category, 'category')) {
-                    // Kategoria "current" nie istnieje, sprawdzamy $posts_category
-                    $news_category_name = $posts_category;
-                } else if (!empty($posts_cat) && term_exists($posts_cat, 'category')) {
-                    // Ani "current", ani $posts_category nie istnieją, użyj $posts_cat
-                    $news_category_name = $posts_cat;
-                } else {
-                    // Żadna z kategorii nie istnieje, pobieramy wszystkie wpisy
-                    $news_category_name = null;
-                }
+            // Check if `$posts category` is set and not empty
+            if (!empty($posts_category) && term_exists($posts_category, 'category')) {
+                // We only use categories from `$posts category`
+                $categories = $posts_category;
             } else {
-                $news_category_name = null;
+                // Create an array for categories
+                $categories_array = [];
+                // Add a categories to the array, if it's exists
+                if (term_exists($category_year, 'category')) {
+                    // Check if a category with the "news-" prefix and year exists
+                    array_push($categories_array, $category_year);
+                }
+                if (term_exists("current", 'category')) {
+                    // Check if category "current" exists
+                    array_push($categories_array, "current");
+                }
+               
+
+                // Transform the category array into a string
+                $categories = implode(',', $categories_array);
             }
 
             $max_posts = ($posts_all !== 'true') ? min($posts_count, 5) : -1;
@@ -145,10 +144,12 @@ $output .= '<div id="customPosts" class="custom-container-posts">
                 'posts_per_page' => $max_posts,
                 'orderby' => 'date',
                 'order' => 'DESC',
-                'category_name' => $news_category_name,
+                'category_name' => $categories,
             );
 
             $query = new WP_Query($args);
+
+            $posts_displayed = $query->post_count;
 
             $post_image_urls = array();
             if ($query->have_posts()) {
@@ -162,6 +163,7 @@ $output .= '<div id="customPosts" class="custom-container-posts">
                         "link" => $link,
                         "title" => $title
                     );
+                    
                 endwhile;
             }
 

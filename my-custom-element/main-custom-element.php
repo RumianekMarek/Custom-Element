@@ -1037,6 +1037,18 @@ function my_custom_wpbakery_element() {
         ),
       ),
       array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('No margin&padding main logo', 'my-custom-plugin'),
+        'param_name' => 'header_logo_marg_pag',
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('header-custom.php')
+        ),
+      ),
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'heading' => __('Additional buttons', 'my-custom-plugin'),
@@ -1108,6 +1120,12 @@ function my_custom_wpbakery_element() {
             'param_name' => 'logotypes_slider_off',
             'save_always' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
+          ),
+          array(
+            'type' => 'textfield',
+            'heading' => __('Logotypes width (___px)', 'my-custom-plugin'),
+            'param_name' => 'logotypes_items_width',
+            'save_always' => true,
           ),
         ),
       ),
@@ -1865,6 +1883,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['header_overlay_range'])) { $header_overlay_range = $atts['header_overlay_range']; }
     if (isset($atts['header_logo_width'])) { $header_logo_width = $atts['header_logo_width']; }
     if (isset($atts['header_logo_color'])) { $header_logo_color = $atts['header_logo_color']; }
+    if (isset($atts['header_logo_marg_pag'])) { $header_logo_marg_pag = $atts['header_logo_marg_pag']; }
     
     // LOGOTYPE GALLERY
     if (isset($atts['logo_url'])) { $logo_url = $atts['logo_url']; }
