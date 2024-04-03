@@ -84,6 +84,18 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           ),
           array(
             'type' => 'checkbox',
+            'heading' => __('Book a stand', 'my-custom-plugin'),
+            'param_name' => 'book_stand_form',
+            'description' => __('Additional option for book a stand form', 'my-custom-plugin'),
+            'admin_label' => true,
+            'value' => array(__('True', 'my-custom-plugin') => 'true',),
+            'dependency' => array(
+              'element' => 'format',
+              'value' => array('top10')
+            ),
+          ),
+          array(
+            'type' => 'checkbox',
             'heading' => __('Registration', 'my-custom-plugin'),
             'param_name' => 'ticket',
             'description' => __('Default height logotypes 110px. ONLY top10.', 'my-custom-plugin'),
@@ -185,6 +197,7 @@ function katalog_wystawcow_output($atts, $content = null) {
   if (isset($atts['stand'])) { $stand = $atts['stand']; }
   if (isset($atts['format'])) { $format = $atts['format']; }
   if (isset($atts['ticket'])) { $ticket = $atts['ticket']; }
+  if (isset($atts['book_stand_form'])) { $book_stand_form = $atts['book_stand_form']; }
   if (isset($atts['color'])) { $color = $atts['color']; }
   if (isset($atts['export_link'])) { $export_link = $atts['export_link']; }
   
@@ -211,9 +224,10 @@ function katalog_wystawcow_output($atts, $content = null) {
 
   $slider_images_url = array();
 
-  // If 'format' is not 'Top10', force 'ticket' to be false
+  // If 'format' is not 'Top10', force 'ticket' & 'book_stand_form' to be false
   if ($format !== 'top10') {
       $ticket = 'false';  
+      $book_stand_form = 'false';  
   }
 
   if ($color === '' || $color === '#ffffff'){
@@ -585,12 +599,21 @@ function katalog_wystawcow_output($atts, $content = null) {
 
       while ($displayedCount < 10 && $count < count($exhibitors)) {
         if (!empty($exhibitors[$count]['URL_logo_wystawcy'])) {
-          if ($ticket === 'true') {
-            echo '<style>
-                    .img-container-top10 div {
-                      min-height: 110px !important;
-                    } 
-                  </style>';
+            if ($ticket === 'true') {
+              echo '<style>
+                      .img-container-top10 div {
+                        min-height: 110px !important;
+                      } 
+                    </style>';
+            }
+            if ($book_stand_form === 'true') {
+              echo '<style>
+                      .img-container-top10 div {
+                        min-height: 120px !important;
+                        min-width: 170px !important;
+                        margin: 5px 10px !important;
+                      } 
+                    </style>';
             }
             $url = str_replace('$2F', '/', $exhibitors[$count]['URL_logo_wystawcy']);
             $urlWebsite = str_replace('$2F', '/', $exhibitors[$count]['www']);
