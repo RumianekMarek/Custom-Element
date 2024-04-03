@@ -24,13 +24,17 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
             }
 
             foreach($all_fields as $field){
-                if(strpos($field['label'], 'nazwisko') !== false){
+                if(strpos(strtolower($field['label']), 'nazwisko') !== false){
                     $entry[$field['id']] = $przeslane_dane['name'];
-                } elseif(strpos($field['label'], 'email') !== false){
+                } elseif(strpos(strtolower($field['label']), 'name') !== false){
+                    $entry[$field['id']] = $przeslane_dane['name'];
+                } elseif(strpos(strtolower($field['label']), 'mail') !== false){
                     $entry[$field['id']] = $przeslane_dane['email'];
-                } elseif(strpos($field['label'], 'telefon') !== false){
+                } elseif(strpos(strtolower($field['label']), 'telefon') !== false){
                     $entry[$field['id']] = $przeslane_dane['phone'];
-                } elseif(strpos($field['label'], 'nip') !== false){
+                } elseif(strpos(strtolower($field['label']), 'phon') !== false){
+                    $entry[$field['id']] = $przeslane_dane['phone'];
+                } elseif(strpos(strtolower($field['label']), 'nip') !== false){
                     $entry[$field['id']] = $przeslane_dane['fair'];
                 }
             }
