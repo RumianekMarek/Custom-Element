@@ -147,36 +147,3 @@ window.addEventListener('scroll', function() {
   }
 
 
-function handleQueryParam() {
-    // Pobierz parametr "konferencja" z aktualnego adresu URL
-    var urlParams = new URLSearchParams(window.location.search);
-    var conferenceParam = urlParams.get('konferencja');
-
-    // Sprawdź, czy istnieje parametr "konferencja"
-    if (conferenceParam) {
-    // Pokaż elementy o klasie "konferencja" z odpowiednim id, ukryj pozostałe
-    var allElements = document.querySelectorAll(".konferencja");
-    allElements.forEach(function (element) {
-        if (element.id === conferenceParam) {
-          element.style.display = "block";
-          // element.classList.remove("desktop-hidden", "tablet-hidden", "mobile-hidden");
-          // Przewiń do elementu o id z kotwicy
-          element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          element.style.display = "none";
-          // element.classList.add("desktop-hidden", "tablet-hidden", "mobile-hidden");
-        }
-    });
-
-    // Dodaj klasę .active do elementu z id z kotwicy + -btn
-    var activeBtn = document.getElementById(conferenceParam + "-btn");
-    if (activeBtn) {
-        activeBtn.classList.add("active");
-    }
-    }
-}
-
-// Wywołaj funkcję obsługi przy załadowaniu strony
-document.addEventListener("DOMContentLoaded", handleQueryParam);
-// Nasłuchuj zmiany parametru "konferencja" w adresie URL
-window.addEventListener("popstate", handleQueryParam);

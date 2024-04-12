@@ -47,9 +47,9 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
                 }   
             }
 
-            $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url');
-            $meta_key_image = '<img data-imagetype="External" src="' . gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url') . '" width="200">';
-
+            $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $qr_code_id . '_url');
+            $meta_key_image = '<img data-imagetype="External" src="' . $meta_key_url . '" width="200">';
+            
             foreach($face_form["notifications"] as $id => $key){
                 if($key["isActive"]){
                     $face_form["notifications"][$id]["message"] = str_replace('{qrcode-url-' . $qr_code_id . '}', $meta_key_url . '" width="200', $key["message"]);

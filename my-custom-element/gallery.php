@@ -19,7 +19,12 @@
     }
 
     $topImages = array_slice($files, 0, 2);
-    $bottomImages = array_slice($files, 2, 2);
+    if ($gallery_thumbnails_more == 'true') {
+        $bottomImages = array_slice($files, 2, 4);
+    } else {
+        $bottomImages = array_slice($files, 2, 2);
+    }
+    
 
     if ($btn_color != ''){
         $btn_color = '.custom_element_'.$rnd_id.' .gallery-link-btn '.$btn_color;
@@ -67,6 +72,7 @@
     .custom-gallery-thumbs-top, 
     .custom-gallery-thumbs-bottom {
         display: flex;
+        flex-wrap: wrap;
         width: 100%;
     }
     .custom-gallery-thumbs-top img, 

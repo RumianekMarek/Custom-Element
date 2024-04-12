@@ -397,6 +397,19 @@ function my_custom_wpbakery_element() {
           'value' => array('gallery.php')
         ),
       ),
+      array(
+        'type' => 'checkbox',
+        'group' => 'Main Settings',
+        'heading' => __('6 thumbnails', 'my-custom-plugin'),
+        'param_name' => 'gallery_thumbnails_more',
+        'admin_label' => true,
+        'save_always' => true,
+        'value' => array(__('True', 'my-custom-plugin') => 'true',),
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('gallery.php')
+        ),
+      ),
       // LOGOTYPES <-------------------------------------------------------------------------<
       array(
         'type' => 'textfield',
@@ -1979,6 +1992,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['gallery_title'])) { $gallery_title = $atts['gallery_title']; }
     if (isset($atts['gallery_btn_link'])) { $gallery_btn_link = $atts['gallery_btn_link']; }
     if (isset($atts['gallery_btn_text'])) { $gallery_btn_text = $atts['gallery_btn_text']; }
+    if (isset($atts['gallery_thumbnails_more'])) { $gallery_thumbnails_more = $atts['gallery_thumbnails_more']; }
 
     if (isset($atts['replace_items'])) {
       $replace_items = $atts['replace_items'];

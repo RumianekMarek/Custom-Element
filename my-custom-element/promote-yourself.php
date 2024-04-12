@@ -164,16 +164,15 @@
             <div class="image-container">
                 <div class="image-shadow promote-img-contener"style="display: flex; gap: 20px;">
                     <div style="margin: 0 18px;" class="image-container download-uslug">
-                        <img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-marketingowych.webp">
                         <?php if($locale == 'pl_PL'){
-                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
-                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
+                            echo '<img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-marketingowych.webp"><div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
+                            echo '<img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-marketingowych-en.webp"><div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-marketingowych-EN.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
                     </div>
                     <div style="margin: 0 18px;" class="image-container download-social">
-                        <img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-social-media.webp">
+
                          <?php if($locale == 'pl_PL'){
-                            echo '<div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
-                            echo ' <div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
+                            echo '<img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-social-media.webp"><div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media.pdf"><i class="fa fa-inbox2"></i>Pobierz</a></div>';} else {
+                            echo '<img class="" src="/wp-content/plugins/custom-element/media/Katalog-uslug-social-media-en.webp"><div class="download-hover"><a style="color: white;" target="_blank" href="https://warsawexpo.eu/docs/Katalog-uslug-social-media-EN.pdf"><i class="fa fa-inbox2"></i>Download</a></div>';} ?>
                     </div>
                 </div>
             </div>

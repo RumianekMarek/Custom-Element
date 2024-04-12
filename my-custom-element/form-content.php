@@ -36,6 +36,7 @@ if($locale == 'pl_PL') {
         <h4 class="custom-uppercase"><span><?php echo $pwe_title_form ?></span></h4>
     </div>  
     <div class="pwe-form-text">
+        <?php $pwe_text_form = str_replace(array('`{`', '`}`'), array('[', ']'), $pwe_text_form); ?>
         <p><?php echo wpb_js_remove_wpautop($pwe_text_form, true); ?></p>
     </div>
 </div>

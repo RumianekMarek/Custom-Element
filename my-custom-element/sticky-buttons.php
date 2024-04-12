@@ -22,9 +22,9 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 28px 18px;
+        padding: 36px 18px;
         width: 100%;
-        gap: 24px;
+        gap: 40px;
     }
     <?php if ($sticky_buttons_dropdown === "true") { ?>
     .custom-sticky-buttons-cropped:before {
@@ -114,7 +114,7 @@
             flex-wrap: wrap;
             justify-content: center;
             margin: 0 auto;
-            gap: 10px;
+            gap: 24px;
         }
         .custom-sticky-button-item img {
             width: 100%;
@@ -155,7 +155,10 @@ $full_size_buttons_urls = array();
 $buttons_id = array();
 $buttons_links = array();
 
-echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
+$unique_id = rand(10000, 99999);
+$element_unique_id = 'stickyButtons-' . $unique_id;
+
+echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">';
     if ($sticky_buttons_full_size === "true") {
         echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color:'. $sticky_buttons_full_size_background .'!important;">';
         
@@ -415,7 +418,7 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
 
                 button.style.transition = '.3s ease';
 
-                var hideSections = document.querySelectorAll('.page-wrapper .vc_row.row-container.hide-section');
+                var hideSections = document.querySelectorAll('.page-wrapper .row-container.hide-section');
                 if ("<?php echo $sticky_hide_sections ?>") {
                     // Ukrywamy wszystkie sekcje oprócz pierwszej
                     if ("<?php echo $sticky_hide_sections ?>" === "true") {
@@ -453,10 +456,10 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
                 
             });
         }
-
+        
         document.querySelectorAll(".custom-image-button").forEach(function(button) {
             let customScrollTop;
-            if (containerPageHeader) {containerCustomHeader
+            if (containerPageHeader) {
                 customScrollTop = containerPageHeader.offsetHeight + "px";
             } else if (containerCustomHeader) {
                 customScrollTop = containerCustomHeader.offsetHeight + "px";
@@ -532,6 +535,43 @@ echo '<div id="stickyButtons" class="custom-container-sticky-buttons">';
         }
     }
 
+    function handleQueryParam() {
+        setTimeout(() => {
+            // Pobierz parametr "konferencja" z aktualnego adresu URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var conferenceParam = urlParams.get('konferencja');
+
+            // Sprawdź, czy istnieje parametr "konferencja"
+            if (conferenceParam) {
+                // Pokaż elementy o klasie "konferencja" z odpowiednim id, ukryj pozostałe
+                var allElements = document.querySelectorAll(".konferencja");
+
+                allElements.forEach(function (element) {
+                    if (element.id === conferenceParam) {
+                        element.style.display = "block";
+                        // element.classList.remove("desktop-hidden", "tablet-hidden", "mobile-hidden");
+                        // Przewiń do elementu o id z kotwicy
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        element.style.display = "none";
+                        // element.classList.add("desktop-hidden", "tablet-hidden", "mobile-hidden");
+                    }
+                });                            
+                
+                // Dodaj klasę .active do elementu z id z kotwicy + -btn
+                var activeBtn = document.getElementById(conferenceParam + "-btn");
+                if (activeBtn) {
+                    activeBtn.classList.add("active");
+                }
+            }
+        }, 1000);
+    }
+
+    // Wywołaj funkcję obsługi przy załadowaniu strony
+    document.addEventListener("DOMContentLoaded", handleQueryParam);
+    // Nasłuchuj zmiany parametru "konferencja" w adresie URL
+    window.addEventListener("popstate", handleQueryParam);
+    
 
 </script>
 

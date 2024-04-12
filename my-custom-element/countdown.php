@@ -58,11 +58,6 @@
                 padding: 8px;
                 font-size: <?php echo $countdown_font_size[0] ?>;
         }
-        <?php if (isset($countdown_column[0]) && $countdown_column[0] == true) { ?>
-            .countdown-container {
-                flex-direction: column;
-            }
-        <?php } ?>
     </style>
 
 
@@ -81,14 +76,21 @@ $countdowns = array();
 if (is_array($countdowns_json)) {
     foreach ($countdowns_json as $countdown) {
         $countdowns[] = array(
+            $countdown_start[] = $countdown["countdown_start"],
+            $countdown_end[] = $countdown["countdown_end"],
             $turn_off_countdown_text[] = $countdown["turn_off_countdown_text"],
             $countdown_text[] = $countdown["countdown_text"],
             $countdown_column[] = $countdown["countdown_column"],
             $countdown_font_size[] = $countdown["countdown_font_size"],
             $countdown_color[] = $countdown["countdown_color"],
-            $countdown_start[] = $countdown["countdown_start"],
-            $countdown_end[] = $countdown["countdown_end"]
         );
+        if (isset($countdown_column[0]) && $countdown_column[0] == true) { 
+            echo   '<style>
+                        #'. $countdown_container_id .' {
+                            flex-direction: column;
+                        }
+                    </style>';
+        }
     }
 }
 $countdowns_array = json_encode($countdowns);
@@ -102,13 +104,14 @@ $countdowns_array = json_encode($countdowns);
 </style>
 
 <?php
-if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($countdown_start[0]) - strtotime($current_date)) <= 0 && (strtotime($countdown_end[0]) - strtotime($current_date)) >= 0) {
+// if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($countdown_start[0]) - strtotime($current_date)) <= 0 && (strtotime($countdown_end[0]) - strtotime($current_date)) >= 0) {
 ?>
 
     <div id="<?php echo $countdown_container_id; ?>" class="countdown-container">
-        <?php
+        <?php 
             if (empty($turn_off_countdown_text[0]) && $turn_off_countdown_text[0] !== true && empty($countdown_start[0]) && empty($countdown_end[0])) {
                 echo '<p class="countdown-text text-uppercase">';
+                
                 if ((strtotime($trade_start) - strtotime($current_date)) >= 0 || (strtotime($trade_end) - strtotime($current_date)) <= 0){
                     if ($locale == 'pl_PL') {
                         echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Do targów pozostało:';
@@ -122,6 +125,10 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
                         echo (!empty($countdown_text[0])) ? $countdown_text[0] : 'Until the end of the fair:';
                     }
                 }
+                echo '</p>';
+            } else if (empty($turn_off_countdown_text[0]) && $turn_off_countdown_text[0] !== true && !empty($countdown_text[0])) {
+                echo '<p class="countdown-text text-uppercase">';
+                echo $countdown_text[0];
                 echo '</p>';
             }
         ?>
@@ -142,10 +149,12 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
             const element = document.querySelector('#<?php echo $countdown_id; ?>');
             let foundMatchingCountdown = false;
 
+            
             if (countdownsArray && countdownsArray.length > 0) {
                 countdownsArray.forEach(countdown => {
-                    var countdownStart = new Date(<?php echo json_encode($countdown_start[0]); ?>).getTime();
-                    var countdownEnd = new Date(<?php echo json_encode($countdown_end[0]); ?>).getTime();
+                    var countdownStart = new Date(countdown[0]).getTime();
+                    var countdownEnd = new Date(countdown[1]).getTime();
+
                     if (now > countdownStart && now < countdownEnd) {
                         targetDate = countdownEnd;
                         foundMatchingCountdown = true;
@@ -161,6 +170,8 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
 
                     if (!foundMatchingCountdown) {
                         containerElement.style.display = 'none';
+                    } else {
+                        containerElement.style.display = 'flex';
                     }
                 });
             }
@@ -227,5 +238,5 @@ if ((empty($countdown_start[0]) && empty($countdown_end[0])) || (strtotime($coun
     </script>
 
 <?php
-}
+// }
 ?>
