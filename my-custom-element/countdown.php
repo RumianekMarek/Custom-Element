@@ -38,16 +38,12 @@
         .custom-main-timer-btn {
             padding: 8px 0;
         }
-        @media (max-width:570px){
-            .custom-main-timer-before p,
-            .custom-main-timer-after p {
-                font-size: 16px;
-            }
-        }
+        
         .custom-container-main-timer .countdown-text {
             display: none !important;
         }
         .countdown-container {
+            min-width: 470px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
@@ -57,6 +53,15 @@
                 margin: 0 auto;
                 padding: 8px;
                 font-size: <?php echo $countdown_font_size[0] ?>;
+        }
+        @media (max-width:570px){
+            .countdown-container {
+                min-width: 100%;
+            }
+            .custom-main-timer-before p,
+            .custom-main-timer-after p {
+                font-size: 16px;
+            }
         }
     </style>
 
@@ -185,7 +190,7 @@ $countdowns_array = json_encode($countdowns);
 
             if ("<?php echo $locale ?>" === 'pl_PL') {
                 function pluralizePolish(count, singular, plural, pluralGenitive) {
-                    if (count === 1) {
+                    if (count === 1 || (count % 10 === 1 && count % 100 !== 11)) {
                         return `${count} ${singular} `;
                     } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
                         return `${count} ${plural} `;

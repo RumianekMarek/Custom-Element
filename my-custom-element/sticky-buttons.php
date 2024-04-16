@@ -4,6 +4,7 @@
     $sticky_full_width_buttons_width = ($sticky_full_width_buttons_width == '') ? '170px' : $sticky_full_width_buttons_width;
     $sticky_buttons_font_size_full_size = ($sticky_buttons_font_size_full_size == '') ? '16px' : $sticky_buttons_font_size_full_size;
     $sticky_buttons_font_size = ($sticky_buttons_font_size == '') ? '12px' : $sticky_buttons_font_size;    
+    $sticky_buttons_full_size_background = ($sticky_buttons_full_size_background == '') ? 'white' : $sticky_buttons_full_size_background;
 ?>
 
 <style>
@@ -150,15 +151,17 @@ $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
 $sticky_buttons_urldecode = urldecode($sticky_buttons);
 $sticky_buttons_json = json_decode($sticky_buttons_urldecode, true);
 
+$unique_id = rand(10000, 99999);
+$element_unique_id = 'stickyButtons-' . $unique_id;
+
+$sticky_parameter = ($sticky_parameter == '') ? 'konferencja' : $sticky_parameter;
+
 $buttons_urls = array();
 $full_size_buttons_urls = array();
 $buttons_id = array();
 $buttons_links = array();
 
-$unique_id = rand(10000, 99999);
-$element_unique_id = 'stickyButtons-' . $unique_id;
-
-echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">';
+echo '<div id="'. $element_unique_id .'" class="custom-container-sticky-buttons">';
     if ($sticky_buttons_full_size === "true") {
         echo '<div class="custom-sticky-buttons-full-size" style="display: none; background-color:'. $sticky_buttons_full_size_background .'!important;">';
         
@@ -271,22 +274,22 @@ echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">'
 
 
 <script>
-
+{
     window.onload = function() {
         const btnLinks = '<?php echo $buttons_links_json ?>';
         const btnsId = '<?php echo $buttons_id_json ?>';
         const stickyButtonsDropdown = "<?php echo $sticky_buttons_dropdown ?>";
         const stickyButtonsFullSize = "<?php echo $sticky_buttons_full_size ?>";
-        const tilesCroppedContainer = document.querySelector('.custom-sticky-buttons-cropped-container');
-        const tilesCropped = document.querySelector('.custom-sticky-buttons-cropped');
-        const tilesFullSize = document.querySelector('.custom-sticky-buttons-full-size');
+        const tilesCroppedContainer = document.querySelector('.custom_element_<?php echo $rnd_id ?> .custom-sticky-buttons-cropped-container');
+        const tilesCropped = document.querySelector('.custom_element_<?php echo $rnd_id ?> .custom-sticky-buttons-cropped');
+        const tilesFullSize = document.querySelector('.custom_element_<?php echo $rnd_id ?> .custom-sticky-buttons-full-size');
         const containerMasthead = document.querySelector('#masthead .menu-container');
         const containerPageHeader = document.querySelector('#page-header');
         const containerCustomHeader = document.querySelector('#customHeader');
         const adminBar = document.querySelector('#wpadminbar');
         const desktop = <?php echo $mobile ?> === 0;
         const mobile = <?php echo $mobile ?> === 1;
-        const stickyHeadContainer = document.querySelector(".custom-sticky-head-container");
+        const stickyHeadContainer = document.querySelector(".custom_element_<?php echo $rnd_id ?> .custom-sticky-head-container");
 
         let customElement = document.querySelector('.custom_element_<?php echo $rnd_id ?>');
         customElement.style.opacity = 1;
@@ -419,17 +422,21 @@ echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">'
                 button.style.transition = '.3s ease';
 
                 var hideSections = document.querySelectorAll('.page-wrapper .row-container.hide-section');
-                if ("<?php echo $sticky_hide_sections ?>") {
-                    // Ukrywamy wszystkie sekcje oprócz pierwszej
-                    if ("<?php echo $sticky_hide_sections ?>" === "true") {
-                        for (var i = 1; i < hideSections.length; i++) {
-                            hideSections[i].style.display = 'none';
-                        }
-                        if (index === 0 && button) {
-                            button.classList.add('active');
-                        }
+
+                // Ukrywamy wszystkie sekcje oprócz pierwszej
+                if ("<?php echo $sticky_hide_sections ?>" === "true") {
+                    for (var i = 1; i < hideSections.length; i++) {
+                        hideSections[i].style.display = 'none';
+                    }
+                    if (index === 0 && button) {
+                        button.classList.add('active');
+                    }
+                } else {
+                    for (var i = 0; i < hideSections.length; i++) {
+                        hideSections[i].style.display = "none";
                     }
                 }
+                
                 button.addEventListener('click', function() {
                     var targetId = button.id.replace('-btn', '');
 
@@ -456,23 +463,29 @@ echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">'
                 
             });
         }
-        
+
         document.querySelectorAll(".custom-image-button").forEach(function(button) {
             let customScrollTop;
-            if (containerPageHeader) {
-                customScrollTop = containerPageHeader.offsetHeight + "px";
-            } else if (containerCustomHeader) {
-                customScrollTop = containerCustomHeader.offsetHeight + "px";
-            } else {
-                customScrollTop = containerMasthead.offsetHeight + "px";
-            }
+
+                if (containerPageHeader) {
+                    customScrollTop = containerPageHeader.offsetHeight;
+                } else if (containerCustomHeader) {
+                    customScrollTop = containerCustomHeader.offsetHeight;
+                } else {
+                    customScrollTop = containerMasthead.offsetHeight;
+                }
+
+                if (document.querySelectorAll("header.menu-transparent").length > 0 && desktop) {
+                    customScrollTop -= containerMasthead.offsetHeight;
+                }
+
+                customScrollTop += "px";
+            
             const scrollTopValue = parseInt(customScrollTop);
             button.addEventListener("click", function() {
                 window.scrollTo({ top: scrollTopValue, behavior: "smooth" });
             });
         });
-
-        
         
         if (stickyButtonsDropdown === "true") {
 
@@ -539,12 +552,12 @@ echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">'
         setTimeout(() => {
             // Pobierz parametr "konferencja" z aktualnego adresu URL
             var urlParams = new URLSearchParams(window.location.search);
-            var conferenceParam = urlParams.get('konferencja');
+            var conferenceParam = urlParams.get("<?php echo $sticky_parameter ?>");
 
             // Sprawdź, czy istnieje parametr "konferencja"
             if (conferenceParam) {
                 // Pokaż elementy o klasie "konferencja" z odpowiednim id, ukryj pozostałe
-                var allElements = document.querySelectorAll(".konferencja");
+                var allElements = document.querySelectorAll(".<?php echo $sticky_parameter ?>");
 
                 allElements.forEach(function (element) {
                     if (element.id === conferenceParam) {
@@ -572,7 +585,7 @@ echo '<div id="'.$element_unique_id.'" class="custom-container-sticky-buttons">'
     // Nasłuchuj zmiany parametru "konferencja" w adresie URL
     window.addEventListener("popstate", handleQueryParam);
     
-
+}
 </script>
 
 

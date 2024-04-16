@@ -34,7 +34,7 @@
                                         }
                                         
 
-                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['link']) && !empty($media_url_array[$imgNumber]['title'])){
+                                        if(is_array($media_url_array[$imgNumber]) && !empty($media_url_array[$imgNumber]['img']) && !empty($media_url_array[$imgNumber]['link']) && !empty($media_url_array[$imgNumber]['title'])){
                                             $imageUrl = $media_url_array[$imgNumber]['link'];
                                             $imageTitle = $media_url_array[$imgNumber]['title'];
                                             $output .= '<a class="custom-post" href="'.$imageUrl.'">

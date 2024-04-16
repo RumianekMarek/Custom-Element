@@ -149,7 +149,7 @@ $output .= '<div id="customPosts" class="custom-container-posts">
 
             $query = new WP_Query($args);
 
-            $posts_displayed = $query->post_count;
+            $posts_displayed = $query->post_count; 
 
             $post_image_urls = array();
             if ($query->have_posts()) {

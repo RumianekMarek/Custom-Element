@@ -77,7 +77,7 @@ if ($color != '#000000'){
                 <a href="#dokumenty"><li>Dokumenty do pobrania.</li></a>
             </ol>
         </div>
-        
+
         <div id="dane-kontaktowe" class="custom-org-info-content-item">
             <h2>1. Dane kontaktowe, terminy montaży, demontaży i godzin otwarcia targów.</h2>
             <div class="custom-org-info-block-dates custom-display-none">
@@ -199,7 +199,6 @@ if ($color != '#000000'){
             <p>Organizator nie bierze odpowiedzialności za przesyłane Wystawcom paczki, dlatego żadna przesyłka nie zostanie odebrana od firmy kurierskiej w Punkcie Technicznej Obsługi Wystawców.</p>
             <h5>Wyłączność na usługi transportowe (m.in. poruszanie się po halach targowych wózków widłowych i innych pojazdów transportowych) mają poniższe firmy:</h5>
             <p>NETLOG POLSKA Sp. z o.o.<br>Rafał Skrobutan<br>Koordynator/ Coordinator<br>tel. +48 22 256 70 55<br>tel. +48 668 890 274<br>e-mail <a href="mailto:rafal.skrobutan@netlog.org.pl">rafal.skrobutan@netlog.org.pl</a><br><a href="http://www.netlog.org.pl" target="_blank">www.netlog.org.pl</a></p>
-            <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href="mailto:marcin@transmeble.com.pl">marcin@transmeble.com.pl</a></p>
             <p><strong>Oficjalny Spedytor Targów wykonuje na zasadzie wyłączności usługi wyładunkowo/załadunkowe na terenie PWE z wykorzystaniem urządzeń mechanicznych tj. wózki widłowe i dźwigowe.</strong> W związku z tym, na terenie PWE obowiązuje zakaz wprowadzania na teren obiektu przez Wystawców i osoby trzecie urządzeń mechanicznych służących do rozładunków, np. dźwigi, wózki widłowe mechaniczne, bez zgody Organizatora lub Oficjalnego Spedytora Targów.</p>
             <h5>Spedytor świadczy usługi poprzez:</h5>
             <ul>
@@ -356,7 +355,6 @@ if ($color != '#000000'){
             <p>The organizer does not take responsibility for packages sent to exhibitors, therefore, no shipment will be accepted from the courier company at the Exhibitors' Technical Service Point.</p>
             <h5>The exclusive rights for transportation services (including the movement of forklifts and other transport vehicles in trade fair halls) belong to the following companies:</h5>
             <p>NETLOG POLSKA Sp. z o.o.<br>Rafał Skrobutan<br>Koordynator/ Coordinator<br>tel. +48 22 256 70 55<br>tel. +48 668 890 274<br>e-mail <a href='mailto:rafal.skrobutan@netlog.org.pl'>rafal.skrobutan@netlog.org.pl</a><br><a href='http://www.netlog.org.pl'>www.netlog.org.pl</a></p>
-            <p>TRANSMEBLE INTERNATIONAL<br>Marcin Frontczak<br>tel.+48 501 710 984<br>e-mail <a href='mailto:marcin@transmeble.com.pl'>marcin@transmeble.com.pl</a></p>
             <p><strong>The official Trade Fair Freight Forwarder performs, on an exclusive basis, loading and unloading services on the premises of the PWE (Polish Exhibition and Congress Center) using mechanical devices such as forklifts and cranes.</strong> In connection with this, a prohibition on the introduction of mechanical devices for unloading, such as cranes and mechanical forklifts, onto the premises by Exhibitors and third parties is in force at the PWE (Exhibition Grounds), without the consent of the Organizer or the Official Fair Freight Forwarder.</p>
             <h5>The Freight Forwarder provides services through:</h5>
             <ul>

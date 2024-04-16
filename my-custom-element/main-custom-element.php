@@ -1586,6 +1586,18 @@ function my_custom_wpbakery_element() {
         ),
       ),
       array(
+        'type' => 'textfield',
+        'group' => 'Main Settings',
+        'heading' => __('Name parameter for sections & rows', 'my-custom-plugin'),
+        'description' => __('Default "konferencja". Enter this name into a section or row as a class (Ex. link "domain/wydarzenia/?konferencja=szkolenie")', 'my-custom-plugin'),
+        'param_name' => 'sticky_parameter',
+        'save_always' => true,
+        'dependency' => array(
+          'element' => 'element',
+          'value' => array('sticky-buttons.php')
+        ),
+      ),
+      array(
         'type' => 'param_group',
         'group' => 'Main Settings',
         'param_name' => 'sticky_buttons',
@@ -1973,6 +1985,7 @@ function my_custom_element_output($atts, $content = null) {
     if (isset($atts['sticky_buttons_font_size_full_size'])) { $sticky_buttons_font_size_full_size = $atts['sticky_buttons_font_size_full_size']; }
     if (isset($atts['sticky_buttons_width'])) { $sticky_buttons_width = $atts['sticky_buttons_width']; }
     if (isset($atts['sticky_full_width_buttons_width'])) { $sticky_full_width_buttons_width = $atts['sticky_full_width_buttons_width']; }
+    if (isset($atts['sticky_parameter'])) { $sticky_parameter = $atts['sticky_parameter']; }
 
     // FORM CONTENT
     if (isset($atts['pwe_title_form'])) { $pwe_title_form = $atts['pwe_title_form']; }
