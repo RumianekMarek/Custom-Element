@@ -5,9 +5,11 @@ if (empty($pwe_height_logotypes_form)) {
 ?>
 
 <style> 
-    .gform_wrapper :is(label, .gfield_description), .show-consent,
-    .gform_legacy_markup_wrapper .gfield_required {
-        color: <?php echo $color ?>;
+    .custom_element_<?php echo $rnd_id ?> {
+        .gform_wrapper :is(label, .gfield_description), .show-consent,
+        .gform_legacy_markup_wrapper .gfield_required {
+            color: <?php echo $color ?>;
+        }
     }
     .pwe-registration .gform-body ul,
     .uncell:has(.img-container-top10) {
@@ -30,9 +32,13 @@ if (empty($pwe_height_logotypes_form)) {
     .pwe-registration {
         height: 100%;
     }
-</style>
+</style> 
 
 <?php 
+    // Create unique id for element
+    $unique_id = rand(10000, 99999);
+    $element_unique_id = 'pweRegistration-' . $unique_id;
+
     $mobile = preg_match('/Mobile|Android|iPhone/i', $_SERVER['HTTP_USER_AGENT']);
     if ($mobile != 1) {
         echo '<style>
@@ -44,7 +50,7 @@ if (empty($pwe_height_logotypes_form)) {
     }
 ?>
 
-<div id='pweRegistration' class='pwe-registration'>
+<div id='<?php echo $element_unique_id ?>' class='pwe-registration'>
     <div class="pwe-registration-column style-accent-bg shadow-black">
         <?php include __DIR__ . '/form-content.php'; ?>
         <div class="pwe-registration-form">

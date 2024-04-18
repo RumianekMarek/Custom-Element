@@ -7,13 +7,15 @@ if ($color != '#ffffff'){
 #ptakAdress{
     border: 1px solid black;
     min-height: 270px;
-    max-width: 500px;
+    max-width: 555px;
     margin:auto;
     min-width: 350px;
-
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+.row-container:has(#socialMedia) #ptakAdress {
+    max-width: 500px;
 }
 .custom_element_<?php echo $rnd_id ?>  #ptakAdress li{
     color: <?php echo $color ?>;
