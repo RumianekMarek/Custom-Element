@@ -690,8 +690,35 @@ function katalog_wystawcow_output($atts, $content = null) {
       if (count($slider_images_url) > 0){
         $output .= custom_media_slider($slider_images_url);
       }
+      
+      if ($btn_color != ''){
+        $btn_color = '#recently7 .btn-container '.$btn_color;
+        if ($btn_color_hover) {
+            $btn_color_hover = '#recently7 .btn-container '.$btn_color_hover;
+        }
+        echo '<style>';
+                echo $btn_color;
+                echo $btn_color_hover;
+
+
+        echo '</style>';
+      }
+
+      if ($locale == 'pl_PL') {
+          $output .= '
+              <span style="display: flex; justify-content: center;" class="btn-container ">
+                  <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Katalog wystawców">Katalog wystawców</a>
+              </span>';
+      } else {
+          $output .= '
+              <span style="display: flex; justify-content: center;" class="btn-container">
+                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitors Catalog">Exhibitors Catalog</a>
+              </span>';
+      }
+      
       $output .= '</div>';
     }
+
     $output .= '</div>';
   }
 
