@@ -691,16 +691,16 @@ function katalog_wystawcow_output($atts, $content = null) {
         $output .= custom_media_slider($slider_images_url);
       }
       
+      $output .= '</div>';
+
       if ($btn_color != ''){
         $btn_color = '#recently7 .btn-container '.$btn_color;
         if ($btn_color_hover) {
             $btn_color_hover = '#recently7 .btn-container '.$btn_color_hover;
         }
         echo '<style>';
-                echo $btn_color;
-                echo $btn_color_hover;
-
-
+            echo $btn_color;
+            echo $btn_color_hover;
         echo '</style>';
       }
 
@@ -712,11 +712,9 @@ function katalog_wystawcow_output($atts, $content = null) {
       } else {
           $output .= '
               <span style="display: flex; justify-content: center;" class="btn-container">
-                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitors Catalog">Exhibitors Catalog</a>
+                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitor Catalog">Exhibitor Catalog</a>
               </span>';
       }
-      
-      $output .= '</div>';
     }
 
     $output .= '</div>';
