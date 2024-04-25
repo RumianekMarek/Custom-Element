@@ -332,3 +332,7 @@
 #recently7, #top10, #top21 {
     margin-top: 0px !important;
 }
+
+.custom-link {
+    transform: scale(1) !important;
+}

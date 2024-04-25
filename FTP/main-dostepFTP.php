@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 function moja_wtyczka_dodaj_strone_menu() {
   add_menu_page(
       'Dostęp do katalogu', // Tytuł strony menu
-      'Pliki-custome', // Wyświetlany tekst w menu
+      'DOC', // Wyświetlany tekst w menu
       'manage_options', // Wymagane uprawnienia
       'moja-wtyczka-dostep-do-katalogu', // Unikalny identyfikator strony
       'moja_wtyczka_wyswietl_strone_menu', // Funkcja wyświetlająca zawartość strony
