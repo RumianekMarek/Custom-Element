@@ -60,7 +60,7 @@ $current_date = date("Y-m-d H:i:s");
             const hasStuckedClass = targetElement.classList.contains('is_stucked');
             const buttonLink = customBtn.href;
             if (hasStuckedClass) {
-                if (buttonLink.includes('/en')) {
+                if (buttonLink.includes('/en/')) {
                     customBtn.innerHTML = '<span>REGISTER<br/>Get a free ticket</span>';
                     customBtn.href = '/en/registration/';
                 } else {
@@ -68,7 +68,7 @@ $current_date = date("Y-m-d H:i:s");
                     customBtn.href = '/rejestracja/';
                 }
             } else {
-                if (buttonLink.includes('/en')) {
+                if (buttonLink.includes('/en/')) {
                     customBtn.innerHTML = '<span>Book a stand</span>';
                     customBtn.href = '/en/become-an-exhibitor'
                 } else {

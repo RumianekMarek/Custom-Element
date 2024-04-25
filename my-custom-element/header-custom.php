@@ -348,6 +348,16 @@
 
             </div>
 
+            <?php
+
+                // if ($header_conference == 'true') {
+                    echo'<div class="header-conference">';
+                        // $widgetCongressPath = 'widget-congress.php';
+                        // include $widgetCongressPath;
+                    echo'</div>';
+                // }
+
+            ?>
             
             <?php
                 $header_custom_logotypes_urldecode = urldecode($header_custom_logotypes);

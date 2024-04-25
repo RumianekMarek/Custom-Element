@@ -83,10 +83,10 @@ textarea[name="sticky_buttons_sticky_buttons_color_text"] {
 .wpb_el_type_param_group[data-vc-shortcode-param-name="profile_images"] {
     width: 40% !important;
 }
-.vc_shortcode-param[data-vc-shortcode-param-name="header_simple_mode"],
+/* .vc_shortcode-param[data-vc-shortcode-param-name="header_simple_mode"],
 .vc_shortcode-param[data-vc-shortcode-param-name="header_bg_position"] {
     width: 25% !important;
-}
+} */
 .vc_shortcode-param[data-vc-shortcode-param-name="element"],
 .vc_shortcode-param[data-vc-shortcode-param-name="file"],
 .vc_shortcode-param[data-vc-shortcode-param-name="profile_buttons"],

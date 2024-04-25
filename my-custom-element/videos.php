@@ -8,9 +8,9 @@ foreach ($videos_json as $video) {
 
 if (!empty($video_iframe)) {
     if ($video_custom_title == "") {
-        $video_custom_title = ($locale == 'pl_PL') ? "Zobacz jak było na poprzednich edycjach" : "Check previous editions";
+        $video_custom_title = ($locale == 'pl_PL') ? "Przyjrzyj się nam bliżej" : "Take a closer look at us";
     }
-} else $video_custom_title = ($locale == 'pl_PL') ? "ZOBACZ JAK WYGLĄDAJĄ NASZE POZOSTAŁE TARGI" : "SEE WHAT OUR OTHER TRADE FAIRS LOOK LIKE";     
+} else $video_custom_title = ($locale == 'pl_PL') ? "Przyjrzyj się nam bliżej" : "Take a closer look at us";
 
 
 ?>
@@ -49,7 +49,7 @@ if (!empty($video_iframe)) {
 <div id='customVideos' class='custom-container-videos'>
     <div class="custom-videos-title main-heading-text">
         <h4 class="custom-uppercase"><span><?php echo $video_custom_title ?></span></h4>
-    </div>  
+    </div>
     <div class="custom-videos">
     <?php
 
@@ -68,9 +68,9 @@ if (!empty($video_iframe)) {
                     <iframe class="iframe-shadow" width="560" height="315" data-src="https://www.youtube.com/embed/TgHh38jvkAY?si=pc01x3a22VkL-qoh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <p>Ptak Warsaw Expo | 2023</p>
                 </div>';
-            $video_title_2 = ($locale == 'pl_PL') ? "Stolica Targów i Eventów w Polsce - Ptak Warsaw Expo" : "The Capital of Fairs and Events in Poland - Ptak Warsaw Expo";
+            $video_title_2 = ($locale == 'pl_PL') ? "Największe Centrum Targowe w Europie Środkowo-Wschodniej | Ptak Warsaw Expo" : "The largest exhibition center in Central and Eastern Europe | Ptak Warsaw Expo";
             echo'<div class="custom-video-item">
-                    <iframe class="iframe-shadow" width="560" height="315" data-src="https://www.youtube.com/embed/-RmRpZN1mHA?si=2QHfOrz0TUkNIJwP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="iframe-shadow" width="560" height="315" data-src="https://www.youtube.com/embed/Ew8vZisEcX4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <p>'. $video_title_2 .'</p>
                 </div>';
         }

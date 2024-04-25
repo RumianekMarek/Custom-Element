@@ -227,3 +227,7 @@ strong {
 .btn {
     transition: .3s ease !important;
 }
+
+.custom-link {
+    transform: scale(1) !important;
+}
