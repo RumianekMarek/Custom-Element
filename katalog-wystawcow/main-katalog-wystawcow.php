@@ -68,9 +68,9 @@ function my_custom_wpbakery_element_katalog_wystawcow() {
           ),
           array(
             'type' => 'checkbox',
-            'heading' => __('Show details', 'my-custom-plugin'),
+            'heading' => __('Hide details', 'my-custom-plugin'),
             'param_name' => 'details',
-            'description' => __('Check to use to show details. ONLY full catalog.', 'my-custom-plugin'),
+            'description' => __('Check to use to hide details. ONLY full catalog.', 'my-custom-plugin'),
             'admin_label' => true,
             'value' => array(__('True', 'my-custom-plugin') => 'true',),
           ),

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div class="modal__elements-text">
                                   <h3>${exhibitors[i][1].Nazwa_wystawcy}</h3>`;
 
-          if (katalog_data.details == 'true') {
+          if (katalog_data.details != 'true') {
             if (localLangKat == 'pl_PL') {
               modalBox += exhibitors[i][1].Telefon ? `<p>Numer telefonu: <b><a href="tel:${exhibitors[i][1].Telefon}">${exhibitors[i][1].Telefon}</a></b></p>` : '';
               modalBox += exhibitors[i][1].Email ? `<p>Adres email: <b><a href="mailto:${exhibitors[i][1].Email}">${exhibitors[i][1].Email}</a></b></p>` : '';
