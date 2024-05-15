@@ -465,17 +465,32 @@
                                 </h4>
                                 <div class="forms-conteiner-form__right">
                                     <h2>
-                                        WYGENERUJ IDENTYFIKATOR DLA SWOICH </br>GOŚCI!
+                                        WYGENERUJ IDENTYFIKATOR VIP</br>DLA SWOICH GOŚCI!
                                     </h2>
                             '; } else { echo '
                                     Visitors are entitled to enter the fairgrounds<br> from 10:00
                                 </h4>.
                                 <div class="forms-conteiner-form__right">
                                     <h2>
-                                        GENERATE AN INVITE FOR YOUR GUESTS!
+                                        GENERATE A VIP INVITATION</br>FOR YOUR GUESTS!
                                     </h2>
                             '; } ?>
                             [gravityform id="<?php echo $guest_form_id ?>" title="false" description="false" ajax="false"]
+                            <?php if($locale == 'pl_PL'){ echo '
+                                <p style="color: black;">
+                                    <span><b>Identyfikator VIP uprawnia do:</b></span><br>
+                                    * Bezpłatnego skorzystania ze strefy VIP ROOM<br>
+                                    * Uczestnictwa we wszystkich konferencjach branżowych<br>
+                                    * Dedykowanej kolejki
+                                </p>
+                            '; } else { echo '
+                                <p style="color: black;">
+                                    <span><b>VIP ID entitles you to:</b></span><br>
+                                    * Free use of the VIP ROOM zone<br>
+                                    * Participation in all industry conferences<br>
+                                    * Dedicated queue
+                                </p>
+                            '; } ?>
                         </div>
                     </div>
                 </div>
@@ -515,9 +530,9 @@
                 <div class="table-cell ">
                     <h2>
                     <?php if($locale == 'pl_PL'){ echo'
-                        WYGENERUJ IDENTYFIKATOR DLA SWOICH GOŚCI
+                        WYGENERUJ IDENTYFIKATOR VIP DLA SWOICH GOŚCI
                     '; } else { echo '
-                        GENERATE AN INVITE FOR YOUR GUESTS!
+                        GENERATE A VIP INVITATION FOR YOUR GUESTS!
                     '; } ?>
                     </h2>
                     <?php if($locale == 'pl_PL'){
