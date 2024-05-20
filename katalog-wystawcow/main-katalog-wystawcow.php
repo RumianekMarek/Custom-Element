@@ -497,6 +497,91 @@ function katalog_wystawcow_output($atts, $content = null) {
         }
         $divContainerExhibitors .= '</div>';
         $output .= $divContainerExhibitors;
+
+        $output .= '
+            <style>
+                #full .exhibitors__buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 18px;
+                    padding-bottom: 36px;
+                }
+                #full .exhibitors__buttons .pwe-btn-container {
+                    padding-top: 0;
+                }
+                #full .pwe-btn {
+                    color: white;
+                    background-color: black;
+                    box-shadow: 9px 9px 0px -5px #777;
+                    border: 1px solid black;
+                    padding: 18px 0;
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    transition: .3s ease;
+                    text-align: center;
+                }
+                #full .pwe-btn:hover {
+                    color: white !important;
+                    background-color: #777;
+                    box-shadow: 9px 9px 0px -5px black;
+                    border: 1px solid #777;
+                }
+            </style>';
+
+        // Get wordpress menus
+        $menus = wp_get_nav_menus();
+        $menu_array = array();
+        
+        foreach ($menus as $menu) {
+            $menu_name_lower = strtolower($menu->name);
+            $patterns = ['1 pl', '1 en', '2 pl', '2 en', '3 pl', '3 en'];
+            foreach ($patterns as $pattern) {
+                if (strpos($menu_name_lower, $pattern) !== false) {
+                    $varName = 'menu_' . str_replace(' ', '_', $pattern);
+                    $$varName = $menu->term_id;
+                    break;
+                }
+            }
+        }
+
+        $menu_3_pl_items = wp_get_nav_menu_items($menu_3_pl);
+        $menu_3_en_items = wp_get_nav_menu_items($menu_3_en);
+
+        $menu_3_pl_data = array();
+        $menu_3_en_data = array();
+
+        foreach ($menu_3_pl_items as $item) {
+            $menu_3_pl_data[] = array(
+                'title' => $item->title,
+                'url' => $item->url
+            );
+        }
+
+        foreach ($menu_3_en_items as $item) {
+            $menu_3_en_data[] = array(
+                'title' => $item->title,
+                'url' => $item->url
+            );
+        }
+
+        $output .='
+        <div class="exhibitors__buttons">
+            <span class="pwe-btn-container">';
+                if (get_locale() == "pl_PL") {
+                    $output .='<a href="'. $menu_3_pl_data[0]["url"] .'" class="pwe-btn" target="_blank">Zostań wystawcą</a>';
+                } else {
+                    $output .='<a href="'. $menu_3_en_data[0]["url"] .'" class="pwe-btn" target="_blank">Become an exhibitor</a>';
+                } $output .='    
+            </span>';
+            if (get_locale() == "en_US") {
+                $output .='
+                    <span class="pwe-btn-container">
+                        <a href="https://warsawexpo.eu/en/forms-for-agents/" class="pwe-btn" target="_blank">Become an agent</a>
+                    </span>';
+            } $output .='     
+        </div>';
+
         $output .= '</div></div>';
   } else if ($format === 'top10' && is_dir($form_image_path) && !empty(glob($form_image_path . '/*.{'. $file_extensions .'}', GLOB_BRACE))) {
       echo '<style>
