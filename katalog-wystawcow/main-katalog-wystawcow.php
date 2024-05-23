@@ -527,6 +527,11 @@ function katalog_wystawcow_output($atts, $content = null) {
                     box-shadow: 9px 9px 0px -5px black;
                     border: 1px solid #777;
                 }
+                @media (min-width:960px) {
+                  #full {
+                      margin-left: 36px 
+                  }
+              }
             </style>';
 
         // Get wordpress menus
