@@ -128,6 +128,13 @@
                                         let startY;
                                         let slideMove = 0;
 
+                                        const links = document.querySelectorAll("#custom_element_slider-'. $id_rnd .' a");
+                                        links.forEach(link => {
+                                                link.addEventListener("mousedown", (e) => {
+                                                e.preventDefault();
+                                                });
+                                        });
+
                                         slider.addEventListener("mousedown", (e) => {
                                                 isDown = true;
                                                 slider.classList.add("active");
