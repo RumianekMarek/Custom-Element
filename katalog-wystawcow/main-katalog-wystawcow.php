@@ -502,6 +502,7 @@ function katalog_wystawcow_output($atts, $content = null) {
             <style>
                 #full .exhibitors__buttons {
                     display: flex;
+                    flex-wrap: wrap;
                     justify-content: center;
                     gap: 18px;
                     padding-bottom: 36px;
