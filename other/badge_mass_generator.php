@@ -14,6 +14,7 @@ if ($_SERVER['HTTPS'] !== 'on') {
 // Implement secure password handling
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
+    var_dump($data);
     $token = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
     $domain = 'https://' . $_SERVER ["HTTP_HOST"] . '/';
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
@@ -31,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 foreach ($data[$domain] as $id => $value){
+                    
                     $entry = [];
                     $entry['form_id'] = $form['id'];
                     foreach ($form['fields'] as $key){
@@ -38,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $entry[$key['id']] = $value[1];
                         } elseif (strpos(strtolower($key['label']), 'firma') !== false ){
                             $entry[$key['id']] = $value[0];
+                        }  elseif (strpos(strtolower($key['label']), 'wybierz') !== false ){
+                            $entry[$key['id']] = $data['options'][1];
                         }  
                     }
 
