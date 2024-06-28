@@ -3,7 +3,7 @@
 $sciezka_do_pliku = 'log.txt';
 $dane_do_zapisu = "\n" . date('Y-m-d H:i:s') . "\n";
 
-// if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET)) {
+if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET)) {
     // Odbierz dane z formularza
     $przeslane_dane = $_GET;
     $dane_do_zapisu .= json_encode($przeslane_dane, JSON_PRETTY_PRINT) . "\n\n";
@@ -72,20 +72,20 @@ $dane_do_zapisu = "\n" . date('Y-m-d H:i:s') . "\n";
             }
         }
     }
-// } else {
-//     $dane_do_zapisu .= 'error-log ||';
-//     foreach($_SERVER as $id => $key){
-//         $dane_do_zapisu .= $id . ' => ' . $key ;
-//     }
-//     $dane_do_zapisu .= '||';
-//     $dane_do_zapisu .= ' empty GET -> '.empty($_GET) .' ||';
-//     if (!empty($_POST)){
-//         $dane_do_zapisu .= 'POST -> ';
-//         foreach($_POST as $data){
-//             $dane_do_zapisu .= $data. ' ';
-//         }
-//     }
-// }
+} else {
+    $dane_do_zapisu .= 'error-log ||';
+    foreach($_SERVER as $id => $key){
+        $dane_do_zapisu .= $id . ' => ' . $key ;
+    }
+    $dane_do_zapisu .= '||';
+    $dane_do_zapisu .= ' empty GET -> '.empty($_GET) .' ||';
+    if (!empty($_POST)){
+        $dane_do_zapisu .= 'POST -> ';
+        foreach($_POST as $data){
+            $dane_do_zapisu .= $data. ' ';
+        }
+    }
+}
 
 if ($dane_do_zapisu == '') {
     $blad = error_get_last();
