@@ -105,7 +105,9 @@ if ($profile_padding_element == '') {
     height: 40px;
     float: right;
 }
-
+.custom_element_<?php echo $rnd_id ?> .custom-profile-text-block p:first-of-type {
+    display: none;
+}
 @media (max-width: 960px) {
     .custom-profile-content {
         flex-direction: column;

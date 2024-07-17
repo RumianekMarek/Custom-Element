@@ -575,9 +575,9 @@ function katalog_wystawcow_output($atts, $content = null) {
         <div class="exhibitors__buttons">
             <span class="pwe-btn-container">';
                 if (get_locale() == "pl_PL") {
-                    $output .='<a href="'. $menu_3_pl_data[0]["url"] .'" class="pwe-btn" target="_blank">Zostań wystawcą</a>';
+                    $output .='<a href="'. $menu_3_pl_data[0]["url"] .'" class="pwe-btn">Zostań wystawcą</a>';
                 } else {
-                    $output .='<a href="'. $menu_3_en_data[0]["url"] .'" class="pwe-btn" target="_blank">Become an exhibitor</a>';
+                    $output .='<a href="'. $menu_3_en_data[0]["url"] .'" class="pwe-btn">Become an exhibitor</a>';
                 } $output .='    
             </span>';
             if (get_locale() == "en_US") {
@@ -675,14 +675,14 @@ function katalog_wystawcow_output($atts, $content = null) {
           $output .= '
             <div>
               <span style="display: flex; justify-content: center;" class="btn-container ">
-                  <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Katalog wystawców">Zobacz więcej</a>
+                  <a href="/katalog-wystawcow" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Katalog wystawców">Katalog wystawców</a>
               </span>
             </div>';
       } else {
           $output .= '
             <div>
               <span style="display: flex; justify-content: center;" class="btn-container">
-                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitor Catalog">See more</a>
+                  <a href="/en/exhibitors-catalog/" class="custom-link btn border-width-0 btn-accent btn-square shadow-black" title="Exhibitor Catalog">Exhibitor Catalog</a>
               </span>
             </div>';
       }

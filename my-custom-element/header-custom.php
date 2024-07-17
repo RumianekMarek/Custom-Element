@@ -127,6 +127,10 @@
         padding: 18px 18px 36px;
         gap: 18px;
     }
+    .header-conference-item:nth-of-type(2),
+    .header-conference-item:nth-of-type(3)  {
+        display: none;
+    }
     @media (max-width:1200px) {
         .custom-header-logotypes {
             max-width: 100%;

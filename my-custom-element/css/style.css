@@ -219,7 +219,7 @@ strong {
 
 .main-heading-text :is(h2, h3, h4),
 .secondary-heading-text :is(h2, h3, h4) {
-    font-size: 20px !important;
+    font-size: 18px !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
 
