@@ -1,4 +1,10 @@
 <?php
+if (defined('ABSPATH')) {
+} else {
+    $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
+    require_once($new_url);
+}
+
 function register_custom_gf_download() {
     vc_map(array(
         'name' => __('Gravity Entries downloader', 'my-custom-plugin'),
@@ -8,6 +14,7 @@ function register_custom_gf_download() {
 }
 
 function custom_gf_download_output() {
+    global $wpdb;
     $all_forms = '';
 
     if (class_exists('GFAPI')) {
@@ -15,9 +22,35 @@ function custom_gf_download_output() {
             $token = $_GET['token'];
             if ($token == "all"){
                 $all_forms = GFAPI::get_forms($active = null, $trash = null);
-            } 
+            } else {
+                if ($token == "json"){
+                    $json_data = array();
+                    $all_forms = GFAPI::get_forms();
+                    foreach($all_forms as $id => $form){
+                        $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM wp_gf_form_view WHERE form_id = %d", $form['id']);
+                        $view_data = $wpdb->get_results($query);
+                        $count_entrys = count(GFAPI::get_entries($form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
+                        $json_data[$id]['form id'] = $form['id'];
+                        $json_data[$id]['nazwa'] = $form['title'];
+                        $json_data[$id]['wpisy'] = $count_entrys;
+                        $json_data[$id]['wyswietlenia'] = $view_data[0]->total_count;
+                    }
+                    $json_file_name = do_shortcode('[trade_fair_name]').'.json';
+                    $json_data = json_encode($json_data);
+                    $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                    $file_written = file_put_contents($file_path, $json_data);
+                    echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                    echo '<script>
+                            document.querySelector(".json-download").click();
+                            document.querySelector(".json-download").remove();
+                        </script>';
+
+                    $file_content = file_get_contents($file_path);
+                } 
+            }
         } else {
             $all_forms = GFAPI::get_forms();
+            
         }
     }
 

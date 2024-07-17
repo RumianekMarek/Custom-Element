@@ -4,6 +4,10 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// echo '<pre style="margin-left:200px;">';
+// var_dump($_SESSION);
+// echo '</pre>';
+
 function moja_wtyczka_dodaj_strone_menu() {
   add_menu_page(
       'Dostęp do katalogu', // Tytuł strony menu
@@ -29,16 +33,19 @@ function moja_wtyczka_wyswietl_strone_menu() {
 // Kod funkcji dostępu do katalogu
 
 function dostep_do_katalogu() {
+
     echo '<div class="wrap main-container-dostepFTP">';
     echo '<h1 class="main-header-dostepFTP">/doc/' . $_GET['folder'] . '</h1>';
 
     $katalog = ABSPATH . 'doc'; // Pełna ścieżka do katalogu
     
-    // Wyświetl komunikat, jeśli jest dostępny w sesji
+    // Wyświetl komunikat, jeśli jest dostępny w sesji   
     if (isset($_SESSION['komunikat'])) {
         echo '<p class="komunikat">' . $_SESSION['komunikat'] . '</p>';
         unset($_SESSION['komunikat']);
     }
+
+    $_SESSION = array();
 
     $folder = isset($_GET['folder']) ? $_GET['folder'] : '';
     $katalog .= '/' . $folder; // Dodaj folder do ścieżki katalogu
@@ -75,6 +82,7 @@ function dostep_do_katalogu() {
         // Wyświetl zawartość folderu
         echo '<ul>';
         foreach ($pliki as $plik) {
+            
             if ($plik !== '.' && $plik !== '..') {
                 $next_url = isset($_GET['folder']) && $_GET['folder'] !== '' ? $_GET['folder'] . '/' . $plik : $plik;
                 $sciezka = ABSPATH . 'doc/' . $next_url;
@@ -132,19 +140,33 @@ function dostep_do_katalogu() {
 
         // Wyświetl formularz do przesyłania plików
         echo '<form class="dodaj-plik" action="' . admin_url('admin-post.php') . '" method="POST" enctype="multipart/form-data">';
-        echo '<input type="hidden" name="action" value="dodaj_plik" />';
-        echo '<input type="file" name="plik[]" multiple />';
-        echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
-        echo '<input type="submit" value="Dodaj plik" />';
+            echo '<input type="hidden" name="action" value="dodaj_plik" />';
+            echo '<div>';
+                echo '<label>Katalog</label>';
+                echo '<input type="file" name="plik[]" placeholder="Katalog" webkitdirectory directory multiple />';
+            echo '</div>';
+            echo '<div>';
+                echo '<label>Plik</label>';
+                echo '<input type="file" name="plik[]" multiple />';
+            echo '</div>';
+            echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+            echo '<input type="submit" value="Dodaj plik" />';
         echo '</form>';
 
         // Wyświetl formularz do tworzenia formularza
         echo '<form class="dodaj-folder" action="' . admin_url('admin-post.php') . '" method="POST">';
-        echo '<input type="hidden" name="action" value="dodaj_katalog" />';
-        echo '<input type="text" name="nowy_katalog" placeholder="Podaj nazwę katalogu" />';
-        echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
-        echo '<input type="submit" value="Dodaj katalog" />';
+            echo '<input type="hidden" name="action" value="dodaj_katalog" />';
+            echo '<input type="text" name="nowy_katalog" placeholder="Podaj nazwę katalogu" />';
+            echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+            echo '<input type="submit" value="Dodaj katalog" />';
         echo '</form>';
+
+        // Masowe usuwania plików
+        echo '<div>
+            <button class="get-all">Zaznacz wszystko</button>
+            <button class="file-mass-del">Usuń zaznaczone pliki</button>
+        </div>';
+
     } else {
         echo '<br> Katalog nie istnieje.';
     }
@@ -154,39 +176,40 @@ function dostep_do_katalogu() {
 
 // Kod obsługujący żądanie dodawania pliku
 function dodaj_plik() {
-    $katalog = ABSPATH . 'doc/' . $_POST['folder'] . '/'; // Pełna ścieżka do katalogu
-
     if (isset($_FILES['plik'])) {
         $pliki = $_FILES['plik'];
-
         $dozwolone_rozszerzenia = array('jpg', 'jpeg', 'png', 'pdf', 'webp');
 
         foreach ($pliki['error'] as $key => $error) {
             if ($error === UPLOAD_ERR_OK) {
+                $folder = $_FILES['plik']['full_path'][$key];
+                $file_name = basename($folder);
+                $_SESSION[] = $file_name;
+                $katalog = ABSPATH . 'doc/' . $_POST['folder'] . '/' . str_replace($file_name, '', $folder);
                 $nazwa = $pliki['name'][$key];
                 $lokalizacja = $pliki['tmp_name'][$key];
                 $docelowa_sciezka = $katalog . $nazwa;
                 $rozszerzenie = strtolower(pathinfo($docelowa_sciezka, PATHINFO_EXTENSION));
 
                 if (!in_array($rozszerzenie, $dozwolone_rozszerzenia)) {
-                    $_SESSION['komunikat'] = 'Nieprawidłowe rozszerzenie pliku: ' . $nazwa . '. Dozwolone rozszerzenia to: ' . implode(', ', $dozwolone_rozszerzenia) . '<br>';
+                    $_SESSION['komunikat'] .= 'Nieprawidłowe rozszerzenie pliku: ' . $nazwa . '. Dozwolone rozszerzenia to: ' . implode(', ', $dozwolone_rozszerzenia) . '<br>';
                     continue;
                 }
+                if (!is_dir(dirname($docelowa_sciezka))) {
+                    mkdir(dirname($docelowa_sciezka), 0755, true);
+                }
 
-                if (file_exists($docelowa_sciezka)) {
-                    $_SESSION['komunikat'] = 'Plik <b>' . $nazwa . '</b> już istnieje. <br>';
+                if (move_uploaded_file($lokalizacja, $docelowa_sciezka)) {
                 } else {
-                    if (move_uploaded_file($lokalizacja, $katalog . $nazwa)) {
-                        // Plik został pomyślnie przesłany i zapisany
-                    } else {
-                        $_SESSION['komunikat'] = 'Wystąpił problem podczas dodawania pliku.';
-                    }
+                    $_SESSION['komunikat'] .= 'Wystąpił problem podczas dodawania pliku' . $nazwa . ' => ' . $error;
                 }
             } else {
-                $_SESSION['komunikat'] = 'Wystąpił błąd podczas przesyłania pliku.';
+                if($error != 4){
+                    $_SESSION['komunikat'] .= 'Wystąpił błąd podczas przesyłania pliku.' . $nazwa . ' => ' . $error;
+                }
             }
         }
-        wp_redirect(admin_url('admin.php?page=moja-wtyczka-dostep-do-katalogu&folder=' . $_POST['folder'])); // Przekierowanie do strony z zawartością katalogu
+        wp_redirect(admin_url('admin.php?page=moja-wtyczka-dostep-do-katalogu&folder=' . $_POST['folder']));
         exit;
     }
 }
@@ -266,7 +289,7 @@ function zmien_nazwe() {
         $nowa_nazwa = $_POST['nowa_nazwa'];
         $katalog = ABSPATH . 'doc/' . $_POST['folder'] . '/'; // Pełna ścieżka do katalogu
         
-        if ($nowa_nazwa != '' && preg_match("/^[a-zA-Z0-9_.-ąęśćżźńłóĄĘŚĆŻŹŃŁÓ]*$/", $nowa_nazwa)) {
+        if ($nowa_nazwa != '' && preg_match("/^[a-zA-Z0-9_.\-ąęśćżźńłóĄĘŚĆŻŹŃŁÓ]*$/", $nowa_nazwa)) {
             if (file_exists($katalog . $stara_nazwa)) {
                 if (!file_exists($katalog . $nowa_nazwa)) {
                     if (rename($katalog . $stara_nazwa, $katalog . $nowa_nazwa)) {
