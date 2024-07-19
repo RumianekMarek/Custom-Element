@@ -10,12 +10,17 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
 
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
     $entry = [];
+    if($przeslane_dane['lang'] == 'en'){
+        $lang = 'en';
+    } else {
+        $lang = 'pl';
+    }
     if (file_exists($new_url)) {
         require_once($new_url);
         if (class_exists('GFAPI')) {
             $all_forms = GFAPI::get_forms();
             foreach($all_forms as $form){
-                if(strpos($form['title'], '(FB)') !== false){
+                if(strpos($form['title'], '(FB)') !== false && strpos(strtolower($form['title']), $lang) !== false){
                     $entry['form_id'] = $form['id'];
                     $face_form = $form;
                     $all_fields = $form['fields'];
