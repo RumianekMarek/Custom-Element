@@ -3,7 +3,6 @@ if ($_SERVER['HTTPS'] !== 'on') {
     header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     exit();
 }
-
 // Implement secure password handling
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -25,21 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 foreach ($all_forms as $key => $value) {
                     switch (true) {
-                        // case (strpos(strtolower($value['title']), strtolower('PL (FB)')) !== false):
-                        //     $form['fb-pl'] = $value['id'];
-                        //     break;
-                    
-                        // case (strpos(strtolower($value['title']), strtolower('EN (FB)')) !== false):
-                        //     $form['fb-en'] = $value['id'];
-                        //     break;
-
-                        case (preg_match('/^\(.{4}\) Rejestracja PL$/i', $value['title'])) :
+                        case (preg_match('/^\(.{4}\) ?Rejestracja PL$/i', $value['title'])) :
                             $form['def-pl'] = $value['id'];
                             break;
                     
-                        case (preg_match('/^\(.{4}\) Rejestracja EN$/i', $value['title'])) :
+                        case (preg_match('/^\(.{4}\) ?Rejestracja EN$/i', $value['title'])) :
                             $form['def-en'] = $value['id'];
                             break;
+                    }
+                }
+                if ($form['def-pl'] == null){
+                    foreach ($all_forms as $key => $value) {
+                        if ('rejestracja pl 2024' == strtolower($value['title'])) {
+                                $form['def-pl'] = $value['id'];
+                                break;
+                        }
+                    }
+                }
+
+                if ($form['def-en'] == null){
+                    foreach ($all_forms as $key => $value) {
+                        if ('rejestracja en 2024' == strtolower($value['title'])) {
+                                $form['def-en'] = $value['id'];
+                                break;
+                        }
                     }
                 }
 
@@ -87,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }   
                     }
                     $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $qr_code_id . '_url');
-
+                    var_dump($meta_key_url);
                     if(strpos($meta_key_url, 'http://') !== false){
                         $meta_key_url = str_replace('http:', 'https:', $meta_key_url);
                     }
