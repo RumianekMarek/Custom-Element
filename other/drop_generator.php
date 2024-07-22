@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Process each entry in the data
                 foreach ($data[$domain] as $id => $value) {
-                    $existingEntry = false;
 
                     // Check for existing entries
                     foreach ($all_forms as $form_check) {
@@ -61,15 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 foreach ($entry_check as $entry_id => $field_check) {
                                     if (is_numeric($entry_id) && $field_check == $value[0]) {
                                         $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1];
-                                        $existingEntry = true;
-                                        break 4;
+                                        continue 4;
                                     }
                                 }
                             }
                         }
                     }
-
-                    if (!$existingEntry) {
                         // Create a new entry
                         $entry = ['form_id' => $form['id']];
 
@@ -125,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 }
                             }
                         }
-                    }
                 }
                 // Send JSON response
                 echo json_encode($report);
