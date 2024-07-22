@@ -1,150 +1,149 @@
 <?php 
+// Ensure connection is HTTPS
 if ($_SERVER['HTTPS'] !== 'on') {
     header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     exit();
 }
-// Implement secure password handling
+
+// Secure password handling
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Read JSON input
     $data = json_decode(file_get_contents('php://input'), true);
     
+    // Get authorization token
     $token = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
-    $domain_raport = $_SERVER ["HTTP_HOST"];
+    $domain_raport = $_SERVER["HTTP_HOST"];
     $domain = 'https://' . $domain_raport . '/';
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
     $forms = array();
     $form_id = '';
     $report = array();
-    
 
+    // Validate token
     if (validateToken($token, $domain)) {
+        // Check if WordPress environment is available
         if (file_exists($new_url)) {
             require_once($new_url);
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
                 
+                // Get form IDs based on titles
                 foreach ($all_forms as $key => $value) {
-                    switch (true) {
-                        case (preg_match('/^\(.{4}\) ?Rejestracja PL$/i', $value['title'])) :
-                            $form['def-pl'] = $value['id'];
-                            break;
-                    
-                        case (preg_match('/^\(.{4}\) ?Rejestracja EN$/i', $value['title'])) :
-                            $form['def-en'] = $value['id'];
-                            break;
-                    }
-                }
-                if ($form['def-pl'] == null){
-                    foreach ($all_forms as $key => $value) {
-                        if ('rejestracja pl 2024' == strtolower($value['title'])) {
-                                $form['def-pl'] = $value['id'];
-                                break;
-                        }
+                    if (preg_match('/^\(.{4}\) ?Rejestracja PL$/i', $value['title'])) {
+                        $form['def-pl'] = $value['id'];
+                    } elseif (preg_match('/^\(.{4}\) ?Rejestracja EN$/i', $value['title'])) {
+                        $form['def-en'] = $value['id'];
                     }
                 }
 
-                if ($form['def-en'] == null){
-                    foreach ($all_forms as $key => $value) {
-                        if ('rejestracja en 2024' == strtolower($value['title'])) {
-                                $form['def-en'] = $value['id'];
-                                break;
-                        }
+                // Fallback titles
+                foreach ($all_forms as $key => $value) {
+                    if ('rejestracja pl 2024' == strtolower($value['title'])) {
+                        $form['def-pl'] = $value['id'];
+                    } elseif ('rejestracja en 2024' == strtolower($value['title'])) {
+                        $form['def-en'] = $value['id'];
                     }
                 }
 
-                if(strtolower($data['options']) == 'pl'){
-                    $form = GFAPI::get_form($form['def-pl']);
-                } else {
-                    $form = GFAPI::get_form($form['def-en']);
-                }
-                
-                foreach ($data[$domain] as $id => $value){
-                    foreach($all_forms as $form_check){
-                        if(strpos(strtolower($form_check['title']), 'rejestracja') !== false ){
+                // Get form based on option
+                $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
+                $report['form'] = $form['id'];
+
+                // Process each entry in the data
+                foreach ($data[$domain] as $id => $value) {
+                    $existingEntry = false;
+
+                    // Check for existing entries
+                    foreach ($all_forms as $form_check) {
+                        if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
                             $entries = GFAPI::get_entries($form_check['id']);
-                            foreach($entries as $entry_check){
-                                foreach($entry_check as $id => $field_check){
-                                    if(is_numeric($id) && $field_check == $value[0]){
-                                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1] ;
-                                        continue 4;
+                            foreach ($entries as $entry_check) {
+                                foreach ($entry_check as $entry_id => $field_check) {
+                                    if (is_numeric($entry_id) && $field_check == $value[0]) {
+                                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1];
+                                        $existingEntry = true;
+                                        break 4;
                                     }
                                 }
                             }
                         }
                     }
-                    $entry = [];
-                    $entry['form_id'] = $form['id'];
 
-                    foreach ($form['fields'] as $key){
-                        if(strpos(strtolower($key['label']), 'email') !== false ){
-                            $entry[$key['id']] = $value[0];
-                        } elseif (strpos(strtolower($key['label']), 'telefon') !== false || strpos(strtolower($key['label']), 'phone') !== false){
-                            $entry[$key['id']] = $value[1];
-                        } elseif (strpos(strtolower($key['label']), 'utm') !== false ){
-                            $entry[$key['id']] = 'utm_source=spady_lead&drop_kanal=' . $value[2];
+                    if (!$existingEntry) {
+                        // Create a new entry
+                        $entry = ['form_id' => $form['id']];
+
+                        foreach ($form['fields'] as $field) {
+                            if (strpos(strtolower($field['label']), 'email') !== false) {
+                                $entry[$field['id']] = $value[0];
+                            } elseif (strpos(strtolower($field['label']), 'telefon') !== false || strpos(strtolower($field['label']), 'phone') !== false) {
+                                $entry[$field['id']] = $value[1];
+                            } elseif (strpos(strtolower($field['label']), 'utm') !== false) {
+                                $entry[$field['id']] = 'utm_source=spady_lead&drop_kanal=' . $value[2];
+                            }
                         }
-                    }
 
-                    $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1] ; 
-                    
-                    $entry_id = GFAPI::add_entry($entry);
+                        $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
+                        
+                        $entry_id = GFAPI::add_entry($entry);
+                        $report['entry'] = $entry_id;
 
-                    $qr_feeds = GFAPI::get_feeds( NULL, $form[ 'id' ]);
-                    foreach($qr_feeds as $feed){
-                        if (gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url')){
-                            $qr_code_id = $feed['id'];
-                        }   
-                    }
-                    $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $qr_code_id . '_url');
-                    var_dump($meta_key_url);
-                    if(strpos($meta_key_url, 'http://') !== false){
-                        $meta_key_url = str_replace('http:', 'https:', $meta_key_url);
-                    }
+                        if (!is_wp_error($entry_id)) {
+                            try {
+                                GFAPI::send_notifications($form, $entry);
+                            } catch (Exception $e) {
+                                $report['error'] = 'Błąd send_notifications: ' . $e->getMessage();
+                            }
+                        } else {
+                            $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
+                        }
 
-                    $meta_key_image = '<img data-imagetype="External" src="' . $meta_key_url . '" width="200">';
-                    
-                    foreach($form["notifications"] as $id => $key){
-                        if($key["isActive"]){
-                            if (strpos($form["notifications"][$id]["message"], '{qrcode-url-' . $qr_code_id . '}') !== false){
-                                $form["notifications"][$id]["message"] = str_replace('{qrcode-url-' . $qr_code_id . '}', $meta_key_url , $key["message"]);
-                            } else {
-                                $form["notifications"][$id]["message"] = str_replace('{qrcode-image-' . $qr_code_id . '}', $meta_key_image, $key["message"]);
+                        // Handle QR code feeds
+                        $qr_feeds = GFAPI::get_feeds(NULL, $form['id']);
+                        foreach ($qr_feeds as $feed) {
+                            $qr_code_url = gform_get_meta($entry_id, 'qr-code_feed_' . $feed['id'] . '_url');
+                            if ($qr_code_url) {
+                                $qr_code_id = $feed['id'];
+                                break;
+                            }
+                        }
+
+                        if ($qr_code_url && strpos($qr_code_url, 'http://') !== false) {
+                            $qr_code_url = str_replace('http:', 'https:', $qr_code_url);
+                        }
+
+                        $qr_code_image = '<img data-imagetype="External" src="' . $qr_code_url . '" width="200">';
+
+                        // Update notifications with QR code
+                        foreach ($form["notifications"] as $id => $notification) {
+                            if ($notification["isActive"]) {
+                                $message = $notification["message"];
+                                if (strpos($message, '{qrcode-url-' . $qr_code_id . '}') !== false) {
+                                    $form["notifications"][$id]["message"] = str_replace('{qrcode-url-' . $qr_code_id . '}', $qr_code_url, $message);
+                                } else {
+                                    $form["notifications"][$id]["message"] = str_replace('{qrcode-image-' . $qr_code_id . '}', $qr_code_image, $message);
+                                }
                             }
                         }
                     }
-                    
-
-                    if ($entry_id && !is_wp_error($entry_id)) {
-                        try {
-                            GFAPI::send_notifications($form, $entry);
-                        } catch (Exception $e) {
-                            $report['dane_do_zapisu'] .= 'Błąd send_notifications: ' . $e->getMessage();
-                        }
-                    } else {
-                        $dane_do_zapisu .= 'Błąd dodawania wpisu do Gravity Forms.';
-                    }
-
                 }
-                $json_response = json_encode($report);
-                echo $json_response;
-
+                // Send JSON response
+                echo json_encode($report);
             } else {
-                echo 'WordPress problems contact web developers code - "WORDPRESS GF ERROR '.$domain.' ".';
-                echo'<br><br>';
                 http_response_code(404);
+                echo 'WordPress problems contact web developers code - "WORDPRESS GF ERROR ' . $domain . ' ".';
             }
         } else {
-            echo 'ivalide token contact web developers code - "Word Press Function PHP error '.$domain.' ".';
-            echo'<br><br>';
             http_response_code(404);
+            echo 'Invalid token contact web developers code - "WordPress Function PHP error ' . $domain . ' ".';
         }
     } else {
-        echo 'ivalide token contact web developers code - "INVALID TOKEN '.$domain.' ".';
-        echo'<br><br>';
         http_response_code(401);
-        exit;
+        echo 'Invalid token contact web developers code - "INVALID TOKEN ' . $domain . ' ".';
     }
 }
 
+// Function to generate a token
 function generateToken($domain) {
     $secret_key = '^GY0ZlZ!xzn1eM5';
     return hash_hmac('sha256', $domain, $secret_key);
