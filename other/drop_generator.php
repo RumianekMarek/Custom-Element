@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Get form based on option
                 $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
-                $report['form'] = $form['id'];
 
                 // Process each entry in the data
                 foreach ($data[$domain] as $id => $value) {
@@ -82,17 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
                         
                         $entry_id = GFAPI::add_entry($entry);
-                        $report['entry'] = $entry_id;
-
-                        if (!is_wp_error($entry_id)) {
-                            try {
-                                GFAPI::send_notifications($form, $entry);
-                            } catch (Exception $e) {
-                                $report['error'] = 'Błąd send_notifications: ' . $e->getMessage();
-                            }
-                        } else {
-                            $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
-                        }
 
                         // Handle QR code feeds
                         $qr_feeds = GFAPI::get_feeds(NULL, $form['id']);
@@ -120,6 +108,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $form["notifications"][$id]["message"] = str_replace('{qrcode-image-' . $qr_code_id . '}', $qr_code_image, $message);
                                 }
                             }
+                        }
+
+                        if (!is_wp_error($entry_id)) {
+                            try {
+                                GFAPI::send_notifications($form, $entry);
+                            } catch (Exception $e) {
+                                $report['error'] = 'Błąd send_notifications: ' . $e->getMessage();
+                            }
+                        } else {
+                            $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
                         }
                 }
                 // Send JSON response
