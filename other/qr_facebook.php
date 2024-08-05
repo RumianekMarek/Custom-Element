@@ -72,9 +72,16 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
                 } catch (Exception $e) {
                     $dane_do_zapisu .= 'Błąd send_notifications: ' . $e->getMessage();
                 }
+                $klavio_sender_url = ABSPATH . 'wp-content/plugins/custom-element/other/klavio_sender.php';
+                if (file_exists($klavio_sender_url)){
+                    $entry_klavio = GFAPI::get_entry($entry_id);
+                    include_once $klavio_sender_url;
+                    klavio_sender($entry_klavio, $form);
+                }
             } else {
                 $dane_do_zapisu .= 'Błąd dodawania wpisu do Gravity Forms.';
             }
+            
         }
     }
 } else {

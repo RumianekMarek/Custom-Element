@@ -1,23 +1,51 @@
 <?php
-function klavio_sender($entry, $form){
-    $dom_name = explode('.', do_shortcode('[trade_fair_domainadress]'));
 
-    $pattern = '/^\(20\d{2}\) Rejestracja (PL|EN)( \(header\))?$/';
+function get_klavio_data() {
+    global $wpdb;
+
+    $klavio_returner = array();
+
+    $table_name = $wpdb->prefix . 'custom_klavio_setup'; // Nazwa tabeli z prefiksem
+
+    $klavio_pre = $wpdb->prepare(
+        "SELECT * FROM $table_name"
+    );
+
+    $klavio_data = $wpdb->get_results($klavio_pre);
+
+    foreach($klavio_data as $key){
+        $klavio_returner[$key->klavio_list_name] = $key->klavio_list_id;
+    } 
+    
+    return $klavio_returner;
+}
+
+function klavio_sender($entry, $form){  
+    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
+
     if (!preg_match($pattern, $form['title'])){
         return;
     }
 
+    $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
+    if (file_exists($new_url)) {
+        require_once($new_url);
+        $klavio_db = get_klavio_data();
+    }
+
+    $dom_name = explode('.', do_shortcode('[trade_fair_domainadress]'));
+    $dom_id_nolanguage = $dom_name[0];
+
     if (strpos(strtolower($form['title']), 'pl') !== false ) {
-        $klavio_list_id = 'TKhJfW';
+        $klavio_list_id = $klavio_db['klavio_list_pl'];
         $dom_id = $dom_name[0] . '_pl';
     } else {
-        $klavio_list_id = 'WCvciT';
+        $klavio_list_id = $klavio_db['klavio_list_en'];
         $dom_id = $dom_name[0] . '_en';
     }
 
     foreach($form['fields'] as $field){
-        
-        if(strpos(strtolower($field['label']), 'email') !== false){
+        if(strpos(strtolower($field['label']), 'email') !== false || strpos(strtolower($field['label']), 'e-mail') !== false){
             $email_id = $field['id'];
         } 
         if(strpos(strtolower($field['label']), 'tele') !== false || strpos(strtolower($field['label']), 'phone') !== false){
@@ -51,7 +79,11 @@ function klavio_sender($entry, $form){
     if(isset($utm_id)){
         $utm = rgar($entry, $utm_id);
     } else {
-        $utm = '';
+        if (strpos($form['title'], '(FB)') !== false){
+            $utm = 'utm_source=facebook';
+        } else {
+            $utm = '';
+        }
     }
 
     $email_array = explode('@', $email);
@@ -72,6 +104,10 @@ function klavio_sender($entry, $form){
                                     "utm_" . $dom_id => $utm,
                                     "phone_" . $dom_id => $phone,
 									"qr_code_" . $dom_id => $qr_code_url,
+                                    "domena_" . $dom_id_nolanguage => do_shortcode('[trade_fair_domainadress]'),
+                                    "entry_id_" . $dom_id => $entry['id'],
+                                    "consent_" . $dom_id => "true",
+                                    //"consent_data" . $dom_id => date("d/m/Y/T"),
 								]
                             ]
                         ]
@@ -95,7 +131,7 @@ function klavio_sender($entry, $form){
         'body'        => wp_json_encode($data),
         'headers'     => [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Klaviyo-API-Key pk_b7b2bb8effe9e4d7d595e997fd0bf6c9ab',
+            'Authorization' => 'Klaviyo-API-Key '. $klavio_db['klavio_pkey'],
             'Accept' => 'application/json',
             'Revision' => '2024-07-15'
         ],

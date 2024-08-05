@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 3.3
+Version: 3.5
 Author: Marek Rumianek
 Współtwórcy: Jakub Choła , Anton Melnychuk
 Author URI: github.com/RumianekMarek
@@ -71,5 +71,10 @@ if (is_admin()) {
       
   //opisy do Mediów
   include_once plugin_dir_path(__FILE__) . '/FTP/opisy-mediow.php';
+}
+
+if (is_admin()) {
+  // Edytor plików dostepFTP
+  include_once plugin_dir_path(__FILE__) . '/FTP/klavio.php';
 }
 ?>

@@ -116,6 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             } catch (Exception $e) {
                                 $report['error'] = 'Błąd send_notifications: ' . $e->getMessage();
                             }
+                            $klavio_sender_url = ABSPATH . 'wp-content/plugins/custom-element/other/klavio_sender.php';
+                            if (file_exists($klavio_sender_url)){
+                                include_once $klavio_sender_url;
+                                klavio_sender($entry, $form);
+                            }
                         } else {
                             $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
                         }
