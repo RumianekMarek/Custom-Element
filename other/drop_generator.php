@@ -118,8 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             }
                             $klavio_sender_url = ABSPATH . 'wp-content/plugins/custom-element/other/klavio_sender.php';
                             if (file_exists($klavio_sender_url)){
+                                $entry_klavio = GFAPI::get_entry($entry_id);
                                 include_once $klavio_sender_url;
-                                klavio_sender($entry, $form);
+                                klavio_sender($entry_klavio, $form);
                             }
                         } else {
                             $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';

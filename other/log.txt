@@ -211,3 +211,368 @@ error-log ||PHP_INI_SCAN_DIR => :/usr/local/fcgi/glasstec/mr.glasstec.pl/PWD => 
 
 2024-07-19 08:29:04
 error-log ||PHP_INI_SCAN_DIR => :/usr/local/fcgi/glasstec/mr.glasstec.pl/PWD => /usr/local/fcgi/glasstec/mr.glasstec.plSHLVL => 0PATH => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/binLD_PRELOAD => /usr/local/lib/h88/av.soORIG_SCRIPT_NAME => /fcgi/php-fcgiORIG_PATH_TRANSLATED => /home/glasstec/domains/mr.glasstec.pl/private_html/wp-content/plugins/custom-element/other/qr_facebook.phpORIG_PATH_INFO => /wp-content/plugins/custom-element/other/qr_facebook.phpORIG_SCRIPT_FILENAME => /usr/local/fcgi/glasstec/mr.glasstec.pl/php-fcgiHTTP_CONNECTION => closeSCRIPT_NAME => /wp-content/plugins/custom-element/other/qr_facebook.phpREQUEST_URI => /wp-content/plugins/custom-element/other/qr_facebook.php?name=Anna%20Nykytenko&email=anna.nykytenko%40warsawexpo.eu&phone=%2B48543212345&lang=enQUERY_STRING => name=Anna%20Nykytenko&email=anna.nykytenko%40warsawexpo.eu&phone=%2B48543212345&lang=enREQUEST_METHOD => GETSERVER_PROTOCOL => HTTP/2.0GATEWAY_INTERFACE => CGI/1.1REDIRECT_QUERY_STRING => name=Anna%20Nykytenko&email=anna.nykytenko%40warsawexpo.eu&phone=%2B48543212345&lang=enREDIRECT_URL => /wp-content/plugins/custom-element/other/qr_facebook.phpREMOTE_PORT => 57875SCRIPT_FILENAME => /home/glasstec/domains/mr.glasstec.pl/private_html/wp-content/plugins/custom-element/other/qr_facebook.phpSERVER_ADMIN => webmaster@mr.glasstec.plCONTEXT_DOCUMENT_ROOT => /usr/local/fcgi/glasstec/mr.glasstec.pl/php-fcgiCONTEXT_PREFIX => /fcgi/php-fcgiREQUEST_SCHEME => httpsDOCUMENT_ROOT => /home/glasstec/domains/mr.glasstec.pl/private_htmlREMOTE_ADDR => 212.244.73.146SERVER_PORT => 443SERVER_ADDR => 94.152.207.180SERVER_NAME => mr.glasstec.plSERVER_SOFTWARE => ApacheSERVER_SIGNATURE => HTTP_HOST => mr.glasstec.plHTTP_PRIORITY => u=0, iHTTP_COOKIE => wordpress_sec_4235b4de88690ca5b118cbe311ba77f2=Marek%7C1721381129%7CgI8SFUzqvABiifw3402S5GPuyDFneYcnKgE88PuOxL5%7Cef345143d0fc3de8706827dd4ee5bfd05c465d496988d220bf24c69150b4c729; PHPSESSID=d0af41529874168e2edbdf1871cb778c; wordpress_test_cookie=WP%20Cookie%20check; wp_lang=pl_PL; uncodeAI.images=2880; uncodeAI.css=1920x1080@16.2; wordpress_logged_in_4235b4de88690ca5b118cbe311ba77f2=Marek%7C1721381129%7CgI8SFUzqvABiifw3402S5GPuyDFneYcnKgE88PuOxL5%7Cfe1041c4b000c0b6ef10ea5da5a44b8a3d6bf112402be37456c9a0c8d1e0d644; cerber_groove=66c517c0f76e3d77d7f82eabd0193e25; cerber_groove_x_zvyqBHu74TQ2g0a65pKs1NkwD=8E5hAQqKdvb0eJGwBfyXFNjs; wp-settings-5=editor%3Dtinymce%26edit_element_vcUIPanelWidth%3D976%26edit_element_vcUIPanelLeft%3D436px%26edit_element_vcUIPanelTop%3D133px; wp-settings-time-5=1721298541; wp-wpml_current_language=pl; uncodeAI.screen=1920; wp-wpml_current_admin_language_d41d8cd98f00b204e9800998ecf8427e=enHTTP_ACCEPT_LANGUAGE => pl,en-US;q=0.9,en;q=0.8,pl-PL;q=0.7HTTP_ACCEPT_ENCODING => gzip, deflate, br, zstdHTTP_SEC_FETCH_DEST => documentHTTP_SEC_FETCH_USER => ?1HTTP_SEC_FETCH_MODE => navigateHTTP_SEC_FETCH_SITE => noneHTTP_ACCEPT => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7HTTP_USER_AGENT => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36HTTP_UPGRADE_INSECURE_REQUESTS => 1HTTP_DNT => 1HTTP_SEC_CH_UA_PLATFORM => "Windows"HTTP_SEC_CH_UA_MOBILE => ?0HTTP_SEC_CH_UA => "Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"H2_STREAM_TAG => 387788-1097-37H2_STREAM_ID => 37H2_PUSHED_ON => H2_PUSHED => H2_PUSH => offH2PUSH => offHTTP2 => onSSL_TLS_SNI => mr.glasstec.plHTTPS => onMMDB_ADDR => 212.244.73.146UNIQUE_ID => ZpoHsOiTBZ4YDZpa1IxwMQAAICcREDIRECT_STATUS => 200REDIRECT_HANDLER => php-fastcgiREDIRECT_H2_STREAM_TAG => 387788-1097-37REDIRECT_H2_STREAM_ID => 37REDIRECT_H2_PUSHED_ON => REDIRECT_H2_PUSHED => REDIRECT_H2_PUSH => offREDIRECT_H2PUSH => offREDIRECT_HTTP2 => onREDIRECT_SSL_TLS_SNI => mr.glasstec.plREDIRECT_HTTPS => onREDIRECT_HTTP_AUTHORIZATION => REDIRECT_MMDB_ADDR => 212.244.73.146REDIRECT_UNIQUE_ID => ZpoHsOiTBZ4YDZpa1IxwMQAAICcFCGI_ROLE => RESPONDERPHP_SELF => /wp-content/plugins/custom-element/other/qr_facebook.phpREQUEST_TIME_FLOAT => 1721370544.1785REQUEST_TIME => 1721370544argv => Arrayargc => 1|| empty GET ->  ||
+2024-08-06 12:36:34
+{
+    "name": "Andrei Baziev",
+    "email": "baziev.ip@gmail.com",
+    "phone": "+48731612251"
+}
+
+
+2024-08-06 15:38:54
+{
+    "name": "Grzegorz Komorowski",
+    "email": "magregspzoo@gmail.com",
+    "phone": "+48799872707"
+}
+
+
+2024-08-06 18:11:30
+{
+    "name": "Jakub Kollmetz",
+    "email": "jkinstalacje@interia.com",
+    "phone": "+48601928420"
+}
+
+
+2024-08-06 19:37:09
+{
+    "name": "Giuseppe Puntel",
+    "email": "peppopuntel@gmx.de",
+    "phone": "+00393716691191",
+    "lang": "en"
+}
+
+
+2024-08-06 19:40:55
+{
+    "name": "Adrian Skowronski",
+    "email": "adrianskowronskilodz@gmail.com",
+    "phone": "+48793091309"
+}
+
+
+2024-08-06 20:06:11
+{
+    "name": "Jakub Andryszczak",
+    "email": "kuba.andryszczak@gmail.com",
+    "phone": "+48534577394"
+}
+
+
+2024-08-06 21:15:21
+{
+    "name": "Piotr Wegner",
+    "email": "piotr.wegner00@gmail.com",
+    "phone": "+48579833747"
+}
+
+
+2024-08-06 21:24:40
+{
+    "name": "Grzegorz Ja\u015bkiewicz",
+    "email": "g.jaskiewicz@despoltm.pl",
+    "phone": "+48515235665"
+}
+
+
+2024-08-06 22:17:41
+{
+    "name": "Rados\u0142aw Skwarczy\u0144ski",
+    "email": "rad_kr@o2.pl",
+    "phone": "+48502207209"
+}
+
+
+2024-08-06 22:38:50
+{
+    "name": "\u0141ukasz Rozwadowski",
+    "email": "rozwadowski.luk@gmail.com",
+    "phone": "+48507046021"
+}
+
+
+2024-08-07 07:08:55
+{
+    "name": "Tomek Glaczkowski",
+    "email": "tomekglaczkowski86@gmail.com",
+    "phone": "+48663562521"
+}
+
+
+2024-08-07 10:03:13
+{
+    "name": "Izabela Szczerba-Dulemba",
+    "email": "izabela.szczerba@atagor.com",
+    "phone": "+48695340715"
+}
+
+
+2024-08-07 11:37:24
+{
+    "name": "Jaros\u0142aw Chrz\u0105stowski",
+    "email": "cmcinstalacje@wp.pl",
+    "phone": "+48604182423"
+}
+
+
+2024-08-07 12:43:53
+{
+    "name": "Marsin Kaczmarek",
+    "email": "mk.technikagrzewcza1988@gmail.com",
+    "phone": "+48696287529"
+}
+
+
+2024-08-07 13:56:12
+{
+    "name": "Stanis\u0142aw Otsrowski",
+    "email": "stanislav.ostrowski@gmail.com",
+    "phone": "+48696811720"
+}
+
+
+2024-08-07 14:47:40
+{
+    "name": "Ivan Essoudouck",
+    "email": "essoudouck.ivan@gmail.com",
+    "phone": "+491789755853",
+    "lang": "en"
+}
+
+
+2024-08-07 15:00:41
+{
+    "name": "Damian \u0141ukasiewicz",
+    "email": "damian.lukasiewicz@smbrodno.pl",
+    "phone": "+48228111617"
+}
+
+
+2024-08-07 15:55:22
+{
+    "name": "j",
+    "email": "pasqualeiodice44@gmail.com",
+    "phone": "+393494931620",
+    "lang": "en"
+}
+
+
+2024-08-07 16:58:16
+{
+    "name": "Pawe\u0142 Kras",
+    "email": "pawelkras1346@o2.pl",
+    "phone": "+48691488997"
+}
+
+
+2024-08-07 17:56:32
+{
+    "name": "Marek Matusik",
+    "email": "selen.matusik@onet.eu",
+    "phone": "+48732747243"
+}
+
+
+2024-08-07 18:58:13
+{
+    "name": "Krzysztof Kowalik",
+    "email": "kowalikkrzysztof@wp.pl",
+    "phone": "+48501025218"
+}
+
+
+2024-08-07 19:15:43
+{
+    "name": "Piotrek Mazurek",
+    "email": "mazurekpio83@gmail.com",
+    "phone": "+48513838969"
+}
+
+
+2024-08-07 20:11:39
+{
+    "name": "Robert Madej",
+    "email": "robertrobertmadej@gmail.comr",
+    "phone": "+48601246518"
+}
+
+
+2024-08-07 20:57:41
+{
+    "name": "Tomasz Konopi\u0144ski",
+    "email": "07radix.dairies@icloud.com",
+    "phone": "+48604060441"
+}
+
+
+2024-08-07 21:20:26
+{
+    "name": "Artur Bo\u0144kowski",
+    "email": "artur.bonkowski@interia.pl",
+    "phone": "+48663376110"
+}
+
+
+2024-08-07 21:27:38
+{
+    "name": "Micha\u0142",
+    "email": "michal.ju@interia.eu",
+    "phone": "+48883374670"
+}
+
+
+2024-08-07 22:23:25
+{
+    "name": "Joanna Magnuszewska",
+    "email": "asia_97_1997@o2.pl",
+    "phone": "+48512604696"
+}
+
+
+2024-08-07 22:45:52
+{
+    "name": "Jaros\u0142aw Szpak",
+    "email": "jar-1971@tlen.pl",
+    "phone": "+48506336149"
+}
+
+
+2024-08-08 04:28:22
+{
+    "name": "Dominika Drabik-Osuch",
+    "email": "litorisana@gmail.com",
+    "phone": "+48724643626"
+}
+
+
+2024-08-08 06:37:00
+{
+    "name": "Sergiusz Tarasewicz",
+    "email": "s.taraseweicz@gmail.com",
+    "phone": "+48607095419"
+}
+
+
+2024-08-08 07:08:51
+{
+    "name": "Marek Kobia\u0142ka",
+    "email": "marek.kobialka@bimsolus.com.pl",
+    "phone": "+48510226150"
+}
+
+
+2024-08-08 12:07:27
+{
+    "name": "Bogdan \u0106wik",
+    "email": "bogdan.cwik315@gmail.com",
+    "phone": "+48512301998"
+}
+
+
+2024-08-08 12:53:05
+{
+    "name": "Mariusz Zaremba",
+    "email": "mariusz.w.Zaremba@gmail.com",
+    "phone": "+48609184790"
+}
+
+
+2024-08-08 13:06:30
+{
+    "name": "Assunta Pistacchio",
+    "email": "assuntapistacchio0226@gmail.com",
+    "phone": "+393664143521",
+    "lang": "en"
+}
+
+
+2024-08-08 15:03:37
+{
+    "name": "Franco Olivieri",
+    "email": "fr.olivieri@gmail.com",
+    "phone": "+393495586892",
+    "lang": "en"
+}
+
+
+2024-08-08 15:11:32
+{
+    "name": "Edyta Wlodarczyk",
+    "email": "edytawlodarczyk25@gmail.com",
+    "phone": "+48790503436"
+}
+
+
+2024-08-08 19:01:31
+{
+    "name": "Adam",
+    "email": "adkol7@o2.pl",
+    "phone": "+48500847702"
+}
+
+
+2024-08-08 19:10:49
+{
+    "name": "Agnieszka Lewczyk",
+    "email": "agnieszka_w0501@wp.pl",
+    "phone": "+48791740810"
+}
+
+
+2024-08-08 20:47:14
+{
+    "name": "kalipada94@gmail.com",
+    "email": "kalipada94@gmail.com",
+    "phone": "+48883493857"
+}
+
+
+2024-08-08 21:35:28
+{
+    "name": "Wojtek Nowak",
+    "email": "nowak@max-instal.com",
+    "phone": "+48600220668"
+}
+
+
+2024-08-09 08:31:35
+{
+    "name": "Adam Molestak",
+    "email": "adammolestak@wp.pl",
+    "phone": "+48535900928"
+}
+
+
+2024-08-09 10:20:57
+{
+    "name": "Krzysztof Lejbrandt",
+    "email": "kociolki.serwis@o2.pl",
+    "phone": "+48790693544"
+}
+
+
+2024-08-09 10:39:58
+{
+    "name": "Artem Storozhev",
+    "email": "zegoreu@gmail.com",
+    "phone": "796286323"
+}
+
+
+2024-08-09 12:56:35
+{
+    "name": "Carlo Pertini",
+    "email": "carlo.pertini@libero.it",
+    "phone": "+393356411817",
+    "lang": "en"
+}
+
+
+2024-08-09 13:02:41
+{
+    "name": "Adam Kope\u0107",
+    "email": "adamkopec22@wp.pl",
+    "phone": "+48665732287"
+}
+
