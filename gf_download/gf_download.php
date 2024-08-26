@@ -16,10 +16,10 @@ function register_custom_gf_download() {
 function custom_gf_download_output() {
     global $wpdb;
     $all_forms = '';
-
+    
     if (class_exists('GFAPI')) {
         if (isset($_GET['token'])) {
-            $token = $_GET['token'];
+            $token = $_GET['token'];            
             if ($token == "all"){
                 $all_forms = GFAPI::get_forms($active = null, $trash = null);
             } else {
@@ -46,11 +46,122 @@ function custom_gf_download_output() {
                         </script>';
 
                     $file_content = file_get_contents($file_path);
-                } 
+
+                } else if ($token != ''){
+                    
+                    $forms_array = explode(',',$token);
+                    $json_data = array();
+                    
+                    $qr_search_entries = array();
+                    $i = 0;
+                    $all_forms = GFAPI::get_forms();
+
+                    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
+
+                    foreach ($all_forms as $snipe_form) {
+                        if (preg_match($pattern, $snipe_form['title'])){
+                            $qr_search_entries =  array_merge($qr_search_entries, GFAPI::get_entries($snipe_form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
+                        }
+                    }
+
+                    foreach($forms_array as $form_id){
+                        if(!is_numeric($form_id)){
+                            continue;
+                        }
+                        $form = GFAPI::get_form($form_id);
+                        $all_etries = GFAPI::get_entries($form_id, null, null, array('offset' => 0, 'page_size' => 0));
+                        foreach($all_etries as $entry_id => $entry){
+                            $json_data[$i]['form_id'] = $form_id;
+                            $json_data[$i]['entry_id'] = $entry['id'];
+                            foreach($entry as $id => $val){
+                                if (is_int($id)) {
+                                    foreach($form['fields'] as $field){
+                                        if ($field['id'] == $id){
+                                            if (strpos(strtolower($field['label']) , 'email') !== false){
+                                                $emial_search = $val;
+                                                
+                                                foreach($qr_search_entries as $s_entry){
+                                                    if($emial_search != '' && in_array($emial_search, $s_entry)){
+                                                        $qr_feeds = GFAPI::get_feeds(NULL, $s_entry['form_id']);
+                                                        foreach ($qr_feeds as $feed) {
+                                                            $qr_code_url = gform_get_meta($s_entry['id'], 'qr-code_feed_' . $feed['id'] . '_url');
+                                                            if ($qr_code_url) {
+                                                                $json_data[$i]['qr_code'] = $qr_code_url;
+                                                                break;
+                                                            } else {
+                                                                $json_data[$i]['qr_code'] = '';
+                                                            }
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            $json_data[$i][$field['label']] = $val;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            $i++;
+                        }
+                    }
+                    foreach($json_data as $json_checker){
+                        if(strpos($json_checker['UTM'], 'byli') !== false){
+                            $json_vipgold[] = $json_checker;
+                        } else if(strpos($json_checker['UTM'], 'klavio') !== false){
+                            $json_klavio[] = $json_checker;
+                        } else {
+                            $json_new[] = $json_checker;
+                        }
+                    }
+
+                    $json_vipgold = json_encode($json_vipgold, JSON_UNESCAPED_UNICODE);
+                    $json_klavio = json_encode($json_klavio, JSON_UNESCAPED_UNICODE);
+                    $json_new = json_encode($json_new, JSON_UNESCAPED_UNICODE);
+
+                    if($json_vipgold != 'null'){
+                        $json_file_name = do_shortcode('[trade_fair_name]').'_vip_gold.json';
+                        $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                        $file_written = file_put_contents($file_path, $json_vipgold);
+                        echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                        echo '<script>
+                                document.querySelector(".json-download").click();
+                                document.querySelector(".json-download").remove();
+                            </script>';
+
+                        $file_content = file_get_contents($file_path);
+                    }
+
+                    if($json_klavio != 'null'){
+                        $json_file_name = do_shortcode('[trade_fair_name]').'_klavio.json';
+                        $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                        $file_written = file_put_contents($file_path, $json_klavio);
+                        echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                        echo '<script>
+                                document.querySelector(".json-download").click();
+                                document.querySelector(".json-download").remove();
+                            </script>';
+
+                        $file_content = file_get_contents($file_path);
+                    }
+
+                    if($json_new != 'null'){
+                        $json_file_name = do_shortcode('[trade_fair_name]').'_gosc.json';
+                        $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                        $file_written = file_put_contents($file_path, $json_new);
+                        echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                        echo '<script>
+                                document.querySelector(".json-download").click();
+                                document.querySelector(".json-download").remove();
+                            </script>';
+
+                        $file_content = file_get_contents($file_path);
+                    }
+                } else {
+                    $all_forms = GFAPI::get_forms();
+                    
+                }
             }
-        } else {
-            $all_forms = GFAPI::get_forms();
-            
         }
     }
 

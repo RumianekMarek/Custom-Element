@@ -33,9 +33,10 @@ function moja_wtyczka_wyswietl_strone_menu() {
 // Kod funkcji dostępu do katalogu
 
 function dostep_do_katalogu() {
+    $folder = isset($_GET['folder']) ? $_GET['folder'] : '';
 
     echo '<div class="wrap main-container-dostepFTP">';
-    echo '<h1 class="main-header-dostepFTP">/doc/' . $_GET['folder'] . '</h1>';
+    echo '<h1 class="main-header-dostepFTP">/doc/' . $folder . '</h1>';
 
     $katalog = ABSPATH . 'doc'; // Pełna ścieżka do katalogu
     
@@ -47,11 +48,9 @@ function dostep_do_katalogu() {
 
     $_SESSION = array();
 
-    $folder = isset($_GET['folder']) ? $_GET['folder'] : '';
     $katalog .= '/' . $folder; // Dodaj folder do ścieżki katalogu
 
     if (!empty($folder)) {
-
         $segments = explode('/', $folder); // Podziel ścieżkę na segmenty
         array_pop($segments); // Usuń ostatni segment
         $folderBack = implode('/', $segments); // Ponownie połącz segmenty w nową ścieżkę
@@ -94,7 +93,7 @@ function dostep_do_katalogu() {
                     echo '<div><form action="' . admin_url('admin-post.php') . '" method="POST" style="display:inline">';
                     echo '<input type="hidden" name="action" value="zmien_nazwe" />';
                     echo '<input type="hidden" name="stara_nazwa" value="' . $plik . '" />';
-                    echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+                    echo '<input type="hidden" name="folder" value="' . $folder . '" />';
                     echo '<input class="rename" type="button" value="Re-name" onclick="PotwierdzenieUsuniecia(event)" />';
                     echo '<input class="display-none" type="input" name="nowa_nazwa" placeholder="Podaj nową nazwę"/>';
                     echo '<input class="display-none" type="submit" value="Zmień nazwę" />';
@@ -104,7 +103,7 @@ function dostep_do_katalogu() {
                     echo '<form action="' . admin_url('admin-post.php') . '" method="POST" style="display:inline">';
                     echo '<input type="hidden" name="action" value="usun_katalog" />';
                     echo '<input type="hidden" name="plik" value="' . $plik . '" />';
-                    echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+                    echo '<input type="hidden" name="folder" value="' . $folder . '" />';
                     echo '<input class="usuwam" type="button" value="Usuń" onclick="PotwierdzenieUsuniecia(event)" />';
                     echo '<input class="display-none" type="submit" name="wybor" value="Tak usuwam"/>';
                     echo '</form></div></li>';
@@ -119,7 +118,7 @@ function dostep_do_katalogu() {
                     echo '<div><form action="' . admin_url('admin-post.php') . '" method="POST" style="display:inline">';
                     echo '<input type="hidden" name="action" value="zmien_nazwe" />';
                     echo '<input type="hidden" name="stara_nazwa" value="' . $plik . '" />';
-                    echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+                    echo '<input type="hidden" name="folder" value="' . $folder . '" />';
                     echo '<input type="button" value="Re-name" onclick="PotwierdzenieUsuniecia(event)" />';
                     echo '<input class="display-none" type="input" name="nowa_nazwa" placeholder="Podaj nową nazwę"/>';
                     echo '<input class="display-none" type="submit" value="Zmień nazwę" />';
@@ -129,7 +128,7 @@ function dostep_do_katalogu() {
                     echo '<form action="' . admin_url('admin-post.php') . '" method="POST" style="display:inline">';
                     echo '<input type="hidden" name="action" value="usun_plik" />';
                     echo '<input type="hidden" name="plik" value="' . $plik . '" />';
-                    echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+                    echo '<input type="hidden" name="folder" value="' . $folder . '" />';
                     echo '<input type="button" value="Usuń" onclick="PotwierdzenieUsuniecia(event)" />';
                     echo '<input class="display-none" type="submit" name="wybor" value="Tak usuwam"/>';
                     echo '</form></div></li>';
@@ -149,7 +148,7 @@ function dostep_do_katalogu() {
                 echo '<label>Plik</label>';
                 echo '<input type="file" name="plik[]" multiple />';
             echo '</div>';
-            echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+            echo '<input type="hidden" name="folder" value="' . $folder . '" />';
             echo '<input type="submit" value="Dodaj plik" />';
         echo '</form>';
 
@@ -157,7 +156,7 @@ function dostep_do_katalogu() {
         echo '<form class="dodaj-folder" action="' . admin_url('admin-post.php') . '" method="POST">';
             echo '<input type="hidden" name="action" value="dodaj_katalog" />';
             echo '<input type="text" name="nowy_katalog" placeholder="Podaj nazwę katalogu" />';
-            echo '<input type="hidden" name="folder" value="' . $_GET['folder'] . '" />';
+            echo '<input type="hidden" name="folder" value="' . $folder . '" />';
             echo '<input type="submit" value="Dodaj katalog" />';
         echo '</form>';
 
@@ -321,13 +320,14 @@ function czy_katalog_pusty($sciezka) {
 
 function enqueue_custom_assets() {
     $css_file = plugins_url('styleFTP.css', __FILE__);
-    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'styleFTP.css');
+    $css_version = filemtime(plugin_dir_path( __FILE__ ) . 'styleFTP.css');
     wp_enqueue_style('custom_styles', $css_file, array(), $css_version);
 
     $js_file = plugins_url('scriptFTP.js', __FILE__);
-    $js_version = filemtime(plugin_dir_url( __FILE__ ) . 'scriptFTP.js');
+    $js_version = filemtime(plugin_dir_path( __FILE__ ) . 'scriptFTP.js');
     wp_enqueue_script('custom_script', $js_file, array('jquery'), $js_version, true);
 }
+
 add_action( 'admin_enqueue_scripts', 'enqueue_custom_assets' );
 
 add_action('admin_post_zmien_nazwe', 'zmien_nazwe');
