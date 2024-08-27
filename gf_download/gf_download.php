@@ -16,16 +16,15 @@ function register_custom_gf_download() {
 function custom_gf_download_output() {
     global $wpdb;
     $all_forms = '';
-    
+
     if (class_exists('GFAPI')) {
         if (isset($_GET['token'])) {
-            $token = $_GET['token'];            
+            $token = $_GET['token'];
             if ($token == "all"){
                 $all_forms = GFAPI::get_forms($active = null, $trash = null);
             } else {
                 if ($token == "json"){
                     $json_data = array();
-                    $all_forms = GFAPI::get_forms();
                     foreach($all_forms as $id => $form){
                         $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM wp_gf_form_view WHERE form_id = %d", $form['id']);
                         $view_data = $wpdb->get_results($query);
@@ -48,15 +47,14 @@ function custom_gf_download_output() {
                     $file_content = file_get_contents($file_path);
 
                 } else if ($token != ''){
-                    
+
                     $forms_array = explode(',',$token);
                     $json_data = array();
-                    
+
                     $qr_search_entries = array();
                     $i = 0;
-                    $all_forms = GFAPI::get_forms();
 
-                    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
+                    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(podstrona kongresu\))?(\s*\(FB\))?$/';
 
                     foreach ($all_forms as $snipe_form) {
                         if (preg_match($pattern, $snipe_form['title'])){
@@ -79,7 +77,7 @@ function custom_gf_download_output() {
                                         if ($field['id'] == $id){
                                             if (strpos(strtolower($field['label']) , 'email') !== false){
                                                 $emial_search = $val;
-                                                
+
                                                 foreach($qr_search_entries as $s_entry){
                                                     if($emial_search != '' && in_array($emial_search, $s_entry)){
                                                         $qr_feeds = GFAPI::get_feeds(NULL, $s_entry['form_id']);
@@ -157,11 +155,10 @@ function custom_gf_download_output() {
 
                         $file_content = file_get_contents($file_path);
                     }
-                } else {
-                    $all_forms = GFAPI::get_forms();
-                    
                 }
             }
+        } else {
+            $all_forms = GFAPI::get_forms();
         }
     }
 
@@ -178,9 +175,9 @@ function custom_gf_download_output() {
     $form_output .= '</select>';
     $form_output .= '<button class="btn" id="submit-form" name="submit">Zatwierdź</button>';
     $form_output .= '</form>';
-    
+
     if (isset($_POST["submit"]) && isset($_POST["form_id"])) {
-        $selected_form_id = explode('_' , $_POST['form_id']); 
+        $selected_form_id = explode('_' , $_POST['form_id']);
         gf_finder($selected_form_id[0], $selected_form_id[1]);
     }
 
@@ -188,7 +185,7 @@ function custom_gf_download_output() {
 }
 
 function gf_finder($gf_id, $form_title){
-    
+
     if (class_exists('GFAPI')) {
         $page_size = 1000; // Liczba wpisów do przetworzenia w jednej partii
         $offset = 0; // Początkowy offset
@@ -225,7 +222,7 @@ function gf_finder($gf_id, $form_title){
                     if (is_int($id) || $id === "source_url" || $id ==="date_created") {
                         $key = str_replace(',',' ',$key);
                         $key = str_replace(["\r\n", "\r", "\n"], ' ', $key);
-                        
+
                         $entry_line[$id] = $key;
                     }
                 }
@@ -234,7 +231,7 @@ function gf_finder($gf_id, $form_title){
             }
             $offset += $page_size;
         } while (count($entries) === $page_size); // Kontynuuj, dopóki pobierane są kolejne partie
-    
+
         $entry_data = str_replace('"', '', $entry_data);
         $entry_data = str_replace('#', '', $entry_data);
         $file_name = $form_title.' '.date("Y_m_d");
@@ -250,7 +247,7 @@ function gf_finder($gf_id, $form_title){
             link.click();
         </script>';
     }
-    
+
 }
 
 add_action('vc_before_init', 'register_custom_gf_download');
