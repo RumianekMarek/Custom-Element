@@ -24,6 +24,7 @@ function custom_gf_download_output() {
                 $all_forms = GFAPI::get_forms($active = null, $trash = null);
             } else {
                 if ($token == "json"){
+                    $all_forms = GFAPI::get_forms();
                     $json_data = array();
                     foreach($all_forms as $id => $form){
                         $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM wp_gf_form_view WHERE form_id = %d", $form['id']);
@@ -55,9 +56,12 @@ function custom_gf_download_output() {
                     $i = 0;
 
                     $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(podstrona kongresu\))?(\s*\(FB\))?$/';
+                    $all_forms = GFAPI::get_forms();
 
                     foreach ($all_forms as $snipe_form) {
                         if (preg_match($pattern, $snipe_form['title'])){
+                            echo '<script>console.log("'.$snipe_form['id'].'")</script>';
+                            
                             $qr_search_entries =  array_merge($qr_search_entries, GFAPI::get_entries($snipe_form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
                         }
                     }
@@ -104,9 +108,10 @@ function custom_gf_download_output() {
                         }
                     }
                     foreach($json_data as $json_checker){
-                        if(strpos($json_checker['UTM'], 'byli') !== false){
+                        
+                        if(strpos(strtolower($json_checker['UTM']), 'utm_source=byli') !== false){
                             $json_vipgold[] = $json_checker;
-                        } else if(strpos($json_checker['UTM'], 'klavio') !== false){
+                        } else if(strpos(strtolower($json_checker['UTM']), 'utm_source=klaviyo') !== false){
                             $json_klavio[] = $json_checker;
                         } else {
                             $json_new[] = $json_checker;
@@ -131,7 +136,7 @@ function custom_gf_download_output() {
                     }
 
                     if($json_klavio != 'null'){
-                        $json_file_name = do_shortcode('[trade_fair_name]').'_klavio.json';
+                        $json_file_name = do_shortcode('[trade_fair_name]').'_klaviyo.json';
                         $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
                         $file_written = file_put_contents($file_path, $json_klavio);
                         echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
