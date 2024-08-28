@@ -27,7 +27,9 @@ function custom_gf_download_output() {
                     $all_forms = GFAPI::get_forms();
                     $json_data = array();
                     foreach($all_forms as $id => $form){
-                        $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM wp_gf_form_view WHERE form_id = %d", $form['id']);
+                        $from_name = $wpdb->prefix . "gf_form_view";
+                        
+                        $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM $from_name WHERE form_id = %d", $form['id']);
                         $view_data = $wpdb->get_results($query);
                         $count_entrys = count(GFAPI::get_entries($form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
                         $json_data[$id]['form id'] = $form['id'];
@@ -60,7 +62,6 @@ function custom_gf_download_output() {
 
                     foreach ($all_forms as $snipe_form) {
                         if (preg_match($pattern, $snipe_form['title'])){
-                            echo '<script>console.log("'.$snipe_form['id'].'")</script>';
                             
                             $qr_search_entries =  array_merge($qr_search_entries, GFAPI::get_entries($snipe_form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
                         }
