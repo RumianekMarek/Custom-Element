@@ -21,15 +21,22 @@ function clear_wp_rocket_cache_on_plugin_update( $plugin ) {
 }
 add_action( 'upgrader_process_complete', 'clear_wp_rocket_cache_on_plugin_update', 10, 2 );
 
-function getGithubKey(){
-  global $wpdb;
+function getGithubKey() {
+    global $wpdb;
 
-  $table_name = $wpdb->prefix . 'custom_klavio_setup';
-  $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM wp_custom_klavio_setup WHERE klavio_list_name = %s", 'github_secret');
-  $github_result = $wpdb->get_results($github_pre);
-  $github_return = $github_result[0]->klavio_list_id;
-  
-  return $github_return;
+    $table_name = $wpdb->prefix . 'custom_klavio_setup';
+    if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
+        return null;
+    }
+
+    $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM $table_name WHERE klavio_list_name = %s", 'github_secret');
+    $github_result = $wpdb->get_results($github_pre);
+      
+    if (!empty($github_result)) {
+        return $github_result[0]->klavio_list_id;
+    } else {
+        return null;
+    }
 }
 
 // Adres autoupdate
