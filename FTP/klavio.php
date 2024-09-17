@@ -37,6 +37,10 @@ function klavio_admin_setup_output() {
             echo '<input type="text" name="klavio_list_pl" value=""/>'; // Pole tekstowe do wprowadzenia ID listy Klavio PL
             echo '<label>Id Listy Klavio EN</label>';
             echo '<input type="text" name="klavio_list_en" value=""/>'; // Pole tekstowe do wprowadzenia ID listy Klavio En
+
+            echo '<label>Github Secret Token</label>';
+            echo '<input type="text" name="github_secret" value=""/>'; // Pole tekstowe do wprowadzenia ID listy Klavio En
+
             echo '<input type="submit" name="submit_klavio_setup" value="Update" />'; // Przycisk do wysłania formularza
         echo '</form>';
     echo '</div>';

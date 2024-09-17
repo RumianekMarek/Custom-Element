@@ -49,7 +49,41 @@ function custom_gf_download_output() {
 
                     $file_content = file_get_contents($file_path);
 
-                } else if ($token != ''){
+                } else if ($token == "csv"){
+                    $all_forms = GFAPI::get_forms();
+                    $json_data = array();
+                    foreach($all_forms as $id => $form){
+                        $from_name = $wpdb->prefix . "gf_form_view";
+                        
+                        $query = $wpdb->prepare("SELECT SUM(count) AS total_count FROM $from_name WHERE form_id = %d", $form['id']);
+                        $view_data = $wpdb->get_results($query);
+                        $count_entrys = count(GFAPI::get_entries($form['id'], null, null, array('offset' => 0, 'page_size' => 0)));
+                        $json_data[$id]['form id'] = $form['id'];
+                        $json_data[$id]['nazwa'] = $form['title'];
+                        $json_data[$id]['wpisy'] = $count_entrys;
+                        $json_data[$id]['wyswietlenia'] = $view_data[0]->total_count;
+                    }
+                    $json_file_name = do_shortcode('[trade_fair_name]').'.csv';
+                    $csv_data[] = 'form id , nazwa , ilosc wpisów , ilosc wyswietleń ';
+
+                    foreach ($json_data as $data_bs){
+                        $data_wys = $data_bs['wyswietlenia'] === null ? "0" : $data_bs['wyswietlenia'];
+                        $csv_data[] = ' ' . $data_bs['form id'] . ' , ' . $data_bs['nazwa'] . ' , ' . $data_bs['wpisy'] . ' , ' . $data_wys  . ' ';
+                    }
+                    $line_ending = PHP_EOL;
+                    $csv_data = implode($line_ending, $csv_data);
+
+                    $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                    $file_written = file_put_contents($file_path, $csv_data);
+                    echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                    echo '<script>
+                            document.querySelector(".json-download").click();
+                            document.querySelector(".json-download").remove();
+                        </script>';
+
+                    $file_content = file_get_contents($file_path);
+
+                }else if ($token != ''){
 
                     $forms_array = explode(',',$token);
                     $json_data = array();
@@ -173,9 +207,13 @@ function custom_gf_download_output() {
     $form_output .= '<option value="">Formularz</option>';
 
     foreach ($all_forms as $form) {
+       
+        $inactive = $form['is_active'] == 0 ? '(ARCHIWALNE)' : ''; 
+        $inactive_css = $form['is_active'] == 0 ? ' style="background-color:lightpink;" ' : '';
+
         $form_id = $form['id'];
         $form_title = $form['title'];
-        $form_output .= '<option value="' . $form_id . '_' . $form_title .'">' . $form_id . ' - ' . $form_title . '</option>';
+        $form_output .= '<option ' . $inactive_css . ' value="' . $form_id . '_' . $form_title .'">' . $form_id . ' ' . $inactive . '</span> - ' . $form_title . '</option>';
     }
 
     $form_output .= '</select>';

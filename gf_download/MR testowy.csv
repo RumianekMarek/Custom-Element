@@ -1,0 +1,63 @@
+form id , nazwa , ilosc wpisów , ilosc wyswietleń 
+ 1 , (2024) Rejestracja PL , 304 , 2966 
+ 2 , (2024) Rejestracja EN , 157 , 1244 
+ 4 , (2024) Rejestracja Zaproszeń - call centre PL/EN , 1 , 2 
+ 5 , Napisz do nas , 2 , 3616 
+ 6 , Write to us , 1 , 2872 
+ 7 , (2024 PW) Potencjalny wystawca - aktywacja , 3 , 773 
+ 8 , (2024) Badge generator(local) , 7 , 0 
+ 13 , (2024) Zostań wystawcą PL , 19 , 1173 
+ 14 , (2024) Zostań wystawcą EN , 4 , 949 
+ 15 , (2024 PW) Potencjalny wystawca EN - aktywacja , 2 , 748 
+ 16 , (2024) Rejestracja gości wystawców PL , 3672 , 893 
+ 17 , (2024) Rejestracja wystawców (badge) PL , 1 , 890 
+ 18 , (2024) Rejestracja gości wystawców EN , 7 , 902 
+ 19 , (2024) Rejestracja wystawców (badge) EN , 0 , 901 
+ 21 , (2024) Rejestracja CC , 5 , 679 
+ 22 , (2024) Rejestracja CC A , 0 , 673 
+ 23 , (2024) Rejestracja CC B , 0 , 595 
+ 24 , (2024) Rejestracja CC (EN) , 1 , 542 
+ 25 , (2024) Rejestracja CC A (EN) , 1 , 542 
+ 26 , (2024) Rejestracja CC B (EN) , 1 , 648 
+ 27 , (2024 Konf) Rejestracja PL , 0 , 4 
+ 28 , (2024 Konf) Rejestracja ENG , 0 , 83 
+ 29 , (2024) Rejestracja ENG , 0 , 0 
+ 30 , (2024) Rejestracja PL (1) , 1 , 6 
+ 31 , (2024) Zostań wystawcą EN (1) , 7 , 406 
+ 32 , (2024) Zostań wystawcą PL (1) , 46 , 610 
+ 33 , (2024 Konf) Rejestracja PL (1) , 0 , 0 
+ 34 , (2024 Konf) Rejestracja ENG (1) , 0 , 3371 
+ 35 , Potwierdzenie rejestracji odwiedzajacego - krok 2 , 77 , 314 
+ 36 , Potwierdzenie rejestracji wystawcy - krok 2 , 31 , 285 
+ 37 , Potwierdzenie rejestracji wystawcy - krok 2 (EN) , 1 , 257 
+ 38 , Potwierdzenie rejestracji odwiedzajacego - krok 2 (EN) , 4 , 260 
+ 40 , (2024) Rejestracja PL (header test) , 8 , 99 
+ 41 , (2024) Rejestracja PL (FB) , 1 , 0 
+ 42 , (2024) Rejestracja EN (FB) , 1 , 0 
+ 43 , (2024) Rejestracja EN (1) , 2 , 0 
+ 44 , (2024) Rejestracja EN (2) , 0 , 0 
+ 45 , (2024) Rejestracja PL (2) , 0 , 0 
+ 46 , Potwierdzenie rejestracji odwiedzajacego - krok 2 (VIP) , 46 , 7 
+ 47 , Potwierdzenie rejestracji odwiedzajacego - krok 2 (EN) (1) , 0 , 0 
+ 48 , Aktywacja QR , 0 , 0 
+ 51 , DENTAL_MEDICA_SHOW_PART_23_415 , 0 , 0 
+ 52 , MR testowy (8) , 0 , 0 
+ 62 , WH_TEXTILE_PART_8_46 , 46 , 0 
+ 63 , WH_TEXTILE_PART_8_46 (1) , 46 , 0 
+ 64 , WH_TEXTILE_PART_8_46 (2) , 46 , 0 
+ 65 , WH_TEXTILE_PART_8_46 (3) , 46 , 0 
+ 66 , WH_TEXTILE_PART_8_46 (4) , 46 , 0 
+ 67 , BEAUTY_DAYS_PART_12_323 , 323 , 0 
+ 68 , WOD-KAN_PART_3_GZ_JOANNA_60 , 60 , 0 
+ 69 , WOD-KAN_PART_3_GZ_JOANNA_60 (1) , 60 , 0 
+ 70 , WOD-KAN_PART_3_GZ_JOANNA_60 (2) , 60 , 0 
+ 71 , PRINT_TECH_PART_29_104 , 104 , 0 
+ 72 , PRINT_TECH_PART_29_104 (1) , 104 , 0 
+ 73 , BHP_FORUM_PART_29_56 , 56 , 0 
+ 74 , WH_LIGHT_PART_8_118 , 118 , 0 
+ 77 , HEATING_PART_17_29 , 29 , 0 
+ 78 , HEATING_PART_17_29 (1) , 29 , 0 
+ 79 , HEATING_PART_17_29 (2) , 29 , 0 
+ 80 , DENTAL_MEDICA_SHOW_PART_29_15 , 15 , 0 
+ 81 , DENTAL_MEDICA_SHOW_PART_29_15 (1) , 15 , 0 
+ 82 , HEATING_PART_17_29 (3) , 29 , 0 
