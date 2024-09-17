@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 3.8
+Version: 3.10
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -21,6 +21,17 @@ function clear_wp_rocket_cache_on_plugin_update( $plugin ) {
 }
 add_action( 'upgrader_process_complete', 'clear_wp_rocket_cache_on_plugin_update', 10, 2 );
 
+function getGithubKey(){
+  global $wpdb;
+
+  $table_name = $wpdb->prefix . 'custom_klavio_setup';
+  $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM wp_custom_klavio_setup WHERE klavio_list_name = %s", 'github_secret');
+  $github_result = $wpdb->get_results($github_pre);
+  $github_return = $github_result[0]->klavio_list_id;
+  
+  return $github_return;
+}
+
 // Adres autoupdate
 include( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
@@ -28,6 +39,10 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	__FILE__,
 	'custom-element'
 );
+
+if (getGithubKey()){
+  $myUpdateChecker->setAuthentication(getGithubKey());
+}
 
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
