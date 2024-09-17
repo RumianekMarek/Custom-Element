@@ -261,11 +261,11 @@ function media_gallery_output($atts, $content = null){
     );
     
     $css_file = plugins_url('media_gallery.css', __FILE__);
-    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'media_gallery.css');
+    $css_version = filemtime(plugin_dir_path( __FILE__ ) . 'media_gallery.css');
     wp_enqueue_style('media_gallery-css', $css_file, array(), $css_version);
 
     $js_file = plugins_url('media_gallery.js', __FILE__);
-    $js_version = filemtime(plugin_dir_url(__FILE__) . 'media_gallery.js');
+    $js_version = filemtime(plugin_dir_path(__FILE__) . 'media_gallery.js');
     wp_enqueue_script('media_gallery-js', $js_file, array('jquery'), $js_version, true);
     wp_localize_script('media_gallery-js', 'js_gallery_export' , $js_export);
 
@@ -273,14 +273,15 @@ function media_gallery_output($atts, $content = null){
 }
 
 function backend_madia_gallery() {
-    $css_file = plugins_url('media_gallery_backend.css', __FILE__);
-    $css_version = filemtime(plugin_dir_url( __FILE__ ) . 'media_gallery_backend.css');
-    wp_enqueue_style('media_gallery_backend-css', $css_file, array(), $css_version);
+    $css_file1 = plugins_url('media_gallery_backend.css', __FILE__);
+    $css_version1 = filemtime(plugin_dir_path( __FILE__ ) . 'media_gallery_backend.css');    
+    wp_enqueue_style('media_gallery_backend-css', $css_file1, array(), $css_version1);
 
-    $js_file = plugins_url('media_gallery_backend.js', __FILE__);
-    $js_version = filemtime(plugin_dir_url(__FILE__) . 'media_gallery_backend.js');
-    wp_enqueue_script('media_gallery_backend-js', $js_file, array('jquery'), $js_version, true);
+    $js_file1 = plugins_url('media_gallery_backend.js', __FILE__);
+    $js_version1 = filemtime(plugin_dir_path(__FILE__) . 'media_gallery_backend.js');
+    wp_enqueue_script('media_gallery_backend-js', $js_file1, array('jquery'), $js_version1, true);
 }
+
 add_action('admin_enqueue_scripts', 'backend_madia_gallery');
 
 add_action('vc_before_init', 'media_gallery');

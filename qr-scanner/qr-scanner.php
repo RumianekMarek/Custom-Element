@@ -4,23 +4,39 @@ function register_custom_qr_scanner() {
         'name' => __('QR Scanner', 'my-custom-plugin'),
         'base' => 'qr_scanner',
         'category' => __('My Elements', 'my-custom-plugin'),
-        'params' => array(),
+        'params' => array(
+            array(
+                'type' => 'textfield',
+                'group' => 'Redirector',
+                'heading' => __('Select a web site', 'my-custom-plugin'),
+                'param_name' => 'web_redirect',
+                'description' => __('Select a web site for redirect after gettings QR', 'my-custom-plugin'),
+                'save_always' => true,
+                'admin_label' => true
+              ),
+        ),
     ));
 }
 
-function custom_qr_scanner_output() {
+function custom_qr_scanner_output($atts) {
     // Dołączanie skryptu JavaScript
-    var_dump('user- '.$_SERVER['HTTP_USER_AGENT']);
+    //var_dump('user- '.$_SERVER['HTTP_USER_AGENT']);
     $js_file = plugins_url('jsQR.js', __FILE__);
     $js_version = filemtime(plugin_dir_path(__FILE__) . 'jsQR.js');
     wp_enqueue_script('jsQR', $js_file, array('jquery'), $js_version);
 
+    extract( shortcode_atts( array(
+        'web_redirect' => '',
+    ), $atts ) );
+
+    echo '<script>console.log("'.$web_redirect.'")</script>';
+    
     $dom_output = '<div id="kamerka-container" class="wpb_column align_center col-lg-8">';
     $dom_output .= '<button id="camera-start" class="btn">Włącz kamerę</button>';
     $dom_output .= '<div id="camera-reader" style="display:none;">';
         $dom_output .= '<button id="switch" class="btn">Przełącz kamerę</button>';
         $dom_output .= '<video autoplay id="camera"></video>';
-        $dom_output .= '<form id="qr-search" action="" method="post">';
+        $dom_output .= '<form id="qr-search" action="' . $web_redirect . '" method="post">';
             $dom_output .= '<input id="qr-code" name="qr-code" value="">';
             $dom_output .= '<button class="modal-button" id="submit-form" name="submit">Find</button>';
         $dom_output .= '</form>';

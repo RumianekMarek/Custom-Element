@@ -72,7 +72,7 @@ function my_custom_wpbakery_element() {
           . '<span id="value_' . esc_attr( $id ) . '">' . esc_attr( $value ) . '</span>'
           . '</div>';
   }
-
+  $exhibitor1 = $exhibitor2 = $exhibitor3 = $exhibitor4 = $exhibitor5 = $exhibitor6 = $visitor1 = $visitor2 = $gallery = $gallery_mobile = $header_conferences_title = '';
   // Define the element name and path to the element file
   vc_map(array(
     'name' => __('My Custom Element', 'my-custom-plugin'),
@@ -2102,6 +2102,8 @@ function my_custom_element_output($atts, $content = null) {
   }
 
   function admin_script($atts, $content = null) {
+    
+    if (isset($atts['contact_number'])) { $contact_number = $atts['contact_number']; } else { $contact_number = ''; }
 
     $katalog = ABSPATH . 'doc'; // Ścieżka do katalogu na serwerze
     $file_list = array();
