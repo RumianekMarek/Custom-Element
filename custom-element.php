@@ -25,18 +25,20 @@ function getGithubKey() {
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'custom_klavio_setup';
-    if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
-        return null;
-    }
+      if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
+          echo '<script>console.log("no KL-table")</script>';
+          return null;
+      }
 
-    $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM $table_name WHERE klavio_list_name = %s", 'github_secret');
-    $github_result = $wpdb->get_results($github_pre);
-      
-    if (!empty($github_result)) {
-        return $github_result[0]->klavio_list_id;
-    } else {
-        return null;
-    }
+      $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM $table_name WHERE klavio_list_name = %s", 'github_secret');
+      $github_result = $wpdb->get_results($github_pre);
+        
+      if (!empty($github_result)) {
+          return $github_result[0]->klavio_list_id;
+      }
+
+      echo '<script>console.log("empty Github Key")</script>';
+      return null;
 }
 
 // Adres autoupdate
@@ -53,49 +55,52 @@ if (getGithubKey()){
 
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-// My Custom Element
-include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';
-
-// Katalog wystawców
-include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
-
-// Info + Modal
-include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
-
-// Speakers
-include_once plugin_dir_path(__FILE__) . '/display-info/display-info-speakers.php';
-
-// Badge
-include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
-
-// QR Check
-include_once plugin_dir_path(__FILE__) . '/badge/qrcodecheck.php';
-
-// QR Scanner
-include_once plugin_dir_path(__FILE__) . '/qr-scanner/qr-scanner.php';
-
-// GF Downloader
-include_once plugin_dir_path(__FILE__) . '/gf_download/gf_download.php';
-
-// GF Redirector
-include_once plugin_dir_path(__FILE__) . '/gf_redirector/gf_redirector.php';
-
-// Media Gallery
-include_once plugin_dir_path(__FILE__) . '/media_gallery/media_gallery.php';
-
-// Opinion Slider
-include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
-
 if (is_admin()) {
-  // Edytor plików dostepFTP
-  include_once plugin_dir_path(__FILE__) . '/FTP/main-dostepFTP.php';
-      
-  //opisy do Mediów
-  include_once plugin_dir_path(__FILE__) . '/FTP/opisy-mediow.php';
-}
+    // Edytor plików dostepFTP
+    include_once plugin_dir_path(__FILE__) . '/FTP/main-dostepFTP.php';
+        
+    //opisy do Mediów
+    include_once plugin_dir_path(__FILE__) . '/FTP/opisy-mediow.php';
+    
+    // Edytor plików dostepFTP
+    include_once plugin_dir_path(__FILE__) . '/FTP/klavio.php';
 
-if (is_admin()) {
-  // Edytor plików dostepFTP
-  include_once plugin_dir_path(__FILE__) . '/FTP/klavio.php';
+    // // Edytor plików dostepFTP
+    // include_once plugin_dir_path(__FILE__) . '/FTP/gf_importer.php';
 }
+    // My Custom Element
+    include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';
+
+    // Katalog wystawców
+    include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
+
+    // Info + Modal
+    include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
+
+    // Speakers
+    include_once plugin_dir_path(__FILE__) . '/display-info/display-info-speakers.php';
+
+    // Badge
+    include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
+
+    // QR Check
+    include_once plugin_dir_path(__FILE__) . '/badge/qrcodecheck.php';
+
+    // QR Scanner
+    include_once plugin_dir_path(__FILE__) . '/qr-scanner/qr-scanner.php';
+
+    // GF Downloader
+    include_once plugin_dir_path(__FILE__) . '/gf_download/gf_download.php';
+
+    // GF Redirector
+    include_once plugin_dir_path(__FILE__) . '/gf_redirector/gf_redirector.php';
+
+    // Media Gallery
+    include_once plugin_dir_path(__FILE__) . '/media_gallery/media_gallery.php';
+
+    // Opinion Slider
+    include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
+
+    // GF Form Creator
+    include_once plugin_dir_path(__FILE__) . '/elements/gf_form_creator.php';
 ?>
