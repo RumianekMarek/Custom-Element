@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $entry = ['form_id' => $form['id']];
 
                         foreach ($form['fields'] as $field) {
-                            if (strpos(strtolower($field['label']), 'email') !== false) {
+                            if (strpos(strtolower($field['label']), 'mail') !== false) {
                                 $entry[$field['id']] = $value[0];
                             } elseif (strpos(strtolower($field['label']), 'telefon') !== false || strpos(strtolower($field['label']), 'phone') !== false) {
                                 $entry[$field['id']] = $value[1];
