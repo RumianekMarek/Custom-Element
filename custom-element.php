@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 3.11
+Version: 3.12
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -26,7 +26,9 @@ function getGithubKey() {
 
     $table_name = $wpdb->prefix . 'custom_klavio_setup';
       if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
+        if (!is_admin()){
           echo '<script>console.log("no KL-table")</script>';
+        }
           return null;
       }
 
@@ -37,7 +39,10 @@ function getGithubKey() {
           return $github_result[0]->klavio_list_id;
       }
 
-      echo '<script>console.log("empty Github Key")</script>';
+      if (!is_admin()) {
+        echo '<script>console.log("empty Github Key")</script>';
+      }
+
       return null;
 }
 
@@ -65,8 +70,8 @@ if (is_admin()) {
     // Edytor plików dostepFTP
     include_once plugin_dir_path(__FILE__) . '/FTP/klavio.php';
 
-    // // Edytor plików dostepFTP
-    // include_once plugin_dir_path(__FILE__) . '/FTP/gf_importer.php';
+    // Edytor plików dostepFTP
+    include_once plugin_dir_path(__FILE__) . '/FTP/gf_importer.php';
 }
     // My Custom Element
     include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';

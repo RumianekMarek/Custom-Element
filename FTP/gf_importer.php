@@ -22,6 +22,7 @@ function importer_admin_setup_output() {
 
         $file_content = json_decode(str_replace('\"' , '"' , $_POST['file_content']));
         $file_labels = explode(',' , $file_content[0]);
+        var_dump($_POST['file_content']);
         echo '</pre>';
 
         echo '<style>
@@ -53,22 +54,50 @@ function importer_admin_setup_output() {
             </div>';
 
             echo '<form class="pwe_gf_importer__form" action="' . admin_url('admin.php?page=importer_admin_setup') . '" method ="POST" >';
+                echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" />';
+                echo '<input type="text" name="form_id" class="pwe_gf_importer__form_id" value="' . $_POST['gfForm'] . '" />';
 
             foreach($form['fields'] as $field){
-                echo '<div class="pwe_gf_importer__container">
-                    <label>' . $field['label'] . '</label>
-                    <select>';
-                    echo '<option value="">Select Field</option>';
-                    foreach($file_labels as $lab){
-                        echo '<option value="' . $field['label'] . '-' . $lab . '">' . $lab . '</option>';
-                    }
-                echo '</select></div>';
-                    
+                if(strtolower($field['label']) != 'captcha'){
+                    echo '<div class="pwe_gf_importer__container">
+                        <label>' . $field['label'] . '</label>
+                        <select name="pwe-importer-form-ids_' . $field['id'] . '" required>';
+                        echo '<option value="">Select Field</option>';
+                        foreach($file_labels as $lab){
+                            echo '<option value="' . $lab . '">' . $lab . '</option>';
+                        }
+                        echo '<option value="dont">Don\'t Import</option>';
+                    echo '</select></div>';
+                }
             }
 
             echo '<input type="submit" name="import_entries" value="Import" />
             </form>';
+
+            echo '<script>
+                jQuery(document).ready(function($){
+                    $(".pwe_gf_importer__file_content").val("' . $_POST['file_content'] . '");
+                });
+            </script>';
         
+    } else if(isset($_POST['import_entries'])){
+        var_dump($_POST);
+        $filds_ids = array();
+
+        $file_content = json_decode(str_replace('\"' , '"' , $_POST['file_content']));
+        $file_labels = explode(',' , array_shift($file_content));
+
+        foreach($_POST as $id => $key){
+            if(strpos($id, 'pwe-importer-form-ids') !== false && $key != ''){
+                foreach($file_labels as $id_l => $key_l){
+                    if($key_l == $key){
+                        $integer_id = str_replace('pwe-importer-form-ids_' , '' , $id);
+                        $filds_ids[$integer_id] = $id_l;
+                    }
+                }
+            }
+        }
+        var_dump($filds_ids);
     } else {
         $all_forms_array = findForms();
 
@@ -100,6 +129,9 @@ function importer_admin_setup_output() {
         echo '<div id="pwe_gf_importer" class="wrap">';
             echo '<h1>PWE Importer for Gravity Forms</h1>';
             echo '<form class="pwe_gf_importer__form" action="' . admin_url('admin.php?page=importer_admin_setup') . '" method ="POST" >';
+
+                echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" style="visibility: hidden;" />';
+
                 echo '<div class="pwe_gf_importer__container">
                     <label for="fileUpload">Upload data file</label>
                     <input type="file" id="fileUpload" name="fileUpload" accept=".csv, .xls, .xlsx" required>
@@ -112,7 +144,6 @@ function importer_admin_setup_output() {
                     foreach($all_forms_array as $f_id => $f_title){
                         echo '<option value="' . $f_id . '">' . $f_title .'</option>';
                     }
-                    echo '<option value="dont">Don`t Import</option>';
                 echo '</select>
                 </div>';
 
@@ -120,8 +151,6 @@ function importer_admin_setup_output() {
                         <label for="newForm">Podaj Nazwe Formularza</label>
                         <input type="text" name"newForm" id="newForm" class="pwe_gf_importer__new-form">
                     </div>';
-
-                echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" style="visibility: hidden;" />';
 
                 echo '<input type="submit" name="submit_importer" value="Update" />';
             echo '</form>';
