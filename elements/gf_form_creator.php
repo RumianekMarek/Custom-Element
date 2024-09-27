@@ -83,6 +83,8 @@ function gf_form_output() {
                         return;
                     }
 
+                    $(".output_form").html("<div id=spinner class=spinner></div>");
+
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
@@ -95,14 +97,17 @@ function gf_form_output() {
                             const worksheet = workbook.Sheets[firstSheetName];
                             fileContent = XLSX.utils.sheet_to_csv(worksheet);
                         }
+                        
+                        fileContent = fileContent.split("\n,,")[0];
 
-                        const byteLength = new TextEncoder().encode(fileContent).length;
-                        console.log(byteLength);
-                        if(byteLength > 600000){
-                            $(".output_form").html("<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max rozmiar 1mb,<br>- zaznacz cały plik i usuń obramowanie !!! ,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv utf8,<br>- max 5000 linijek.<br></p>");
+                        let byteLength = new TextEncoder().encode(fileContent).length;
+
+                        if(byteLength > 900000){
+                            $(".output_form").html("<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max 8000 linijek,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv(utf8),<br>- jeżeli nie pomogło skontaktuj się z administratorem.</p>");
+                            $("#spinner").remove();
                             return;
                         }
-                        
+
                         $.post("' . $file_url . '",
                             {   
                                 secret: "qg58yn58q3yn5v",
@@ -114,6 +119,7 @@ function gf_form_output() {
                                 console.log("Odpowiedź serwera:", report);
                                 
                                 if(report["status"] == "true"){
+                                 $("#spinner").remove();
                                     $(".output_form").html(report["output"]);
                                     $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
                                         { 
@@ -124,6 +130,7 @@ function gf_form_output() {
                                         },
                                     );
                                 } else {
+                                  $("#spinner").remove();
                                     $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
 
                                 }
@@ -137,6 +144,7 @@ function gf_form_output() {
                         reader.readAsArrayBuffer(file);
                     }
                 });
+               
             });
         </script>
         ';
