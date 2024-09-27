@@ -94,10 +94,15 @@ function gf_form_output() {
                             const firstSheetName = workbook.SheetNames[0];
                             const worksheet = workbook.Sheets[firstSheetName];
                             fileContent = XLSX.utils.sheet_to_csv(worksheet);
-                        } else {
-                            fileContent = e.target.result;
                         }
 
+                        const byteLength = new TextEncoder().encode(fileContent).length;
+                        console.log(byteLength);
+                        if(byteLength > 600000){
+                            $(".output_form").html("<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max rozmiar 1mb,<br>- zaznacz cały plik i usuń obramowanie !!! ,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv utf8,<br>- max 5000 linijek.<br></p>");
+                            return;
+                        }
+                        
                         $.post("' . $file_url . '",
                             {   
                                 secret: "qg58yn58q3yn5v",

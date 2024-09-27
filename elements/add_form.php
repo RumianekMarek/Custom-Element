@@ -19,13 +19,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                     $form_entries[$id - 1][0] = '';
                 }
                 $row_array = explode(',',$row);
+                $i = 11;
                 foreach($row_array as $key => $value){
                     if($id == 0){
-                        $form_fields[] = array(
-                            'label' => $value,
-                            'type' => 'text',
-                            'id' => $key + 1,
-                        );
+                        $value = str_replace("\r", "", $value);                        
+                        switch (strtolower(trim($value))){
+                            case 'id': 
+                                $form_fields[1] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 1,
+                                );
+                                break;
+                            case 'jlp': 
+                                $form_fields[2] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 2,
+                                );
+                                break;
+                            case 'firma': 
+                                $form_fields[3] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 3,
+                                );
+                                break;
+                            case 'osoba': 
+                                $form_fields[4] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 4,
+                                );
+                                break;
+                            case 'kanaŁ': 
+                            case 'kanal':
+                                $form_fields[5] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 5,
+                                );
+                                break;
+                            case 'adres': 
+                                $form_fields[6] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 6,
+                                );
+                                break;
+                            case 'miasto': 
+                                $form_fields[7] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 7,
+                                );
+                                break;
+                            case 'mail': 
+                                $form_fields[8] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 8,
+                                );
+                                break;
+                            case 'kod': 
+                                $form_fields[9] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 9,
+                                );
+                                break;
+                            case 'telefon': 
+                                $form_fields[10] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => 10,
+                                );
+                                break;
+                            default:
+                                $form_fields[$i] = array(
+                                    'label' => $value,
+                                    'type' => 'text',
+                                    'id' => $i,
+                                );
+                                $i++;
+                                break;
+                        }
                     } else {
                         $form_entries[$id - 1][] = $value;
                     }
