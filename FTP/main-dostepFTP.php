@@ -15,7 +15,7 @@ function moja_wtyczka_dodaj_strone_menu() {
       'manage_options', // Wymagane uprawnienia
       'moja-wtyczka-dostep-do-katalogu', // Unikalny identyfikator strony
       'moja_wtyczka_wyswietl_strone_menu', // Funkcja wyświetlająca zawartość strony
-      'dashicons-media-default', // Ikona w menu (opcjonalne)
+      'dashicons-category', // Ikona w menu (opcjonalne)
       8 // Pozycja strony w menu (opcjonalne)
   );
 }

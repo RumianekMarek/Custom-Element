@@ -54,7 +54,6 @@ if ($_SERVER['HTTP_HEAD'] == '(rR1*sS3(tT5&uU7)vV2+wW4@yY' && $_SERVER["REQUEST_
 
             $meta_key_url = gform_get_meta($entry_id, 'qr-code_feed_' . $qr_code_id . '_url');
             $meta_key_image = '<img data-imagetype="External" src="' . $meta_key_url . '" width="200">';
-            echo '<script>console.log("'.$qr_code_id.'")</script>';
             
             foreach($face_form["notifications"] as $id => $key){
                 if($key["isActive"]){
