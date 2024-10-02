@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 3.14
+Version: 3.16
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -107,5 +107,5 @@ if (is_admin()) {
     include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
 
     // GF Form Creator
-    include_once plugin_dir_path(__FILE__) . '/elements/gf_form_creator.php';
+    include_once plugin_dir_path(__FILE__) . '/elements/gf_form_creator/gf_form_creator.php';
 ?>
