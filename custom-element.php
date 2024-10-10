@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 3.18
+Version: 3.19
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -26,8 +26,8 @@ function getGithubKey() {
 
     $table_name = $wpdb->prefix . 'custom_klavio_setup';
       if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
-        if (!is_admin()){
-          echo '<script>console.log("no KL-table")</script>';
+        if (!is_admin()) {
+         echo '<script>console.log("No KL-table")</script>';
         }
           return null;
       }
@@ -35,12 +35,12 @@ function getGithubKey() {
       $github_pre = $wpdb->prepare("SELECT klavio_list_id FROM $table_name WHERE klavio_list_name = %s", 'github_secret');
       $github_result = $wpdb->get_results($github_pre);
         
-      if (!empty($github_result)) {
+      if (!empty(trim($github_result[0]->klavio_list_id))) {
           return $github_result[0]->klavio_list_id;
       }
 
       if (!is_admin()) {
-        echo '<script>console.log("empty Github Key")</script>';
+       echo '<script>console.log("empty Github Key")</script>';
       }
 
       return null;
@@ -73,39 +73,40 @@ if (is_admin()) {
     // Edytor plików dostepFTP
     include_once plugin_dir_path(__FILE__) . '/FTP/gf_importer.php';
 }
-    // My Custom Element
-    include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';
 
-    // Katalog wystawców
-    include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
+// My Custom Element
+include_once plugin_dir_path(__FILE__) . '/my-custom-element/main-custom-element.php';
 
-    // Info + Modal
-    include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
+// Katalog wystawców
+include_once plugin_dir_path(__FILE__) . '/katalog-wystawcow/main-katalog-wystawcow.php';
 
-    // Speakers
-    include_once plugin_dir_path(__FILE__) . '/display-info/display-info-speakers.php';
+// Info + Modal
+include_once plugin_dir_path(__FILE__) . '/display-info/display-info.php';
 
-    // Badge
-    include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
+// Speakers
+include_once plugin_dir_path(__FILE__) . '/display-info/display-info-speakers.php';
 
-    // QR Check
-    include_once plugin_dir_path(__FILE__) . '/badge/qrcodecheck.php';
+// Badge
+include_once plugin_dir_path(__FILE__) . '/badge/badge.php';
 
-    // QR Scanner
-    include_once plugin_dir_path(__FILE__) . '/qr-scanner/qr-scanner.php';
+// QR Check
+include_once plugin_dir_path(__FILE__) . '/badge/qrcodecheck.php';
 
-    // GF Downloader
-    include_once plugin_dir_path(__FILE__) . '/gf_download/gf_download.php';
+// QR Scanner
+include_once plugin_dir_path(__FILE__) . '/qr-scanner/qr-scanner.php';
 
-    // GF Redirector
-    include_once plugin_dir_path(__FILE__) . '/gf_redirector/gf_redirector.php';
+// GF Downloader
+include_once plugin_dir_path(__FILE__) . '/gf_download/gf_download.php';
 
-    // Media Gallery
-    include_once plugin_dir_path(__FILE__) . '/media_gallery/media_gallery.php';
+// GF Redirector
+include_once plugin_dir_path(__FILE__) . '/gf_redirector/gf_redirector.php';
 
-    // Opinion Slider
-    include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
+// Media Gallery
+include_once plugin_dir_path(__FILE__) . '/media_gallery/media_gallery.php';
 
-    // GF Form Creator
-    include_once plugin_dir_path(__FILE__) . '/elements/gf_form_creator/gf_form_creator.php';
-?>
+// Opinion Slider
+include_once plugin_dir_path(__FILE__) . '/opinions_slider/opinions_slider.php';
+
+// GF Form Creator
+include_once plugin_dir_path(__FILE__) . '/elements/gf_form_creator/gf_form_creator.php';
+

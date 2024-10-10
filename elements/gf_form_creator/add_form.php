@@ -18,9 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                 if ( $id > 0 ){
                     $form_entries[$id - 1][0] = '';
                 }
-                $row_array = explode(',',$row);
+                $row_array = preg_split('/,(?=(?:[^"]|"[^"]*")*$)/',$row);
+
                 $i = 11;
                 foreach($row_array as $key => $value){
+                    $value = str_replace('\\"', "", $value);
                     if($id == 0){
                         $value = str_replace("\r", "", $value);                        
                         switch (strtolower(trim($value))){
@@ -150,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                     'qrcodeFields'=> array(
                         0 => array(
                             'key' => 'gf_custom',
-                            'custom_key' => substr($qr_feeds[0]['meta']['qrcodeFields'][0]['custom_key'], '0', 4) . str_pad($form_id, 3, '0', STR_PAD_LEFT),
+                            'custom_key' => substr($qr_feeds[count($qr_feeds) - 2]['meta']['qrcodeFields'][0]['custom_key'], '0', 4) . str_pad($form_id, 3, '0', STR_PAD_LEFT),
                             'value'=> 'id',
                             'custom_value'=> ''
                         ),
@@ -170,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
         }
 
         $report['status'] = 'true';
-        $report['output'] = '<p>Formularz ' . $csv_name . ' został stworzony <br> Zaimportowano ' . count($entries_ids) . ' pozycji</p>';
+        $report['output'] .= '<p>Formularz ' . $csv_name . ' został stworzony <br> Zaimportowano ' . count($entries_ids) . ' pozycji</p>';
         $report['id_formularza'] =  $form_id;
         $report['fair_name'] = do_shortcode("[trade_fair_badge]");
         $report['form_name'] = $csv_name;

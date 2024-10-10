@@ -97,7 +97,7 @@ function gf_form_output() {
                             const worksheet = workbook.Sheets[firstSheetName];
                             fileContent = XLSX.utils.sheet_to_csv(worksheet);
                         }
-                        
+
                         fileContent = fileContent.split("\n,,")[0];
 
                         let byteLength = new TextEncoder().encode(fileContent).length;
@@ -115,20 +115,22 @@ function gf_form_output() {
                                 data: fileContent
                             },
                             function(response) {
+                                console.log("Odpowiedź serwera:", response);
                                 const report = JSON.parse(response);
                                 console.log("Odpowiedź serwera:", report);
                                 
                                 if(report["status"] == "true"){
                                  $("#spinner").remove();
                                     $(".output_form").html(report["output"]);
-                                    $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
-                                        { 
-                                            id_formularza: report["id_formularza"], 
-                                            fair_name : report["fair_name"],
-                                            form_name : report["form_name"],
-                                            entries_count : report["entries_count"],
-                                        },
-                                    );
+                                    
+                                    // $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
+                                    //     { 
+                                    //         id_formularza: report["id_formularza"], 
+                                    //         fair_name : report["fair_name"],
+                                    //         form_name : report["form_name"],
+                                    //         entries_count : report["entries_count"],
+                                    //     },
+                                    // );
                                 } else {
                                   $("#spinner").remove();
                                     $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
