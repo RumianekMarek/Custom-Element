@@ -1,12 +1,18 @@
 <?php 
+
 $report['status'] = 'false';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v') {
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
     if (file_exists($new_url)) {
         require_once($new_url);
 
+        
         $csvContent = $_POST['data'];
-        $csvArray = explode("\n", $csvContent);
+
+        //Poprowka z $csvContent = str_replace("\\\"", "\"", $csvContent); 
+        $csvContent = str_replace("\\", "", $csvContent);
+
+        $csvArray = json_decode($csvContent, true);
 
         $entries_ids = '';
         $form_entries = array();
@@ -18,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                 if ( $id > 0 ){
                     $form_entries[$id - 1][0] = '';
                 }
-                $row_array = preg_split('/,(?=(?:[^"]|"[^"]*")*$)/',$row);
+                $row_array = $row;
 
                 $i = 11;
                 foreach($row_array as $key => $value){

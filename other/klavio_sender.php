@@ -1,11 +1,10 @@
 <?php
 
+// Get klavio passes from database
 function get_klavio_data() {
     global $wpdb;
-
     $klavio_returner = array();
-
-    $table_name = $wpdb->prefix . 'custom_klavio_setup'; // Nazwa tabeli z prefiksem
+    $table_name = $wpdb->prefix . 'custom_klavio_setup';
 
     $klavio_pre = $wpdb->prepare(
         "SELECT * FROM $table_name"
@@ -20,19 +19,23 @@ function get_klavio_data() {
     return $klavio_returner;
 }
 
+// Sending data from Gravity form to klavio
 function klavio_sender($entry, $form){  
-    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
 
+    // Check if form is one of the registration forms
+    $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
     if (!preg_match($pattern, $form['title'])){
         return;
     }
 
+    // Connecting wordpress functions
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
     if (file_exists($new_url)) {
         require_once($new_url);
         $klavio_db = get_klavio_data();
     }
 
+    
     $dom_name = explode('.', do_shortcode('[trade_fair_domainadress]'));
     $dom_id_nolanguage = $dom_name[0];
 
@@ -140,10 +143,16 @@ function klavio_sender($entry, $form){
     ];
 
     $response = wp_remote_post('https://a.klaviyo.com/api/profile-bulk-import-jobs/', $args);
+    error_log(var_dump($response));
     if (is_wp_error($response)) {
         $error_message = $response->get_error_message();
         error_log("Something went wrong: $error_message");
     } else {
-        error_log('Profile successfully added to Klaviyo');
+        $message_to_log = json_decode($response['body'], true);
+        if( $message_to_log['errors'][0]['status'] != null){
+            error_log('Klaviyo error status:' . $message_to_log['errors'][0]['status']);
+        } else {
+            error_log('Profile successfully added to Klaviyo');
+        }
     }
 }

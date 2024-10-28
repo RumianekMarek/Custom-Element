@@ -5,16 +5,20 @@ if ($_SERVER['HTTPS'] !== 'on') {
     exit();
 }
 
-// Secure password handling
+// Checking send methode
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Read JSON input
     $data = json_decode(file_get_contents('php://input'), true);
     
-    // Get authorization token
+    // Get authorization token, and domain to authorization hex
     $token = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
     $domain_raport = $_SERVER["HTTP_HOST"];
     $domain = 'https://' . $domain_raport . '/';
+
+    // Get wordpress load file
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
+
+
     $forms = array();
     $form_id = '';
     $report = array();
@@ -24,14 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check if WordPress environment is available
         if (file_exists($new_url)) {
             require_once($new_url);
+            // Check if GFAPI class exists
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
                 
                 // Get form IDs based on titles
                 foreach ($all_forms as $key => $value) {
-                    if (preg_match('/^\(.{4}\) ?Rejestracja PL$/i', $value['title'])) {
+                    if (preg_match('/^\(.{4}\) Rejestracja PL(\s?\(Branzowe\))?$/i', $value['title'])) {
                         $form['def-pl'] = $value['id'];
-                    } elseif (preg_match('/^\(.{4}\) ?Rejestracja EN$/i', $value['title'])) {
+                    } elseif (preg_match('/^\(.{4}\) Rejestracja EN(\s?\(Branzowe\))?$/i', $value['title'])) {
                         $form['def-en'] = $value['id'];
                     }
                 }

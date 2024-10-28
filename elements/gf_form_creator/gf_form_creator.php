@@ -12,7 +12,7 @@ function gf_form_output() {
     $output = '';
 
     $file_url = plugins_url('gf_form_creator/add_form.php', dirname(__FILE__));
-
+    
     $output .= '
         <style>
                 .mass-main-container {
@@ -68,6 +68,7 @@ function gf_form_output() {
                 var fileContent = "";
 
                 $("#submit-form").on("click", function(event) {
+                    let filteredArray = [];
 
                     const file = $("#fileUpload").prop("files")[0];
                     if (!file) {
@@ -88,7 +89,6 @@ function gf_form_output() {
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
-                        fileContent = e.target.result;
 
                         if(file.name.split(".").pop().toLowerCase() != "csv"){
                             const data = new Uint8Array(e.target.result);
@@ -96,10 +96,27 @@ function gf_form_output() {
                             const firstSheetName = workbook.SheetNames[0];
                             const worksheet = workbook.Sheets[firstSheetName];
                             fileContent = XLSX.utils.sheet_to_csv(worksheet);
+                        } else {
+                            fileContent = e.target.result;
                         }
+                        
+                        fileContent = fileContent.replace(/\r/g, "");
+                        
+                        fileArray = fileContent.split(/\n(?=(?:[^"]|"[^"]*")*$)/);
 
-                        fileContent = fileContent.split("\n,,")[0];
+                        fileArray.forEach(function(element){
+                            if (element.trim() !== "" && !/^[,\s"]+$/.test(element)){
+                                let newElement = element.split(/,(?=(?:[^"]|"[^"]*")*$)/);
 
+                                newElement = newElement.map(function(elem){ 
+                                    elem = elem.replace(/\\\\/g, ``);
+                                    elem = elem.replace(/\\"/g, ``);
+                                    return elem;
+                                });
+
+                                filteredArray.push(newElement);
+                            }
+                        });
                         let byteLength = new TextEncoder().encode(fileContent).length;
 
                         if(byteLength > 900000){
@@ -112,30 +129,34 @@ function gf_form_output() {
                             {   
                                 secret: "qg58yn58q3yn5v",
                                 file_name: file.name.split(".")[0],
-                                data: fileContent
+                                data: JSON.stringify(filteredArray)
                             },
                             function(response) {
-                                console.log("Odpowiedź serwera:", response);
                                 const report = JSON.parse(response);
-                                console.log("Odpowiedź serwera:", report);
+                                console.log("Odpowiedź serwera:", report);';
                                 
-                                if(report["status"] == "true"){
-                                 $("#spinner").remove();
-                                    $(".output_form").html(report["output"]);
+                            if ($_SERVER['SERVER_NAME'] != 'mr.glasstec.pl'){
+                                $output .= '
+                                    if(report["status"] == "true"){
+                                    $("#spinner").remove();
+                                        $(".output_form").html(report["output"]);
 
-                                    $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
-                                        { 
-                                            id_formularza: report["id_formularza"], 
-                                            fair_name : report["fair_name"],
-                                            form_name : report["form_name"],
-                                            entries_count : report["entries_count"],
-                                        },
-                                    );
-                                } else {
-                                  $("#spinner").remove();
-                                    $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
+                                        $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
+                                            { 
+                                                id_formularza: report["id_formularza"], 
+                                                fair_name : report["fair_name"],
+                                                form_name : report["form_name"],
+                                                entries_count : report["entries_count"],
+                                            },
+                                        );
+                                    } else {
+                                    $("#spinner").remove();
+                                        $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
 
-                                }
+                                    }';
+                            }
+
+                    $output .= '
                             }
                         );
                     };
