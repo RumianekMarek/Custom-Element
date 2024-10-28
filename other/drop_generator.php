@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if GFAPI class exists
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
-                
+                $all_emails = array();
+
                 // Get form IDs based on titles
                 foreach ($all_forms as $key => $value) {
                     if (preg_match('/^\(.{4}\) Rejestracja PL(\s?\(Branzowe\))?$/i', $value['title'])) {
@@ -53,23 +54,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Get form based on option
                 $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
 
-                // Process each entry in the data
-                foreach ($data[$domain] as $id => $value) {
-
-                    // Check for existing entries
-                    foreach ($all_forms as $form_check) {
-                        if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
-                            $entries = GFAPI::get_entries($form_check['id']);
-                            foreach ($entries as $entry_check) {
-                                foreach ($entry_check as $entry_id => $field_check) {
-                                    if (is_numeric($entry_id) && $field_check == $value[0]) {
-                                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1];
-                                        continue 4;
-                                    }
+                foreach ($all_forms as $form_check) {
+                    if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
+                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 1000 ));
+                        foreach ($entries as $entry_check) {
+                            foreach ($entry_check as $entry_id => $field_check) {
+                                if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
+                                    $all_emails[] = $field_check;
+                                    continue 2;
                                 }
                             }
                         }
                     }
+                }
+
+                // Process each entry in the data
+                foreach ($data[$domain] as $id => $value) {
+                    if (in_array($value[0], $all_emails)){
+                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1];
+                    } else {
                         // Create a new entry
                         $entry = ['form_id' => $form['id']];
 
@@ -81,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             } elseif (strpos(strtolower($field['label']), 'utm') !== false) {
                                 $entry[$field['id']] = 'utm_source=spady_lead&drop_kanal=' . $value[2];
                             } elseif (strpos(strtolower($field['label']), 'location') !== false) {
-                                $entry[$field['id']] = 'rejestracja';
+                                $entry[$field['id']] = 'spady_generator';
                             }
                         }
 
@@ -132,7 +135,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         } else {
                             $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
                         }
+                    }
                 }
+
                 // Send JSON response
                 echo json_encode($report);
             } else {
