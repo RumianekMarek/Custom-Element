@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $form['def-en'] = $value['id'];
                     }
                 }
-                if ()
+                
                 // Fallback titles
                 foreach ($all_forms as $key => $value) {
                     if ('rejestracja pl 2024' == strtolower($value['title'])) {
