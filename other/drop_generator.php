@@ -35,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Get form IDs based on titles
                 foreach ($all_forms as $key => $value) {
-                    if (preg_match('/^\(.{4}\) Rejestracja PL(\s?\(Branzowe\))?$/i', $value['title'])) {
+                    if (preg_match('/^\(.{4}\)\s*Rejestracja PL(\s?\(Branzowe\))?$/i', $value['title'])) {
                         $form['def-pl'] = $value['id'];
-                    } elseif (preg_match('/^\(.{4}\) Rejestracja EN(\s?\(Branzowe\))?$/i', $value['title'])) {
+                    } elseif (preg_match('/^\(.{4}\)\s*Rejestracja EN(\s?\(Branzowe\))?$/i', $value['title'])) {
                         $form['def-en'] = $value['id'];
                     }
                 }
-
+                if ()
                 // Fallback titles
                 foreach ($all_forms as $key => $value) {
                     if ('rejestracja pl 2024' == strtolower($value['title'])) {

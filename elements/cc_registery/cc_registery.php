@@ -22,9 +22,11 @@ function cc_registery_output($atts, $content = '') {
     extract( shortcode_atts( array(
         'cc_registrery__form_id' => '',
     ), $atts ));
+    
+    $secret = SECURE_AUTH_KEY;
+    $file_url = plugins_url('add_entry.php', __FILE__);
 
     $output = '';
-    
     $output .= '
         <style>
             .cc-registery__form{
@@ -44,53 +46,70 @@ function cc_registery_output($atts, $content = '') {
 
         <script>
             jQuery(document).ready(function($) {
-                const form_inputs = $(".cc-registery__form :is(input, textarea, select)");
-                const expirationTime = 2 * 60 * 60 * 1000; 
-                const prefix = "form_";
 
-                const savedTime = localStorage.getItem(prefix + "SavedTime");
-                if(savedTime && (Date.now() - savedTime) > expirationTime){
-                    Object.keys(localStorage).forEach(key => {
-                        if (key.startsWith(prefix)) {
-                            localStorage.removeItem(key);
-                        }
-                    });
-                }
+                $(`input[placeholder*="name"]`).parent().after(`<hr style="border: 1px solid;">`);
 
-                // Przywraca zapisane wartości przy ładowaniu strony
-                form_inputs.each(function() {
-                    const inputType = $(this).attr("type");
-                    const storageKey = prefix + ($(this).attr("name") || $(this).attr("id"));
-                    const savedValue = localStorage.getItem(storageKey);
-
-                    if (savedValue !== null) {
-                        if (inputType === "checkbox") {
-                            $(this).prop("checked", savedValue === "true");
-                        } else if (inputType === "radio") {
-                            $(this).prop("checked", $(this).val() === savedValue);
-                        } else {
-                            $(this).val(savedValue);
-                        }
+                $(document).on("input", `input[placeholder*="name"]`, function() {
+                    if($(this).val().length > 3 && $(this).next().length == 0){
+                        $(this).after(`<input name="` + $(this).attr("name") + `" class="large" type="text" placeholder="First name and last name">`);
+                    } else if($(this).val().length < 1 && $(this).next().length > 0){
+                        $(this).remove();
                     }
                 });
 
-                // Zapisuje wartości do localStorage przy wysłaniu formularza
-                $(".cc-registery__form").on("submit", function() {
-                    const currentTime = Date.now();
-                    localStorage.setItem(prefix + "SavedTime", currentTime); 
+                $(`input[type="submit"]`).on("click", function(event){
+                    event.preventDefault();
+                    $(`.cc-registery__form`).find(`input[type="submit"]`).after("<div id=spinner class=spinner></div>");
 
-                    form_inputs.each(function() {
-                        const inputType = $(this).attr("type");
-                        const storageKey = prefix + $(this).attr("name") || $(this).attr("id");
+                    let allInputs = {};
+                    allInputs["form_id"] = ' . $cc_registrery__form_id . ';
 
-                        if (inputType === "checkbox") {
-                            localStorage.setItem(storageKey, $(this).is(":checked"));
-                        } else if (inputType === "radio" && $(this).is(":checked")) {
-                            localStorage.setItem(storageKey, $(this).val());
-                        } else if (inputType !== "radio") {
-                            localStorage.setItem(storageKey, $(this).val());
+                    $(".cc-registery__form :is(input, textarea, select)").map(function() {
+
+                        if(!$(this).hasClass("gform_hidden") && $(this).attr("type") != "hidden" && $(this).attr("type") != "submit" && $(this).val() != ""){
+
+                            if($(this).prop("placeholder").has("name")){
+                                allInputs["name_id"][] = 
+                            }
+
+                            if($(this).prop("nodeName").toLowerCase() != "select"){
+                                if ($(this).attr("type") && $(this).attr("type") == "checkbox") {
+                                    allInputs[$(this).prop("name")] = $(this).prop("checked");
+                                } else if ($(this).attr("type") && $(this).attr("type") == "radio"){
+                                    if ($(this).prop("checked") === true) {
+                                        allInputs[$(this).prop("name")] = $(this).val();
+                                    }
+                                } else if ($(this).attr("id")){
+                                    allInputs[$(this).prop("name")] = $(this).val();
+                                }
+                            } else {
+                                allInputs[$(this).attr("name")] = $(this).find("option:selected").val();
+                            }
                         }
                     });
+
+                    console.log(allInputs);
+                    const dataToSend = JSON.stringify(allInputs);
+                    console.log(dataToSend);
+
+                    $.post("' . $file_url . '",
+                        {   
+                            secret: "' . $secret . '",
+                            data: dataToSend,
+                        },
+                        function(response) {
+                            const report = JSON.parse(response);
+                            console.log("Odpowiedź serwera:", report);
+
+                            $("#spinner").remove();
+
+                            if(report["status"] === true){
+                                console.log("true");
+                            } else {
+                                console.log("false");
+                            }
+                        }
+                    );
                 });
             });
         </script>
