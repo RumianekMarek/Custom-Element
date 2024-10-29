@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $form['def-en'] = $value['id'];
                     }
                 }
-                if ()
+                
                 // Fallback titles
                 foreach ($all_forms as $key => $value) {
                     if ('rejestracja pl 2024' == strtolower($value['title'])) {
@@ -56,11 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 foreach ($all_forms as $form_check) {
                     if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
-                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 1000 ));
+                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 1000));
                         foreach ($entries as $entry_check) {
                             foreach ($entry_check as $entry_id => $field_check) {
                                 if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
-                                    $all_emails[] = $field_check;
+                                    $all_emails[$entry_check['id']] = $field_check;
                                     continue 2;
                                 }
                             }
@@ -70,8 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Process each entry in the data
                 foreach ($data[$domain] as $id => $value) {
-                    if (in_array($value[0], $all_emails)){
-                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entry_check['id'] . ' ' . $value[0] . ' ' . $value[1];
+
+                    //Check index if new email is already registered
+                    $value_index_in_array = array_search($value[0], $all_emails);
+                    if ($value_index_in_array !== false){
+                        $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $value_index_in_array . ' ' . $value[0] . ' ' . $value[1];
                     } else {
                         // Create a new entry
                         $entry = ['form_id' => $form['id']];
@@ -91,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
                         
                         $entry_id = GFAPI::add_entry($entry);
+
+                        $all_emails[$entry_id] = $value[0];
 
                         // Handle QR code feeds
                         $qr_feeds = GFAPI::get_feeds(NULL, $form['id']);
@@ -126,11 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             } catch (Exception $e) {
                                 $report['error'] = 'Błąd send_notifications: ' . $e->getMessage();
                             }
+
                             $klavio_sender_url = ABSPATH . 'wp-content/plugins/custom-element/other/klavio_sender.php';
+
                             if (file_exists($klavio_sender_url)){
                                 $entry_klavio = GFAPI::get_entry($entry_id);
                                 include_once $klavio_sender_url;
                                 klavio_sender($entry_klavio, $form);
+
                             }
                         } else {
                             $report['error'] = 'Błąd dodawania wpisu do Gravity Forms.';
