@@ -143,7 +143,6 @@ function klavio_sender($entry, $form){
     ];
 
     $response = wp_remote_post('https://a.klaviyo.com/api/profile-bulk-import-jobs/', $args);
-    error_log(var_dump($response));
     if (is_wp_error($response)) {
         $error_message = $response->get_error_message();
         error_log("Something went wrong: $error_message");
