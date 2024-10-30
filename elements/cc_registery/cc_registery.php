@@ -47,7 +47,23 @@ function cc_registery_output($atts, $content = '') {
         <script>
             jQuery(document).ready(function($) {
 
-                $(`input[placeholder*="name"]`).parent().after(`<hr style="border: 1px solid;">`);
+                const create_modal = (entries) => {
+                    $(".cc-registery__form").after(`<div style="border: 2px solid; border-radius: 15px; padding: 0 36px 18px; margin: auto; text-align: center; width: fit-content; position: fixed; top: 30%; left: 50%; transform: translateX(-50%); background: white;"><h3>Wysłano powiadomienia dla ` + entries.length + ` osób. <br> Za chwile strona same się odświeży.</h3></div>`);
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 5000);
+                }
+
+                $(".cc-registery__form :is(input, textarea, select)[aria-required=true]").on("input", function(){
+                    $(this).closest(".gfield").next(".input-error").remove();
+                });
+
+                $(".cc-registery__form :is(input, textarea, select)[aria-required=true]").each(function(){
+                    $(this).attr("required", true);
+                });
+
+                $(`input[placeholder*="name"]`).parent().after(`<hr style="border: 1px solid; margin: 12px 0px 0px;">`);
 
                 $(document).on("input", `input[placeholder*="name"]`, function() {
                     if($(this).val().length > 3 && $(this).next().length == 0){
@@ -59,38 +75,59 @@ function cc_registery_output($atts, $content = '') {
 
                 $(`input[type="submit"]`).on("click", function(event){
                     event.preventDefault();
-                    $(`.cc-registery__form`).find(`input[type="submit"]`).after("<div id=spinner class=spinner></div>");
 
+                    let validate = true;
+
+                    $(".cc-registery__form :is(input, textarea, select)[aria-required=true]").each(function(){
+                        if(!this.checkValidity()){
+                            if($(this).closest(".gfield").next(".input-error").length == 0){
+                                $(this).closest(".gfield").after(`<p class="input-error" style="background-color: rgb(255, 0, 0, 0.05); color: red; border-bottom: solid; margin: 0; padding: 0 18px;">To pole musi być wypełnione</p>`);
+                            }
+                            validate = false;
+                        }
+                    });
+
+                    if (!validate){
+                        return;
+                    };
+
+                    $(`.cc-registery__form`).find(`input[type="submit"]`).after("<div id=spinner class=spinner></div>");
+                    
                     let allInputs = {};
                     allInputs["form_id"] = ' . $cc_registrery__form_id . ';
+                    allInputs["all_names"] = [];
 
+                    let keyNames = 0;
                     $(".cc-registery__form :is(input, textarea, select)").map(function() {
-
+                        
                         if(!$(this).hasClass("gform_hidden") && $(this).attr("type") != "hidden" && $(this).attr("type") != "submit" && $(this).val() != ""){
 
-                            if($(this).prop("placeholder").has("name")){
-                                allInputs["name_id"][] = 
-                            }
-
                             if($(this).prop("nodeName").toLowerCase() != "select"){
-                                if ($(this).attr("type") && $(this).attr("type") == "checkbox") {
+
+                                if($(this).prop("placeholder").includes("name")){
+                                    if (allInputs["name_id"] === undefined){
+                                        allInputs["name_id"] = $(this).prop("name");
+                                    }
+                                    allInputs["all_names"][keyNames] = $(this).val();
+                                    keyNames += 1;
+                                } else if ($(this).attr("type") && $(this).attr("type") == "checkbox") {
                                     allInputs[$(this).prop("name")] = $(this).prop("checked");
+
                                 } else if ($(this).attr("type") && $(this).attr("type") == "radio"){
                                     if ($(this).prop("checked") === true) {
                                         allInputs[$(this).prop("name")] = $(this).val();
                                     }
+
                                 } else if ($(this).attr("id")){
                                     allInputs[$(this).prop("name")] = $(this).val();
                                 }
                             } else {
-                                allInputs[$(this).attr("name")] = $(this).find("option:selected").val();
+                                allInputs[$(this).prop("name")] = $(this).find("option:selected").val();
+                                allInputs["notification"] = $(this).find("option:selected").val();
                             }
                         }
                     });
-
-                    console.log(allInputs);
                     const dataToSend = JSON.stringify(allInputs);
-                    console.log(dataToSend);
 
                     $.post("' . $file_url . '",
                         {   
@@ -104,6 +141,7 @@ function cc_registery_output($atts, $content = '') {
                             $("#spinner").remove();
 
                             if(report["status"] === true){
+                                create_modal(report["entries"]);
                                 console.log("true");
                             } else {
                                 console.log("false");
