@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             } elseif (strpos(strtolower($field['label']), 'utm') !== false) {
                                 $entry[$field['id']] = 'utm_source=spady_lead&drop_kanal=' . $value[2];
                             } elseif (strpos(strtolower($field['label']), 'location') !== false) {
-                                $entry[$field['id']] = 'spady_generator';
+                                $entry[$field['id']] = 'rejestracja';
                             }
                         }
 

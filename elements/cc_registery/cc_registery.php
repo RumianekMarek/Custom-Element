@@ -39,6 +39,9 @@ function cc_registery_output($atts, $content = '') {
             .cc-registery__form select{
                 padding: 10px 15px !important;
             }
+            .gform_wrapper :is(label, span, .gfield_description) {
+                color: black !important;
+            }
         </style>
         <div class="cc-registery__form">
             ' . do_shortcode('[gravityform id=' . $cc_registrery__form_id . ' title="false" description="false" ajax="true"]') . '
