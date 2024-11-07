@@ -197,6 +197,38 @@ function custom_gf_download_output() {
                     }
                 }
             }
+        } else if (isset($_GET['form_name']) && $_GET['form_name'] != "") {
+
+            $all_forms = GFAPI::get_forms();
+            $resoult = false;
+            $f_name = urldecode($_GET['form_name']);
+
+            $all_etries = '';
+
+            foreach($all_forms as $f_id => $f_key) {
+                if (strtolower($f_key['title']) == strtolower($f_name)){
+                    $resoult = true;
+                    $all_etries = GFAPI::get_entries($f_key['id'], null, null, array('offset' => 0, 'page_size' => 0));
+                    break;
+                }
+            }
+            $today = new DateTime();
+
+            $json_file_name = do_shortcode('[trade_fair_name]'). '_' .$f_key['title']. '_' . $today->format('Y-m-d') . '.csv';
+
+            $json_data = json_encode( $all_etries);
+
+            $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+            $file_written = file_put_contents($file_path, $json_data);
+            echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+            echo '<script>
+                    document.querySelector(".json-download").click();
+                    document.querySelector(".json-download").remove();
+                </script>';
+
+            $file_content = file_get_contents($file_path);
+
+            var_dump($resoult);
         } else {
             $all_forms = GFAPI::get_forms();
         }
@@ -255,41 +287,52 @@ function gf_finder($gf_id, $form_title){
                 }
             }
         }
-        ksort($label_array);
-        $entry_data .= implode(',', $label_array) . '\n';
-
-        do {
-            $entries = GFAPI::get_entries($gf_id, null, null, array('offset' => $offset, 'page_size' => $page_size));
-            foreach ($entries as $entry) {
-                $entry_line = array();
-                foreach ($entry as $id => $key) {
-                    if (is_int($id) || $id === "source_url" || $id ==="date_created") {
-                        $key = str_replace(',',' ',$key);
-                        $key = str_replace(["\r\n", "\r", "\n"], ' ', $key);
-
-                        $entry_line[$id] = $key;
+        if (is_array($label_array)) {
+            ksort($label_array);
+            $entry_data .= implode(',', $label_array) . '\n';
+    
+            do {
+                $entries = GFAPI::get_entries($gf_id, null, null, array('offset' => $offset, 'page_size' => $page_size));
+                foreach ($entries as $entry) {
+                    $entry_line = array();
+                    foreach ($entry as $id => $key) {
+                        if (is_int($id) || $id === "source_url" || $id ==="date_created") {
+                            $key = str_replace(',',' ',$key);
+                            $key = str_replace(["\r\n", "\r", "\n"], ' ', $key);
+    
+                            $entry_line[$id] = $key;
+                        }
                     }
+                    ksort($entry_line);
+                    $entry_data .= implode(',', $entry_line) . '\n';
                 }
-                ksort($entry_line);
-                $entry_data .= implode(',', $entry_line) . '\n';
-            }
-            $offset += $page_size;
-        } while (count($entries) === $page_size); // Kontynuuj, dopóki pobierane są kolejne partie
+                $offset += $page_size;
+            } while (count($entries) === $page_size); // Kontynuuj, dopóki pobierane są kolejne partie
+            $entry_data = str_replace('"', '', $entry_data);
+            $entry_data = str_replace('#', '', $entry_data);
+            $file_name = $form_title.' '.date("Y_m_d");
+            echo '<script>
+                var csvContent = "data:text/csv;charset=utf-8,";
+                const data = "' . $entry_data . '";
+                var csvContent = "data:text/csv;charset=utf-8," + data;
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "'.$file_name.'.csv");
+                document.body.appendChild(link);
+                link.click();
+            </script>';
+        } else {
+            echo '
+                <script>
+                    jQuery(document).ready(function($){
+                        $("#custom-form").after("<h5>Formularz ' . $form_title . ' ma 0 elementów.</h5>");
+                    });
+                </script>
+            ';
+        }
 
-        $entry_data = str_replace('"', '', $entry_data);
-        $entry_data = str_replace('#', '', $entry_data);
-        $file_name = $form_title.' '.date("Y_m_d");
-        echo '<script>
-            var csvContent = "data:text/csv;charset=utf-8,";
-            const data = "' . $entry_data . '";
-            var csvContent = "data:text/csv;charset=utf-8," + data;
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "'.$file_name.'.csv");
-            document.body.appendChild(link);
-            link.click();
-        </script>';
+
     }
 
 }

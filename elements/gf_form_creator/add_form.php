@@ -1,15 +1,19 @@
 <?php 
 
 $report['status'] = 'false';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v') {
+$report['serv'] = $_SERVER;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn58q3yn5v') {
+
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
     if (file_exists($new_url)) {
         require_once($new_url);
 
-        
-        $csvContent = $_POST['data'];
+        $csv_name = $_SERVER['HTTP_FILENAME'];
+        $report['filename'] =  $file_name;
 
-        //Poprowka z $csvContent = str_replace("\\\"", "\"", $csvContent); 
+        $csvContent = file_get_contents('php://input');
+
         $csvContent = str_replace("\\", "", $csvContent);
 
         $csvArray = json_decode($csvContent, true);
@@ -119,19 +123,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
             }
         }
 
-        $csv_name = $_POST['file_name'];
-
         $all_forms = GFAPI::get_forms();
         $qr_feeds = GFAPI::get_feeds();
 
-
-        foreach($all_forms as $form){
-            if($form['title'] == $csv_name){
-                $report['output'] .= 'formularz ' . $csv_name . ' juz istnieje';
-                echo json_encode($report);
-                exit;
-            }
-        }
+        // foreach($all_forms as $form){
+        //     if($form['title'] == $csv_name){
+        //         $report['output'] .= 'formularz ' . $csv_name . ' juz istnieje';
+        //         echo json_encode($report);
+        //         exit;
+        //     }
+        // }
        
         if ($form_id == ''){
             $form_id = GFAPI::add_form(array(
@@ -147,7 +148,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                     break;
                 }
             }
-
             if(!$form_feed_exists){
                 $qr_feed_new = array(
                     'feedName'=> 'GF-QR-' . count($qr_feeds),
@@ -171,8 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
                     ),
                     'feedCondition' => '',
                 );
-
                 $qr_feed_exist = GFAPI::add_feed($form_id, $qr_feed_new, 'qr-code');
+
             }
             $entries_ids = GFAPI::add_entries($form_entries, $form_id);
         }
@@ -184,5 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['secret'] == 'qg58yn58q3yn5v
         $report['form_name'] = $csv_name;
         $report['entries_count'] = count($entries_ids);
     }
-    echo json_encode($report);
 }
+
+echo json_encode($report);

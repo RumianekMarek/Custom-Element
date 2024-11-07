@@ -56,8 +56,8 @@ function gf_form_output() {
             <div id="fileForm" enctype="multipart/form-data" action="" method="post">
                 <label>Wybierz formularz
                 <br>Only CSV, XLS, XLSX file </label><br>
-                <input type="file" id="fileUpload" name="csvFile" accept=".csv, .xls, .xlsx" required/><br><br>
-                <button class="btn" id="submit-form" name="submit" type="submit">Stwórz Formularz</button>
+                <input type="file" id="fileUpload__form_create" name="csvFile" accept=".csv, .xls, .xlsx" required/><br><br>
+                <button class="btn" id="submit-form__form_create" name="submit" type="submit">Stwórz Formularz</button>
             </div>
             <div class="output_form"></div>
         </div>
@@ -67,10 +67,10 @@ function gf_form_output() {
             jQuery(document).ready(function($){
                 var fileContent = "";
 
-                $("#submit-form").on("click", function(event) {
+                $("#submit-form__form_create").on("click", function(event) {
                     let filteredArray = [];
 
-                    const file = $("#fileUpload").prop("files")[0];
+                    const file = $("#fileUpload__form_create").prop("files")[0];
                     if (!file) {
                         alert("Nie wybrano pliku.");
                         return;
@@ -117,50 +117,63 @@ function gf_form_output() {
                                 filteredArray.push(newElement);
                             }
                         });
-                        let byteLength = new TextEncoder().encode(fileContent).length;
+                        const jsonDataArray = JSON.stringify(filteredArray);
 
-                        if(byteLength > 900000){
-                            $(".output_form").html("<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max 8000 linijek,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv(utf8),<br>- jeżeli nie pomogło skontaktuj się z administratorem.</p>");
+                        let byteLength = new TextEncoder().encode(jsonDataArray).length;
+
+                        if(byteLength > 500000){
+                            $(".output_form").html("<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max 4000 linijek,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv(utf8),<br>- jeżeli nie pomogło skontaktuj się z administratorem.</p>");
                             $("#spinner").remove();
                             return;
                         }
+                        
+                        
 
-                        $.post("' . $file_url . '",
-                            {   
-                                secret: "qg58yn58q3yn5v",
-                                file_name: file.name.split(".")[0],
-                                data: JSON.stringify(filteredArray)
+                        fetch("' . $file_url . '",{
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "qg58yn58q3yn5v",
+                                "FileName" : file.name.split(".")[0]
                             },
-                            function(response) {
-                                const report = JSON.parse(response);
-                                console.log("Odpowiedź serwera:", report);';
-                                
-                                if ($_SERVER['SERVER_NAME'] != 'mr.glasstec.pl'){
-                                    $output .= '
-                                        if(report["status"] == "true"){
-                                        $("#spinner").remove();
-                                            $(".output_form").html(report["output"]);
+                            body: jsonDataArray
+                        })
+                        .then(response => {
+                            $("#spinner").remove();
 
-                                            $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
-                                                { 
-                                                    id_formularza: report["id_formularza"], 
-                                                    fair_name : report["fair_name"],
-                                                    form_name : report["form_name"],
-                                                    entries_count : report["entries_count"],
-                                                },
-                                            );
-                                        } else {
-                                        $("#spinner").remove();
-                                            $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
-
-                                        }';
-                                }
-
-                    $output .= '
+                            if (!response.ok) {
+                                throw new Error("Błąd odpowiedzi serwera");
                             }
-                        );
-                    };
 
+                            return response.json();
+                        })
+                        .then(report => {
+                            console.log("Odpowiedź serwera:", report)
+                            if(report["status"] == "true"){
+                                $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);';
+
+                                if ($_SERVER["SERVER_NAME"] != "mr.glasstec.pl"){
+                                    $output .= '
+                                        $(".output_form").html(report["output"]);
+
+                                        $.post("https://bdg.warsawexpo.eu/badgewp-reception.php",
+                                            { 
+                                                id_formularza: report["id_formularza"], 
+                                                fair_name : report["fair_name"],
+                                                form_name : report["form_name"],
+                                                entries_count : report["entries_count"]
+                                            });
+                                    ';
+                                };
+                            $output ='
+                            }
+                        })
+                        .catch(error => {
+                            $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
+                            console.error("Błąd:", error));
+                        });
+                    };
+                        
                     if (fileExtension === "csv") {
                         reader.readAsText(file);
                     } else {
