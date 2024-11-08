@@ -1,7 +1,6 @@
 <?php 
 
 $report['status'] = 'false';
-$report['serv'] = $_SERVER;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn58q3yn5v') {
 

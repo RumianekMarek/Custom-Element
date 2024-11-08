@@ -127,8 +127,6 @@ function gf_form_output() {
                             return;
                         }
                         
-                        
-
                         fetch("' . $file_url . '",{
                             method: "POST",
                             headers: {
@@ -165,7 +163,7 @@ function gf_form_output() {
                                             });
                                     ';
                                 };
-                            $output ='
+                            $output .='
                             }
                         })
                         .catch(error => {
