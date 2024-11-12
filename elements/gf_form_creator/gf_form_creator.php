@@ -168,7 +168,7 @@ function gf_form_output() {
                         })
                         .catch(error => {
                             $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);
-                            console.error("Błąd:", error));
+                            console.error("Błąd:", error);
                         });
                     };
                         
