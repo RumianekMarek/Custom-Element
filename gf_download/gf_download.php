@@ -263,7 +263,7 @@ function custom_gf_download_output() {
 function gf_finder($gf_id, $form_title){
 
     if (class_exists('GFAPI')) {
-        $page_size = 1000; // Liczba wpisów do przetworzenia w jednej partii
+        $page_size = 0; // Liczba wpisów do przetworzenia w jednej partii
         $offset = 0; // Początkowy offset
         $entry_data = ''; // Inicjalizacja zmiennej dla danych
         $feeds = GFAPI::get_form($gf_id);

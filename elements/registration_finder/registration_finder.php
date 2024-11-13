@@ -31,7 +31,7 @@ function creteEntryAndModal($entry, $form_name, $field_entry){
                 $returner .='
                 </div>   
                 <div> 
-                    <img src="' . $entry['qr-code'] . '">
+                    <img class="modal-img__registration_finder" src="' . $entry['qr-code'] . '">
                 </div>
                 <p class="modal_closer__registration_finder">X</p>
             </div>
@@ -44,6 +44,9 @@ function registration_finder_output() {
 
     $output .= '
         <style>
+            body :has(.qr-code_image-full-width) .menu-container{
+                display: none;
+            }
             .output_form__registration_finder {
                 display: flex;
                 flex-wrap: wrap;
@@ -76,18 +79,7 @@ function registration_finder_output() {
                 display: none;
                 width: 100%;
                 height: 100%;
-                background: black;
-            }
-            .modal__registration_finder{
-                position: arelative;
-                display: flex;
-                margin: auto;
-                background: white;
-                border: 5px solid goldenrod;
-                border-radius: 25px;
-                width: 60%;
-                top:50%;
-                transform:translateY(-50%);
+                background: grey;
             }
             .modal_closer__registration_finder {
                 height: 33px;
@@ -104,16 +96,91 @@ function registration_finder_output() {
             }
             .modal__registration_finder img{
                 position: relative;
-                top: 50%;
-                transform: translateY(-50%);
                 height: 300px;
             }
             .left_modal__registration_finder h5{
                 margin-top: 5px;
             }
-            .modal__registration_finder div{
-                width: 50%;
+            .spinner {
+                height: 0px !important;
             }
+            .qr-code_image-full-width{
+                position: fixed !important;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) !important;
+                width: 80% !important;
+                height: unset !important;
+                aspect-ratio: 1/1;
+            }
+            .modal__registration_finder:has(.qr-code_image-full-width){
+                height: 90% !important;
+                width: 90% !important;
+                max-width: 620px !important;
+                max-height: 620px !important;
+            }
+            .modal__registration_finder:has(.qr-code_image-full-width) :is(.left_modal__registration_finder, .modal_closer__registration_finder){
+                display: none;
+            }
+            @media(min-width: 501px){
+                .modal__registration_finder img{
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .modal__registration_finder div{
+                    width: 50%;
+                }
+                .modal__registration_finder{
+                    position: relative;
+                    display: flex;
+                    margin: auto;
+                    background: white;
+                    border: 5px solid goldenrod;
+                    border-radius: 25px;
+                    width: 60%;
+                    top:50%;
+                    transform:translateY(-50%);
+                }
+                .qr-code_image-full-width{
+                    max-width: 95vh !important;
+                    max-height: 95% !important;
+                }
+            }
+            @media(min-width: 501px) and (max-width: 900px){
+                .modal__registration_finder img{
+                    position: relative;
+                    height: 200px;
+                }
+            }
+            @media(max-width: 500px){
+                .modal__registration_finder img{
+                    margin: 30px 0 ;
+                }
+                .modal__registration_finder{
+                    position: relative;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    margin: auto;
+                    background: white;
+                    border: 5px solid goldenrod;
+                    border-radius: 25px;
+                    width: 80%;
+                    top:50%;
+                    transform:translateY(-50%);
+                } 
+                .modal_closer__registration_finder {
+                    width: fit-content;
+                }
+                .left_modal__registration_finder h5{
+                    overflow-wrap: anywhere;
+                    margin: 5px;
+                }
+                .qr-code_image-full-width{
+                    max-width: 95% !important;
+                    max-height: 95vw !important;
+                }
+            }
+
         </style>
 
         <div class="mass-main-container">
@@ -160,15 +227,27 @@ function registration_finder_output() {
         $output .= '</div>
             <script>
                 jQuery(document).ready(function($){
-                    $(".single_entry__registration_finder").on("click",function(){
+                    $("form").on("submit",function(e){
+                        $(`.form__registration_finder`).append(`<div id="spinner" class="spinner"></div>`);
+                    });
+                    $(`.single_entry__registration_finder`).on("click",function(){
                         const targetId = $(this).attr("id");
-                        console.log(targetId);
-                        console.log($(".modal__" + targetId));
                         $(".modal__" + targetId).show();
                     });
-                    $(".modal_closer__registration_finder").on("click", function(){
-                        $(this).parent().hide();
+                    $(`.modal_closer__registration_finder`).on("click", function(){
+                        $(this).parent().parent().hide();
                     })
+                    $(`.modal_container__registration_finder`).on("click", function(e){
+                        if($(e.target).hasClass(`modal_container__registration_finder`)){
+                            $(e.target).hide();
+                            $(`.qr-code_image-full-width`).each(function(){
+                                $(this).removeClass(`qr-code_image-full-width`);
+                            })
+                        }
+                    });
+                    $(`.modal-img__registration_finder`).on("click",function(e){
+                        $(e.target).toggleClass(`qr-code_image-full-width`);
+                    });
                 });
             </script>
         ';

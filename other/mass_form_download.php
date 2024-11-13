@@ -8,10 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
         require_once($new_url);
 
         $sended_content = file_get_contents('php://input');
-        //$sended_content = str_replace("\\", "", $sended_content);
-
-        $content = json_decode($sended_content, true);
-        $server_name = $_SERVER['SERVER_NAME'];
+        $content = json_decode($sended_content);
 
         $all_forms = GFAPI::get_forms();
 
@@ -31,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
                             $form[$data] = 1;
                         }
                     }
-                    $report['forms'][$server_name . '__' . $key] = $form;
+                    $report['forms'][$key] = $form;
                     continue 2;
                 }
             }
