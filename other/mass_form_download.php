@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
             }
             foreach ($all_forms as $form) {
                 if(strpos(strtolower($form['title']), trim(strtolower($key))) !== false){
-                    $entries = GFAPI::get_entries($form['id'], null, null, array( 'offset' => 0, 'page_size' => 0));
+                    $entries = GFAPI::get_entries($form['id'], array('status' => 'active'), null, array( 'offset' => 0, 'page_size' => 0));
                     $form = array();
                     foreach ($entries as $entry){
                         $data = substr($entry['date_created'], 0, 10);

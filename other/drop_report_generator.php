@@ -1,4 +1,5 @@
 <?php 
+
 // Ensure connection is HTTPS
 if ($_SERVER['HTTPS'] !== 'on') {
     header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -21,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $forms = array();
     $form_id = '';
     $report = array();
-
     // Validate token
     if (validateToken($token, $domain)) {
         // Check if WordPress environment is available
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $form['def-en'] = $value['id'];
                     }
                 }
-
+                
                 // Get form based on option
                 $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $spad_form = GFAPI::get_form($form['id']);
                 $i = 0;
 
-                foreach($spad_form_entry as $entry_value){
+                foreach($spad_form_entry as $entry_value){              
                     foreach($entry_value as $e_field => $field_value){
                         if (is_numeric($e_field)  && !empty($field_value) && filter_var($field_value, FILTER_VALIDATE_EMAIL)) {
                             $spad_emails[$i]['email'] = $field_value;
@@ -88,16 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $email_list = array_column($spad_emails, 'email');
                         
                         $value_index_in_spady = array_search($value[0], $email_list);
+
                         if($value_index_in_spady !== false){
                             if(strpos($spad_emails[$value_index_in_spady]['date_created'], $data['date']) !== false){
                                 $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
                             } else {
                                 $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
                             }
+                        } else {
+                            $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[1];
                         }
-                    } else {
-                        $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
-                    }
+                    } 
                 }
 
                 // Send JSON response
@@ -115,6 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Invalid token contact web developers code - "INVALID TOKEN ' . $domain . ' ".';
     }
 }
+
+
 
 // Function to generate a token
 function generateToken($domain) {
