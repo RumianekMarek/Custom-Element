@@ -61,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $page_size = 1000;
 
                         do {
-                            $some_entries = GFAPI::get_entries(
-                                $form_id,
+                            $entries = GFAPI::get_entries(
+                                $form_check['id'],
                                 array(
                                     'status' => 'active',
                                 ), 
@@ -72,24 +72,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     'page_size' => $page_size,
                                 )
                             );
-                            if(is_array($some_entries)){
-                                $entries = array_merge($entries, $some_entries);
+                            if(is_array($entries) && count($entries) > 0){
+                                foreach ($entries as $entry_check) {
+                                    foreach ($entry_check as $entry_id => $field_check) {
+                                        if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
+                                            $all_emails[$entry_check['id']] = $field_check;
+                                            continue 2;
+                                        }
+                                    }
+                                }
                             }
 
                             $offset += $page_size;
-
-                        } while (count($some_entries) > 0);
-
-                        foreach ($entries as $entry_check) {
-                            foreach ($entry_check as $entry_id => $field_check) {
-                                if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
-                                    $all_emails[$entry_check['id']] = $field_check;
-                                    continue 2;
-                                }
-                            }
-                        }
+                            
+                        } while (is_array($entries) && count($entries) > 0);
                     }
                 }
+
+
 
                 // Process each entry in the data
                 foreach ($data[$domain] as $id => $value) {
