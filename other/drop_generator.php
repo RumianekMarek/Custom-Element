@@ -18,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get wordpress load file
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
 
-
     $forms = array();
     $form_id = '';
     $report = array();
-
+    $entries = array();
+    
     // Validate token
     if (validateToken($token, $domain)) {
         // Check if WordPress environment is available
@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Get form based on option
                 $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
+                
 
                 foreach ($all_forms as $form_check) {
                     if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
@@ -71,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     'page_size' => $page_size,
                                 )
                             );
-                            $entries = array_merge($entries, $some_entries);
+                            if(is_array($some_entries)){
+                                $entries = array_merge($entries, $some_entries);
+                            }
 
                             $offset += $page_size;
 
