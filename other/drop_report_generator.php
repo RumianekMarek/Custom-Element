@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
                             }
                         } else {
-                            $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[1];
+                            $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
                         }
                     } 
                 }
