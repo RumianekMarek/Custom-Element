@@ -65,7 +65,7 @@ function funkcja_renderujaca_podmenu_alty() {
             }
 
             // Display the input field for "alt" attribute
-            echo '<p>' . esc_html($image_title) . '</p>';
+            echo '<p style="overflow-wrap: break-word;">' . esc_html($image_title) . '</p>';
             echo '<input type="text" name="alt_attributes[' . esc_attr($media_id) . ']" value="' . esc_attr($alt_text) . '">';
 
             echo '</div>';
@@ -79,15 +79,6 @@ function funkcja_renderujaca_podmenu_alty() {
 
     // Close the form
     echo '</form>';
-
-    // Add pagination links if needed
-    echo '<div class="pagination">';
-    echo paginate_links(array(
-        'total'   => $media_query->max_num_pages,
-        'current' => $strona,
-    ));
-    echo '</div>';
-
     echo '</div>'; // Close the wrap div
 
     // Restore the global post data

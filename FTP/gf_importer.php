@@ -1,6 +1,6 @@
 <?php 
 
-// Funkcja dodająca stronę menu do panelu administracyjnego WordPress
+// Function adding new elemnt in wordpress admin menu
 function importer_menu() {
     add_menu_page(
         'PWE Importer',                
@@ -13,22 +13,35 @@ function importer_menu() {
     );
 }
 
-// Funkcja wyświetlająca zawartość strony ustawień
+// Function site output
 function importer_admin_setup_output() {
     
-
+    // V2 after file send,
+    // Chosing columns to import and notifications
     if(isset($_POST['submit_importer'])){
         $notifications_array = array();
 
+        // Creating Form object 
         $form = findForms($_POST['gfForm']);
+
+        // Getting all notifications names
         foreach($form['notifications'] as $notification){
             $notifications_array[] = $notification["name"];
         }
 
-        $file_content = json_decode(str_replace('\"' , '"' , $_POST['file_content']));
+        // Changing file_content in to the array.
+        $file_content = preg_replace('/,{3,}/', '', $_POST['file_content']);
+        $file_content = str_replace('\"', '"', $file_content);
+        $file_content = str_replace('\\\\"', '', $file_content);
+        $file_content = preg_replace("/\\\'/", "'", $file_content);
+        $file_content = json_decode($file_content);
+
+        // Creating menu labels for column import selection.
         $file_labels = explode(',' , $file_content[0]);
         $label_error = 0;
 
+        // Stop the process if there are more than two empty column headers in the uploaded file. 
+        // This helps prevent sending too much empty data.
         foreach ($file_labels as $label){
             if($label == ''){
                 $label_error++;
@@ -37,9 +50,9 @@ function importer_admin_setup_output() {
                 echo '<h2 style="color: red;">Znaleziono puste nagłówki kolumn w zamieszczonym pliku</h2>';
                 exit;
             }
-
         }
 
+        // Creating visual side.
         echo '<style>
                 .pwe_gf_importer__form {
                     display: flex;
@@ -70,9 +83,8 @@ function importer_admin_setup_output() {
                     margin-left: 50px;
                 }
             </style>';
-
-        
-
+            
+            // Form 
             echo '<form class="pwe_gf_importer__form" action="' . admin_url('admin.php?page=importer_admin_setup') . '" method ="POST" >';
                 echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" style="visibility:hidden;"/>';
                 echo '<input type="text" name="form_id" class="pwe_gf_importer__form_id" value="' . $_POST['gfForm'] . '" style="visibility:hidden;"/>';
@@ -80,6 +92,8 @@ function importer_admin_setup_output() {
                         <h3 class="pwe_gf_importer__like-label">Form Fields</h3>
                         <h3>File Labels</h3>
                     </div>';
+
+            // Select column to download
             foreach($form['fields'] as $field){
                 if(strtolower($field['label']) != 'captcha'){
                     echo '<div class="pwe_gf_importer__container">
@@ -94,6 +108,7 @@ function importer_admin_setup_output() {
                 }
             }
 
+            // Select notifications options
             echo '<select class="notifications" name="notification" required>
                     <option value="notification_none">No notifications</option>
                     <option value="notification_klaviyo">Send to Klaviyo</option>
@@ -110,6 +125,7 @@ function importer_admin_setup_output() {
                 echo '<input type="submit" name="import_entries" value="Import" />
             </form>';
 
+            // Adding file content to form hidden input.
             echo '<script>
                 jQuery(document).ready(function($){
                     $(".pwe_gf_importer__file_content").val("' . $_POST['file_content'] . '");
@@ -123,12 +139,16 @@ function importer_admin_setup_output() {
                     });
                 });
             </script>';
-        
+    
+    // V3 after column selections,
+    // Import data to gravity forms and sending notifications.
     } else if(isset($_POST['import_entries'])){
+
         $filds_ids = array();
         $entries = array();
         $form_id = $_POST['form_id'];
 
+        // Checking whitch notification is chosen
         $notifications_chosen = array();
         foreach ($_POST as $post_id => $post){
             if($post == 'noti_chose'){
@@ -136,9 +156,19 @@ function importer_admin_setup_output() {
             }
         }
 
-        $file_content = json_decode(str_replace('\"' , '"' , $_POST['file_content']));
+        // Changing file_content in to the array.
+        $file_content = preg_replace('/,{3,}/' , '' , $_POST['file_content']);
+        $file_content = str_replace('\"' , '"' , $file_content);
+        $file_content = str_replace('\t' , '' , $file_content);
+        $file_content = str_replace('\\\\"' , '`' , $file_content);
+        $file_content = preg_replace("/\\\'/", "'", $file_content);
+        
+        $file_content = json_decode($file_content);
+        
+        // Creating menu labels for column import selection.
         $file_labels = explode(',' , array_shift($file_content));
 
+        //Finding form fields id's for data import 
         foreach($_POST as $id => $key){       
             if(strpos($id, 'pwe-importer-form-ids') !== false && $key != ''){
                 foreach($file_labels as $id_l => $key_l){
@@ -151,27 +181,42 @@ function importer_admin_setup_output() {
             }
         }
 
+        //Creating $entries[] array for Gravity forms
         foreach($file_content as $id => $cont){
+
+            // Skip empty content
             if($cont == ''){
                 continue;
             }
-            
-            $cont_array = explode(',', $cont);
-            $single_entry = array();
 
+            // Changing line from string in to an array
+            $cont_array = preg_split('/,(?=(?:[^`]|`[^`]*`)*$)/', $cont);
+            $single_entry = array();
+            
             foreach($filds_ids as $l_id => $l_key){
-                $single_entry[$l_id] = $cont_array[$l_key];
+                $single_entry[$l_id] = trim(str_replace('`', '"', $cont_array[$l_key]));
             }
+
+            //Adding entry to $entries[] array
             $entries[] = $single_entry;
         }
+
+        // Adding entries to the form and retrieving an array of entry IDs
         $result = GFAPI::add_entries($entries, $form_id);
+
+        // Checking for WP ERRORS
+        // Sending notifications if no errors
         if(!is_wp_error($result)){
             $form = GFAPI::get_form($form_id);
             $noti_send = array();
+
             foreach($result as $res){
                 $entry_n = GFAPI::get_entry($res);
+
+                // Notifications options
                 switch ($_POST['notification']){
 
+                    // Option Klaviyo
                     case "notification_klaviyo" :
                         $klavio_sender_url = ABSPATH . 'wp-content/plugins/custom-element/other/klavio_sender.php';
                         if (file_exists($klavio_sender_url)){
@@ -181,11 +226,14 @@ function importer_admin_setup_output() {
                             echo '<h3 style="color:red">Klavio Sender not finde</h3>';
                         }
                         break;
-
+                    
+                    // Option to send only active notifications
+                    // All notifications that was active befor importing data will by send
                     case "notification_active" :
                         $noti_send[] = GFAPI::send_notifications($form, $entry_n);
                         break;
 
+                    // Option to send notifications of chose
                     case "notification_choser" :
                         foreach ($form["notifications"] as $n_id => $notification){
                             if (in_array(str_replace(' ', '_', $notification["name"]), $notifications_chosen)) {
@@ -196,14 +244,19 @@ function importer_admin_setup_output() {
                         }
                         $noti_send[] = GFAPI::send_notifications($form, $entry_n);
                         break;
+                    // If noting of above chosen, no notification will by send
                 }
             }
+            // information how many entreies was added for control purposes
             echo '<h2>Dodano ' . count($result) . ' wpisów do formularza. </h2>';
         } else {
             echo '<pre>';
                 var_dump($result);
             echo '</pre>';
         }
+
+    // V1 first screan
+    // Selecting data file and form to import to.
     } else {
         $all_forms_array = findForms();
 
@@ -236,7 +289,7 @@ function importer_admin_setup_output() {
             echo '<h1>PWE Importer for Gravity Forms</h1>';
             echo '<form class="pwe_gf_importer__form" action="' . admin_url('admin.php?page=importer_admin_setup') . '" method ="POST" >';
 
-                echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" style="visibility:hidden;"/>';
+                echo '<input type="text" name="file_content" class="pwe_gf_importer__file_content" value="" style="visibility: hidden;"/>';
 
                 echo '<div class="pwe_gf_importer__container">
                     <label for="fileUpload">Upload data file</label>
@@ -305,9 +358,12 @@ function importer_admin_setup_output() {
                             fileContent = e.target.result;
                         }
 
+                        fileContent = fileContent.replace(/,{3,}/g, "");
                         fileContent = fileContent.replace(/\r/g, "");
-                        fileArray = fileContent.split("\n");
-                        fileJson = JSON.stringify(fileArray);
+                        fileArray = fileContent.split(/\n(?=(?:[^"]|"[^"]*")*$)/);
+
+                        const goodArray = fileArray.map((value) => {return value.trim()}).filter((value) => value != "");
+                        fileJson = JSON.stringify(goodArray);
 
                         $(".pwe_gf_importer__file_content").val(fileJson);
                     };
