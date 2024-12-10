@@ -10,12 +10,14 @@ function generateToken($domain) {
 if (file_exists($new_url)) {
     require_once($new_url);
 
-    // if (!empty($_SERVER['Authorization']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['Authorization'] == generateToken($_SERVER['HTTP_HOST'])) {
+    if (!empty($_SERVER['Authorization']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['Authorization'] == generateToken($_SERVER['HTTP_HOST'])) {
         $all_entries = array();
         $all_forms_data = array();
         $report['year'] = substr(get_option('trade_fair_datetotimer'), 0 ,4);
 
         $last_id = !empty($_POST['last_id']) ? $_POST['last_id'] : 0;
+        $last_form = intval($_POST['last_form']);
+
         $search_criteria = [
             'field_filters' => [
                 [
@@ -39,52 +41,53 @@ if (file_exists($new_url)) {
                     'utm' => '',
                 );
 
-                $qr_code_meta = array();
-                $qr_feeds = GFAPI::get_feeds(NULL, $single_form['id']);
-                if(!is_wp_error($qr_feeds)){
-                    foreach($qr_feeds as $single_feed){
-                        if($single_feed['addon_slug'] == 'qr-code'){
-                            foreach($single_feed['meta']['qrcodeFields'] as $qr_id => $qr_val){
-                                $qr_code_meta[$qr_id] = $qr_val['custom_key'];
+                if ($single_form['id'] > $last_form){
+                    $qr_code_meta = array();
+                    $qr_feeds = GFAPI::get_feeds(NULL, $single_form['id']);
+                    if(!is_wp_error($qr_feeds)){
+                        foreach($qr_feeds as $single_feed){
+                            if($single_feed['addon_slug'] == 'qr-code'){
+                                foreach($single_feed['meta']['qrcodeFields'] as $qr_id => $qr_val){
+                                    $qr_code_meta[$qr_id] = $qr_val['custom_key'];
+                                }
                             }
                         }
+                    } else {
+                        $qr_code_meta[0] = $qr_code_meta[1] = 'brak kodu QR';
                     }
-                } else {
-                    $qr_code_meta[0] = $qr_code_meta[1] = 'brak kodu QR';
+    
+                    foreach($single_form['fields'] as $single_field){
+                        if(stripos($single_field['label'], 'mail') !== false){
+                            $form_fields['email'] = $single_field['id'];
+                            continue;
+                        }
+    
+                        if(stripos($single_field['label'], 'tel') !== false || stripos($single_field['label'], 'phone') !== false){
+                            $form_fields['telefon'] = $single_field['id'];
+                            continue;
+                        }
+    
+                        if(stripos($single_field['label'], 'imie') !== false || stripos($single_field['label'], 'name') !== false || stripos($single_field['label'], 'osoba') !== false){
+                            $form_fields['dane'] = $single_field['id'];
+                            continue;
+                        }
+    
+                        if(stripos($single_field['label'], 'utm') !== false){
+                            $form_fields['utm'] = $single_field['id'];
+                            continue;
+                        }
+                    }
+    
+                    $all_forms_data[$single_form['id']] = [
+                        'form_title' => $single_form['title'],
+                        'form_meta_id' => $qr_code_meta[0],
+                        'form_meta_rnd' => $qr_code_meta[1],
+                    ];
                 }
-
-                foreach($single_form['fields'] as $single_field){
-                    if(stripos($single_field['label'], 'mail') !== false){
-                        $form_fields['email'] = $single_field['id'];
-                        continue;
-                    }
-
-                    if(stripos($single_field['label'], 'tel') !== false || stripos($single_field['label'], 'phone') !== false){
-                        $form_fields['telefon'] = $single_field['id'];
-                        continue;
-                    }
-
-                    if(stripos($single_field['label'], 'imie') !== false || stripos($single_field['label'], 'name') !== false || stripos($single_field['label'], 'osoba') !== false){
-                        $form_fields['dane'] = $single_field['id'];
-                        continue;
-                    }
-
-                    if(stripos($single_field['label'], 'utm') !== false){
-                        $form_fields['utm'] = $single_field['id'];
-                        continue;
-                    }
-                }
-
-                $all_forms_data[$single_form['id']] = [
-                    'form_title' => $single_form['title'],
-                    'form_meta_id' => $qr_code_meta[0],
-                    'form_meta_rnd' => $qr_code_meta[1],
-                ];
 
                 $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
                 
                 foreach($form_entries as $single_entry){
-                    
                     $all_entries[$single_entry['id']]['entry_id'] = $single_entry['id'];
                     $all_entries[$single_entry['id']]['date_created'] = $single_entry['date_created'];
                     $all_entries[$single_entry['id']]['form_id'] = $single_entry['form_id'];
@@ -109,4 +112,4 @@ if (file_exists($new_url)) {
         echo 'Unauthorized entry';
         exit;
     }
-// }
+}

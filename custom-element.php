@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 4.5.1
+Version: 4.5.2
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -19,6 +19,7 @@ function clear_wp_rocket_cache_on_plugin_update( $plugin ) {
     }
   }
 }
+
 add_action( 'upgrader_process_complete', 'clear_wp_rocket_cache_on_plugin_update', 10, 2 );
 
 function getGithubKey() {
