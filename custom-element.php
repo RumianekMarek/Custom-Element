@@ -3,7 +3,7 @@
 Plugin Name: Custom Element
 Plugin URI:
 Description: Adding a new element to the website.
-Version: 4.5.2
+Version: 4.7
 Author: Marek Rumianek
 Author URI: github.com/RumianekMarek
 */
@@ -119,3 +119,6 @@ include_once plugin_dir_path(__FILE__) . '/elements/registration_finder/registra
 
 // New Exhibitors Phone
 include_once plugin_dir_path(__FILE__) . '/elements/new_exhibitors_phone/new_exhibitors_phone.php';
+
+// New Exhibitors Phone
+include_once plugin_dir_path(__FILE__) . '/elements/voucher_generator/voucher_generator.php';

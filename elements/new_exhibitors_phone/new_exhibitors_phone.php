@@ -121,7 +121,7 @@ function new_exhibitors_phone_output($atts, $content = '') {
                             }
                             img:not(.qr_img__email){
                                 vertical-align: middle;
-                                width: 18%;
+                                width: 23%;
                             }
                             td img{
                                 max-width: unset !important;
@@ -131,18 +131,26 @@ function new_exhibitors_phone_output($atts, $content = '') {
                         <div class="container__pwe_new_exhibitors">
                             <div class="registration-form__pwe_new_exhibitors">
                                 [gravityform id="'. $new_exhibitors_phone__form_id .'" title="false" description="false" ajax="false"]
-                            </div>';
+                            </div>
+                            <div class="notification__pwe_new_exhibitors">';
 
-    $file_path = plugin_dir_path(__FILE__) . 'new_exhibitors_email_pl.php';
-    
-    if (file_exists($file_path)) {
+    $file_path_pl = plugin_dir_path(__FILE__) . 'new_exhibitors_email_pl.php';
+    $file_path_en = plugin_dir_path(__FILE__) . 'new_exhibitors_email_en.php';
 
+    if (file_exists($file_path_pl)) {
         ob_start();
-        require_once $file_path;
+        require_once $file_path_pl;
         $html_returner .= ob_get_clean();
     }
 
-    $html_returner .= '</div>
+    if (file_exists($file_path_en)) {
+        ob_start();
+        require_once $file_path_en;
+        $html_returner .= ob_get_clean();
+    }
+    
+        $html_returner .= '</div>
+                        </div>
                         <script>
                             jQuery(document).ready(function($){';
                                 foreach ($exh_data as $exh_index => $exh_single){
@@ -155,9 +163,24 @@ function new_exhibitors_phone_output($atts, $content = '') {
                                     $html_returner .= '$(".media' . $media_index . '").attr("src", "' . $media_single . '")
                                                         $(".media' . $media_index . ' input").val("' . $media_single . '");';
                                 }
-    
-            $html_returner .= '$(".name_input input").on("input", function(){
+                                
+            $html_returner .= ' $(".gfield--type-radio input").on("change", function(){
+                                    if($(this).next().text() == "PL"){
+                                        $(".notification_pl").show();
+                                        $(".notification_en").hide();
+                                    } else {
+                                        $(".notification_pl").hide();
+                                        $(".notification_en").show();
+                                    }   
+                                });
+
+                                $(".name_input input").on("input", function(){
                                     $(".name__email").text($(this).val());
+                                });
+
+                                $(".contant_info_input textarea").on("input", function(){
+                                    const textWithBreaks = $(this).val().replace(/\n/g, "<br>");
+                                    $(".contant_info").html(textWithBreaks);
                                 });
                             });
                         </script>';

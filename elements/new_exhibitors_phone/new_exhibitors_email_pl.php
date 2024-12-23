@@ -1,15 +1,15 @@
 <?php 
 
-echo '<div style=" text-align: justify; max-width: 600px; margin: 0 auto; font-family: "Open Sans", "Montserrat", sans-serif; "> 
+echo '<div class="notification_pl" style=" text-align: justify; max-width: 600px; margin: 0 auto; font-family: "Open Sans", "Montserrat", sans-serif; "> 
     <div>
-        <img style="width: 100%" src="https://[trade_fair_domainadress]/doc/header-conference.jpg" alt="[trade_fair_name]" />
+        <img style="width: 100%" src="https://[trade_fair_domainadress]/doc/header.jpg" alt="[trade_fair_name]" />
     </div>
     <div style="padding: 0 5px">
         <h3 style="font-size: 18px; margin: 20px 0 10px; text-align: left;">
             <span class="name__email">Szanowni Państwo</span>
         </h3>
         <p style="font-size: 14px; margin: 25px 0 10px;">
-            Mam nadzieję, że niniejsza wiadomość zastaje Państwa w dobrym zdrowiu.
+            Mam nadzieję, że niniejsza wiadomość zastaje Państwa w dobrym zdrowiu.<br>
             Chciałbym/chciałabym poinformować, że wkrótce skontaktujemy się z Państwem telefonicznie w celu omówienia propozycji dotyczącej Państwa udziału w targach organizowanych w Polsce, w Warszawie, przez Ptak Warsaw Expo.
             Podczas krótkiej rozmowy przekażemy Państwu istotne informacje na ten temat. Jeśli mają Państwo jakiekolwiek pytania lub preferują konkretny termin rozmowy, prosimy o odpowiedź na tę wiadomość. Chcemy upewnić się, że rozmowa odbędzie się w dogodnym dla Państwa czasie.
             Z góry dziękujemy za współpracę i z niecierpliwością czekamy na rozmowę z Państwem.
@@ -37,8 +37,8 @@ echo '<div style=" text-align: justify; max-width: 600px; margin: 0 auto; font-f
                             <h5 style="margin: 25px 0 10px; text-align: center;">
                                 <b>Kontakt bezpośrednio</b>
                             </h5>
-                            <h4 style="text-align: left;">Ogólne Informacje kontaktowe <br> 1234567 <br> email</h4>
-                            <p style="font-size:11px; line-height: 18px; text-align: center;"">Jeżeli nie pasuje państwu czas w którym dzwonimy, wyslij email lub sms z data i godzina do kontaktu.</p>
+                            <h4 class="contant_info" style="text-align: center;">Ogólne Informacje kontaktowe <br> 1234567 <br> email</h4>
+                            <p style="font-size:11px; line-height: 18px; text-align: center;"">Jeżeli nie pasuje Państwu czas w którym dzwonimy, poproszę email lub sms z data i godzina do kontaktu.</p>
                         </div>
                     </td>
                 </tr>
@@ -52,16 +52,15 @@ echo '<div style=" text-align: justify; max-width: 600px; margin: 0 auto; font-f
                 <img class="exhibitors1"/>
                 <img class="exhibitors2"/>
                 <img class="exhibitors3"/>
-                <img class="exhibitors4"/>
             </div>
             <a target="_blank" href="https://[trade_fair_domainadress]/katalog-wystawcow/"><h4>Sprawdź wszystkich wystawców</h4></a>
         </div>
         <div style="width: 95%; border-bottom:1px solid rgba(188,188,188, .4); margin:15px auto;"></div>
         <a target="_blank" href="https://[trade_fair_domainadress]/galeria/">
             <div class="gallery__email" style="display:inline-block; text-align:center;">
-                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/mini1.webp"/>
-                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/mini2.webp"/>
-                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/mini3.webp"/>
+                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/1.webp"/>
+                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/2.webp"/>
+                <img style="width: 30%;" src="https://[trade_fair_domainadress]/doc/galeria/mini/3.webp"/>
                 <h4>Zobacz galerię targów</h4>
             </div>
         </a>
@@ -73,7 +72,6 @@ echo '<div style=" text-align: justify; max-width: 600px; margin: 0 auto; font-f
                 <img class="media1"/>
                 <img class="media2"/>
                 <img class="media3"/>
-                <img class="media4"/>
             </div>
         </div>
         <div style="width: 95%; border-bottom:1px solid rgba(188,188,188, .4); margin:15px auto;"></div>
