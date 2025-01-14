@@ -37,6 +37,9 @@ function catalog_data() {
     $json = file_get_contents($canUrl);
     if ($json != null && $json != false){
         $data_array = json_decode($json, true);
+        if(!is_array($data_array)){
+            return null;
+        }
         $exhibitors_data = reset($data_array)['Wystawcy'];
         shuffle($exhibitors_data);
         $exh_count = 0;
@@ -111,6 +114,10 @@ function new_exhibitors_phone_output($atts, $content = '') {
                             h4 {
                                 margin: 10px 0 0 0;
                             }
+                            .exhibitors_warning__pwe_new_exhibitors{
+                                display: none;
+                                color:red !important;
+                            }
                             a h4, .domain_link__email{
                                 color: blue !important;
                                 text-decoration: underline;
@@ -130,6 +137,8 @@ function new_exhibitors_phone_output($atts, $content = '') {
                         </style>
                         <div class="container__pwe_new_exhibitors">
                             <div class="registration-form__pwe_new_exhibitors">
+                                <h4 class="exhibitors_warning__pwe_new_exhibitors">Uwaga!! Brak Katalogu Wystawców</h4>
+                                <br>
                                 [gravityform id="'. $new_exhibitors_phone__form_id .'" title="false" description="false" ajax="false"]
                             </div>
                             <div class="notification__pwe_new_exhibitors">';
@@ -153,9 +162,15 @@ function new_exhibitors_phone_output($atts, $content = '') {
                         </div>
                         <script>
                             jQuery(document).ready(function($){';
-                                foreach ($exh_data as $exh_index => $exh_single){
-                                    $html_returner .= '$(".exhibitors' . $exh_index . '").attr("src", "' . $exh_single . '");
-                                                        $(".exhibitors' . $exh_index . ' input").val("' . $exh_single . '");';
+                                if($exh_data != null){
+                                    foreach ($exh_data as $exh_index => $exh_single){
+                                        $html_returner .= '$(".exhibitors' . $exh_index . '").attr("src", "' . $exh_single . '");
+                                                            $(".exhibitors' . $exh_index . ' input").val("' . $exh_single . '");';
+                                    }
+                                } else {
+                                    $html_returner .= '$(".exhibitors__email").hide();
+                                                        $(".exhibitors__email").next().hide();
+                                                        $(".exhibitors_warning__pwe_new_exhibitors").show();';
                                 }
 
                                 foreach ($media_data as $media_index => $media_single){

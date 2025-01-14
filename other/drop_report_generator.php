@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 foreach ($all_forms as $form_check) {
                     if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
-                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 1000));
+                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 0));
                         foreach ($entries as $entry_check) {
                             foreach ($entry_check as $entry_id => $field_check) {
                                 if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                $spad_form_entry = GFAPI::get_entries($form['id'], null, null, array( 'offset' => 0, 'page_size' => 1000));
+                $spad_form_entry = GFAPI::get_entries($form['id'], null, null, array( 'offset' => 0, 'page_size' => 0));
                 $spad_form = GFAPI::get_form($form['id']);
                 $i = 0;
 
