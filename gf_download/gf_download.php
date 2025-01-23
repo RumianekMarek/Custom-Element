@@ -20,6 +20,7 @@ function custom_gf_download_output() {
     if (class_exists('GFAPI')) {
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
+            
             if ($token == "all"){
                 $all_forms = GFAPI::get_forms($active = null, $trash = null);
             } else {
@@ -83,7 +84,57 @@ function custom_gf_download_output() {
 
                     $file_content = file_get_contents($file_path);
 
-                }else if ($token != ''){
+                } else if ($token == "entries"){
+                    echo '<pre>';
+                    if(isset($_POST['qr_submit']) && !empty($_POST['qr_search'])){
+                        $search = explode("\n", $_POST['qr_search']);
+                        $pattern = '/^([A-Za-z]+)(\d{3})(\d+)([A-Za-z]+)(\d+)$/';
+                        $csv_file = "id,Kod Qr,Imię i Nazwisko, Email,Telefon\n";
+
+                        foreach($search as $index => $key){
+                            if (preg_match($pattern, trim($key), $matches)) {
+                                $entry_id = $matches[3];
+
+                                $entry = GFAPI::get_entry($entry_id);
+                                if($entry instanceof WP_Error) {
+                                    continue;
+                                }
+                                $form = GFAPI::get_form($entry['form_id']);
+                                
+                                $entry_sanitized = array();
+                                foreach ($form['fields'] as $field) {
+                                    if (strpos(strtolower($field['label']), 'mail') !== false) {
+                                        $entry_sanitized['email'] = $entry[$field['id']];
+                                    } elseif (strpos(strtolower($field['label']), 'telefon') !== false || strpos(strtolower($field['label']), 'phone') !== false) {
+                                        $entry_sanitized['phone'] = $entry[$field['id']];
+                                    } elseif (strpos(strtolower($field['label']), 'imie') !== false || strpos(strtolower($field['label']), 'name' ) !== false || strpos(strtolower($field['label']), 'nazwisko' ) !== false || strpos(strtolower($field['label']), 'osoba' ) !== false) {
+                                        $entry_sanitized['name'] = $entry[$field['id']];
+                                    }
+                                }
+
+                                $csv_file .= ($index + 1) . "," . trim($key) . "," . ($entry_sanitized['name'] ?? '') . "," . ($entry_sanitized['email'] ?? '') . "," . ($entry_sanitized['phone'] ?? '') . "\n";
+                            } 
+                        }
+
+                        $json_file_name = 'dane_skaner_' . do_shortcode('[trade_fair_name]') . '.csv';
+                        $file_path = plugin_dir_path( __FILE__ ). $json_file_name;
+                        $file_written = file_put_contents($file_path, $csv_file);
+                        echo '<a class="json-download" href="' . plugins_url($json_file_name , __FILE__) . '" download>donwload</a>';
+                        echo '<script>
+                                document.querySelector(".json-download").click();
+                                document.querySelector(".json-download").remove();
+                            </script>';
+                    } 
+                    
+                    $form_output = '<div>
+                            <form action="" method="post">
+                                <textarea name="qr_search" placeholder="Put all qr codes"></textarea>
+                                <button type="submit" name="qr_submit">Submit</buttton>
+                            </form>
+                        </div>';
+
+                    return $form_output;
+                } else if ($token != ''){
 
                     $forms_array = explode(',',$token);
                     $json_data = array();

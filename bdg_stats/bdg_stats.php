@@ -28,6 +28,12 @@ if (file_exists($new_url)) {
             ]
         ];
 
+        if (isset($_POST['add_data']) && $_POST['add_data']){
+            $report['name'] = do_shortcode('[trade_fair_name]');
+            $report['meta'] = do_shortcode('[trade_fair_badge]');
+            $report['start'] = do_shortcode('[trade_fair_datetotimer]');
+            $report['end'] = do_shortcode('[trade_fair_enddata]');
+        }
         if (class_exists('GFAPI')) {
             $all_forms = GFAPI::get_forms();
             foreach($all_forms as $single_form){
@@ -52,9 +58,13 @@ if (file_exists($new_url)) {
                                 }
                             }
                         }
-                    } else {
-                        $qr_code_meta[0] = $qr_code_meta[1] = 'brak kodu QR';
                     }
+                    $all_forms_data[$single_form['id']] = [
+                        'form_title' => $single_form['title'],
+                        'form_meta_id' => $qr_code_meta[0],
+                        'form_meta_rnd' => $qr_code_meta[1],
+                    ];
+                }
     
                     foreach($single_form['fields'] as $single_field){
                         if(stripos($single_field['label'], 'mail') !== false){
@@ -67,23 +77,23 @@ if (file_exists($new_url)) {
                             continue;
                         }
     
-                        if(stripos($single_field['label'], 'imie') !== false || stripos($single_field['label'], 'name') !== false || stripos($single_field['label'], 'osoba') !== false){
+                        if(stripos($single_field['label'], 'imię') !== false || stripos($single_field['label'], 'imie') !== false || stripos($single_field['label'], 'name') !== false || stripos($single_field['label'], 'osoba') !== false){
                             $form_fields['dane'] = $single_field['id'];
                             continue;
                         }
     
+                        if(stripos($single_field['label'], 'firm') !== false || stripos($single_field['label'], 'compa') !== false){
+                            $form_fields['firma'] = $single_field['id'];
+                            continue;
+                        }
+
                         if(stripos($single_field['label'], 'utm') !== false){
                             $form_fields['utm'] = $single_field['id'];
                             continue;
                         }
                     }
     
-                    $all_forms_data[$single_form['id']] = [
-                        'form_title' => $single_form['title'],
-                        'form_meta_id' => $qr_code_meta[0],
-                        'form_meta_rnd' => $qr_code_meta[1],
-                    ];
-                }
+
 
                 $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
                 
