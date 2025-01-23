@@ -68,10 +68,6 @@
     line-height: 1.3;
 }
 
-.custom-shadow-black {
-    box-shadow: 9px 9px 0px -5px black;
-}
-
 .custom-shadow-border-black,
 .custom-container-calendar-icons .custom-container-calendar-add {
     box-shadow: 9px 9px 0px -5px black;
@@ -196,12 +192,6 @@ strong {
     display: none;
 }
 
-::selection,
-::-moz-selection {
-    background-color: #9da2a5 !important;
-    color: #ffffff !important;
-}
-
 .border-bottom-right-white {
     box-shadow: 3px 3px white;
     width: 170px !important;
@@ -215,19 +205,4 @@ strong {
     box-shadow: -3px -3px white;
     width: 170px !important;
     height: 40px;
-}
-
-.main-heading-text :is(h2, h3, h4),
-.secondary-heading-text :is(h2, h3, h4) {
-    font-size: 18px !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-
-}
-.btn {
-    transition: .3s ease !important;
-}
-
-.custom-link {
-    transform: scale(1) !important;
 }
