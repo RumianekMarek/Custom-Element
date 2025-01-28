@@ -13,7 +13,7 @@ if (file_exists($new_url)) {
 
     if (!empty($_SERVER['Authorization']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['Authorization'] == generateToken($_SERVER['HTTP_HOST'])) {
         // $report['entry'] = 
-        $entry = GFAPI::get_entry($_POST['entry_id']);
+        $entry = GFAPI::get_entry($_POST['entry_id'], null, null, array( 'offset' => 0, 'page_size' => 0));
         $form = GFAPI::get_form($entry['form_id']);
         $entry_sanitized = array();
 
