@@ -6,11 +6,11 @@ function generateToken($domain) {
     $secret_key = 'gmlbu5oNGsbPCCS';
     return hash_hmac('sha256', $domain, $secret_key);
 }
-// echo '<pre>';
+echo '<pre>';
 if (file_exists($new_url)) {
     require_once($new_url);
 
-    if (!empty($_SERVER['Authorization']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['Authorization'] == generateToken($_SERVER['HTTP_HOST'])) {
+    // if (!empty($_SERVER['Authorization']) && $_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['Authorization'] == generateToken($_SERVER['HTTP_HOST'])) {
         $all_entries = array();
         $all_forms_data = array();
         $report['year'] = substr(get_option('trade_fair_datetotimer'), 0 ,4);
@@ -96,8 +96,17 @@ if (file_exists($new_url)) {
 
 
                 $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
-                
+                $indexes = array(
+                    'data_created',
+                    'id',
+                    'user_agent',
+                    'source_url',
+                );
                 foreach($form_entries as $single_entry){
+                    // foreach($single_entry as $index => $val){
+                    //     if($in)
+                    // }
+                    $all_entries[$single_entry['id']]['entry_id'] = $single_entry['id'];
                     $all_entries[$single_entry['id']]['entry_id'] = $single_entry['id'];
                     $all_entries[$single_entry['id']]['date_created'] = $single_entry['date_created'];
                     $all_entries[$single_entry['id']]['form_id'] = $single_entry['form_id'];
@@ -110,16 +119,18 @@ if (file_exists($new_url)) {
                         }
                         $all_entries[$single_entry['id']][$f_id] = $single_entry[$f_val];
                     }
+                    break 2;
                 }
             }
 
             $report['data'] = $all_entries;
-            $report['forms'] = $all_forms_data;
-            echo json_encode($report);
+            var_dump($report['data']);
+            // $report['forms'] = $all_forms_data;
+            // echo json_encode($report);
         }
-    } else {
-        http_response_code(401);
-        echo 'Unauthorized entry';
-        exit;
-    }
+    // } else {
+    //     http_response_code(401);
+    //     echo 'Unauthorized entry';
+    //     exit;
+    // }
 }
