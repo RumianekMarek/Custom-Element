@@ -23,7 +23,8 @@ if (file_exists($new_url)) {
             } elseif (strpos(strtolower($field['label']), 'telefon') !== false || strpos(strtolower($field['label']), 'phone') !== false) {
                 $entry_sanitized['phone'] = $entry[$field['id']];
             } elseif (strpos(strtolower($field['label']), 'imie') !== false || strpos(strtolower($field['label']), 'name' ) !== false || strpos(strtolower($field['label']), 'nazwisko' ) !== false) {
-            elseif (trim(strtolower($field['label'])) == 'firma' || trim(strtolower($field['label'])) == 'company') {
+                $entry_sanitized['name'] = $entry[$field['id']];
+            } elseif (trim(strtolower($field['label'])) == 'firma' || trim(strtolower($field['label'])) == 'company') {
                 $entry_sanitized['company'] = $entry[$field['id']];
             }
         }
@@ -31,7 +32,7 @@ if (file_exists($new_url)) {
         $report['data'] = $entry_sanitized;
         $report['status'] = "true";
         
-    } else {
+    } else {    
         http_response_code(401);
         $report['error'] = 'Unauthorized entry';
     }
