@@ -21,7 +21,9 @@ if (file_exists($new_url)) {
             if (strpos(strtolower($field['label']), 'mail') !== false) {
                 $entry_sanitized['email'] = $entry[$field['id']];
             } elseif (strpos(strtolower($field['label']), 'telefon') !== false || strpos(strtolower($field['label']), 'phone') !== false) {
-                $entry_sanitized['phone'] = $entry[$field['id']];
+                if(!empty($entry[$field['id']]) && empty($entry_sanitized['phone'])){
+                    $entry_sanitized['phone'] = $entry[$field['id']];
+                }
             } elseif (strpos(strtolower($field['label']), 'imie') !== false || strpos(strtolower($field['label']), 'name' ) !== false || strpos(strtolower($field['label']), 'nazwisko' ) !== false || strpos(strtolower($field['label']), 'osoba') !== false) {
                 $entry_sanitized['name'] = $entry[$field['id']];
             } elseif (trim(strtolower($field['label'])) == 'firma' || trim(strtolower($field['label'])) == 'company') {
