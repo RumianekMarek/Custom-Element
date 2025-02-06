@@ -123,7 +123,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
         }
 
         $all_forms = GFAPI::get_forms();
+        
         $qr_feeds = GFAPI::get_feeds();
+        foreach($qr_feeds as $single_feed){
+            $elements[] = substr($single_feed['meta']['qrcodeFields'][0]['custom_key'], 0, 4);
+        }
+
+        $counts_qr_meta = array_count_values($elements);
+        $most_used_qr_meta = array_search(max($counts_qr_meta), $counts_qr_meta);
 
         // foreach($all_forms as $form){
         //     if($form['title'] == $csv_name){
@@ -157,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
                     'qrcodeFields'=> array(
                         0 => array(
                             'key' => 'gf_custom',
-                            'custom_key' => substr($qr_feeds[count($qr_feeds) - 2]['meta']['qrcodeFields'][0]['custom_key'], '0', 4) . str_pad($form_id, 3, '0', STR_PAD_LEFT),
+                            'custom_key' => $most_used_qr_meta . str_pad($form_id, 3, '0', STR_PAD_LEFT),
                             'value'=> 'id',
                             'custom_value'=> ''
                         ),

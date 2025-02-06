@@ -147,6 +147,7 @@ function gf_form_output() {
                         })
                         .then(report => {
                             console.log("Odpowiedź serwera:", report)
+                            
                             if(report["status"] == "true"){
                                 $(".output_form").html("<p>Coś poszło nie tak</p><br>" + report["output"]);';
 
