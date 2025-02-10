@@ -46,9 +46,6 @@ if (file_exists($new_url)) {
             'media3',
             'media4',
             'id',
-            'jlp',
-            'badge',
-            'uwagi',
             'wybierz',
             'bez tytu',
             'logotyp',
@@ -175,7 +172,7 @@ if (file_exists($new_url)) {
                                 continue 2;
 
                             case stripos($label, 'Mieszkan') !== false || stripos($label, 'Apartment') !== false:
-                                $form_fields['państwo'] = $single_field['id'];
+                                $form_fields['nr_mieszkania'] = $single_field['id'];
                                 continue 2;
 
                             case stripos($label, 'adres') !== false :
@@ -191,10 +188,7 @@ if (file_exists($new_url)) {
                                 continue 2;
 
                             default:
-                                $form_fields[$single_field['label']] = strtolower($single_field['id']);
-                                if (!in_array($single_field['label'], $report['forms_all_fields'])){
-                                    $report['forms_all_fields'][] = $single_field['label'] . '-' . $single_form['id'];
-                                }
+                                $form_fields[$label] = $single_field['id'];
                         }
                     }
 
