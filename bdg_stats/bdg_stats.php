@@ -6,7 +6,14 @@ function generateToken($domain) {
     $secret_key = 'gmlbu5oNGsbPCCS';
     return hash_hmac('sha256', $domain, $secret_key);
 }
-// echo '<pre>';
+
+function sanitizeColumnName($name) {
+    $search = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż', 'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż'];
+    $replace = ['a', 'c', 'e', 'l', 'n', 'o', 's', 'z', 'z', 'A', 'C', 'E', 'L', 'N', 'O', 'S', 'Z', 'Z'];
+    return str_replace($search, $replace, $name);
+}
+
+echo '<pre>';
 if (file_exists($new_url)) {
     require_once($new_url);
 
@@ -92,108 +99,112 @@ if (file_exists($new_url)) {
                         'form_meta_rnd' => $qr_code_meta[1],
                     ];
                 }
-    
-                    foreach($single_form['fields'] as $field_index => $single_field){
-                        $label = strtolower($single_field['label']);
+                
+                foreach($single_form['fields'] as $field_index => $single_field){
+                    $label = strtolower($single_field['label']);
 
-                        if (empty(trim($label))){
+                    if (empty(trim($label))){
+                        continue 2;
+                    }
+
+                    foreach($skip_fields as $single_skip){                            
+                        if (stripos($label, $single_skip) !== false ){
                             continue 2;
-                        }
-
-                        foreach($skip_fields as $single_skip){                            
-                            if (stripos($label, $single_skip) !== false ){
-                                continue 2;
-                            }
-                        }
-
-                        switch (true) {
-                            case stripos($label, 'mail') !== false:
-                                $form_fields['email'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'tel') !== false || stripos($label, 'phone') !== false:
-                                $form_fields['telefon'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'nazwisk') !== false || stripos($label, 'imie') !== false || stripos($label, 'name') !== false || stripos($label, 'osoba') !== false || stripos($label, 'imię') !== false || stripos($label, 'imiĘ') !== false:
-                                $form_fields['dane'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'firm') !== false || stripos($label, 'compa') !== false:
-                                $form_fields['firma'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'hala') !== false:
-                                $form_fields['stand'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'stanowisko') !== false:
-                                $form_fields['stand'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'utm') !== false:
-                                $form_fields['utm'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'nip') !== false || stripos($label, 'tax') !== false:
-                                $form_fields['nip'] = $single_field['id'];
-                                continue 2;
-                            
-                            case stripos($label, 'powierzchnię') !== false || stripos($label, 'exhibition') !== false || stripos($label, 'area') !== false:
-                                $form_fields['wielkosc_stoiska'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'active') !== false || stripos($label, 'aktywac') !== false:
-                                $form_fields['aktywacja'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'język') !== false || stripos($label, 'lang') !== false:
-                                $form_fields['jezyk'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'country') !== false:
-                                $form_fields['państwo'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'city') !== false || stripos($label, 'miasto') !== false:
-                                $form_fields['miasto'] = $single_field['id'];
-                                continue 2;
-                                
-                            case stripos($label, 'kod') !== false || stripos($label, 'code') !== false:
-                                $form_fields['kod_pocztowy'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'ulica') !== false || stripos($label, 'street') !== false:
-                                $form_fields['ulica'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'numer u') !== false || stripos($label, 'building') !== false:
-                                $form_fields['nr_ulicy'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'Mieszkan') !== false || stripos($label, 'Apartment') !== false:
-                                $form_fields['nr_mieszkania'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'adres') !== false :
-                                $form_fields['adres'] = $single_field['id'];
-                                continue 2;
-                            
-                            case stripos($label, 'location') !== false || stripos($label, 'kana') !== false || stripos($label, 'dane wysy') !== false:
-                                $form_fields['pwe_wysylajacy'] = $single_field['id'];
-                                continue 2;
-
-                            case stripos($label, 'more info') !== false:
-                                $form_fields['dodatkowe_informacje'] = $single_field['id'];
-                                continue 2;
-
-                            default:
-                                $form_fields[$label] = $single_field['id'];
                         }
                     }
 
-                $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
+                    switch (true) {
+                        case stripos($label, 'id') !== false:
+                            $form_fields['entry_id'] = $single_field['id'];
+                            continue 2;
 
+                        case stripos($label, 'mail') !== false:
+                            $form_fields['email'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'tel') !== false || stripos($label, 'phone') !== false:
+                            $form_fields['telefon'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'nazwisk') !== false || stripos($label, 'imie') !== false || stripos($label, 'name') !== false || stripos($label, 'osoba') !== false || stripos($label, 'imię') !== false || stripos($label, 'imiĘ') !== false:
+                            $form_fields['dane'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'firm') !== false || stripos($label, 'compa') !== false:
+                            $form_fields['firma'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'hala') !== false:
+                            $form_fields['stand'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'stanowisko') !== false:
+                            $form_fields['stand'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'utm') !== false:
+                            $form_fields['utm'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'nip') !== false || stripos($label, 'tax') !== false:
+                            $form_fields['nip'] = $single_field['id'];
+                            continue 2;
+                        
+                        case stripos($label, 'powierzchnię') !== false || stripos($label, 'exhibition') !== false || stripos($label, 'area') !== false:
+                            $form_fields['wielkosc_stoiska'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'active') !== false || stripos($label, 'aktywac') !== false:
+                            $form_fields['aktywacja'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'język') !== false || stripos($label, 'lang') !== false:
+                            $form_fields['jezyk'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'country') !== false:
+                            $form_fields['panstwo'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'city') !== false || stripos($label, 'miasto') !== false:
+                            $form_fields['miasto'] = $single_field['id'];
+                            continue 2;
+                            
+                        case stripos($label, 'kod') !== false || stripos($label, 'code') !== false:
+                            $form_fields['kod_pocztowy'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'ulica') !== false || stripos($label, 'street') !== false:
+                            $form_fields['ulica'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'numer u') !== false || stripos($label, 'building') !== false:
+                            $form_fields['nr_ulicy'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'Mieszkan') !== false || stripos($label, 'Apartment') !== false:
+                            $form_fields['nr_mieszkania'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'adres') !== false :
+                            $form_fields['adres'] = $single_field['id'];
+                            continue 2;
+                        
+                        case stripos($label, 'location') !== false || stripos($label, 'kana') !== false || stripos($label, 'dane wysy') !== false:
+                            $form_fields['pwe_wysylajacy'] = $single_field['id'];
+                            continue 2;
+
+                        case stripos($label, 'more info') !== false:
+                            $form_fields['dodatkowe_informacje'] = $single_field['id'];
+                            continue 2;
+
+                        default:
+                            $form_fields[sanitizeColumnName($label)] = $single_field['id'];
+                    }
+                }
+
+                $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
+                
                 foreach($form_entries as $single_entry){
                     foreach($single_entry as $index => $val){
                         if (empty($val)) continue;
@@ -218,6 +229,9 @@ if (file_exists($new_url)) {
                                     $all_entries[$single_entry['id']][$index] = $val;
                                 }
                         }
+                    }
+                    if(!empty($all_forms_data[$single_entry['form_id']]["form_meta_id"]) && !empty($all_forms_data[$single_entry['form_id']]["form_meta_rnd"])){
+                        $all_entries[$single_entry['id']]['qrCode'] = $all_forms_data[$single_entry['form_id']]["form_meta_id"] . $single_entry['id'] . $all_forms_data[$single_entry['form_id']]["form_meta_rnd"] . $single_entry['id'];
                     }
                 }
             }
