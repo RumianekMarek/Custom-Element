@@ -13,7 +13,6 @@ function sanitizeColumnName($name) {
     return str_replace($search, $replace, $name);
 }
 
-echo '<pre>';
 if (file_exists($new_url)) {
     require_once($new_url);
 
