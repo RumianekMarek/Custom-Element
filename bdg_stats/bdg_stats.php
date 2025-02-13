@@ -207,6 +207,10 @@ if (file_exists($new_url)) {
                             $form_fields['dodatkowe_informacje'] = $single_field['id'];
                             continue 2;
 
+                        case stripos($label, 'sektor') !== false:
+                            $form_fields['sektory_targowe'] = $single_field['id'];
+                            continue 2;
+
                         default:
                             $form_fields[sanitizeColumnName($label)] = $single_field['id'];
                     }
