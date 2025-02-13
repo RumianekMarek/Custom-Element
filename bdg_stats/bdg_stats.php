@@ -26,6 +26,16 @@ if (file_exists($new_url)) {
         $last_form = intval($_POST['last_form']);
         $user_agent = array();
 
+        $search_criteria = [
+            'field_filters' => [
+                [
+                    'key'      => 'id',
+                    'value'    => $last_id,
+                    'operator' => '>'
+                ]
+            ]
+        ];
+        
         $osPatterns = array(
             'Windows' => '/Windows NT/i',
             'MacBook' => '/Mac OS X|Macintosh/i',
