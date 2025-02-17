@@ -67,9 +67,9 @@ if (file_exists($new_url)) {
             'logotyp',
         );
 
-         $save_fields = array(
+        $save_fields = array(
             'form_id',
-            'data_created',
+            'date_created',
             'id',
             'source_url',
         );
@@ -110,6 +110,7 @@ if (file_exists($new_url)) {
                 }
                 
                 foreach($single_form['fields'] as $field_index => $single_field){
+
                     $label = strtolower($single_field['label']);
 
                     if (empty(trim($label))){
@@ -207,13 +208,16 @@ if (file_exists($new_url)) {
                             $form_fields['dodatkowe_informacje'] = $single_field['id'];
                             continue 2;
 
+                        case stripos($label, 'sektor') !== false || stripos($label, 'bran') !== false:
+                            $form_fields['sektory_targowe'] = $single_field['id'];
+                            continue 2;
+
                         default:
                             $form_fields[sanitizeColumnName($label)] = $single_field['id'];
                     }
                 }
 
                 $form_entries = GFAPI::get_entries($single_form['id'], $search_criteria, null, array( 'offset' => 0, 'page_size' => 0));
-                
                 foreach($form_entries as $single_entry){
                     foreach($single_entry as $index => $val){
                         if (empty($val)) continue;

@@ -21,7 +21,7 @@ function get_klavio_data() {
 
 // Sending data from Gravity form to klavio
 function klavio_sender($entry, $form){  
-
+    exit;
     // Check if form is one of the registration forms
     $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
     if (!preg_match($pattern, $form['title'])){

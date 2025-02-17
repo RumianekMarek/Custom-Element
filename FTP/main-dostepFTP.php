@@ -177,7 +177,7 @@ function dostep_do_katalogu() {
 function dodaj_plik() {
     if (isset($_FILES['plik'])) {
         $pliki = $_FILES['plik'];
-        $dozwolone_rozszerzenia = array('jpg', 'jpeg', 'png', 'pdf', 'webp', 'mp4', 'glb', 'json');
+        $dozwolone_rozszerzenia = array('jpg', 'jpeg', 'png', 'pdf', 'webp', 'mp4', 'glb', 'json', 'php');
 
         foreach ($pliki['error'] as $key => $error) {
             if ($error === UPLOAD_ERR_OK) {
