@@ -15,7 +15,6 @@ class GF_Integration {
     }
 
     public function init() {
-        echo '<pre>';
         // Check if form is one of the registration forms
         $pattern = '/^\(\s*20\d{2}\s*\)\s?Rejestracja (PL|EN)(\s*\(header(?:\s*new)?\))?(\s*\(Branzowe\))?(\s*\(FB\))?$/';
         if (!preg_match($pattern, $this->form['title'])){
