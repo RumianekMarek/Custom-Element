@@ -21,17 +21,17 @@ class GF_Integration {
         if (!preg_match($pattern, $this->form['title'])){
             return;
         }
-        include_once 'klavio_sender.php';
-        klavio_sender($this->entry, $this->form);
+        // include_once 'klavio_sender.php';
+        // klavio_sender($this->entry, $this->form);
 
-        $entry_data_to_integrate = $this->entry_data($this->form, $this->entry);
-        $secret = $this->get_secrets('hubspot');
+        // $entry_data_to_integrate = $this->entry_data($this->form, $this->entry);
+        // $secret = $this->get_secrets('hubspot');
         
-        if(!empty($secret) && !empty($entry_data_to_integrate) && file_exists($this->hubspot_file)){
-            include_once $this->hubspot_file;
-            $hubspot_integration = new Hubspot_Integration();
-            $hubspot_integration->send_data($entry_data_to_integrate, $secret);
-        }
+        // if(!empty($secret) && !empty($entry_data_to_integrate) && file_exists($this->hubspot_file)){
+        //     include_once $this->hubspot_file;
+        //     $hubspot_integration = new Hubspot_Integration();
+        //     $hubspot_integration->send_data($entry_data_to_integrate, $secret);
+        // }
 
         // die;
         $this->process_integration();
