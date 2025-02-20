@@ -9,14 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['Authorization'] == 'qg58yn
         require_once($new_url);
 
         $csv_name = $_SERVER['HTTP_FILENAME'];
-        $report['filename'] =  $file_name;
 
         $csvContent = file_get_contents('php://input');
 
         $csvContent = str_replace("\\", "", $csvContent);
+        $csvContent = str_replace('\"', '"', $csvContent);
 
         $csvArray = json_decode($csvContent, true);
-
+        $report['error'] = $csvContent;
         $entries_ids = '';
         $form_entries = array();
         $form_fields = array();
