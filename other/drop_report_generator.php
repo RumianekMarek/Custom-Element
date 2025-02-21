@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 // Ensure connection is HTTPS
 if ($_SERVER['HTTPS'] !== 'on') {
     header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -8,9 +7,11 @@ if ($_SERVER['HTTPS'] !== 'on') {
 
 // Checking send methode
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ob_start();
+
     // Read JSON input
     $data = json_decode(file_get_contents('php://input'), true);
-    
+
     // Get authorization token, and domain to authorization hex
     $token = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
     $domain_raport = $_SERVER["HTTP_HOST"];
@@ -20,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_url = str_replace('private_html','public_html',$_SERVER["DOCUMENT_ROOT"]) .'/wp-load.php';
 
     $forms = array();
-    $form_id = '';
     $report = array();
+    $entries = array();
+    $email_field = '';
+ 
     // Validate token
     if (validateToken($token, $domain)) {
         // Check if WordPress environment is available
@@ -30,77 +33,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if GFAPI class exists
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
-                $all_emails = array();
-
-                // Get form IDs based on titles
-                foreach ($all_forms as $key => $value) {
-                    if (preg_match('/^\(.{4}\)\s*Rejestracja PL(\s?\(Branzowe\))?$/i', $value['title'])) {
-                        $form['def-pl'] = $value['id'];
-                    } elseif (preg_match('/^\(.{4}\)\s*Rejestracja EN(\s?\(Branzowe\))?$/i', $value['title'])) {
-                        $form['def-en'] = $value['id'];
-                    }
-                }
-                
-                // Fallback titles
-                foreach ($all_forms as $key => $value) {
-                    if ('rejestracja pl 2024' == strtolower($value['title'])) {
-                        $form['def-pl'] = $value['id'];
-                    } elseif ('rejestracja en 2024' == strtolower($value['title'])) {
-                        $form['def-en'] = $value['id'];
-                    }
-                }
-                
-                // Get form based on option
-                $form = strtolower($data['options']) == 'pl' ? GFAPI::get_form($form['def-pl']) : GFAPI::get_form($form['def-en']);
-
-                foreach ($all_forms as $form_check) {
-                    if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
-                        $entries = GFAPI::get_entries($form_id, null, null, array( 'offset' => 0, 'page_size' => 0));
-                        foreach ($entries as $entry_check) {
-                            foreach ($entry_check as $entry_id => $field_check) {
-                                if (is_numeric($entry_id)  && !empty($field_check) && filter_var($field_check, FILTER_VALIDATE_EMAIL)) {
-                                    $all_emails[$entry_check['id']] = $field_check;
-                                    continue 2;
+                foreach ($data[$domain] as $id => $value) {
+                    foreach ($all_forms as $form_check) {
+                        if (strpos(strtolower($form_check['title']), 'rejestracja') !== false) {
+                            foreach($form_check['fields'] as $field ){
+                                if ($field['type'] == 'email'){
+                                    $email_field = $field['id'];
                                 }
                             }
-                        }
-                    }
-                }
+                            $entries = GFAPI::get_entries(
+                                $form_check['id'],
+                                array(
+                                    'status' => 'active',
+                                    'field_filters' => [
+                                        ['key' => $email_field, 'value' => $value[0], 'operator' => 'is']
+                                    ],
+                                ),
+                                null, 
+                                array(
+                                    'offset' => 0,
+                                    'page_size' => 1,
+                                )
+                            );
 
-                $spad_form_entry = GFAPI::get_entries($form['id'], null, null, array( 'offset' => 0, 'page_size' => 0));
-                $spad_form = GFAPI::get_form($form['id']);
-                $i = 0;
+                            if (!empty($entries)){
+                                $check_date = date('Y-m-d', strtotime($data['date']));
+                                $entry_date = date('Y-m-d', strtotime($entries[0]['date_created']));
+                                if($check_date == $entry_date){
+                                    $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
+                                    continue 2;
+                                }  
 
-                foreach($spad_form_entry as $entry_value){              
-                    foreach($entry_value as $e_field => $field_value){
-                        if (is_numeric($e_field)  && !empty($field_value) && filter_var($field_value, FILTER_VALIDATE_EMAIL)) {
-                            $spad_emails[$i]['email'] = $field_value;
-                            $spad_emails[$i]['date_created'] = $entry_value['date_created'];
-                            $i++;
-                            continue 2;
-                        }
-                    }
-                }
-
-                // Process each entry in the data
-                foreach ($data[$domain] as $id => $value) {
-                    if (is_array($spad_emails)) {
-                        $email_list = array_column($spad_emails, 'email');
-                        
-                        $value_index_in_spady = array_search($value[0], $email_list);
-
-                        if($value_index_in_spady !== false){
-                            if(strpos($spad_emails[$value_index_in_spady]['date_created'], $data['date']) !== false){
-                                $report[$domain_raport]['new_entry'][] = 'NEW ' . $value[0] . ' ' . $value[1];
-                            } else {
-                                $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
+                                $report[$domain_raport]['entry_id'][] = 'OLD_entry_' . $entries[0]['id'] . ' ' . $value[0] . ' ' . $value[1];
+                                continue 2;
                             }
-                        } else {
-                            $report[$domain_raport]['entry_id'][] = 'OLD_entry ' . $value[0] . ' ' . $value[1];
                         }
-                    } 
+                    }
                 }
 
+                ob_end_clean(); 
+                ob_clean(); 
                 // Send JSON response
                 echo json_encode($report);
             } else {
@@ -116,8 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Invalid token contact web developers code - "INVALID TOKEN ' . $domain . ' ".';
     }
 }
-
-
 
 // Function to generate a token
 function generateToken($domain) {

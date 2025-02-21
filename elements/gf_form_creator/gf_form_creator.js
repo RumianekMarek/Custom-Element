@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fileContent = fileContent.replace(/\r/g, "");
             const fileArray = fileContent.split(/\n(?=(?:[^"]|"[^"]*")*$)/);
-            console.log(fileArray);
 
             let fileSeparator = "";
             let separatorRegex = "";
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const jsonDataArray = JSON.stringify(filteredArray);
             let byteLength = new TextEncoder().encode(jsonDataArray).length;
-            console.log(jsonDataArray);
+
             if (byteLength > 500000) {
                 document.querySelector(".output_form").innerHTML = "<p>Coś poszło nie tak<br><br>Za duży rozmiar pliku, popraw: <br>- max 4000 linijek,<br>- zapisz plik na komputerze w programie (openOffice, libreOffice) w formacie csv(utf8),<br>- jeżeli nie pomogło skontaktuj się z administratorem.</p>";
                 document.getElementById("spinner").remove();
@@ -106,28 +105,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 return response.json();
             })
-            .then(report => {
-                console.log("Odpowiedź serwera:", report);
-                
-                if (report["status"] == "true") {
-                    document.querySelector(".output_form").innerHTML = "<p>Coś poszło nie tak</p><br>" + report["output"];
+            .then(report => {                
+                if (report["status"] == "true" && window.location.hostname !== "mr.glasstec.pl") {
+                    document.querySelector(".output_form").innerHTML = report["output"];
 
-                    if (window.location.hostname !== "mr.glasstec.pl") {
-                        document.querySelector(".output_form").innerHTML = report["output"];
-
-                        fetch("https://bdg.warsawexpo.eu/badgewp-reception.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded",
-                            },
-                            body: new URLSearchParams({
-                                id_formularza: report["id_formularza"],
-                                fair_name: report["fair_name"],
-                                form_name: report["form_name"],
-                                entries_count: report["entries_count"]
-                            })
-                        });
-                    }
+                    fetch("https://bdg.warsawexpo.eu/badgewp-reception.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: new URLSearchParams({
+                            id_formularza: report["id_formularza"],
+                            fair_name: report["fair_name"],
+                            form_name: report["form_name"],
+                            entries_count: report["entries_count"]
+                        })
+                    });
                 }
             })
             .catch(error => {
